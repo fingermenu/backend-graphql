@@ -114,7 +114,7 @@ var getOwnedRestaurantsMatchCriteria = function () {
 
 var getOwnedRestaurants = exports.getOwnedRestaurants = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, stores, indexedOwnedRestaurants, edges, firstEdge, lastEdge;
+    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, restaurants, indexedOwnedRestaurants, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -135,8 +135,8 @@ var getOwnedRestaurants = exports.getOwnedRestaurants = function () {
             return getOwnedRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
           case 9:
-            stores = _context3.sent;
-            indexedOwnedRestaurants = stores.zip((0, _immutable.Range)(skip, skip + limit));
+            restaurants = _context3.sent;
+            indexedOwnedRestaurants = restaurants.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedOwnedRestaurants.map(function (indexedItem) {
               return {
                 node: indexedItem[0],

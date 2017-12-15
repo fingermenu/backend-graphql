@@ -1,6 +1,27 @@
+input AddRestaurantInput {
+  name: String!
+  websiteUrl: String
+  imageUrl: String
+  address: String
+  googleMapUrl: String
+  status: String
+  inheritParentRestaurantMenus: Boolean
+  clientMutationId: String
+}
+
+type AddRestaurantPayload {
+  errorMessage: String
+  restaurant: OwnedRestaurantTypeEdge
+  clientMutationId: String
+}
+
 type GeoLocation {
   latitude: Float
   longitude: Float
+}
+
+type Mutation {
+  addRestaurant(input: AddRestaurantInput!): AddRestaurantPayload
 }
 
 # An object with an ID

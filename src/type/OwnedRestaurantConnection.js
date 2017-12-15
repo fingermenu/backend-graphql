@@ -71,8 +71,8 @@ export const getOwnedRestaurants = async (searchArgs, dataLoaders, sessionToken)
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const stores = await getOwnedRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
-  const indexedOwnedRestaurants = stores.zip(Range(skip, skip + limit));
+  const restaurants = await getOwnedRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  const indexedOwnedRestaurants = restaurants.zip(Range(skip, skip + limit));
 
   const edges = indexedOwnedRestaurants.map(indexedItem => ({
     node: indexedItem[0],

@@ -7,10 +7,13 @@ exports.default = getRootSchema;
 
 var _graphql = require('graphql');
 
+var _mutation = require('./mutation');
+
 var _type = require('./type');
 
 function getRootSchema() {
   return new _graphql.GraphQLSchema({
-    query: _type.RootQuery
+    query: _type.RootQuery,
+    mutation: _mutation.RootMutation
   });
 }
