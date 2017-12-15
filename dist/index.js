@@ -3,20 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createUserLoaderBySessionToken = exports.createConfigLoader = exports.getRootSchema = undefined;
+exports.getRootSchema = exports.tagLoaderById = undefined;
 
-var _loader = require('./loader');
+var _loaders = require('./loaders');
 
-Object.defineProperty(exports, 'createConfigLoader', {
+Object.defineProperty(exports, 'tagLoaderById', {
   enumerable: true,
   get: function get() {
-    return _loader.createConfigLoader;
-  }
-});
-Object.defineProperty(exports, 'createUserLoaderBySessionToken', {
-  enumerable: true,
-  get: function get() {
-    return _loader.createUserLoaderBySessionToken;
+    return _loaders.tagLoaderById;
   }
 });
 
