@@ -24,9 +24,9 @@ type Mutation {
   addRestaurant(input: AddRestaurantInput!): AddRestaurantPayload
 }
 
-"""An object with an ID"""
+# An object with an ID
 interface Node {
-  """The id of the object."""
+  # The id of the object.
   id: ID!
 }
 
@@ -44,36 +44,36 @@ type OwnedRestaurant implements Node {
   parentRestaurant: ParentOwnedRestaurant
 }
 
-"""A connection to a list of items."""
+# A connection to a list of items.
 type OwnedRestaurantTypeConnection {
-  """Information to aid in pagination."""
+  # Information to aid in pagination.
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  # A list of edges.
   edges: [OwnedRestaurantTypeEdge]
 }
 
-"""An edge in a connection."""
+# An edge in a connection.
 type OwnedRestaurantTypeEdge {
-  """The item at the end of the edge"""
+  # The item at the end of the edge
   node: OwnedRestaurant
 
-  """A cursor for use in pagination"""
+  # A cursor for use in pagination
   cursor: String!
 }
 
-"""Information about pagination in a connection."""
+# Information about pagination in a connection.
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
 
-  """When paginating backwards, are there more items?"""
+  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
 
-  """When paginating backwards, the cursor to continue."""
+  # When paginating backwards, the cursor to continue.
   startCursor: String
 
-  """When paginating forwards, the cursor to continue."""
+  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
@@ -99,9 +99,9 @@ type Query {
   user: User
   viewer: Viewer
 
-  """Fetches an object given its ID"""
+  # Fetches an object given its ID
   node(
-    """The ID of an object"""
+    # The ID of an object
     id: ID!
   ): Node
 }
