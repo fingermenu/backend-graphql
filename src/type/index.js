@@ -1,4 +1,4 @@
 // @flow
 
 export RootQuery from './RootQuery';
-export OwnedRestaurantConnection, { getOwnedRestaurants } from './OwnedRestaurantConnection';
+export RestaurantConnection, { getRestaurants } from './RestaurantConnection';

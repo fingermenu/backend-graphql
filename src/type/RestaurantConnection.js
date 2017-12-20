@@ -4,12 +4,12 @@ import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
 import { RestaurantService } from 'finger-menu-parse-server-common';
-import OwnedRestaurant from './OwnedRestaurant';
+import Restaurant from './Restaurant';
 
 const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_parentRestaurant: true,
-    ids: searchArgs.has('ownedRestaurantIds') ? searchArgs.get('ownedRestaurantIds') : undefined,
+    ids: searchArgs.has('RestaurantIds') ? searchArgs.get('RestaurantIds') : undefined,
     conditions: Map({
       ownedByUserId,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
@@ -54,10 +54,10 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-const getOwnedRestaurantsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
+const getRestaurantsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
   new RestaurantService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
 
-const getOwnedRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
+const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new RestaurantService().search(
     addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
       .set('limit', limit)
@@ -65,16 +65,16 @@ const getOwnedRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessi
     sessionToken,
   );
 
-export const getOwnedRestaurants = async (searchArgs, dataLoaders, sessionToken) => {
+export const getRestaurants = async (searchArgs, dataLoaders, sessionToken) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getOwnedRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
+  const count = await getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const restaurants = await getOwnedRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
-  const indexedOwnedRestaurants = restaurants.zip(Range(skip, skip + limit));
+  const restaurants = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  const indexedRestaurants = restaurants.zip(Range(skip, skip + limit));
 
-  const edges = indexedOwnedRestaurants.map(indexedItem => ({
+  const edges = indexedRestaurants.map(indexedItem => ({
     node: indexedItem[0],
     cursor: indexedItem[1] + 1,
   }));
@@ -95,6 +95,6 @@ export const getOwnedRestaurants = async (searchArgs, dataLoaders, sessionToken)
 };
 
 export default connectionDefinitions({
-  name: 'OwnedRestaurantType',
-  nodeType: OwnedRestaurant,
+  name: 'RestaurantType',
+  nodeType: Restaurant,
 });

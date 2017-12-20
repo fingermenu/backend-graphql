@@ -6,8 +6,8 @@ import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import { NodeInterface } from '../interface';
 
-const ParentOwnedRestaurant = new GraphQLObjectType({
-  name: 'ParentOwnedRestaurant',
+const ParentRestaurant = new GraphQLObjectType({
+  name: 'ParentRestaurant',
   fields: {
     id: {
       type: new GraphQLNonNull(GraphQLID),
@@ -82,7 +82,7 @@ const ParentOwnedRestaurant = new GraphQLObjectType({
 });
 
 export default new GraphQLObjectType({
-  name: 'OwnedRestaurant',
+  name: 'Restaurant',
   fields: {
     id: {
       type: new GraphQLNonNull(GraphQLID),
@@ -153,7 +153,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('inheritParentRestaurantMenus'),
     },
     parentRestaurant: {
-      type: ParentOwnedRestaurant,
+      type: ParentRestaurant,
       resolve: (_, args, { dataLoaders }) => {
         const parentRestaurantId = _.get('parentRestaurantId');
 

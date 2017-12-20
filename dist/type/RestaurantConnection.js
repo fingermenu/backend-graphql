@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOwnedRestaurants = undefined;
+exports.getRestaurants = undefined;
 
 var _immutable = require('immutable');
 
@@ -13,9 +13,9 @@ var _microBusinessCommonJavascript = require('micro-business-common-javascript')
 
 var _fingerMenuParseServerCommon = require('finger-menu-parse-server-common');
 
-var _OwnedRestaurant = require('./OwnedRestaurant');
+var _Restaurant = require('./Restaurant');
 
-var _OwnedRestaurant2 = _interopRequireDefault(_OwnedRestaurant);
+var _Restaurant2 = _interopRequireDefault(_Restaurant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,7 +24,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
   return (0, _immutable.Map)({
     include_parentRestaurant: true,
-    ids: searchArgs.has('ownedRestaurantIds') ? searchArgs.get('ownedRestaurantIds') : undefined,
+    ids: searchArgs.has('RestaurantIds') ? searchArgs.get('RestaurantIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
       contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
@@ -70,7 +70,7 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-var getOwnedRestaurantsCountMatchCriteria = function () {
+var getRestaurantsCountMatchCriteria = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, ownedByUserId, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -86,12 +86,12 @@ var getOwnedRestaurantsCountMatchCriteria = function () {
     }, _callee, undefined);
   }));
 
-  return function getOwnedRestaurantsCountMatchCriteria(_x, _x2, _x3) {
+  return function getRestaurantsCountMatchCriteria(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
 
-var getOwnedRestaurantsMatchCriteria = function () {
+var getRestaurantsMatchCriteria = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, ownedByUserId, sessionToken, limit, skip) {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -107,14 +107,14 @@ var getOwnedRestaurantsMatchCriteria = function () {
     }, _callee2, undefined);
   }));
 
-  return function getOwnedRestaurantsMatchCriteria(_x4, _x5, _x6, _x7, _x8) {
+  return function getRestaurantsMatchCriteria(_x4, _x5, _x6, _x7, _x8) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-var getOwnedRestaurants = exports.getOwnedRestaurants = function () {
+var getRestaurants = exports.getRestaurants = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, restaurants, indexedOwnedRestaurants, edges, firstEdge, lastEdge;
+    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, restaurants, indexedRestaurants, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -126,18 +126,18 @@ var getOwnedRestaurants = exports.getOwnedRestaurants = function () {
           case 2:
             userId = _context3.sent.id;
             _context3.next = 5;
-            return getOwnedRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
+            return getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
 
           case 5:
             count = _context3.sent;
             _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 9;
-            return getOwnedRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+            return getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
           case 9:
             restaurants = _context3.sent;
-            indexedOwnedRestaurants = restaurants.zip((0, _immutable.Range)(skip, skip + limit));
-            edges = indexedOwnedRestaurants.map(function (indexedItem) {
+            indexedRestaurants = restaurants.zip((0, _immutable.Range)(skip, skip + limit));
+            edges = indexedRestaurants.map(function (indexedItem) {
               return {
                 node: indexedItem[0],
                 cursor: indexedItem[1] + 1
@@ -164,12 +164,12 @@ var getOwnedRestaurants = exports.getOwnedRestaurants = function () {
     }, _callee3, undefined);
   }));
 
-  return function getOwnedRestaurants(_x9, _x10, _x11) {
+  return function getRestaurants(_x9, _x10, _x11) {
     return _ref3.apply(this, arguments);
   };
 }();
 
 exports.default = (0, _graphqlRelay.connectionDefinitions)({
-  name: 'OwnedRestaurantType',
-  nodeType: _OwnedRestaurant2.default
+  name: 'RestaurantType',
+  nodeType: _Restaurant2.default
 });

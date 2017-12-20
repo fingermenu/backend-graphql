@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import OwnedRestaurantConnection, { getOwnedRestaurants } from './OwnedRestaurantConnection';
+import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -14,7 +14,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('id'),
     },
     ownedRestaurants: {
-      type: OwnedRestaurantConnection.connectionType,
+      type: RestaurantConnection.connectionType,
       args: {
         ...connectionArgs,
         ownedRestaurantIds: {
@@ -33,7 +33,7 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => getOwnedRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken),
+      resolve: async (_, args, { sessionToken, dataLoaders }) => getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

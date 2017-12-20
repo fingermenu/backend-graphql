@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var ParentOwnedRestaurant = new _graphql.GraphQLObjectType({
-  name: 'ParentOwnedRestaurant',
+var ParentRestaurant = new _graphql.GraphQLObjectType({
+  name: 'ParentRestaurant',
   fields: {
     id: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
@@ -152,7 +152,7 @@ var ParentOwnedRestaurant = new _graphql.GraphQLObjectType({
 });
 
 exports.default = new _graphql.GraphQLObjectType({
-  name: 'OwnedRestaurant',
+  name: 'Restaurant',
   fields: {
     id: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
@@ -277,7 +277,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     parentRestaurant: {
-      type: ParentOwnedRestaurant,
+      type: ParentRestaurant,
       resolve: function resolve(_, args, _ref5) {
         var dataLoaders = _ref5.dataLoaders;
 

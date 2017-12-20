@@ -16,9 +16,9 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
-var _OwnedRestaurantConnection = require('./OwnedRestaurantConnection');
+var _RestaurantConnection = require('./RestaurantConnection');
 
-var _OwnedRestaurantConnection2 = _interopRequireDefault(_OwnedRestaurantConnection);
+var _RestaurantConnection2 = _interopRequireDefault(_RestaurantConnection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,7 +34,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     ownedRestaurants: {
-      type: _OwnedRestaurantConnection2.default.connectionType,
+      type: _RestaurantConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         ownedRestaurantIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
@@ -60,7 +60,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _OwnedRestaurantConnection.getOwnedRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+                  return _context.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
 
                 case 1:
                 case 'end':

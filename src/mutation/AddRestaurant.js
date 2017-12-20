@@ -3,7 +3,7 @@
 import { List, Map } from 'immutable';
 import { GraphQLBoolean, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { OwnedRestaurantConnection, getOwnedRestaurants } from '../type';
+import { RestaurantConnection, getRestaurants } from '../type';
 import { addRestaurant } from './RestaurantHelper';
 
 export default mutationWithClientMutationId({
@@ -23,8 +23,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
     restaurant: {
-      type: OwnedRestaurantConnection.edgeType,
-      resolve: _ => _.get('ownedRestaurant'),
+      type: RestaurantConnection.edgeType,
+      resolve: _ => _.get('Restaurant'),
     },
   },
   mutateAndGetPayload: async (args, { sessionToken, dataLoaders }) => {
@@ -32,7 +32,7 @@ export default mutationWithClientMutationId({
       const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 
       return Map({
-        ownedRestaurant: (await getOwnedRestaurants(Map({ ownedRestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken)).edges[0],
+        Restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

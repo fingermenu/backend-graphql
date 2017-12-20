@@ -197,7 +197,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "OwnedRestaurantTypeConnection",
+                "name": "RestaurantTypeConnection",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -248,12 +248,12 @@
             },
             {
               "kind": "OBJECT",
-              "name": "OwnedRestaurant",
+              "name": "Restaurant",
               "ofType": null
             },
             {
               "kind": "OBJECT",
-              "name": "ParentOwnedRestaurant",
+              "name": "ParentRestaurant",
               "ofType": null
             },
             {
@@ -305,7 +305,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "OwnedRestaurantTypeConnection",
+          "name": "RestaurantTypeConnection",
           "description": "A connection to a list of items.",
           "fields": [
             {
@@ -333,7 +333,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "OwnedRestaurantTypeEdge",
+                  "name": "RestaurantTypeEdge",
                   "ofType": null
                 }
               },
@@ -415,7 +415,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "OwnedRestaurantTypeEdge",
+          "name": "RestaurantTypeEdge",
           "description": "An edge in a connection.",
           "fields": [
             {
@@ -424,7 +424,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "OwnedRestaurant",
+                "name": "Restaurant",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -454,7 +454,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "OwnedRestaurant",
+          "name": "Restaurant",
           "description": null,
           "fields": [
             {
@@ -595,7 +595,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "ParentOwnedRestaurant",
+                "name": "ParentRestaurant",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -695,7 +695,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ParentOwnedRestaurant",
+          "name": "ParentRestaurant",
           "description": null,
           "fields": [
             {
@@ -1031,7 +1031,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "OwnedRestaurantTypeEdge",
+                "name": "RestaurantTypeEdge",
                 "ofType": null
               },
               "isDeprecated": false,

@@ -35,9 +35,9 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
       }
     },
     restaurant: {
-      type: _type.OwnedRestaurantConnection.edgeType,
+      type: _type.RestaurantConnection.edgeType,
       resolve: function resolve(_) {
-        return _.get('ownedRestaurant');
+        return _.get('Restaurant');
       }
     }
   },
@@ -58,12 +58,12 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               restaurantId = _context.sent;
               _context.t0 = _immutable.Map;
               _context.next = 7;
-              return (0, _type.getOwnedRestaurants)((0, _immutable.Map)({ ownedRestaurantIds: _immutable.List.of(restaurantId) }), dataLoaders, sessionToken);
+              return (0, _type.getRestaurants)((0, _immutable.Map)({ RestaurantIds: _immutable.List.of(restaurantId) }), dataLoaders, sessionToken);
 
             case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
-                ownedRestaurant: _context.t1
+                Restaurant: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
