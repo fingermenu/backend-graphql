@@ -1,6 +1,6 @@
 {
   "name": "finger-menu-backend-graphql",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "dataloader": "^1.3.0",
     "finger-menu-parse-server-common": "^0.0.11",
-    "graphql": "0.12.3",
+    "graphql": "0.11.7",
     "graphql-fields": "^1.0.2",
     "graphql-relay": "^0.5.4",
     "immutable": "^4.0.0-rc.9",
