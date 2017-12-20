@@ -19,17 +19,17 @@ export default mutationWithClientMutationId({
       type: GraphQLString,
       resolve: _ => _.get('errorMessage'),
     },
-    restaurant: {
+    choiceItem: {
       type: ChoiceItemConnection.edgeType,
       resolve: _ => _.get('ChoiceItem'),
     },
   },
   mutateAndGetPayload: async (args, { sessionToken, dataLoaders }) => {
     try {
-      const restaurantId = await addChoiceItem(args, dataLoaders, sessionToken);
+      const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 
       return Map({
-        ChoiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(restaurantId) }), dataLoaders, sessionToken)).edges[0],
+        ChoiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

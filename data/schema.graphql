@@ -8,7 +8,7 @@ input AddChoiceItemInput {
 
 type AddChoiceItemPayload {
   errorMessage: String
-  restaurant: ChoiceItemTypeEdge
+  choiceItem: ChoiceItemTypeEdge
   clientMutationId: String
 }
 
@@ -22,7 +22,7 @@ input AddMenuItemInput {
 
 type AddMenuItemPayload {
   errorMessage: String
-  restaurant: MenuItemTypeEdge
+  menuItem: MenuItemTypeEdge
   clientMutationId: String
 }
 

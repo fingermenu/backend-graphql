@@ -31,7 +31,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
         return _.get('errorMessage');
       }
     },
-    restaurant: {
+    menuItem: {
       type: _type.MenuItemConnection.edgeType,
       resolve: function resolve(_) {
         return _.get('MenuItem');
@@ -42,7 +42,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(args, _ref2) {
       var sessionToken = _ref2.sessionToken,
           dataLoaders = _ref2.dataLoaders;
-      var restaurantId;
+      var menuItemId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -52,10 +52,10 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               return (0, _MenuItemHelper.addMenuItem)(args, dataLoaders, sessionToken);
 
             case 3:
-              restaurantId = _context.sent;
+              menuItemId = _context.sent;
               _context.t0 = _immutable.Map;
               _context.next = 7;
-              return (0, _type.getMenuItems)((0, _immutable.Map)({ MenuItemIds: _immutable.List.of(restaurantId) }), dataLoaders, sessionToken);
+              return (0, _type.getMenuItems)((0, _immutable.Map)({ MenuItemIds: _immutable.List.of(menuItemId) }), dataLoaders, sessionToken);
 
             case 7:
               _context.t1 = _context.sent.edges[0];

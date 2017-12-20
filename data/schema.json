@@ -1592,7 +1592,7 @@
               "deprecationReason": null
             },
             {
-              "name": "restaurant",
+              "name": "choiceItem",
               "description": null,
               "args": [],
               "type": {
@@ -1708,7 +1708,7 @@
               "deprecationReason": null
             },
             {
-              "name": "restaurant",
+              "name": "menuItem",
               "description": null,
               "args": [],
               "type": {
