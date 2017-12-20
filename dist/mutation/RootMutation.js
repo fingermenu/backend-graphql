@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _graphql = require('graphql');
 
+var _AddMenuItem = require('./AddMenuItem');
+
+var _AddMenuItem2 = _interopRequireDefault(_AddMenuItem);
+
 var _AddRestaurant = require('./AddRestaurant');
 
 var _AddRestaurant2 = _interopRequireDefault(_AddRestaurant);
@@ -15,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = new _graphql.GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    addMenuItem: _AddMenuItem2.default,
     addRestaurant: _AddRestaurant2.default
   }
 });

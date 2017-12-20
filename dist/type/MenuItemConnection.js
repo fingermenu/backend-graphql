@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getRestaurants = undefined;
+exports.getMenuItems = undefined;
 
 var _immutable = require('immutable');
 
@@ -13,9 +13,9 @@ var _microBusinessCommonJavascript = require('micro-business-common-javascript')
 
 var _fingerMenuParseServerCommon = require('finger-menu-parse-server-common');
 
-var _Restaurant = require('./Restaurant');
+var _MenuItem = require('./MenuItem');
 
-var _Restaurant2 = _interopRequireDefault(_Restaurant);
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23,13 +23,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
   return (0, _immutable.Map)({
-    include_parentRestaurant: true,
-    ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
+    include_parentMenuItem: true,
+    ids: searchArgs.has('menuItemIds') ? searchArgs.get('menuItemIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
       contains_names: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      status: searchArgs.has('status') ? searchArgs.get('status') : undefined,
-      inheritParentRestaurantMenus: searchArgs.has('inheritParentRestaurantMenus') ? searchArgs.get('inheritParentRestaurantMenus') : undefined
+      contains_descriptions: _microBusinessCommonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description'))
     })
   });
 };
@@ -43,40 +42,24 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', 'name');
   }
 
-  if (sortOption && sortOption.localeCompare('AddressDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'address');
+  if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'description');
   }
 
-  if (sortOption && sortOption.localeCompare('AddressAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'address');
-  }
-
-  if (sortOption && sortOption.localeCompare('StatusDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'status');
-  }
-
-  if (sortOption && sortOption.localeCompare('StatusAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'status');
-  }
-
-  if (sortOption && sortOption.localeCompare('InheritParentRestaurantMenusDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'inheritParentRestaurantMenus');
-  }
-
-  if (sortOption && sortOption.localeCompare('InheritParentRestaurantMenusAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'inheritParentRestaurantMenus');
+  if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'description');
   }
 
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-var getRestaurantsCountMatchCriteria = function () {
+var getMenuItemsCountMatchCriteria = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, ownedByUserId, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _fingerMenuParseServerCommon.RestaurantService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken));
+            return _context.abrupt('return', new _fingerMenuParseServerCommon.MenuItemService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -86,18 +69,18 @@ var getRestaurantsCountMatchCriteria = function () {
     }, _callee, undefined);
   }));
 
-  return function getRestaurantsCountMatchCriteria(_x, _x2, _x3) {
+  return function getMenuItemsCountMatchCriteria(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
 
-var getRestaurantsMatchCriteria = function () {
+var getMenuItemsMatchCriteria = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, ownedByUserId, sessionToken, limit, skip) {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _fingerMenuParseServerCommon.RestaurantService().search(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _fingerMenuParseServerCommon.MenuItemService().search(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':
@@ -107,14 +90,14 @@ var getRestaurantsMatchCriteria = function () {
     }, _callee2, undefined);
   }));
 
-  return function getRestaurantsMatchCriteria(_x4, _x5, _x6, _x7, _x8) {
+  return function getMenuItemsMatchCriteria(_x4, _x5, _x6, _x7, _x8) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-var getRestaurants = exports.getRestaurants = function () {
+var getMenuItems = exports.getMenuItems = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, restaurants, indexedRestaurants, edges, firstEdge, lastEdge;
+    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItems, indexedMenuItems, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -126,18 +109,18 @@ var getRestaurants = exports.getRestaurants = function () {
           case 2:
             userId = _context3.sent.id;
             _context3.next = 5;
-            return getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
+            return getMenuItemsCountMatchCriteria(searchArgs, userId, sessionToken);
 
           case 5:
             count = _context3.sent;
             _RelayHelper$getLimit = _microBusinessCommonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 9;
-            return getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+            return getMenuItemsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
           case 9:
-            restaurants = _context3.sent;
-            indexedRestaurants = restaurants.zip((0, _immutable.Range)(skip, skip + limit));
-            edges = indexedRestaurants.map(function (indexedItem) {
+            menuItems = _context3.sent;
+            indexedMenuItems = menuItems.zip((0, _immutable.Range)(skip, skip + limit));
+            edges = indexedMenuItems.map(function (indexedItem) {
               return {
                 node: indexedItem[0],
                 cursor: indexedItem[1] + 1
@@ -164,12 +147,12 @@ var getRestaurants = exports.getRestaurants = function () {
     }, _callee3, undefined);
   }));
 
-  return function getRestaurants(_x9, _x10, _x11) {
+  return function getMenuItems(_x9, _x10, _x11) {
     return _ref3.apply(this, arguments);
   };
 }();
 
 exports.default = (0, _graphqlRelay.connectionDefinitions)({
-  name: 'RestaurantType',
-  nodeType: _Restaurant2.default
+  name: 'MenuItemType',
+  nodeType: _MenuItem2.default
 });

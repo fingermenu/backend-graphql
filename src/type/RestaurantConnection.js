@@ -9,7 +9,7 @@ import Restaurant from './Restaurant';
 const getCriteria = (searchArgs, ownedByUserId) =>
   Map({
     include_parentRestaurant: true,
-    ids: searchArgs.has('RestaurantIds') ? searchArgs.get('RestaurantIds') : undefined,
+    ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
     conditions: Map({
       ownedByUserId,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),

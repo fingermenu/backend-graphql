@@ -1,3 +1,17 @@
+input AddMenuItemInput {
+  name: String!
+  description: String!
+  menuItemPageUrl: String
+  imageUrl: String
+  clientMutationId: String
+}
+
+type AddMenuItemPayload {
+  errorMessage: String
+  restaurant: MenuItemTypeEdge
+  clientMutationId: String
+}
+
 input AddRestaurantInput {
   name: String!
   websiteUrl: String
@@ -20,7 +34,34 @@ type GeoLocation {
   longitude: Float
 }
 
+type MenuItem implements Node {
+  id: ID!
+  name: String
+  description: String
+  menuItemPageUrl: String
+  imageUrl: String
+}
+
+"""A connection to a list of items."""
+type MenuItemTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MenuItemTypeEdge]
+}
+
+"""An edge in a connection."""
+type MenuItemTypeEdge {
+  """The item at the end of the edge"""
+  node: MenuItem
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 type Mutation {
+  addMenuItem(input: AddMenuItemInput!): AddMenuItemPayload
   addRestaurant(input: AddRestaurantInput!): AddRestaurantPayload
 }
 
@@ -108,7 +149,8 @@ type RestaurantTypeEdge {
 
 type User implements Node {
   id: ID!
-  ownedRestaurants(after: String, first: Int, before: String, last: Int, ownedRestaurantIds: [ID!], name: String, status: Boolean, inheritParentRestaurantMenus: Boolean, sortOption: String): RestaurantTypeConnection
+  menuItems(after: String, first: Int, before: String, last: Int, menuItemIds: [ID!], name: String, description: String, sortOption: String): MenuItemTypeConnection
+  restaurants(after: String, first: Int, before: String, last: Int, restaurantIds: [ID!], name: String, status: Boolean, inheritParentRestaurantMenus: Boolean, sortOption: String): RestaurantTypeConnection
 }
 
 type Viewer implements Node {

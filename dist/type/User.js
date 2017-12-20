@@ -16,6 +16,10 @@ var _graphqlRelay = require('graphql-relay');
 
 var _interface = require('../interface');
 
+var _MenuItemConnection = require('./MenuItemConnection');
+
+var _MenuItemConnection2 = _interopRequireDefault(_MenuItemConnection);
+
 var _RestaurantConnection = require('./RestaurantConnection');
 
 var _RestaurantConnection2 = _interopRequireDefault(_RestaurantConnection);
@@ -33,10 +37,49 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('id');
       }
     },
-    ownedRestaurants: {
+    menuItems: {
+      type: _MenuItemConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        menuItemIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        name: {
+          type: _graphql.GraphQLString
+        },
+        description: {
+          type: _graphql.GraphQLString
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
+          var sessionToken = _ref2.sessionToken,
+              dataLoaders = _ref2.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  return _context.abrupt('return', (0, _MenuItemConnection.getMenuItems)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context.stop();
+              }
+            }
+          }, _callee, undefined);
+        }));
+
+        return function resolve(_x, _x2, _x3) {
+          return _ref.apply(this, arguments);
+        };
+      }()
+    },
+    restaurants: {
       type: _RestaurantConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        ownedRestaurantIds: {
+        restaurantIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
         name: {
@@ -53,25 +96,25 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
-          var sessionToken = _ref2.sessionToken,
-              dataLoaders = _ref2.dataLoaders;
-          return regeneratorRuntime.wrap(function _callee$(_context) {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
+          var sessionToken = _ref4.sessionToken,
+              dataLoaders = _ref4.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
-              switch (_context.prev = _context.next) {
+              switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+                  return _context2.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
 
                 case 1:
                 case 'end':
-                  return _context.stop();
+                  return _context2.stop();
               }
             }
-          }, _callee, undefined);
+          }, _callee2, undefined);
         }));
 
-        return function resolve(_x, _x2, _x3) {
-          return _ref.apply(this, arguments);
+        return function resolve(_x4, _x5, _x6) {
+          return _ref3.apply(this, arguments);
         };
       }()
     }

@@ -45,17 +45,9 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  if (_.has('id')) {
-                    _context.next = 2;
-                    break;
-                  }
-
-                  return _context.abrupt('return', '');
-
-                case 2:
                   return _context.abrupt('return', _.get('websiteUrl'));
 
-                case 3:
+                case 1:
                 case 'end':
                   return _context.stop();
               }
@@ -76,17 +68,9 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  if (_.has('id')) {
-                    _context2.next = 2;
-                    break;
-                  }
-
-                  return _context2.abrupt('return', '');
-
-                case 2:
                   return _context2.abrupt('return', _.get('imageUrl'));
 
-                case 3:
+                case 1:
                 case 'end':
                   return _context2.stop();
               }
@@ -174,17 +158,9 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  if (_.has('id')) {
-                    _context3.next = 2;
-                    break;
-                  }
-
-                  return _context3.abrupt('return', '');
-
-                case 2:
                   return _context3.abrupt('return', _.get('websiteUrl'));
 
-                case 3:
+                case 1:
                 case 'end':
                   return _context3.stop();
               }
@@ -205,17 +181,9 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  if (_.has('id')) {
-                    _context4.next = 2;
-                    break;
-                  }
-
-                  return _context4.abrupt('return', '');
-
-                case 2:
                   return _context4.abrupt('return', _.get('imageUrl'));
 
-                case 3:
+                case 1:
                 case 'end':
                   return _context4.stop();
               }

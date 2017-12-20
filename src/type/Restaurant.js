@@ -19,23 +19,11 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     websiteUrl: {
       type: GraphQLString,
-      resolve: async (_) => {
-        if (!_.has('id')) {
-          return '';
-        }
-
-        return _.get('websiteUrl');
-      },
+      resolve: async _ => _.get('websiteUrl'),
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: async (_) => {
-        if (!_.has('id')) {
-          return '';
-        }
-
-        return _.get('imageUrl');
-      },
+      resolve: async _ => _.get('imageUrl'),
     },
     address: {
       type: GraphQLString,
@@ -94,23 +82,11 @@ export default new GraphQLObjectType({
     },
     websiteUrl: {
       type: GraphQLString,
-      resolve: async (_) => {
-        if (!_.has('id')) {
-          return '';
-        }
-
-        return _.get('websiteUrl');
-      },
+      resolve: async _ => _.get('websiteUrl'),
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: async (_) => {
-        if (!_.has('id')) {
-          return '';
-        }
-
-        return _.get('imageUrl');
-      },
+      resolve: async _ => _.get('imageUrl'),
     },
     address: {
       type: GraphQLString,
