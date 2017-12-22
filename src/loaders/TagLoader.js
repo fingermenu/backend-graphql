@@ -1,7 +1,7 @@
 // @flow
 
 import Dataloader from 'dataloader';
-import { TagService } from 'finger-menu-parse-server-common';
+import { TagService } from '@fingermenu/parse-server-common';
 
 const tagLoaderById = new Dataloader(async (ids) => {
   const tagService = new TagService();

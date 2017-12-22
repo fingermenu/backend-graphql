@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
-import { RestaurantService } from 'finger-menu-parse-server-common';
+import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { RestaurantService } from '@fingermenu/parse-server-common';
 import Restaurant from './Restaurant';
 
 const getCriteria = (searchArgs, ownedByUserId) =>

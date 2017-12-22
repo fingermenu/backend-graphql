@@ -2,8 +2,8 @@
 
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from 'micro-business-common-javascript';
-import { ChoiceItemService } from 'finger-menu-parse-server-common';
+import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import ChoiceItem from './ChoiceItem';
 
 const getCriteria = (searchArgs, ownedByUserId) =>

@@ -1,8 +1,8 @@
 // @flow
 
 import { Map } from 'immutable';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { RestaurantService } from 'finger-menu-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { RestaurantService } from '@fingermenu/parse-server-common';
 
 export const addRestaurantForProvidedUser = async (
   {

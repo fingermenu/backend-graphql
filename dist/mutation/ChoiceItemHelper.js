@@ -7,9 +7,9 @@ exports.addChoiceItem = exports.addChoiceItemForProvidedUser = undefined;
 
 var _immutable = require('immutable');
 
-var _microBusinessParseServerCommon = require('micro-business-parse-server-common');
+var _parseServerCommon = require('@microbusiness/parse-server-common');
 
-var _fingerMenuParseServerCommon = require('finger-menu-parse-server-common');
+var _parseServerCommon2 = require('@fingermenu/parse-server-common');
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -24,8 +24,8 @@ var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = functi
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            acl = _microBusinessParseServerCommon.ParseWrapperService.createACL(user);
-            return _context.abrupt('return', new _fingerMenuParseServerCommon.ChoiceItemService().create((0, _immutable.Map)({
+            acl = _parseServerCommon.ParseWrapperService.createACL(user);
+            return _context.abrupt('return', new _parseServerCommon2.ChoiceItemService().create((0, _immutable.Map)({
               ownedByUser: user,
               name: name,
               description: description,

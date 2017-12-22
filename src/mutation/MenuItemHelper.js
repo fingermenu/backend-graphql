@@ -1,8 +1,8 @@
 // @flow
 
 import { Map } from 'immutable';
-import { ParseWrapperService } from 'micro-business-parse-server-common';
-import { MenuItemService } from 'finger-menu-parse-server-common';
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { MenuItemService } from '@fingermenu/parse-server-common';
 
 export const addMenuItemForProvidedUser = async ({
   name, description, menuItemPageUrl, imageUrl,
