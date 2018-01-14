@@ -28,12 +28,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('Restaurant'),
     },
   },
-  mutateAndGetPayload: async (args, { sessionToken, dataLoaders }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
     try {
       const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 
       return Map({
-        Restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken)).edges[0],
+        Restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

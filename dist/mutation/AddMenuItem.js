@@ -46,8 +46,9 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   },
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(args, _ref2) {
-      var sessionToken = _ref2.sessionToken,
-          dataLoaders = _ref2.dataLoaders;
+      var dataLoaders = _ref2.dataLoaders,
+          sessionToken = _ref2.sessionToken,
+          language = _ref2.language;
       var menuItemId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -61,7 +62,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               menuItemId = _context.sent;
               _context.t0 = _immutable.Map;
               _context.next = 7;
-              return (0, _type.getMenuItems)((0, _immutable.Map)({ MenuItemIds: _immutable.List.of(menuItemId) }), dataLoaders, sessionToken);
+              return (0, _type.getMenuItems)((0, _immutable.Map)({ MenuItemIds: _immutable.List.of(menuItemId) }), dataLoaders, sessionToken, language);
 
             case 7:
               _context.t1 = _context.sent.edges[0];

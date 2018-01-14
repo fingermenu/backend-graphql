@@ -25,12 +25,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('MenuItem'),
     },
   },
-  mutateAndGetPayload: async (args, { sessionToken, dataLoaders }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
     try {
       const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
 
       return Map({
-        MenuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken)).edges[0],
+        MenuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

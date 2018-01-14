@@ -25,12 +25,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('ChoiceItem'),
     },
   },
-  mutateAndGetPayload: async (args, { sessionToken, dataLoaders }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
     try {
       const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 
       return Map({
-        ChoiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken)).edges[0],
+        ChoiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
