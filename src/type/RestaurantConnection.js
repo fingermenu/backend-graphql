@@ -6,8 +6,9 @@ import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { RestaurantService } from '@fingermenu/parse-server-common';
 import Restaurant from './Restaurant';
 
-const getCriteria = (searchArgs, ownedByUserId) =>
+const getCriteria = (searchArgs, ownedByUserId, language) =>
   Map({
+    language,
     include_parentRestaurant: true,
     ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
     conditions: Map({
@@ -18,13 +19,13 @@ const getCriteria = (searchArgs, ownedByUserId) =>
     }),
   });
 
-const addSortOptionToCriteria = (criteria, sortOption) => {
+const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'name');
+    return criteria.set('orderByFieldDescending', `${language}_name`);
   }
 
   if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'name');
+    return criteria.set('orderByFieldAscending', `${language}_name`);
   }
 
   if (sortOption && sortOption.localeCompare('AddressDescending') === 0) {
@@ -54,24 +55,27 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-const getRestaurantsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
-  new RestaurantService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
+const getRestaurantsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>
+  new RestaurantService().count(
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language),
+    sessionToken,
+  );
 
-const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
+const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new RestaurantService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,
   );
 
-export const getRestaurants = async (searchArgs, dataLoaders, sessionToken) => {
+export const getRestaurants = async (searchArgs, dataLoaders, sessionToken, language) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken);
+  const count = await getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const restaurants = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  const restaurants = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
   const indexedRestaurants = restaurants.zip(Range(skip, skip + limit));
 
   const edges = indexedRestaurants.map(indexedItem => ({

@@ -1,6 +1,6 @@
 // @flow
 
-import { Map } from 'immutable';
+import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { MenuItemService } from '@fingermenu/parse-server-common';
 
@@ -12,8 +12,11 @@ export const addMenuItemForProvidedUser = async ({
   return new MenuItemService().create(
     Map({
       ownedByUser: user,
-      name,
-      description,
+      name: Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()),
+      description: Immutable.fromJS(description).reduce(
+        (reduction, languageValue) => reduction.set(languageValue.language, languageValue.value),
+        Map(),
+      ),
       menuItemPageUrl,
       imageUrl,
     }),

@@ -1,15 +1,16 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import { GraphQLBoolean, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLBoolean, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { RestaurantConnection, getRestaurants } from '../type';
 import { addRestaurant } from './RestaurantHelper';
+import LanguageStringTuple from './LanguageStringTuple';
 
 export default mutationWithClientMutationId({
   name: 'AddRestaurant',
   inputFields: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     websiteUrl: { type: GraphQLString },
     imageUrl: { type: GraphQLString },
     address: { type: GraphQLString },

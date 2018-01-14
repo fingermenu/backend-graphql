@@ -32,7 +32,8 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => getChoiceItems(Immutable.fromJS(args), dataLoaders, sessionToken),
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
+        getChoiceItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     menuItems: {
       type: MenuItemConnection.connectionType,
@@ -51,7 +52,7 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => getMenuItems(Immutable.fromJS(args), dataLoaders, sessionToken),
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getMenuItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     restaurants: {
       type: RestaurantConnection.connectionType,
@@ -73,7 +74,8 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken),
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
+        getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
   },
   interfaces: [NodeInterface],

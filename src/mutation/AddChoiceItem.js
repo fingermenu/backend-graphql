@@ -1,16 +1,17 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { ChoiceItemConnection, getChoiceItems } from '../type';
 import { addChoiceItem } from './ChoiceItemHelper';
+import LanguageStringTuple from './LanguageStringTuple';
 
 export default mutationWithClientMutationId({
   name: 'AddChoiceItem',
   inputFields: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    description: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
+    description: { type: new GraphQLList(LanguageStringTuple) },
     choiceItemPageUrl: { type: GraphQLString },
     imageUrl: { type: GraphQLString },
   },

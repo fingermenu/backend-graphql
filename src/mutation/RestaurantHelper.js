@@ -1,6 +1,6 @@
 // @flow
 
-import { Map } from 'immutable';
+import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { RestaurantService } from '@fingermenu/parse-server-common';
 
@@ -16,7 +16,7 @@ export const addRestaurantForProvidedUser = async (
   return new RestaurantService().create(
     Map({
       ownedByUser: user,
-      name,
+      name: Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()),
       websiteUrl,
       imageUrl,
       address,

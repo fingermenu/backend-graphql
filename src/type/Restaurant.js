@@ -15,7 +15,11 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: _ => _.get('name'),
+      resolve: (_, args, { language }) => {
+        const allValues = _.get('name');
+
+        return allValues ? allValues.get(`${language}_name`) : null;
+      },
     },
     websiteUrl: {
       type: GraphQLString,
@@ -78,7 +82,11 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: _ => _.get('name'),
+      resolve: (_, args, { language }) => {
+        const allValues = _.get('name');
+
+        return allValues ? allValues.get(`${language}_name`) : null;
+      },
     },
     websiteUrl: {
       type: GraphQLString,

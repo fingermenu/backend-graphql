@@ -7,9 +7,13 @@ exports.addMenuItem = exports.addMenuItemForProvidedUser = undefined;
 
 var _immutable = require('immutable');
 
+var _immutable2 = _interopRequireDefault(_immutable);
+
 var _parseServerCommon = require('@microbusiness/parse-server-common');
 
 var _parseServerCommon2 = require('@fingermenu/parse-server-common');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -27,8 +31,12 @@ var addMenuItemForProvidedUser = exports.addMenuItemForProvidedUser = function (
             acl = _parseServerCommon.ParseWrapperService.createACL(user);
             return _context.abrupt('return', new _parseServerCommon2.MenuItemService().create((0, _immutable.Map)({
               ownedByUser: user,
-              name: name,
-              description: description,
+              name: _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
+                return reduction.set(languageValue.language, languageValue.value);
+              }, (0, _immutable.Map)()),
+              description: _immutable2.default.fromJS(description).reduce(function (reduction, languageValue) {
+                return reduction.set(languageValue.language, languageValue.value);
+              }, (0, _immutable.Map)()),
               menuItemPageUrl: menuItemPageUrl,
               imageUrl: imageUrl
             }), acl, sessionToken));

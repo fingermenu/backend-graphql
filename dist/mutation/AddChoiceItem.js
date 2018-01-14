@@ -14,13 +14,19 @@ var _type = require('../type');
 
 var _ChoiceItemHelper = require('./ChoiceItemHelper');
 
+var _LanguageStringTuple = require('./LanguageStringTuple');
+
+var _LanguageStringTuple2 = _interopRequireDefault(_LanguageStringTuple);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'AddChoiceItem',
   inputFields: {
-    name: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
-    description: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
+    name: { type: new _graphql.GraphQLNonNull(new _graphql.GraphQLList(_LanguageStringTuple2.default)) },
+    description: { type: new _graphql.GraphQLList(_LanguageStringTuple2.default) },
     choiceItemPageUrl: { type: _graphql.GraphQLString },
     imageUrl: { type: _graphql.GraphQLString }
   },

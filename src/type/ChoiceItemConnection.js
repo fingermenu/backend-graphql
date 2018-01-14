@@ -6,8 +6,9 @@ import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import ChoiceItem from './ChoiceItem';
 
-const getCriteria = (searchArgs, ownedByUserId) =>
+const getCriteria = (searchArgs, ownedByUserId, language) =>
   Map({
+    language,
     include_parentChoiceItem: true,
     ids: searchArgs.has('choiceItemIds') ? searchArgs.get('choiceItemIds') : undefined,
     conditions: Map({
@@ -17,44 +18,47 @@ const getCriteria = (searchArgs, ownedByUserId) =>
     }),
   });
 
-const addSortOptionToCriteria = (criteria, sortOption) => {
+const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'name');
+    return criteria.set('orderByFieldDescending', `${language}_name`);
   }
 
   if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'name');
+    return criteria.set('orderByFieldAscending', `${language}_name`);
   }
 
   if (sortOption && sortOption.localeCompare('DescriptionDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'description');
+    return criteria.set('orderByFieldDescending', `${language}_description`);
   }
 
   if (sortOption && sortOption.localeCompare('DescriptionAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'description');
+    return criteria.set('orderByFieldAscending', `${language}_description`);
   }
 
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-const getChoiceItemsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
-  new ChoiceItemService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
+const getChoiceItemsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>
+  new ChoiceItemService().count(
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language),
+    sessionToken,
+  );
 
-const getChoiceItemsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
+const getChoiceItemsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new ChoiceItemService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,
   );
 
-export const getChoiceItems = async (searchArgs, dataLoaders, sessionToken) => {
+export const getChoiceItems = async (searchArgs, dataLoaders, sessionToken, language) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getChoiceItemsCountMatchCriteria(searchArgs, userId, sessionToken);
+  const count = await getChoiceItemsCountMatchCriteria(searchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const choiceItems = await getChoiceItemsMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  const choiceItems = await getChoiceItemsMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
   const indexedChoiceItems = choiceItems.zip(Range(skip, skip + limit));
 
   const edges = indexedChoiceItems.map(indexedItem => ({

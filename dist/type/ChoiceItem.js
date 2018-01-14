@@ -21,20 +21,28 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     name: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('name');
+      resolve: function resolve(_, args, _ref) {
+        var language = _ref.language;
+
+        var allValues = _.get('name');
+
+        return allValues ? allValues.get(language + '_name') : null;
       }
     },
     description: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('description');
+      resolve: function resolve(_, args, _ref2) {
+        var language = _ref2.language;
+
+        var allValues = _.get('description');
+
+        return allValues ? allValues.get(language + '_description') : null;
       }
     },
     menuItemPageUrl: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_) {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_) {
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
@@ -50,14 +58,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x) {
-          return _ref.apply(this, arguments);
+          return _ref3.apply(this, arguments);
         };
       }()
     },
     imageUrl: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_) {
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
@@ -73,7 +81,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x2) {
-          return _ref2.apply(this, arguments);
+          return _ref4.apply(this, arguments);
         };
       }()
     }
