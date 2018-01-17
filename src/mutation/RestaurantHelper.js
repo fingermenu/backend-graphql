@@ -6,7 +6,7 @@ import { RestaurantService } from '@fingermenu/parse-server-common';
 
 export const addRestaurantForProvidedUser = async (
   {
-    name, websiteUrl, imageUrl, address, googleMapUrl, status, inheritParentRestaurantMenus,
+    name, websiteUrl, imageUrl, address, googleMapUrl, status, inheritParentRestaurantMenus, pin,
   },
   user,
   sessionToken,
@@ -23,6 +23,7 @@ export const addRestaurantForProvidedUser = async (
       googleMapUrl,
       status,
       inheritParentRestaurantMenus,
+      pin,
     }),
     acl,
     sessionToken,

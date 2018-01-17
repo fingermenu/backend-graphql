@@ -31,7 +31,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     address: { type: _graphql.GraphQLString },
     googleMapUrl: { type: _graphql.GraphQLString },
     status: { type: _graphql.GraphQLString },
-    inheritParentRestaurantMenus: { type: _graphql.GraphQLBoolean }
+    inheritParentRestaurantMenus: { type: _graphql.GraphQLBoolean },
+    pin: { type: _graphql.GraphQLString }
   },
   outputFields: {
     errorMessage: {

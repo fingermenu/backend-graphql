@@ -6,6 +6,7 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import ChoiceItemConnection, { getChoiceItems } from './ChoiceItemConnection';
 import MenuItemConnection, { getMenuItems } from './MenuItemConnection';
+import Restaurant, { getRestaurant } from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 
 export default new GraphQLObjectType({
@@ -52,7 +53,17 @@ export default new GraphQLObjectType({
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getMenuItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+      resolve: async (_, args, { sessionToken }) => getMenuItems(Immutable.fromJS(args), sessionToken),
+    },
+    restaurant: {
+      type: Restaurant,
+      args: {
+        restaurantId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { restaurantId }, { dataLoaders, sessionToken, language }) =>
+        getRestaurant(restaurantId, dataLoaders, sessionToken, language),
     },
     restaurants: {
       type: RestaurantConnection.connectionType,

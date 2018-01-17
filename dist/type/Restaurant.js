@@ -134,6 +134,29 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('inheritParentRestaurantMenus');
       }
+    },
+    pin: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  return _context3.abrupt('return', _.get('pin'));
+
+                case 1:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x3) {
+          return _ref4.apply(this, arguments);
+        };
+      }()
     }
   },
   interfaces: [_interface.NodeInterface]
@@ -150,8 +173,8 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     name: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_, args, _ref4) {
-        var language = _ref4.language;
+      resolve: function resolve(_, args, _ref5) {
+        var language = _ref5.language;
 
         var allValues = _.get('name');
 
@@ -161,35 +184,12 @@ exports.default = new _graphql.GraphQLObjectType({
     websiteUrl: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
-            while (1) {
-              switch (_context3.prev = _context3.next) {
-                case 0:
-                  return _context3.abrupt('return', _.get('websiteUrl'));
-
-                case 1:
-                case 'end':
-                  return _context3.stop();
-              }
-            }
-          }, _callee3, undefined);
-        }));
-
-        return function resolve(_x3) {
-          return _ref5.apply(this, arguments);
-        };
-      }()
-    },
-    imageUrl: {
-      type: _graphql.GraphQLString,
-      resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_) {
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', _.get('imageUrl'));
+                  return _context4.abrupt('return', _.get('websiteUrl'));
 
                 case 1:
                 case 'end':
@@ -201,6 +201,29 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x4) {
           return _ref6.apply(this, arguments);
+        };
+      }()
+    },
+    imageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  return _context5.abrupt('return', _.get('imageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context5.stop();
+              }
+            }
+          }, _callee5, undefined);
+        }));
+
+        return function resolve(_x5) {
+          return _ref7.apply(this, arguments);
         };
       }()
     },
@@ -252,10 +275,33 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('inheritParentRestaurantMenus');
       }
     },
+    pin: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_) {
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  return _context6.abrupt('return', _.get('pin'));
+
+                case 1:
+                case 'end':
+                  return _context6.stop();
+              }
+            }
+          }, _callee6, undefined);
+        }));
+
+        return function resolve(_x6) {
+          return _ref8.apply(this, arguments);
+        };
+      }()
+    },
     parentRestaurant: {
       type: ParentRestaurant,
-      resolve: function resolve(_, args, _ref7) {
-        var dataLoaders = _ref7.dataLoaders;
+      resolve: function resolve(_, args, _ref9) {
+        var dataLoaders = _ref9.dataLoaders;
 
         var parentRestaurantId = _.get('parentRestaurantId');
 

@@ -17,6 +17,7 @@ export default mutationWithClientMutationId({
     googleMapUrl: { type: GraphQLString },
     status: { type: GraphQLString },
     inheritParentRestaurantMenus: { type: GraphQLBoolean },
+    pin: { type: GraphQLString },
   },
   outputFields: {
     errorMessage: {

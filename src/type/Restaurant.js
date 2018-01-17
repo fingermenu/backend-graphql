@@ -2,9 +2,12 @@
 
 import { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { RestaurantService } from '@fingermenu/parse-server-common';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import { NodeInterface } from '../interface';
+
+export const getRestaurant = async (restaurantId, sessionToken) => new RestaurantService().read(restaurantId, null, sessionToken);
 
 const ParentRestaurant = new GraphQLObjectType({
   name: 'ParentRestaurant',
@@ -68,6 +71,10 @@ const ParentRestaurant = new GraphQLObjectType({
     inheritParentRestaurantMenus: {
       type: GraphQLBoolean,
       resolve: _ => _.get('inheritParentRestaurantMenus'),
+    },
+    pin: {
+      type: GraphQLString,
+      resolve: async _ => _.get('pin'),
     },
   },
   interfaces: [NodeInterface],
@@ -135,6 +142,10 @@ export default new GraphQLObjectType({
     inheritParentRestaurantMenus: {
       type: GraphQLBoolean,
       resolve: _ => _.get('inheritParentRestaurantMenus'),
+    },
+    pin: {
+      type: GraphQLString,
+      resolve: async _ => _.get('pin'),
     },
     parentRestaurant: {
       type: ParentRestaurant,

@@ -25,7 +25,8 @@ var addRestaurantForProvidedUser = exports.addRestaurantForProvidedUser = functi
         address = _ref2.address,
         googleMapUrl = _ref2.googleMapUrl,
         status = _ref2.status,
-        inheritParentRestaurantMenus = _ref2.inheritParentRestaurantMenus;
+        inheritParentRestaurantMenus = _ref2.inheritParentRestaurantMenus,
+        pin = _ref2.pin;
     var acl;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -42,7 +43,8 @@ var addRestaurantForProvidedUser = exports.addRestaurantForProvidedUser = functi
               address: address,
               googleMapUrl: googleMapUrl,
               status: status,
-              inheritParentRestaurantMenus: inheritParentRestaurantMenus
+              inheritParentRestaurantMenus: inheritParentRestaurantMenus,
+              pin: pin
             }), acl, sessionToken));
 
           case 2:
