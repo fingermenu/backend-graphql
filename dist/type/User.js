@@ -24,6 +24,10 @@ var _MenuItemConnection = require('./MenuItemConnection');
 
 var _MenuItemConnection2 = _interopRequireDefault(_MenuItemConnection);
 
+var _Restaurant = require('./Restaurant');
+
+var _Restaurant2 = _interopRequireDefault(_Restaurant);
+
 var _RestaurantConnection = require('./RestaurantConnection');
 
 var _RestaurantConnection2 = _interopRequireDefault(_RestaurantConnection);
@@ -99,14 +103,12 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
-          var dataLoaders = _ref4.dataLoaders,
-              sessionToken = _ref4.sessionToken,
-              language = _ref4.language;
+          var sessionToken = _ref4.sessionToken;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _MenuItemConnection.getMenuItems)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
+                  return _context2.abrupt('return', (0, _MenuItemConnection.getMenuItems)(_immutable2.default.fromJS(args), sessionToken));
 
                 case 1:
                 case 'end':
@@ -118,6 +120,38 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x4, _x5, _x6) {
           return _ref3.apply(this, arguments);
+        };
+      }()
+    },
+    restaurant: {
+      type: _Restaurant2.default,
+      args: {
+        restaurantId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref6, _ref7) {
+          var restaurantId = _ref6.restaurantId;
+          var dataLoaders = _ref7.dataLoaders,
+              sessionToken = _ref7.sessionToken,
+              language = _ref7.language;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  return _context3.abrupt('return', (0, _Restaurant.getRestaurant)(restaurantId, dataLoaders, sessionToken, language));
+
+                case 1:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x7, _x8, _x9) {
+          return _ref5.apply(this, arguments);
         };
       }()
     },
@@ -141,26 +175,26 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref6) {
-          var dataLoaders = _ref6.dataLoaders,
-              sessionToken = _ref6.sessionToken,
-              language = _ref6.language;
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref9) {
+          var dataLoaders = _ref9.dataLoaders,
+              sessionToken = _ref9.sessionToken,
+              language = _ref9.language;
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
+                  return _context4.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
-                  return _context3.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee3, undefined);
+          }, _callee4, undefined);
         }));
 
-        return function resolve(_x7, _x8, _x9) {
-          return _ref5.apply(this, arguments);
+        return function resolve(_x10, _x11, _x12) {
+          return _ref8.apply(this, arguments);
         };
       }()
     }

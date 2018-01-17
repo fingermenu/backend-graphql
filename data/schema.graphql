@@ -200,6 +200,7 @@ type User implements Node {
   id: ID!
   choiceItems(after: String, first: Int, before: String, last: Int, choiceItemIds: [ID!], name: String, description: String, sortOption: String): ChoiceItemTypeConnection
   menuItems(after: String, first: Int, before: String, last: Int, menuItemIds: [ID!], name: String, description: String, sortOption: String): MenuItemTypeConnection
+  restaurant(restaurantId: ID!): Restaurant
   restaurants(after: String, first: Int, before: String, last: Int, restaurantIds: [ID!], name: String, status: Boolean, inheritParentRestaurantMenus: Boolean, sortOption: String): RestaurantTypeConnection
 }
 

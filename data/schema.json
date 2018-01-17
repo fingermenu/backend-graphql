@@ -295,6 +295,33 @@
               "deprecationReason": null
             },
             {
+              "name": "restaurant",
+              "description": null,
+              "args": [
+                {
+                  "name": "restaurantId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Restaurant",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "restaurants",
               "description": null,
               "args": [
@@ -910,88 +937,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "RestaurantTypeConnection",
-          "description": "A connection to a list of items.",
-          "fields": [
-            {
-              "name": "pageInfo",
-              "description": "Information to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "edges",
-              "description": "A list of edges.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RestaurantTypeEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RestaurantTypeEdge",
-          "description": "An edge in a connection.",
-          "fields": [
-            {
-              "name": "node",
-              "description": "The item at the end of the edge",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Restaurant",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "cursor",
-              "description": "A cursor for use in pagination",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "Restaurant",
           "description": null,
           "fields": [
@@ -1401,6 +1346,88 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RestaurantTypeConnection",
+          "description": "A connection to a list of items.",
+          "fields": [
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RestaurantTypeEdge",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RestaurantTypeEdge",
+          "description": "An edge in a connection.",
+          "fields": [
+            {
+              "name": "node",
+              "description": "The item at the end of the edge",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Restaurant",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
