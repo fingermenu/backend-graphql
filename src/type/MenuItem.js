@@ -1,7 +1,10 @@
 // @flow
 
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { MenuItemService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
+
+export const getMenuItem = async (menuItemId, sessionToken) => new MenuItemService().read(menuItemId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'MenuItem',

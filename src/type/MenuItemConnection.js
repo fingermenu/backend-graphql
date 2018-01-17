@@ -9,7 +9,6 @@ import MenuItem from './MenuItem';
 const getCriteria = (searchArgs, ownedByUserId, language) =>
   Map({
     language,
-    include_parentMenuItem: true,
     ids: searchArgs.has('menuItemIds') ? searchArgs.get('menuItemIds') : undefined,
     conditions: Map({
       ownedByUserId,

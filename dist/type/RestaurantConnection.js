@@ -25,6 +25,7 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
   return (0, _immutable.Map)({
     language: language,
     include_parentRestaurant: true,
+    include_menus: true,
     ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,

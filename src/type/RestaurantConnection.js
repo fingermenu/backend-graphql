@@ -10,6 +10,7 @@ const getCriteria = (searchArgs, ownedByUserId, language) =>
   Map({
     language,
     include_parentRestaurant: true,
+    include_menus: true,
     ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
     conditions: Map({
       ownedByUserId,

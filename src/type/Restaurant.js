@@ -7,7 +7,8 @@ import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import { NodeInterface } from '../interface';
 
-export const getRestaurant = async (restaurantId, sessionToken) => new RestaurantService().read(restaurantId, null, sessionToken);
+export const getRestaurant = async (restaurantId, sessionToken) =>
+  new RestaurantService().read(restaurantId, Map({ include_parentRestaurant: true, include_menus: true }), sessionToken);
 
 const ParentRestaurant = new GraphQLObjectType({
   name: 'ParentRestaurant',

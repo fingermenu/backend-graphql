@@ -24,7 +24,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
   return (0, _immutable.Map)({
     language: language,
-    include_parentChoiceItem: true,
     ids: searchArgs.has('choiceItemIds') ? searchArgs.get('choiceItemIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,

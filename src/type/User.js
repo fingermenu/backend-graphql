@@ -4,7 +4,9 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
+import ChoiceItem, { getChoiceItem } from './ChoiceItem';
 import ChoiceItemConnection, { getChoiceItems } from './ChoiceItemConnection';
+import MenuItem, { getMenuItem } from './MenuItem';
 import MenuItemConnection, { getMenuItems } from './MenuItemConnection';
 import Restaurant, { getRestaurant } from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
@@ -15,6 +17,15 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
+    },
+    choiceItem: {
+      type: ChoiceItem,
+      args: {
+        choiceItemId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { choiceItemId }, { sessionToken }) => getChoiceItem(choiceItemId, sessionToken),
     },
     choiceItems: {
       type: ChoiceItemConnection.connectionType,
@@ -35,6 +46,15 @@ export default new GraphQLObjectType({
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
         getChoiceItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+    },
+    menuItem: {
+      type: MenuItem,
+      args: {
+        menuItemId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { menuItemId }, { sessionToken }) => getMenuItem(menuItemId, sessionToken),
     },
     menuItems: {
       type: MenuItemConnection.connectionType,
@@ -62,8 +82,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { restaurantId }, { dataLoaders, sessionToken, language }) =>
-        getRestaurant(restaurantId, dataLoaders, sessionToken, language),
+      resolve: async (_, { restaurantId }, { sessionToken }) => getRestaurant(restaurantId, sessionToken),
     },
     restaurants: {
       type: RestaurantConnection.connectionType,

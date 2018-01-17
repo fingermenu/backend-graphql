@@ -9,7 +9,6 @@ import ChoiceItem from './ChoiceItem';
 const getCriteria = (searchArgs, ownedByUserId, language) =>
   Map({
     language,
-    include_parentChoiceItem: true,
     ids: searchArgs.has('choiceItemIds') ? searchArgs.get('choiceItemIds') : undefined,
     conditions: Map({
       ownedByUserId,

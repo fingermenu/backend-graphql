@@ -1,7 +1,10 @@
 // @flow
 
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
+
+export const getChoiceItem = async (choiceItemId, sessionToken) => new ChoiceItemService().read(choiceItemId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'ChoiceItem',
