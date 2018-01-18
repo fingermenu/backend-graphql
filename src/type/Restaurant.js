@@ -2,10 +2,21 @@
 
 import { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { RestaurantService } from '@fingermenu/parse-server-common';
+import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
+import Table from './Table';
 import { NodeInterface } from '../interface';
+
+const getTableCriteria = restaurantId =>
+  Map({
+    conditions: Map({
+      restaurantId,
+    }),
+  });
+
+const getTablesMatchCriteria = async (restaurantId, sessionToken) =>
+  new TableService().search(getTableCriteria(restaurantId).set('limit', 1000), sessionToken);
 
 export const getRestaurant = async (restaurantId, sessionToken) =>
   new RestaurantService().read(restaurantId, Map({ include_parentRestaurant: true, include_menus: true }), sessionToken);
@@ -76,6 +87,10 @@ const ParentRestaurant = new GraphQLObjectType({
     pin: {
       type: GraphQLString,
       resolve: async _ => _.get('pin'),
+    },
+    tables: {
+      type: new GraphQLList(new GraphQLNonNull(Table)),
+      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toJS(),
     },
   },
   interfaces: [NodeInterface],

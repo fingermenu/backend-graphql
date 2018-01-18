@@ -170,6 +170,7 @@ type ParentRestaurant implements Node {
   googleMapUrl: String
   inheritParentRestaurantMenus: Boolean
   pin: String
+  tables: [Table!]
 }
 
 type Phone {
@@ -219,6 +220,13 @@ type RestaurantTypeEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+type Table implements Node {
+  id: ID!
+  name: String
+  status: String
+  tableState: TableState
 }
 
 type TableState implements Node {
