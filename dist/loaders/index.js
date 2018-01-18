@@ -3,7 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = undefined;
+exports.tagLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = undefined;
+
+var _LanguageLoader = require('./LanguageLoader');
+
+Object.defineProperty(exports, 'languageLoaderByKey', {
+  enumerable: true,
+  get: function get() {
+    return _LanguageLoader.languageLoaderByKey;
+  }
+});
+Object.defineProperty(exports, 'languageLoaderById', {
+  enumerable: true,
+  get: function get() {
+    return _LanguageLoader.languageLoaderById;
+  }
+});
 
 var _TagLoader = require('./TagLoader');
 

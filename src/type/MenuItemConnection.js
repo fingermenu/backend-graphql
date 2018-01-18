@@ -34,7 +34,7 @@ const addSortOptionToCriteria = (criteria, sortOption, language) => {
     return criteria.set('orderByFieldAscending', `${language}_description`);
   }
 
-  return criteria.set('orderByFieldAscending', 'name');
+  return criteria.set('orderByFieldAscending', `${language}_name`);
 };
 
 const getMenuItemsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>

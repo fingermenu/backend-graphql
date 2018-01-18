@@ -3,10 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getRootSchema = exports.tagLoaderById = undefined;
+exports.getRootSchema = exports.tagLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = undefined;
 
 var _loaders = require('./loaders');
 
+Object.defineProperty(exports, 'languageLoaderByKey', {
+  enumerable: true,
+  get: function get() {
+    return _loaders.languageLoaderByKey;
+  }
+});
+Object.defineProperty(exports, 'languageLoaderById', {
+  enumerable: true,
+  get: function get() {
+    return _loaders.languageLoaderById;
+  }
+});
 Object.defineProperty(exports, 'tagLoaderById', {
   enumerable: true,
   get: function get() {

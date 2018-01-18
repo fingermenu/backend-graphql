@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^7.5.1",
     "flow-bin": "^0.63.1",
     "husky": "^0.14.3",
-    "jest": "^22.1.1",
+    "jest": "^22.1.2",
     "lint-staged": "^6.0.0",
     "parse": "^1.11.0",
     "prettier": "^1.10.2"

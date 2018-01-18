@@ -69,7 +69,7 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', 'inheritParentRestaurantMenus');
   }
 
-  return criteria.set('orderByFieldAscending', 'name');
+  return criteria.set('orderByFieldAscending', language + '_name');
 };
 
 var getRestaurantsCountMatchCriteria = function () {

@@ -50,7 +50,7 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', language + '_description');
   }
 
-  return criteria.set('orderByFieldAscending', 'name');
+  return criteria.set('orderByFieldAscending', language + '_name');
 };
 
 var getMenuItemsCountMatchCriteria = function () {
