@@ -5,6 +5,7 @@ import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLStrin
 import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
+import Language from './Language';
 import Table from './Table';
 import { NodeInterface } from '../interface';
 
@@ -87,6 +88,10 @@ const ParentRestaurant = new GraphQLObjectType({
     pin: {
       type: GraphQLString,
       resolve: async _ => _.get('pin'),
+    },
+    languages: {
+      type: new GraphQLList(new GraphQLNonNull(Language)),
+      resolve: async (_, args, { dataLoaders }) => dataLoaders.languageLoaderById.loadMany(_.get('languageIds')),
     },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
