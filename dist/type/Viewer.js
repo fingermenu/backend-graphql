@@ -24,6 +24,14 @@ var _LanguageConnection = require('./LanguageConnection');
 
 var _LanguageConnection2 = _interopRequireDefault(_LanguageConnection);
 
+var _TableState = require('./TableState');
+
+var _TableState2 = _interopRequireDefault(_TableState);
+
+var _TableStateConnection = require('./TableStateConnection');
+
+var _TableStateConnection2 = _interopRequireDefault(_TableStateConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -83,12 +91,13 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args) {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
+          var sessionToken = _ref4.sessionToken;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _LanguageConnection.getLanguages)(_immutable2.default.fromJS(args)));
+                  return _context2.abrupt('return', (0, _LanguageConnection.getLanguages)(_immutable2.default.fromJS(args), sessionToken));
 
                 case 1:
                 case 'end':
@@ -98,8 +107,76 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee2, undefined);
         }));
 
-        return function resolve(_x3, _x4) {
+        return function resolve(_x3, _x4, _x5) {
           return _ref3.apply(this, arguments);
+        };
+      }()
+    },
+    tableState: {
+      type: _TableState2.default,
+      args: {
+        tableStateId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref6) {
+          var tableStateId = _ref6.tableStateId;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  return _context3.abrupt('return', (0, _TableState.getTableState)(tableStateId));
+
+                case 1:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x6, _x7) {
+          return _ref5.apply(this, arguments);
+        };
+      }()
+    },
+    tableStates: {
+      type: _TableStateConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        tableStateIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        key: {
+          type: _graphql.GraphQLString
+        },
+        name: {
+          type: _graphql.GraphQLString
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref8) {
+          var sessionToken = _ref8.sessionToken,
+              language = _ref8.language;
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  return _context4.abrupt('return', (0, _TableStateConnection.getTableStates)(_immutable2.default.fromJS(args), sessionToken, language));
+
+                case 1:
+                case 'end':
+                  return _context4.stop();
+              }
+            }
+          }, _callee4, undefined);
+        }));
+
+        return function resolve(_x8, _x9, _x10) {
+          return _ref7.apply(this, arguments);
         };
       }()
     }

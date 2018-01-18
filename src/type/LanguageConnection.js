@@ -35,20 +35,23 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
   return criteria.set('orderByFieldAscending', 'name');
 };
 
-const getLanguagesCountMatchCriteria = async searchArgs =>
-  new LanguageService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')));
+const getLanguagesCountMatchCriteria = async (searchArgs, sessionToken) =>
+  new LanguageService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
 
-const getLanguagesMatchCriteria = async (searchArgs, limit, skip) =>
-  new LanguageService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
-    .set('limit', limit)
-    .set('skip', skip));
+const getLanguagesMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
+  new LanguageService().search(
+    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
+      .set('limit', limit)
+      .set('skip', skip),
+    sessionToken,
+  );
 
-export const getLanguages = async (searchArgs) => {
-  const count = await getLanguagesCountMatchCriteria(searchArgs);
+export const getLanguages = async (searchArgs, sessionToken) => {
+  const count = await getLanguagesCountMatchCriteria(searchArgs, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
   } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const languages = await getLanguagesMatchCriteria(searchArgs, limit, skip);
+  const languages = await getLanguagesMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedLanguages = languages.zip(Range(skip, skip + limit));
 
   const edges = indexedLanguages.map(indexedItem => ({
