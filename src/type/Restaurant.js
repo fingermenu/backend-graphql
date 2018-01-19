@@ -168,6 +168,14 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async _ => _.get('pin'),
     },
+    languages: {
+      type: new GraphQLList(new GraphQLNonNull(Language)),
+      resolve: async (_, args, { dataLoaders }) => dataLoaders.languageLoaderById.loadMany(_.get('languageIds')),
+    },
+    tables: {
+      type: new GraphQLList(new GraphQLNonNull(Table)),
+      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toJS(),
+    },
     parentRestaurant: {
       type: ParentRestaurant,
       resolve: (_, args, { dataLoaders }) => {

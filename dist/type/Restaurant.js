@@ -411,10 +411,62 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    languages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Language2.default)),
+      resolve: function () {
+        var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref16) {
+          var dataLoaders = _ref16.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            while (1) {
+              switch (_context11.prev = _context11.next) {
+                case 0:
+                  return _context11.abrupt('return', dataLoaders.languageLoaderById.loadMany(_.get('languageIds')));
+
+                case 1:
+                case 'end':
+                  return _context11.stop();
+              }
+            }
+          }, _callee11, undefined);
+        }));
+
+        return function resolve(_x17, _x18, _x19) {
+          return _ref15.apply(this, arguments);
+        };
+      }()
+    },
+    tables: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Table2.default)),
+      resolve: function () {
+        var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref18) {
+          var sessionToken = _ref18.sessionToken;
+          return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            while (1) {
+              switch (_context12.prev = _context12.next) {
+                case 0:
+                  _context12.next = 2;
+                  return getTablesMatchCriteria(_.get('id'), sessionToken);
+
+                case 2:
+                  return _context12.abrupt('return', _context12.sent.toJS());
+
+                case 3:
+                case 'end':
+                  return _context12.stop();
+              }
+            }
+          }, _callee12, undefined);
+        }));
+
+        return function resolve(_x20, _x21, _x22) {
+          return _ref17.apply(this, arguments);
+        };
+      }()
+    },
     parentRestaurant: {
       type: ParentRestaurant,
-      resolve: function resolve(_, args, _ref15) {
-        var dataLoaders = _ref15.dataLoaders;
+      resolve: function resolve(_, args, _ref19) {
+        var dataLoaders = _ref19.dataLoaders;
 
         var parentRestaurantId = _.get('parentRestaurantId');
 
