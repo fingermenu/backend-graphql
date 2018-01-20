@@ -2,10 +2,12 @@
 
 export {
   choiceItemLoaderById,
+  choiceItemPriceLoaderById,
   languageLoaderByKey,
   languageLoaderById,
   menuLoaderById,
   menuItemLoaderById,
+  menuItemPriceLoaderById,
   sizeLoaderById,
   tableStateLoaderByKey,
   tableStateLoaderById,
