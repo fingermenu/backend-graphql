@@ -4,6 +4,7 @@ import { GraphQLObjectType } from 'graphql';
 import addChoiceItem from './AddChoiceItem';
 import addMenuItem from './AddMenuItem';
 import addRestaurant from './AddRestaurant';
+import updateTable from './UpdateTable';
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -11,5 +12,6 @@ export default new GraphQLObjectType({
     addChoiceItem,
     addMenuItem,
     addRestaurant,
+    updateTable,
   },
 });

@@ -22,7 +22,7 @@ export default mutationWithClientMutationId({
     },
     choiceItem: {
       type: ChoiceItemConnection.edgeType,
-      resolve: _ => _.get('ChoiceItem'),
+      resolve: _ => _.get('choiceItem'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
@@ -30,7 +30,7 @@ export default mutationWithClientMutationId({
       const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 
       return Map({
-        ChoiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken, language)).edges[0],
+        choiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

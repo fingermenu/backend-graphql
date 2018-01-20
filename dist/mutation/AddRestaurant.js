@@ -44,7 +44,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     restaurant: {
       type: _type.RestaurantConnection.edgeType,
       resolve: function resolve(_) {
-        return _.get('Restaurant');
+        return _.get('restaurant');
       }
     }
   },
@@ -71,7 +71,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
             case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
-                Restaurant: _context.t1
+                restaurant: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 

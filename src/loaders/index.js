@@ -1,5 +1,5 @@
 // @flow
 
 export { languageLoaderByKey, languageLoaderById } from './LanguageLoader';
-export tableStateLoaderById from './TableStateLoader';
+export { tableStateLoaderByKey, tableStateLoaderById } from './TableStateLoader';
 export tagLoaderById from './TagLoader';

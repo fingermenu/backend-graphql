@@ -26,7 +26,7 @@ export default mutationWithClientMutationId({
     },
     restaurant: {
       type: RestaurantConnection.edgeType,
-      resolve: _ => _.get('Restaurant'),
+      resolve: _ => _.get('restaurant'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
@@ -34,7 +34,7 @@ export default mutationWithClientMutationId({
       const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 
       return Map({
-        Restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken, language)).edges[0],
+        restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

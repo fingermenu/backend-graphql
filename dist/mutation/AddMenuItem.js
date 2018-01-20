@@ -40,7 +40,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     menuItem: {
       type: _type.MenuItemConnection.edgeType,
       resolve: function resolve(_) {
-        return _.get('MenuItem');
+        return _.get('menuItem');
       }
     }
   },
@@ -67,7 +67,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
             case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
-                MenuItem: _context.t1
+                menuItem: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 

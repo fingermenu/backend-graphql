@@ -22,7 +22,7 @@ export default mutationWithClientMutationId({
     },
     menuItem: {
       type: MenuItemConnection.edgeType,
-      resolve: _ => _.get('MenuItem'),
+      resolve: _ => _.get('menuItem'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
@@ -30,7 +30,7 @@ export default mutationWithClientMutationId({
       const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
 
       return Map({
-        MenuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken, language)).edges[0],
+        menuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

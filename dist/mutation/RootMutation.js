@@ -18,6 +18,10 @@ var _AddRestaurant = require('./AddRestaurant');
 
 var _AddRestaurant2 = _interopRequireDefault(_AddRestaurant);
 
+var _UpdateTable = require('./UpdateTable');
+
+var _UpdateTable2 = _interopRequireDefault(_UpdateTable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = new _graphql.GraphQLObjectType({
@@ -25,6 +29,7 @@ exports.default = new _graphql.GraphQLObjectType({
   fields: {
     addChoiceItem: _AddChoiceItem2.default,
     addMenuItem: _AddMenuItem2.default,
-    addRestaurant: _AddRestaurant2.default
+    addRestaurant: _AddRestaurant2.default,
+    updateTable: _UpdateTable2.default
   }
 });

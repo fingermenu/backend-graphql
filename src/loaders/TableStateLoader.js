@@ -1,12 +1,16 @@
 // @flow
 
 import Dataloader from 'dataloader';
-import { TableStateLoader } from '@fingermenu/parse-server-common';
+import { TableStateService } from '@fingermenu/parse-server-common';
 
-const tableStateLoaderById = new Dataloader(async (ids) => {
-  const tableStateLoader = new TableStateLoader();
+export const tableStateLoaderByKey = new Dataloader(async (keys) => {
+  const tableStateService = new TableStateService();
 
-  return Promise.all(ids.map(async id => tableStateLoader.read(id, null)));
+  return Promise.all(keys.map(async key => tableStateService.search(Map({ conditions: Map({ key }) })).first()));
 });
 
-export default tableStateLoaderById;
+export const tableStateLoaderById = new Dataloader(async (ids) => {
+  const tableStateService = new TableStateService();
+
+  return Promise.all(ids.map(async id => tableStateService.read(id, null)));
+});

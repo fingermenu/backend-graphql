@@ -19,19 +19,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var languageLoaderByKey = exports.languageLoaderByKey = new _dataloader2.default(function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(keys) {
-    var languageLoader;
+    var languageService;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            languageLoader = new _parseServerCommon.LanguageLoader();
+            languageService = new _parseServerCommon.LanguageService();
             return _context2.abrupt('return', Promise.all(keys.map(function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(key) {
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        return _context.abrupt('return', languageLoader.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ key: key }) })).first());
+                        return _context.abrupt('return', languageService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ key: key }) })).first());
 
                       case 1:
                       case 'end':
@@ -61,19 +61,19 @@ var languageLoaderByKey = exports.languageLoaderByKey = new _dataloader2.default
 
 var languageLoaderById = exports.languageLoaderById = new _dataloader2.default(function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(ids) {
-    var languageLoader;
+    var languageService;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            languageLoader = new _parseServerCommon.LanguageLoader();
+            languageService = new _parseServerCommon.LanguageService();
             return _context4.abrupt('return', Promise.all(ids.map(function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
                       case 0:
-                        return _context3.abrupt('return', languageLoader.read(id, null));
+                        return _context3.abrupt('return', languageService.read(id, null));
 
                       case 1:
                       case 'end':
