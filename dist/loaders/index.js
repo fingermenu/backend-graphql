@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.menuLoaderById = exports.menuItemLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemLoaderById = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -39,13 +39,21 @@ var _ChoiceItemLoader = require('./ChoiceItemLoader');
 
 var _ChoiceItemLoader2 = _interopRequireDefault(_ChoiceItemLoader);
 
-var _MenuItemLoader = require('./MenuItemLoader');
+var _ChoiceItemPriceLoader = require('./ChoiceItemPriceLoader');
 
-var _MenuItemLoader2 = _interopRequireDefault(_MenuItemLoader);
+var _ChoiceItemPriceLoader2 = _interopRequireDefault(_ChoiceItemPriceLoader);
 
 var _MenuLoader = require('./MenuLoader');
 
 var _MenuLoader2 = _interopRequireDefault(_MenuLoader);
+
+var _MenuItemLoader = require('./MenuItemLoader');
+
+var _MenuItemLoader2 = _interopRequireDefault(_MenuItemLoader);
+
+var _MenuItemPriceLoader = require('./MenuItemPriceLoader');
+
+var _MenuItemPriceLoader2 = _interopRequireDefault(_MenuItemPriceLoader);
 
 var _SizeLoader = require('./SizeLoader');
 
@@ -58,7 +66,9 @@ var _TagLoader2 = _interopRequireDefault(_TagLoader);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.choiceItemLoaderById = _ChoiceItemLoader2.default;
-exports.menuItemLoaderById = _MenuItemLoader2.default;
+exports.choiceItemPriceLoaderById = _ChoiceItemPriceLoader2.default;
 exports.menuLoaderById = _MenuLoader2.default;
+exports.menuItemLoaderById = _MenuItemLoader2.default;
+exports.menuItemPriceLoaderById = _MenuItemPriceLoader2.default;
 exports.sizeLoaderById = _SizeLoader2.default;
 exports.tagLoaderById = _TagLoader2.default;
