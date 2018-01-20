@@ -12,8 +12,12 @@ import Menu, { getMenu } from './Menu';
 import MenuConnection, { getMenus } from './MenuConnection';
 import ChoiceItem, { getChoiceItem } from './ChoiceItem';
 import ChoiceItemConnection, { getChoiceItems } from './ChoiceItemConnection';
+import ChoiceItemPrice, { getChoiceItemPrice } from './ChoiceItemPrice';
+import ChoiceItemPriceConnection, { getChoiceItemPrices } from './ChoiceItemPriceConnection';
 import MenuItem, { getMenuItem } from './MenuItem';
 import MenuItemConnection, { getMenuItems } from './MenuItemConnection';
+import MenuItemPrice, { getMenuItemPrice } from './MenuItemPrice';
+import MenuItemPriceConnection, { getMenuItemPrices } from './MenuItemPriceConnection';
 import Restaurant, { getRestaurant } from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 
@@ -141,6 +145,28 @@ export default new GraphQLObjectType({
       resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
         getChoiceItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
+    choiceItemPrice: {
+      type: ChoiceItemPrice,
+      args: {
+        choiceItemPriceId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { choiceItemPriceId }, { sessionToken }) => getChoiceItemPrice(choiceItemPriceId, sessionToken),
+    },
+    choiceItemPrices: {
+      type: ChoiceItemPriceConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        choiceItemPriceIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getChoiceItemPrices(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
     menuItem: {
       type: MenuItem,
       args: {
@@ -168,6 +194,28 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) => getMenuItems(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+    },
+    menuItemPrice: {
+      type: MenuItemPrice,
+      args: {
+        menuItemPriceId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { menuItemPriceId }, { sessionToken }) => getMenuItemPrice(menuItemPriceId, sessionToken),
+    },
+    menuItemPrices: {
+      type: MenuItemPriceConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        menuItemPriceIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getMenuItemPrices(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
     restaurant: {
       type: Restaurant,

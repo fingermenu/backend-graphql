@@ -48,6 +48,14 @@ var _ChoiceItemConnection = require('./ChoiceItemConnection');
 
 var _ChoiceItemConnection2 = _interopRequireDefault(_ChoiceItemConnection);
 
+var _ChoiceItemPrice = require('./ChoiceItemPrice');
+
+var _ChoiceItemPrice2 = _interopRequireDefault(_ChoiceItemPrice);
+
+var _ChoiceItemPriceConnection = require('./ChoiceItemPriceConnection');
+
+var _ChoiceItemPriceConnection2 = _interopRequireDefault(_ChoiceItemPriceConnection);
+
 var _MenuItem = require('./MenuItem');
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
@@ -55,6 +63,14 @@ var _MenuItem2 = _interopRequireDefault(_MenuItem);
 var _MenuItemConnection = require('./MenuItemConnection');
 
 var _MenuItemConnection2 = _interopRequireDefault(_MenuItemConnection);
+
+var _MenuItemPrice = require('./MenuItemPrice');
+
+var _MenuItemPrice2 = _interopRequireDefault(_MenuItemPrice);
+
+var _MenuItemPriceConnection = require('./MenuItemPriceConnection');
+
+var _MenuItemPriceConnection2 = _interopRequireDefault(_MenuItemPriceConnection);
 
 var _Restaurant = require('./Restaurant');
 
@@ -361,22 +377,22 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    menuItem: {
-      type: _MenuItem2.default,
+    choiceItemPrice: {
+      type: _ChoiceItemPrice2.default,
       args: {
-        menuItemId: {
+        choiceItemPriceId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
         }
       },
       resolve: function () {
         var _ref21 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_, _ref22, _ref23) {
-          var menuItemId = _ref22.menuItemId;
+          var choiceItemPriceId = _ref22.choiceItemPriceId;
           var sessionToken = _ref23.sessionToken;
           return regeneratorRuntime.wrap(function _callee9$(_context9) {
             while (1) {
               switch (_context9.prev = _context9.next) {
                 case 0:
-                  return _context9.abrupt('return', (0, _MenuItem.getMenuItem)(menuItemId, sessionToken));
+                  return _context9.abrupt('return', (0, _ChoiceItemPrice.getChoiceItemPrice)(choiceItemPriceId, sessionToken));
 
                 case 1:
                 case 'end':
@@ -388,6 +404,69 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x25, _x26, _x27) {
           return _ref21.apply(this, arguments);
+        };
+      }()
+    },
+    choiceItemPrices: {
+      type: _ChoiceItemPriceConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        choiceItemPriceIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_, args, _ref25) {
+          var dataLoaders = _ref25.dataLoaders,
+              sessionToken = _ref25.sessionToken;
+          return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            while (1) {
+              switch (_context10.prev = _context10.next) {
+                case 0:
+                  return _context10.abrupt('return', (0, _ChoiceItemPriceConnection.getChoiceItemPrices)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context10.stop();
+              }
+            }
+          }, _callee10, undefined);
+        }));
+
+        return function resolve(_x28, _x29, _x30) {
+          return _ref24.apply(this, arguments);
+        };
+      }()
+    },
+    menuItem: {
+      type: _MenuItem2.default,
+      args: {
+        menuItemId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref26 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, _ref27, _ref28) {
+          var menuItemId = _ref27.menuItemId;
+          var sessionToken = _ref28.sessionToken;
+          return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            while (1) {
+              switch (_context11.prev = _context11.next) {
+                case 0:
+                  return _context11.abrupt('return', (0, _MenuItem.getMenuItem)(menuItemId, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context11.stop();
+              }
+            }
+          }, _callee11, undefined);
+        }));
+
+        return function resolve(_x31, _x32, _x33) {
+          return _ref26.apply(this, arguments);
         };
       }()
     },
@@ -408,26 +487,89 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_, args, _ref25) {
-          var dataLoaders = _ref25.dataLoaders,
-              sessionToken = _ref25.sessionToken,
-              language = _ref25.language;
-          return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        var _ref29 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref30) {
+          var dataLoaders = _ref30.dataLoaders,
+              sessionToken = _ref30.sessionToken,
+              language = _ref30.language;
+          return regeneratorRuntime.wrap(function _callee12$(_context12) {
             while (1) {
-              switch (_context10.prev = _context10.next) {
+              switch (_context12.prev = _context12.next) {
                 case 0:
-                  return _context10.abrupt('return', (0, _MenuItemConnection.getMenuItems)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
+                  return _context12.abrupt('return', (0, _MenuItemConnection.getMenuItems)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
-                  return _context10.stop();
+                  return _context12.stop();
               }
             }
-          }, _callee10, undefined);
+          }, _callee12, undefined);
         }));
 
-        return function resolve(_x28, _x29, _x30) {
-          return _ref24.apply(this, arguments);
+        return function resolve(_x34, _x35, _x36) {
+          return _ref29.apply(this, arguments);
+        };
+      }()
+    },
+    menuItemPrice: {
+      type: _MenuItemPrice2.default,
+      args: {
+        menuItemPriceId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref31 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, _ref32, _ref33) {
+          var menuItemPriceId = _ref32.menuItemPriceId;
+          var sessionToken = _ref33.sessionToken;
+          return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            while (1) {
+              switch (_context13.prev = _context13.next) {
+                case 0:
+                  return _context13.abrupt('return', (0, _MenuItemPrice.getMenuItemPrice)(menuItemPriceId, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context13.stop();
+              }
+            }
+          }, _callee13, undefined);
+        }));
+
+        return function resolve(_x37, _x38, _x39) {
+          return _ref31.apply(this, arguments);
+        };
+      }()
+    },
+    menuItemPrices: {
+      type: _MenuItemPriceConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        menuItemPriceIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref34 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(_, args, _ref35) {
+          var dataLoaders = _ref35.dataLoaders,
+              sessionToken = _ref35.sessionToken;
+          return regeneratorRuntime.wrap(function _callee14$(_context14) {
+            while (1) {
+              switch (_context14.prev = _context14.next) {
+                case 0:
+                  return _context14.abrupt('return', (0, _MenuItemPriceConnection.getMenuItemPrices)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context14.stop();
+              }
+            }
+          }, _callee14, undefined);
+        }));
+
+        return function resolve(_x40, _x41, _x42) {
+          return _ref34.apply(this, arguments);
         };
       }()
     },
@@ -439,25 +581,25 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       },
       resolve: function () {
-        var _ref26 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, _ref27, _ref28) {
-          var restaurantId = _ref27.restaurantId;
-          var sessionToken = _ref28.sessionToken;
-          return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        var _ref36 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, _ref37, _ref38) {
+          var restaurantId = _ref37.restaurantId;
+          var sessionToken = _ref38.sessionToken;
+          return regeneratorRuntime.wrap(function _callee15$(_context15) {
             while (1) {
-              switch (_context11.prev = _context11.next) {
+              switch (_context15.prev = _context15.next) {
                 case 0:
-                  return _context11.abrupt('return', (0, _Restaurant.getRestaurant)(restaurantId, sessionToken));
+                  return _context15.abrupt('return', (0, _Restaurant.getRestaurant)(restaurantId, sessionToken));
 
                 case 1:
                 case 'end':
-                  return _context11.stop();
+                  return _context15.stop();
               }
             }
-          }, _callee11, undefined);
+          }, _callee15, undefined);
         }));
 
-        return function resolve(_x31, _x32, _x33) {
-          return _ref26.apply(this, arguments);
+        return function resolve(_x43, _x44, _x45) {
+          return _ref36.apply(this, arguments);
         };
       }()
     },
@@ -481,26 +623,26 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref29 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref30) {
-          var dataLoaders = _ref30.dataLoaders,
-              sessionToken = _ref30.sessionToken,
-              language = _ref30.language;
-          return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        var _ref39 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(_, args, _ref40) {
+          var dataLoaders = _ref40.dataLoaders,
+              sessionToken = _ref40.sessionToken,
+              language = _ref40.language;
+          return regeneratorRuntime.wrap(function _callee16$(_context16) {
             while (1) {
-              switch (_context12.prev = _context12.next) {
+              switch (_context16.prev = _context16.next) {
                 case 0:
-                  return _context12.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
+                  return _context16.abrupt('return', (0, _RestaurantConnection.getRestaurants)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
-                  return _context12.stop();
+                  return _context16.stop();
               }
             }
-          }, _callee12, undefined);
+          }, _callee16, undefined);
         }));
 
-        return function resolve(_x34, _x35, _x36) {
-          return _ref29.apply(this, arguments);
+        return function resolve(_x46, _x47, _x48) {
+          return _ref39.apply(this, arguments);
         };
       }()
     }
