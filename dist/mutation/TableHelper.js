@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _commonJavascript = require('@microbusiness/common-javascript');
+
 var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
@@ -15,10 +17,6 @@ var _type = require('../type');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var isNullOrUndefined = function isNullOrUndefined(value) {
-  return typeof value === 'undefined' || value === null;
-};
 
 var updateTable = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, dataLoaders, sessionToken) {
@@ -43,11 +41,11 @@ var updateTable = function () {
             throw new Error('Table Id not provided.');
 
           case 2:
-            _context.t0 = (0, _type.getTable)(id).merge(isNullOrUndefined(name) ? (0, _immutable.Map)() : _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
+            _context.t0 = (0, _type.getTable)(id).merge(_commonJavascript.Common.isNullOrUndefined(name) ? (0, _immutable.Map)() : _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
               return reduction.set(languageValue.language, languageValue.value);
-            }, (0, _immutable.Map)())).merge(isNullOrUndefined(status) ? (0, _immutable.Map)() : (0, _immutable.Map)({ status: status }));
+            }, (0, _immutable.Map)())).merge(_commonJavascript.Common.isNullOrUndefined(status) ? (0, _immutable.Map)() : (0, _immutable.Map)({ status: status }));
 
-            if (!isNullOrUndefined(tableState)) {
+            if (!_commonJavascript.Common.isNullOrUndefined(tableState)) {
               _context.next = 7;
               break;
             }
@@ -70,10 +68,10 @@ var updateTable = function () {
 
           case 13:
             _context.t5 = _context.t1;
-            _context.t6 = isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults });
-            _context.t7 = isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren });
-            _context.t8 = isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName });
-            _context.t9 = isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
+            _context.t6 = _commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults });
+            _context.t7 = _commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren });
+            _context.t8 = _commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName });
+            _context.t9 = _commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
             _context.next = 20;
             return _context.t0.merge.call(_context.t0, _context.t5).merge(_context.t6).merge(_context.t7).merge(_context.t8).merge(_context.t9);
 

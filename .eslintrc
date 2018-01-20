@@ -48,9 +48,6 @@
       ]
     }
   },
-  "globals": {
-    "Parse": true,
-  },
   "env": {
     "jest/globals": true
   }
