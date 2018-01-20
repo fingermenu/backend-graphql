@@ -105,6 +105,14 @@ type LanguageTypeEdge {
   cursor: String!
 }
 
+type Menu implements Node {
+  id: ID!
+  name: String
+  description: String
+  menuPageUrl: String
+  imageUrl: String
+}
+
 type MenuItem implements Node {
   id: ID!
   name: String
@@ -126,6 +134,24 @@ type MenuItemTypeConnection {
 type MenuItemTypeEdge {
   # The item at the end of the edge
   node: MenuItem
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# A connection to a list of items.
+type MenuTypeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MenuTypeEdge]
+}
+
+# An edge in a connection.
+type MenuTypeEdge {
+  # The item at the end of the edge
+  node: Menu
 
   # A cursor for use in pagination
   cursor: String!
@@ -282,6 +308,8 @@ type UpdateTablePayload {
 
 type User implements Node {
   id: ID!
+  menu(menuId: ID!): Menu
+  menus(after: String, first: Int, before: String, last: Int, menuIds: [ID!], name: String, description: String, sortOption: String): MenuTypeConnection
   choiceItem(choiceItemId: ID!): ChoiceItem
   choiceItems(after: String, first: Int, before: String, last: Int, choiceItemIds: [ID!], name: String, description: String, sortOption: String): ChoiceItemTypeConnection
   menuItem(menuItemId: ID!): MenuItem

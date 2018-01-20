@@ -4,6 +4,8 @@ import Immutable from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
+import Menu, { getMenu } from './Menu';
+import MenuConnection, { getMenus } from './MenuConnection';
 import ChoiceItem, { getChoiceItem } from './ChoiceItem';
 import ChoiceItemConnection, { getChoiceItems } from './ChoiceItemConnection';
 import MenuItem, { getMenuItem } from './MenuItem';
@@ -17,6 +19,34 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
+    },
+    menu: {
+      type: Menu,
+      args: {
+        menuId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { menuId }, { sessionToken }) => getMenu(menuId, sessionToken),
+    },
+    menus: {
+      type: MenuConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        menuIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        name: {
+          type: GraphQLString,
+        },
+        description: {
+          type: GraphQLString,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { sessionToken }) => getMenus(Immutable.fromJS(args), sessionToken),
     },
     choiceItem: {
       type: ChoiceItem,
