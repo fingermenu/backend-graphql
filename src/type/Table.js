@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { TableService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
 import TableState from './TableState';
@@ -25,6 +25,22 @@ export default new GraphQLObjectType({
     status: {
       type: GraphQLString,
       resolve: _ => _.get('status'),
+    },
+    numberOfAdults: {
+      type: GraphQLInt,
+      resolve: _ => _.get('numberOfAdults'),
+    },
+    numberOfChildren: {
+      type: GraphQLInt,
+      resolve: _ => _.get('numberOfChildren'),
+    },
+    customerName: {
+      type: GraphQLString,
+      resolve: _ => _.get('customerName'),
+    },
+    notes: {
+      type: GraphQLString,
+      resolve: _ => _.get('notes'),
     },
     tableState: {
       type: TableState,

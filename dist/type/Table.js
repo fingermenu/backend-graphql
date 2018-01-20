@@ -65,6 +65,30 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('status');
       }
     },
+    numberOfAdults: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('numberOfAdults');
+      }
+    },
+    numberOfChildren: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('numberOfChildren');
+      }
+    },
+    customerName: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('customerName');
+      }
+    },
+    notes: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('notes');
+      }
+    },
     tableState: {
       type: _TableState2.default,
       resolve: function () {
