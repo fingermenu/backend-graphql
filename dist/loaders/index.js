@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.languageLoaderById = exports.languageLoaderByKey = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.menuLoaderById = exports.menuItemLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -35,10 +35,30 @@ Object.defineProperty(exports, 'tableStateLoaderById', {
   }
 });
 
+var _ChoiceItemLoader = require('./ChoiceItemLoader');
+
+var _ChoiceItemLoader2 = _interopRequireDefault(_ChoiceItemLoader);
+
+var _MenuItemLoader = require('./MenuItemLoader');
+
+var _MenuItemLoader2 = _interopRequireDefault(_MenuItemLoader);
+
+var _MenuLoader = require('./MenuLoader');
+
+var _MenuLoader2 = _interopRequireDefault(_MenuLoader);
+
+var _SizeLoader = require('./SizeLoader');
+
+var _SizeLoader2 = _interopRequireDefault(_SizeLoader);
+
 var _TagLoader = require('./TagLoader');
 
 var _TagLoader2 = _interopRequireDefault(_TagLoader);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.choiceItemLoaderById = _ChoiceItemLoader2.default;
+exports.menuItemLoaderById = _MenuItemLoader2.default;
+exports.menuLoaderById = _MenuLoader2.default;
+exports.sizeLoaderById = _SizeLoader2.default;
 exports.tagLoaderById = _TagLoader2.default;

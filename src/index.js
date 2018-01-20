@@ -1,4 +1,14 @@
 // @flow
 
-export { languageLoaderByKey, languageLoaderById, tableStateLoaderByKey, tableStateLoaderById, tagLoaderById } from './loaders';
+export {
+  choiceItemLoaderById,
+  languageLoaderByKey,
+  languageLoaderById,
+  menuLoaderById,
+  menuItemLoaderById,
+  sizeLoaderById,
+  tableStateLoaderByKey,
+  tableStateLoaderById,
+  tagLoaderById,
+} from './loaders';
 export getRootSchema from './RootSchema';
