@@ -6,6 +6,7 @@ import { RestaurantService, TableService } from '@fingermenu/parse-server-common
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import Language from './Language';
+import Menu from './Menu';
 import Table from './Table';
 import { NodeInterface } from '../interface';
 
@@ -89,6 +90,14 @@ const ParentRestaurant = new GraphQLObjectType({
       type: GraphQLString,
       resolve: async _ => _.get('pin'),
     },
+    menus: {
+      type: new GraphQLList(new GraphQLNonNull(Menu)),
+      resolve: async (_, args, { dataLoaders }) => {
+        const menuIds = _.get('menuIds');
+
+        return !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+      },
+    },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),
       resolve: async (_, args, { dataLoaders }) => {
@@ -171,6 +180,14 @@ export default new GraphQLObjectType({
     pin: {
       type: GraphQLString,
       resolve: async _ => _.get('pin'),
+    },
+    menus: {
+      type: new GraphQLList(new GraphQLNonNull(Menu)),
+      resolve: async (_, args, { dataLoaders }) => {
+        const menuIds = _.get('menuIds');
+
+        return !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+      },
     },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),

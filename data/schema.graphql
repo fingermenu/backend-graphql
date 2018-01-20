@@ -197,6 +197,7 @@ type ParentRestaurant implements Node {
   googleMapUrl: String
   inheritParentRestaurantMenus: Boolean
   pin: String
+  menus: [Menu!]
   languages: [Language!]
   tables: [Table!]
 }
@@ -229,6 +230,7 @@ type Restaurant implements Node {
   googleMapUrl: String
   inheritParentRestaurantMenus: Boolean
   pin: String
+  menus: [Menu!]
   languages: [Language!]
   tables: [Table!]
   parentRestaurant: ParentRestaurant
