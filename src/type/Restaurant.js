@@ -91,7 +91,11 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.languageLoaderById.loadMany(_.get('languageIds')),
+      resolve: async (_, args, { dataLoaders }) => {
+        const languageIds = _.get('languageIds');
+
+        return !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+      },
     },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
@@ -170,7 +174,11 @@ export default new GraphQLObjectType({
     },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.languageLoaderById.loadMany(_.get('languageIds')),
+      resolve: async (_, args, { dataLoaders }) => {
+        const languageIds = _.get('languageIds');
+
+        return !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+      },
     },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),

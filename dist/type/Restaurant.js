@@ -224,13 +224,15 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref8) {
           var dataLoaders = _ref8.dataLoaders;
+          var languageIds;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', dataLoaders.languageLoaderById.loadMany(_.get('languageIds')));
+                  languageIds = _.get('languageIds');
+                  return _context6.abrupt('return', !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
 
-                case 1:
+                case 2:
                 case 'end':
                   return _context6.stop();
               }
@@ -416,13 +418,15 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref16) {
           var dataLoaders = _ref16.dataLoaders;
+          var languageIds;
           return regeneratorRuntime.wrap(function _callee11$(_context11) {
             while (1) {
               switch (_context11.prev = _context11.next) {
                 case 0:
-                  return _context11.abrupt('return', dataLoaders.languageLoaderById.loadMany(_.get('languageIds')));
+                  languageIds = _.get('languageIds');
+                  return _context11.abrupt('return', !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
 
-                case 1:
+                case 2:
                 case 'end':
                   return _context11.stop();
               }
