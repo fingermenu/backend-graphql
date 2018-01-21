@@ -3,6 +3,7 @@
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { MenuService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
+import MenuItemPrice from './MenuItemPrice';
 import Tag from './Tag';
 
 export const getMenu = async (menuId, sessionToken) => new MenuService().read(menuId, null, sessionToken);
@@ -37,6 +38,10 @@ export default new GraphQLObjectType({
     imageUrl: {
       type: GraphQLString,
       resolve: async _ => _.get('imageUrl'),
+    },
+    menuItemPrices: {
+      type: new GraphQLList(new GraphQLNonNull(MenuItemPrice)),
+      resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray()),
     },
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),

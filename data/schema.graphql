@@ -149,6 +149,7 @@ type Menu implements Node {
   description: String
   menuPageUrl: String
   imageUrl: String
+  menuItemPrices: [MenuItemPrice!]
   tags: [Tag!]
 }
 
