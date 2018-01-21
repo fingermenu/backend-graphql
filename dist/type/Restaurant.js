@@ -72,7 +72,7 @@ var getRestaurant = exports.getRestaurant = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _parseServerCommon.RestaurantService().read(restaurantId, (0, _immutable.Map)({ include_parentRestaurant: true, include_menus: true }), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.RestaurantService().read(restaurantId, null, sessionToken));
 
           case 1:
           case 'end':
@@ -532,12 +532,6 @@ exports.default = new _graphql.GraphQLObjectType({
 
         if (parentRestaurantId) {
           return dataLoaders.restaurantLoaderById.load(parentRestaurantId);
-        }
-
-        var parentRestaurant = _.get('parentRestaurant');
-
-        if (parentRestaurant) {
-          return parentRestaurant;
         }
 
         return null;

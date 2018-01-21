@@ -20,6 +20,8 @@ import MenuItemPrice, { getMenuItemPrice } from './MenuItemPrice';
 import MenuItemPriceConnection, { getMenuItemPrices } from './MenuItemPriceConnection';
 import Restaurant, { getRestaurant } from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
+import Table, { getTable } from './Table';
+import TableConnection, { getTables } from './TableConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -248,6 +250,34 @@ export default new GraphQLObjectType({
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
         getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+    },
+    table: {
+      type: Table,
+      args: {
+        tableId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { tableId }, { sessionToken }) => getTable(tableId, sessionToken),
+    },
+    tables: {
+      type: TableConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        tableIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        name: {
+          type: GraphQLString,
+        },
+        restaurantId: {
+          type: GraphQLID,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getTables(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
   },
   interfaces: [NodeInterface],

@@ -80,6 +80,14 @@ var _RestaurantConnection = require('./RestaurantConnection');
 
 var _RestaurantConnection2 = _interopRequireDefault(_RestaurantConnection);
 
+var _Table = require('./Table');
+
+var _Table2 = _interopRequireDefault(_Table);
+
+var _TableConnection = require('./TableConnection');
+
+var _TableConnection2 = _interopRequireDefault(_TableConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -643,6 +651,76 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x46, _x47, _x48) {
           return _ref39.apply(this, arguments);
+        };
+      }()
+    },
+    table: {
+      type: _Table2.default,
+      args: {
+        tableId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref41 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(_, _ref42, _ref43) {
+          var tableId = _ref42.tableId;
+          var sessionToken = _ref43.sessionToken;
+          return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            while (1) {
+              switch (_context17.prev = _context17.next) {
+                case 0:
+                  return _context17.abrupt('return', (0, _Table.getTable)(tableId, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context17.stop();
+              }
+            }
+          }, _callee17, undefined);
+        }));
+
+        return function resolve(_x49, _x50, _x51) {
+          return _ref41.apply(this, arguments);
+        };
+      }()
+    },
+    tables: {
+      type: _TableConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        tableIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        name: {
+          type: _graphql.GraphQLString
+        },
+        restaurantId: {
+          type: _graphql.GraphQLID
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref44 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18(_, args, _ref45) {
+          var dataLoaders = _ref45.dataLoaders,
+              sessionToken = _ref45.sessionToken,
+              language = _ref45.language;
+          return regeneratorRuntime.wrap(function _callee18$(_context18) {
+            while (1) {
+              switch (_context18.prev = _context18.next) {
+                case 0:
+                  return _context18.abrupt('return', (0, _TableConnection.getTables)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
+
+                case 1:
+                case 'end':
+                  return _context18.stop();
+              }
+            }
+          }, _callee18, undefined);
+        }));
+
+        return function resolve(_x52, _x53, _x54) {
+          return _ref44.apply(this, arguments);
         };
       }()
     }

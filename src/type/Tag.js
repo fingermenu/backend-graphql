@@ -89,12 +89,6 @@ export default new GraphQLObjectType({
           return dataLoaders.tagLoaderById.load(parentTagId);
         }
 
-        const parentTag = _.get('parentTag');
-
-        if (parentTag) {
-          return parentTag;
-        }
-
         return null;
       },
     },

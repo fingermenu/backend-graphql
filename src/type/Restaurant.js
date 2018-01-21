@@ -20,8 +20,7 @@ const getTableCriteria = restaurantId =>
 const getTablesMatchCriteria = async (restaurantId, sessionToken) =>
   new TableService().search(getTableCriteria(restaurantId).set('limit', 1000), sessionToken);
 
-export const getRestaurant = async (restaurantId, sessionToken) =>
-  new RestaurantService().read(restaurantId, Map({ include_parentRestaurant: true, include_menus: true }), sessionToken);
+export const getRestaurant = async (restaurantId, sessionToken) => new RestaurantService().read(restaurantId, null, sessionToken);
 
 const ParentRestaurant = new GraphQLObjectType({
   name: 'ParentRestaurant',
@@ -208,12 +207,6 @@ export default new GraphQLObjectType({
 
         if (parentRestaurantId) {
           return dataLoaders.restaurantLoaderById.load(parentRestaurantId);
-        }
-
-        const parentRestaurant = _.get('parentRestaurant');
-
-        if (parentRestaurant) {
-          return parentRestaurant;
         }
 
         return null;
