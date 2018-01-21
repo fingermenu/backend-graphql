@@ -44,6 +44,16 @@ type AddRestaurantPayload {
   clientMutationId: String
 }
 
+type BeServedWithMenuItemPrice implements Node {
+  id: ID!
+  currentPrice: Float
+  wasPrice: Float
+  validFrom: String
+  validUntil: String
+  menuItem: MenuItem
+  choiceItemPrices: [ChoiceItemPrice!]
+}
+
 type ChoiceItem implements Node {
   id: ID!
   name: String
@@ -158,6 +168,8 @@ type MenuItemPrice implements Node {
   validFrom: String
   validUntil: String
   menuItem: MenuItem
+  toBeServedWithMenuItemPrices: [BeServedWithMenuItemPrice!]
+  choiceItemPrices: [ChoiceItemPrice!]
 }
 
 # A connection to a list of items.
