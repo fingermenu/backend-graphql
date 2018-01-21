@@ -20,7 +20,7 @@ export default new GraphQLObjectType({
       resolve: (_, args, { language }) => {
         const allValues = _.get('name');
 
-        return allValues ? allValues.get(`${language}_name`) : null;
+        return allValues ? allValues.get(language) : null;
       },
     },
     description: {
@@ -28,7 +28,7 @@ export default new GraphQLObjectType({
       resolve: (_, args, { language }) => {
         const allValues = _.get('description');
 
-        return allValues ? allValues.get(`${language}_description`) : null;
+        return allValues ? allValues.get(language) : null;
       },
     },
     menuPageUrl: {

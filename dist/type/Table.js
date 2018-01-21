@@ -56,7 +56,7 @@ exports.default = new _graphql.GraphQLObjectType({
 
         var allValues = _.get('name');
 
-        return allValues ? allValues.get(language + '_name') : null;
+        return allValues ? allValues.get(language) : null;
       }
     },
     status: {

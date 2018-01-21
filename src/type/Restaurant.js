@@ -34,7 +34,7 @@ const ParentRestaurant = new GraphQLObjectType({
       resolve: (_, args, { language }) => {
         const allValues = _.get('name');
 
-        return allValues ? allValues.get(`${language}_name`) : null;
+        return allValues ? allValues.get(language) : null;
       },
     },
     websiteUrl: {
@@ -94,7 +94,7 @@ const ParentRestaurant = new GraphQLObjectType({
       resolve: async (_, args, { dataLoaders }) => {
         const menuIds = _.get('menuIds');
 
-        return !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+        return !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
       },
     },
     languages: {
@@ -102,12 +102,12 @@ const ParentRestaurant = new GraphQLObjectType({
       resolve: async (_, args, { dataLoaders }) => {
         const languageIds = _.get('languageIds');
 
-        return !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+        return !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
       },
     },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
-      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toJS(),
+      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toArray(),
     },
   },
   interfaces: [NodeInterface],
@@ -125,7 +125,7 @@ export default new GraphQLObjectType({
       resolve: (_, args, { language }) => {
         const allValues = _.get('name');
 
-        return allValues ? allValues.get(`${language}_name`) : null;
+        return allValues ? allValues.get(language) : null;
       },
     },
     websiteUrl: {
@@ -185,7 +185,7 @@ export default new GraphQLObjectType({
       resolve: async (_, args, { dataLoaders }) => {
         const menuIds = _.get('menuIds');
 
-        return !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+        return !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
       },
     },
     languages: {
@@ -193,12 +193,12 @@ export default new GraphQLObjectType({
       resolve: async (_, args, { dataLoaders }) => {
         const languageIds = _.get('languageIds');
 
-        return !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+        return !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
       },
     },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
-      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toJS(),
+      resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toArray(),
     },
     parentRestaurant: {
       type: ParentRestaurant,

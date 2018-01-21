@@ -103,7 +103,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
 
         var allValues = _.get('name');
 
-        return allValues ? allValues.get(language + '_name') : null;
+        return allValues ? allValues.get(language) : null;
       }
     },
     websiteUrl: {
@@ -234,7 +234,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
               switch (_context6.prev = _context6.next) {
                 case 0:
                   menuIds = _.get('menuIds');
-                  return _context6.abrupt('return', !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray()));
+                  return _context6.abrupt('return', !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray()));
 
                 case 2:
                 case 'end':
@@ -260,7 +260,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
               switch (_context7.prev = _context7.next) {
                 case 0:
                   languageIds = _.get('languageIds');
-                  return _context7.abrupt('return', !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
+                  return _context7.abrupt('return', !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
 
                 case 2:
                 case 'end':
@@ -288,7 +288,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
                   return getTablesMatchCriteria(_.get('id'), sessionToken);
 
                 case 2:
-                  return _context8.abrupt('return', _context8.sent.toJS());
+                  return _context8.abrupt('return', _context8.sent.toArray());
 
                 case 3:
                 case 'end':
@@ -323,7 +323,7 @@ exports.default = new _graphql.GraphQLObjectType({
 
         var allValues = _.get('name');
 
-        return allValues ? allValues.get(language + '_name') : null;
+        return allValues ? allValues.get(language) : null;
       }
     },
     websiteUrl: {
@@ -454,7 +454,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context12.prev = _context12.next) {
                 case 0:
                   menuIds = _.get('menuIds');
-                  return _context12.abrupt('return', !menuIds || menuIds.isEmtpy() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray()));
+                  return _context12.abrupt('return', !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray()));
 
                 case 2:
                 case 'end':
@@ -480,7 +480,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context13.prev = _context13.next) {
                 case 0:
                   languageIds = _.get('languageIds');
-                  return _context13.abrupt('return', !languageIds || languageIds.isEmtpy() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
+                  return _context13.abrupt('return', !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray()));
 
                 case 2:
                 case 'end':
@@ -508,7 +508,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   return getTablesMatchCriteria(_.get('id'), sessionToken);
 
                 case 2:
-                  return _context14.abrupt('return', _context14.sent.toJS());
+                  return _context14.abrupt('return', _context14.sent.toArray());
 
                 case 3:
                 case 'end':
