@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -27,8 +27,6 @@
     "graphql-relay": "^0.5.4",
     "immutable": "^4.0.0-rc.9",
     "js-joda": "^1.6.2",
-    "json-hash": "^1.2.0",
-    "moment": "^2.20.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
