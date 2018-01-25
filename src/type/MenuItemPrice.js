@@ -5,6 +5,7 @@ import { MenuItemPriceService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
+import Size from './Size';
 
 export const getMenuItemPrice = async (menuItemPriceId, sessionToken) => new MenuItemPriceService().read(menuItemPriceId, null, sessionToken);
 
@@ -34,6 +35,10 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     menuItem: {
       type: MenuItem,
       resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemLoaderById.load(_.get('menuItemId')),
+    },
+    size: {
+      type: Size,
+      resolve: async (_, args, { dataLoaders }) => (_.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null),
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
@@ -69,6 +74,10 @@ export default new GraphQLObjectType({
     menuItem: {
       type: MenuItem,
       resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemLoaderById.load(_.get('menuItemId')),
+    },
+    size: {
+      type: Size,
+      resolve: async (_, args, { dataLoaders }) => (_.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null),
     },
     toBeServedWithMenuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),

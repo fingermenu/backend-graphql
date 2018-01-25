@@ -15,6 +15,10 @@ var _ChoiceItem = require('./ChoiceItem');
 
 var _ChoiceItem2 = _interopRequireDefault(_ChoiceItem);
 
+var _Size = require('./Size');
+
+var _Size2 = _interopRequireDefault(_Size);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -162,6 +166,30 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x7, _x8, _x9) {
           return _ref6.apply(this, arguments);
+        };
+      }()
+    },
+    size: {
+      type: _Size2.default,
+      resolve: function () {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref9) {
+          var dataLoaders = _ref9.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  return _context7.abrupt('return', _.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null);
+
+                case 1:
+                case 'end':
+                  return _context7.stop();
+              }
+            }
+          }, _callee7, undefined);
+        }));
+
+        return function resolve(_x10, _x11, _x12) {
+          return _ref8.apply(this, arguments);
         };
       }()
     }
