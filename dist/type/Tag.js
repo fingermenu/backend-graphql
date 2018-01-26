@@ -236,17 +236,27 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     parentTag: {
       type: ParentTag,
-      resolve: function resolve(_, args, _ref12) {
-        var dataLoaders = _ref12.dataLoaders;
+      resolve: function () {
+        var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref13) {
+          var dataLoaders = _ref13.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            while (1) {
+              switch (_context8.prev = _context8.next) {
+                case 0:
+                  return _context8.abrupt('return', _.get('parentTagId') ? dataLoaders.tagLoaderById.load(_.get('parentTagId')) : null);
 
-        var parentTagId = _.get('parentTagId');
+                case 1:
+                case 'end':
+                  return _context8.stop();
+              }
+            }
+          }, _callee8, undefined);
+        }));
 
-        if (parentTagId) {
-          return dataLoaders.tagLoaderById.load(parentTagId);
-        }
-
-        return null;
-      }
+        return function resolve(_x9, _x10, _x11) {
+          return _ref12.apply(this, arguments);
+        };
+      }()
     }
   },
   interfaces: [_interface.NodeInterface]

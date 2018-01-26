@@ -202,15 +202,8 @@ export default new GraphQLObjectType({
     },
     parentRestaurant: {
       type: ParentRestaurant,
-      resolve: (_, args, { dataLoaders }) => {
-        const parentRestaurantId = _.get('parentRestaurantId');
-
-        if (parentRestaurantId) {
-          return dataLoaders.restaurantLoaderById.load(parentRestaurantId);
-        }
-
-        return null;
-      },
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('parentRestaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('parentRestaurantId')) : null),
     },
   },
   interfaces: [NodeInterface],

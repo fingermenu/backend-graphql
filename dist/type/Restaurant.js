@@ -525,17 +525,27 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     parentRestaurant: {
       type: ParentRestaurant,
-      resolve: function resolve(_, args, _ref23) {
-        var dataLoaders = _ref23.dataLoaders;
+      resolve: function () {
+        var _ref23 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, args, _ref24) {
+          var dataLoaders = _ref24.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            while (1) {
+              switch (_context15.prev = _context15.next) {
+                case 0:
+                  return _context15.abrupt('return', _.get('parentRestaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('parentRestaurantId')) : null);
 
-        var parentRestaurantId = _.get('parentRestaurantId');
+                case 1:
+                case 'end':
+                  return _context15.stop();
+              }
+            }
+          }, _callee15, undefined);
+        }));
 
-        if (parentRestaurantId) {
-          return dataLoaders.restaurantLoaderById.load(parentRestaurantId);
-        }
-
-        return null;
-      }
+        return function resolve(_x29, _x30, _x31) {
+          return _ref23.apply(this, arguments);
+        };
+      }()
     }
   },
   interfaces: [_interface.NodeInterface]

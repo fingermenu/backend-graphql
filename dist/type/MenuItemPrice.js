@@ -158,7 +158,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', dataLoaders.menuItemLoaderById.load(_.get('menuItemId')));
+                  return _context6.abrupt('return', _.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null);
 
                 case 1:
                 case 'end':
@@ -206,7 +206,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context8.prev = _context8.next) {
                 case 0:
-                  return _context8.abrupt('return', dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()));
+                  return _context8.abrupt('return', _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty() ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()) : []);
 
                 case 1:
                 case 'end':
@@ -335,7 +335,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context13.prev = _context13.next) {
                 case 0:
-                  return _context13.abrupt('return', dataLoaders.menuItemLoaderById.load(_.get('menuItemId')));
+                  return _context13.abrupt('return', _.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null);
 
                 case 1:
                 case 'end':
@@ -383,7 +383,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context15.prev = _context15.next) {
                 case 0:
-                  return _context15.abrupt('return', dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray()));
+                  return _context15.abrupt('return', _.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty() ? dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray()) : []);
 
                 case 1:
                 case 'end':
@@ -407,7 +407,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context16.prev = _context16.next) {
                 case 0:
-                  return _context16.abrupt('return', dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()));
+                  return _context16.abrupt('return', _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty() ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()) : []);
 
                 case 1:
                 case 'end':

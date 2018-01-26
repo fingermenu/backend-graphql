@@ -44,7 +44,7 @@ export default new GraphQLObjectType({
     },
     tableState: {
       type: TableState,
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.tableStateLoaderById.load(_.get('tableStateId')),
+      resolve: async (_, args, { dataLoaders }) => (_.get('tableStateId') ? dataLoaders.tableStateLoaderById.load(_.get('tableStateId')) : null),
     },
   },
   interfaces: [NodeInterface],

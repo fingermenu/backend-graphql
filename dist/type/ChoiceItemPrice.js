@@ -154,7 +154,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', dataLoaders.choiceItemLoaderById.load(_.get('choiceItemId')));
+                  return _context6.abrupt('return', _.get('choiceItemId') ? dataLoaders.choiceItemLoaderById.load(_.get('choiceItemId')) : null);
 
                 case 1:
                 case 'end':

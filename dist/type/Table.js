@@ -98,7 +98,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', dataLoaders.tableStateLoaderById.load(_.get('tableStateId')));
+                  return _context2.abrupt('return', _.get('tableStateId') ? dataLoaders.tableStateLoaderById.load(_.get('tableStateId')) : null);
 
                 case 1:
                 case 'end':

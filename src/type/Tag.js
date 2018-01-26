@@ -82,15 +82,7 @@ export default new GraphQLObjectType({
     },
     parentTag: {
       type: ParentTag,
-      resolve: (_, args, { dataLoaders }) => {
-        const parentTagId = _.get('parentTagId');
-
-        if (parentTagId) {
-          return dataLoaders.tagLoaderById.load(parentTagId);
-        }
-
-        return null;
-      },
+      resolve: async (_, args, { dataLoaders }) => (_.get('parentTagId') ? dataLoaders.tagLoaderById.load(_.get('parentTagId')) : null),
     },
   },
   interfaces: [NodeInterface],

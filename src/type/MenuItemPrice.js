@@ -34,7 +34,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     },
     menuItem: {
       type: MenuItem,
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemLoaderById.load(_.get('menuItemId')),
+      resolve: async (_, args, { dataLoaders }) => (_.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null),
     },
     size: {
       type: Size,
@@ -42,7 +42,10 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()),
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
+          ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())
+          : []),
     },
   },
   interfaces: [NodeInterface],
@@ -73,7 +76,7 @@ export default new GraphQLObjectType({
     },
     menuItem: {
       type: MenuItem,
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemLoaderById.load(_.get('menuItemId')),
+      resolve: async (_, args, { dataLoaders }) => (_.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null),
     },
     size: {
       type: Size,
@@ -81,11 +84,17 @@ export default new GraphQLObjectType({
     },
     toBeServedWithMenuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray()),
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty()
+          ? dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())
+          : []),
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()),
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
+          ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())
+          : []),
     },
   },
   interfaces: [NodeInterface],
