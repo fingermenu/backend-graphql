@@ -128,9 +128,30 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray()));
+                  if (!(_.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty())) {
+                    _context4.next = 7;
+                    break;
+                  }
 
-                case 1:
+                  _context4.next = 3;
+                  return dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
+
+                case 3:
+                  _context4.t1 = function (menuItemPrice) {
+                    return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
+                  };
+
+                  _context4.t0 = _context4.sent.filter(_context4.t1);
+                  _context4.next = 8;
+                  break;
+
+                case 7:
+                  _context4.t0 = [];
+
+                case 8:
+                  return _context4.abrupt('return', _context4.t0);
+
+                case 9:
                 case 'end':
                   return _context4.stop();
               }
@@ -152,7 +173,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()));
+                  return _context5.abrupt('return', _.get('tagIds') && !_.get('tagIds').isEmpty() ? dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()) : []);
 
                 case 1:
                 case 'end':

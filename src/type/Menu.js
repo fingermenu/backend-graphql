@@ -41,11 +41,15 @@ export default new GraphQLObjectType({
     },
     menuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(MenuItemPrice)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray()),
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty()
+          ? (await dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray())).filter(menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'))
+          : []),
     },
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()),
+      resolve: async (_, args, { dataLoaders }) =>
+        (_.get('tagIds') && !_.get('tagIds').isEmpty() ? dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()) : []),
     },
   },
   interfaces: [NodeInterface],

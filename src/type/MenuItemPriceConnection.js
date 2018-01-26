@@ -6,11 +6,12 @@ import { RelayHelper } from '@microbusiness/common-javascript';
 import { MenuItemPriceService } from '@fingermenu/parse-server-common';
 import MenuItemPrice from './MenuItemPrice';
 
-const getCriteria = (searchArgs, ownedByUserId) =>
+const getCriteria = (searchArgs, addedByUserId) =>
   Map({
     ids: searchArgs.has('menuItemPriceIds') ? searchArgs.get('menuItemPriceIds') : undefined,
     conditions: Map({
-      ownedByUserId,
+      addedByUserId,
+      doesNotExist_removedByUser: true,
     }),
   });
 
@@ -50,12 +51,12 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
   return criteria.set('orderByFieldAscending', 'currentPrice');
 };
 
-const getMenuItemPricesCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
-  new MenuItemPriceService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
+const getMenuItemPricesCountMatchCriteria = async (searchArgs, addedByUserId, sessionToken) =>
+  new MenuItemPriceService().count(addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId), searchArgs.get('sortOption')), sessionToken);
 
-const getMenuItemPricesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
+const getMenuItemPricesMatchCriteria = async (searchArgs, addedByUserId, sessionToken, limit, skip) =>
   new MenuItemPriceService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
+    addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

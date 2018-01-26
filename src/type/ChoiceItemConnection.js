@@ -6,12 +6,13 @@ import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import ChoiceItem from './ChoiceItem';
 
-const getCriteria = (searchArgs, ownedByUserId, language) =>
+const getCriteria = (searchArgs, addedByUserId, language) =>
   Map({
     language,
     ids: searchArgs.has('choiceItemIds') ? searchArgs.get('choiceItemIds') : undefined,
     conditions: Map({
-      ownedByUserId,
+      addedByUserId,
+      doesNotExist_removedByUser: true,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
     }),
@@ -37,15 +38,15 @@ const addSortOptionToCriteria = (criteria, sortOption, language) => {
   return criteria.set('orderByFieldAscending', `${language}_name`);
 };
 
-const getChoiceItemsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>
+const getChoiceItemsCountMatchCriteria = async (searchArgs, addedByUserId, sessionToken, language) =>
   new ChoiceItemService().count(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language),
+    addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId, language), searchArgs.get('sortOption'), language),
     sessionToken,
   );
 
-const getChoiceItemsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
+const getChoiceItemsMatchCriteria = async (searchArgs, addedByUserId, sessionToken, language, limit, skip) =>
   new ChoiceItemService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
+    addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId, language), searchArgs.get('sortOption'), language)
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,

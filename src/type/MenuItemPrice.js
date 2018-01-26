@@ -44,7 +44,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders }) =>
         (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())
+          ? (await dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'))
           : []),
     },
   },
@@ -86,14 +86,14 @@ export default new GraphQLObjectType({
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),
       resolve: async (_, args, { dataLoaders }) =>
         (_.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty()
-          ? dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())
+          ? (await dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())).filter(menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'))
           : []),
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders }) =>
         (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())
+          ? (await dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'))
           : []),
     },
   },

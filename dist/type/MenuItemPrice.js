@@ -206,9 +206,30 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context8.prev = _context8.next) {
                 case 0:
-                  return _context8.abrupt('return', _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty() ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()) : []);
+                  if (!(_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty())) {
+                    _context8.next = 7;
+                    break;
+                  }
 
-                case 1:
+                  _context8.next = 3;
+                  return dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+
+                case 3:
+                  _context8.t1 = function (choiceItemPrice) {
+                    return !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser');
+                  };
+
+                  _context8.t0 = _context8.sent.filter(_context8.t1);
+                  _context8.next = 8;
+                  break;
+
+                case 7:
+                  _context8.t0 = [];
+
+                case 8:
+                  return _context8.abrupt('return', _context8.t0);
+
+                case 9:
                 case 'end':
                   return _context8.stop();
               }
@@ -383,9 +404,30 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context15.prev = _context15.next) {
                 case 0:
-                  return _context15.abrupt('return', _.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty() ? dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray()) : []);
+                  if (!(_.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty())) {
+                    _context15.next = 7;
+                    break;
+                  }
 
-                case 1:
+                  _context15.next = 3;
+                  return dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray());
+
+                case 3:
+                  _context15.t1 = function (menuItemPrice) {
+                    return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
+                  };
+
+                  _context15.t0 = _context15.sent.filter(_context15.t1);
+                  _context15.next = 8;
+                  break;
+
+                case 7:
+                  _context15.t0 = [];
+
+                case 8:
+                  return _context15.abrupt('return', _context15.t0);
+
+                case 9:
                 case 'end':
                   return _context15.stop();
               }
@@ -407,9 +449,30 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context16.prev = _context16.next) {
                 case 0:
-                  return _context16.abrupt('return', _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty() ? dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray()) : []);
+                  if (!(_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty())) {
+                    _context16.next = 7;
+                    break;
+                  }
 
-                case 1:
+                  _context16.next = 3;
+                  return dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+
+                case 3:
+                  _context16.t1 = function (choiceItemPrice) {
+                    return !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser');
+                  };
+
+                  _context16.t0 = _context16.sent.filter(_context16.t1);
+                  _context16.next = 8;
+                  break;
+
+                case 7:
+                  _context16.t0 = [];
+
+                case 8:
+                  return _context16.abrupt('return', _context16.t0);
+
+                case 9:
                 case 'end':
                   return _context16.stop();
               }
