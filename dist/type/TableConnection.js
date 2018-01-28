@@ -27,9 +27,11 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
     ids: searchArgs.has('tableIds') ? searchArgs.get('tableIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
-      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name'))
+      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
+      contains_notes: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
     })
-  }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)());
+  }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableStateId: searchArgs.get('tableStateId') }) }) : (0, _immutable.Map)());
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption, language) {
@@ -120,7 +122,7 @@ var getTablesMatchCriteria = function () {
 
 var getTables = exports.getTables = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken, language) {
-    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, tables, indexedTables, edges, firstEdge, lastEdge;
+    var userId, tableStateId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, tables, indexedTables, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -131,16 +133,36 @@ var getTables = exports.getTables = function () {
 
           case 2:
             userId = _context3.sent.id;
-            _context3.next = 5;
-            return getTablesCountMatchCriteria(searchArgs, userId, sessionToken, language);
 
-          case 5:
-            count = _context3.sent;
-            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 9;
-            return getTablesMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+            if (!searchArgs.get('tableState')) {
+              _context3.next = 9;
+              break;
+            }
+
+            _context3.next = 6;
+            return dataLoaders.tableStateLoaderByKey(searchArgs.get('tableState'));
+
+          case 6:
+            _context3.t0 = _context3.sent;
+            _context3.next = 10;
+            break;
 
           case 9:
+            _context3.t0 = null;
+
+          case 10:
+            tableStateId = _context3.t0;
+            finalSearchArgs = searchArgs.merge(tableStateId ? (0, _immutable.Map)({ tableStateId: tableStateId }) : (0, _immutable.Map)());
+            _context3.next = 14;
+            return getTablesCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
+
+          case 14:
+            count = _context3.sent;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _context3.next = 18;
+            return getTablesMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
+
+          case 18:
             tables = _context3.sent;
             indexedTables = tables.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedTables.map(function (indexedItem) {
@@ -162,7 +184,7 @@ var getTables = exports.getTables = function () {
               }
             });
 
-          case 15:
+          case 24:
           case 'end':
             return _context3.stop();
         }

@@ -13,8 +13,12 @@ const getCriteria = (searchArgs, ownedByUserId, language) =>
     conditions: Map({
       ownedByUserId,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+      contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
+      contains_notes: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
     }),
-  }).merge(searchArgs.has('restaurantId') ? Map({ conditions: Map({ restaurantId: searchArgs.get('restaurantId') }) }) : Map());
+  })
+    .merge(searchArgs.has('restaurantId') ? Map({ conditions: Map({ restaurantId: searchArgs.get('restaurantId') }) }) : Map())
+    .merge(searchArgs.has('tableStateId') ? Map({ conditions: Map({ tableStateId: searchArgs.get('tableStateId') }) }) : Map());
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
@@ -76,11 +80,13 @@ const getTablesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, l
 
 export const getTables = async (searchArgs, dataLoaders, sessionToken, language) => {
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getTablesCountMatchCriteria(searchArgs, userId, sessionToken, language);
+  const tableStateId = searchArgs.get('tableState') ? await dataLoaders.tableStateLoaderByKey(searchArgs.get('tableState')) : null;
+  const finalSearchArgs = searchArgs.merge(tableStateId ? Map({ tableStateId }) : Map());
+  const count = await getTablesCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const tables = await getTablesMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const tables = await getTablesMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
   const indexedTables = tables.zip(Range(skip, skip + limit));
 
   const edges = indexedTables.map(indexedItem => ({

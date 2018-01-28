@@ -88,6 +88,14 @@ var _TableConnection = require('./TableConnection');
 
 var _TableConnection2 = _interopRequireDefault(_TableConnection);
 
+var _Order = require('./Order');
+
+var _Order2 = _interopRequireDefault(_Order);
+
+var _OrderConnection = require('./OrderConnection');
+
+var _OrderConnection2 = _interopRequireDefault(_OrderConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -111,12 +119,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, _ref2, _ref3) {
           var tagId = _ref2.tagId;
-          var sessionToken = _ref3.sessionToken;
+          var dataLoaders = _ref3.dataLoaders;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  return _context.abrupt('return', (0, _Tag.getTag)(tagId, sessionToken));
+                  return _context.abrupt('return', tagId ? dataLoaders.tagLoaderById.load(tagId) : null);
 
                 case 1:
                 case 'end':
@@ -187,12 +195,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref7, _ref8) {
           var sizeId = _ref7.sizeId;
-          var sessionToken = _ref8.sessionToken;
+          var dataLoaders = _ref8.dataLoaders;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _Size.getSize)(sizeId, sessionToken));
+                  return _context3.abrupt('return', sizeId ? dataLoaders.sizeLoaderById.load(sizeId) : null);
 
                 case 1:
                 case 'end':
@@ -254,12 +262,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, _ref12, _ref13) {
           var menuId = _ref12.menuId;
-          var sessionToken = _ref13.sessionToken;
+          var dataLoaders = _ref13.dataLoaders;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', (0, _Menu.getMenu)(menuId, sessionToken));
+                  return _context5.abrupt('return', menuId ? dataLoaders.menuLoaderById.load(menuId) : null);
 
                 case 1:
                 case 'end':
@@ -325,12 +333,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, _ref17, _ref18) {
           var choiceItemId = _ref17.choiceItemId;
-          var sessionToken = _ref18.sessionToken;
+          var dataLoaders = _ref18.dataLoaders;
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
               switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context7.abrupt('return', (0, _ChoiceItem.getChoiceItem)(choiceItemId, sessionToken));
+                  return _context7.abrupt('return', choiceItemId ? dataLoaders.choiceItemLoaderById.load(choiceItemId) : null);
 
                 case 1:
                 case 'end':
@@ -395,12 +403,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref21 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_, _ref22, _ref23) {
           var choiceItemPriceId = _ref22.choiceItemPriceId;
-          var sessionToken = _ref23.sessionToken;
+          var dataLoaders = _ref23.dataLoaders;
           return regeneratorRuntime.wrap(function _callee9$(_context9) {
             while (1) {
               switch (_context9.prev = _context9.next) {
                 case 0:
-                  return _context9.abrupt('return', (0, _ChoiceItemPrice.getChoiceItemPrice)(choiceItemPriceId, sessionToken));
+                  return _context9.abrupt('return', choiceItemPriceId ? dataLoaders.choiceItemPriceLoaderById.load(choiceItemPriceId) : null);
 
                 case 1:
                 case 'end':
@@ -458,12 +466,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref26 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, _ref27, _ref28) {
           var menuItemId = _ref27.menuItemId;
-          var sessionToken = _ref28.sessionToken;
+          var dataLoaders = _ref28.dataLoaders;
           return regeneratorRuntime.wrap(function _callee11$(_context11) {
             while (1) {
               switch (_context11.prev = _context11.next) {
                 case 0:
-                  return _context11.abrupt('return', (0, _MenuItem.getMenuItem)(menuItemId, sessionToken));
+                  return _context11.abrupt('return', menuItemId ? dataLoaders.menuItemLoaderById.load(menuItemId) : null);
 
                 case 1:
                 case 'end':
@@ -528,12 +536,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref31 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, _ref32, _ref33) {
           var menuItemPriceId = _ref32.menuItemPriceId;
-          var sessionToken = _ref33.sessionToken;
+          var dataLoaders = _ref33.dataLoaders;
           return regeneratorRuntime.wrap(function _callee13$(_context13) {
             while (1) {
               switch (_context13.prev = _context13.next) {
                 case 0:
-                  return _context13.abrupt('return', (0, _MenuItemPrice.getMenuItemPrice)(menuItemPriceId, sessionToken));
+                  return _context13.abrupt('return', menuItemPriceId ? dataLoaders.menuItemPriceLoaderById.load(menuItemPriceId) : null);
 
                 case 1:
                 case 'end':
@@ -591,12 +599,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref36 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, _ref37, _ref38) {
           var restaurantId = _ref37.restaurantId;
-          var sessionToken = _ref38.sessionToken;
+          var dataLoaders = _ref38.dataLoaders;
           return regeneratorRuntime.wrap(function _callee15$(_context15) {
             while (1) {
               switch (_context15.prev = _context15.next) {
                 case 0:
-                  return _context15.abrupt('return', (0, _Restaurant.getRestaurant)(restaurantId, sessionToken));
+                  return _context15.abrupt('return', restaurantId ? dataLoaders.restaurantLoaderById.load(restaurantId) : null);
 
                 case 1:
                 case 'end':
@@ -690,11 +698,20 @@ exports.default = new _graphql.GraphQLObjectType({
         tableIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
+        restaurantId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
         name: {
           type: _graphql.GraphQLString
         },
-        restaurantId: {
-          type: _graphql.GraphQLID
+        customerName: {
+          type: _graphql.GraphQLString
+        },
+        notes: {
+          type: _graphql.GraphQLString
+        },
+        tableState: {
+          type: _graphql.GraphQLString
         },
         sortOption: {
           type: _graphql.GraphQLString
@@ -721,6 +738,84 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x52, _x53, _x54) {
           return _ref44.apply(this, arguments);
+        };
+      }()
+    },
+    order: {
+      type: _Order2.default,
+      args: {
+        orderId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref46 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(_, _ref47, _ref48) {
+          var orderId = _ref47.orderId;
+          var sessionToken = _ref48.sessionToken;
+          return regeneratorRuntime.wrap(function _callee19$(_context19) {
+            while (1) {
+              switch (_context19.prev = _context19.next) {
+                case 0:
+                  return _context19.abrupt('return', (0, _Order.getOrder)(orderId, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context19.stop();
+              }
+            }
+          }, _callee19, undefined);
+        }));
+
+        return function resolve(_x55, _x56, _x57) {
+          return _ref46.apply(this, arguments);
+        };
+      }()
+    },
+    orders: {
+      type: _OrderConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        orderIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        tableId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
+        name: {
+          type: _graphql.GraphQLString
+        },
+        customerName: {
+          type: _graphql.GraphQLString
+        },
+        notes: {
+          type: _graphql.GraphQLString
+        },
+        orderState: {
+          type: _graphql.GraphQLString
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref49 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref50) {
+          var dataLoaders = _ref50.dataLoaders,
+              sessionToken = _ref50.sessionToken;
+          return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            while (1) {
+              switch (_context20.prev = _context20.next) {
+                case 0:
+                  return _context20.abrupt('return', (0, _OrderConnection.getOrders)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context20.stop();
+              }
+            }
+          }, _callee20, undefined);
+        }));
+
+        return function resolve(_x58, _x59, _x60) {
+          return _ref49.apply(this, arguments);
         };
       }()
     }

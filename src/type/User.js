@@ -22,6 +22,8 @@ import Restaurant from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 import Table, { getTable } from './Table';
 import TableConnection, { getTables } from './TableConnection';
+import Order, { getOrder } from './Order';
+import OrderConnection, { getOrders } from './OrderConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -269,17 +271,63 @@ export default new GraphQLObjectType({
         tableIds: {
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
+        restaurantId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
         name: {
           type: GraphQLString,
         },
-        restaurantId: {
-          type: GraphQLID,
+        customerName: {
+          type: GraphQLString,
+        },
+        notes: {
+          type: GraphQLString,
+        },
+        tableState: {
+          type: GraphQLString,
         },
         sortOption: {
           type: GraphQLString,
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) => getTables(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+    },
+    order: {
+      type: Order,
+      args: {
+        orderId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { orderId }, { sessionToken }) => getOrder(orderId, sessionToken),
+    },
+    orders: {
+      type: OrderConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        orderIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        tableId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+        name: {
+          type: GraphQLString,
+        },
+        customerName: {
+          type: GraphQLString,
+        },
+        notes: {
+          type: GraphQLString,
+        },
+        orderState: {
+          type: GraphQLString,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getOrders(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],
