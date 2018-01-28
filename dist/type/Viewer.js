@@ -24,6 +24,14 @@ var _LanguageConnection = require('./LanguageConnection');
 
 var _LanguageConnection2 = _interopRequireDefault(_LanguageConnection);
 
+var _OrderState = require('./OrderState');
+
+var _OrderState2 = _interopRequireDefault(_OrderState);
+
+var _OrderStateConnection = require('./OrderStateConnection');
+
+var _OrderStateConnection2 = _interopRequireDefault(_OrderStateConnection);
+
 var _TableState = require('./TableState');
 
 var _TableState2 = _interopRequireDefault(_TableState);
@@ -112,21 +120,21 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    tableState: {
-      type: _TableState2.default,
+    orderState: {
+      type: _OrderState2.default,
       args: {
-        tableStateId: {
+        orderStateId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
         }
       },
       resolve: function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref6) {
-          var tableStateId = _ref6.tableStateId;
+          var orderStateId = _ref6.orderStateId;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', (0, _TableState.getTableState)(tableStateId));
+                  return _context3.abrupt('return', (0, _OrderState.getOrderState)(orderStateId));
 
                 case 1:
                 case 'end':
@@ -141,10 +149,10 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    tableStates: {
-      type: _TableStateConnection2.default.connectionType,
+    orderStates: {
+      type: _OrderStateConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        tableStateIds: {
+        orderStateIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
         key: {
@@ -165,7 +173,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _TableStateConnection.getTableStates)(_immutable2.default.fromJS(args), sessionToken, language));
+                  return _context4.abrupt('return', (0, _OrderStateConnection.getOrderStates)(_immutable2.default.fromJS(args), sessionToken, language));
 
                 case 1:
                 case 'end':
@@ -177,6 +185,74 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x8, _x9, _x10) {
           return _ref7.apply(this, arguments);
+        };
+      }()
+    },
+    tableState: {
+      type: _TableState2.default,
+      args: {
+        tableStateId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, _ref10) {
+          var tableStateId = _ref10.tableStateId;
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  return _context5.abrupt('return', (0, _TableState.getTableState)(tableStateId));
+
+                case 1:
+                case 'end':
+                  return _context5.stop();
+              }
+            }
+          }, _callee5, undefined);
+        }));
+
+        return function resolve(_x11, _x12) {
+          return _ref9.apply(this, arguments);
+        };
+      }()
+    },
+    tableStates: {
+      type: _TableStateConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        tableStateIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        key: {
+          type: _graphql.GraphQLString
+        },
+        name: {
+          type: _graphql.GraphQLString
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref12) {
+          var sessionToken = _ref12.sessionToken,
+              language = _ref12.language;
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  return _context6.abrupt('return', (0, _TableStateConnection.getTableStates)(_immutable2.default.fromJS(args), sessionToken, language));
+
+                case 1:
+                case 'end':
+                  return _context6.stop();
+              }
+            }
+          }, _callee6, undefined);
+        }));
+
+        return function resolve(_x13, _x14, _x15) {
+          return _ref11.apply(this, arguments);
         };
       }()
     }
