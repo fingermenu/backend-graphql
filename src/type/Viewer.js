@@ -4,11 +4,11 @@ import Immutable from 'immutable';
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
-import Language, { getLanguage } from './Language';
+import Language from './Language';
 import LanguageConnection, { getLanguages } from './LanguageConnection';
-import OrderState, { getOrderState } from './OrderState';
+import OrderState from './OrderState';
 import OrderStateConnection, { getOrderStates } from './OrderStateConnection';
-import TableState, { getTableState } from './TableState';
+import TableState from './TableState';
 import TableStateConnection, { getTableStates } from './TableStateConnection';
 
 export default new GraphQLObjectType({
@@ -25,7 +25,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { languageId }) => getLanguage(languageId),
+      resolve: async (_, { languageId }, { dataLoaders }) => (languageId ? dataLoaders.languageLoaderById.load(languageId) : null),
     },
     languages: {
       type: LanguageConnection.connectionType,
@@ -53,7 +53,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { orderStateId }) => getOrderState(orderStateId),
+      resolve: async (_, { orderStateId }, { dataLoaders }) => (orderStateId ? dataLoaders.orderStateLoaderById.load(orderStateId) : null),
     },
     orderStates: {
       type: OrderStateConnection.connectionType,
@@ -81,7 +81,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { tableStateId }) => getTableState(tableStateId),
+      resolve: async (_, { tableStateId }, { dataLoaders }) => (tableStateId ? dataLoaders.tableStateLoaderById.load(tableStateId) : null),
     },
     tableStates: {
       type: TableStateConnection.connectionType,
