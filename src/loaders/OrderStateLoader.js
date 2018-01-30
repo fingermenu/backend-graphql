@@ -7,7 +7,7 @@ import { OrderStateService } from '@fingermenu/parse-server-common';
 export const orderStateLoaderByKey = new Dataloader(async (keys) => {
   const orderStateService = new OrderStateService();
 
-  return Promise.all(keys.map(async key => orderStateService.search(Map({ conditions: Map({ key }) })).first()));
+  return Promise.all(keys.map(async key => (await orderStateService.search(Map({ conditions: Map({ key }) }))).first()));
 });
 
 export const orderStateLoaderById = new Dataloader(async (ids) => {
