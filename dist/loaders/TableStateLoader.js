@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.tableStateLoaderById = exports.tableStateLoaderByKey = undefined;
 
+var _immutable = require('immutable');
+
 var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
@@ -29,7 +31,7 @@ var tableStateLoaderByKey = exports.tableStateLoaderByKey = new _dataloader2.def
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        return _context.abrupt('return', tableStateService.search(Map({ conditions: Map({ key: key }) })).first());
+                        return _context.abrupt('return', tableStateService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ key: key }) })).first());
 
                       case 1:
                       case 'end':

@@ -1,5 +1,6 @@
 // @flow
 
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 import { OrderStateService } from '@fingermenu/parse-server-common';
 
