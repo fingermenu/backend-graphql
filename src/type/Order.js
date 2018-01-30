@@ -1,10 +1,11 @@
 // @flow
 
-import { GraphQLID, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { OrderService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
 import OrderState from './OrderState';
 import Table, { getTable } from './Table';
+import OrderMenuItemPrice from './OrderMenuItemPrice';
 
 export const getOrder = async (orderId, sessionToken) => new OrderService().read(orderId, null, sessionToken);
 
@@ -38,6 +39,10 @@ export default new GraphQLObjectType({
     orderState: {
       type: OrderState,
       resolve: async (_, args, { dataLoaders }) => (_.get('orderStateId') ? dataLoaders.orderStateLoaderById.load(_.get('orderStateId')) : null),
+    },
+    details: {
+      type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)),
+      resolve: () => [],
     },
   },
   interfaces: [NodeInterface],

@@ -251,6 +251,18 @@ type Order implements Node {
   placedAt: String
   table: Table
   orderState: OrderState
+  details: [OrderMenuItemPrice!]
+}
+
+type OrderChoiceItemPrice {
+  quantity: Int
+  choiceItemPrice: ChoiceItemPrice
+}
+
+type OrderMenuItemPrice {
+  quantity: Int
+  menuItemPrice: MenuItemPrice
+  orderChoiceItemPrices: [OrderChoiceItemPrice!]
 }
 
 type OrderState implements Node {
