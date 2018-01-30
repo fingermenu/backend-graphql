@@ -12,7 +12,7 @@ const updateTable = async ({
     throw new Error('Table Id not provided.');
   }
 
-  const tableInfo = await getTable(id)
+  const tableInfo = (await getTable(id, sessionToken))
     .merge(Common.isNullOrUndefined(name)
       ? Map()
       : Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()))
