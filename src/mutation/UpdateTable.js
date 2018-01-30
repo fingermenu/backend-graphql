@@ -11,7 +11,7 @@ export default mutationWithClientMutationId({
   name: 'UpdateTable',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
-    name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
+    name: { type: new GraphQLList(LanguageStringTuple) },
     status: { type: GraphQLString },
     tableState: { type: GraphQLString },
     numberOfAdults: { type: GraphQLInt },

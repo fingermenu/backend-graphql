@@ -28,7 +28,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'UpdateTable',
   inputFields: {
     id: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
-    name: { type: new _graphql.GraphQLNonNull(new _graphql.GraphQLList(_LanguageStringTuple2.default)) },
+    name: { type: new _graphql.GraphQLList(_LanguageStringTuple2.default) },
     status: { type: _graphql.GraphQLString },
     tableState: { type: _graphql.GraphQLString },
     numberOfAdults: { type: _graphql.GraphQLInt },
