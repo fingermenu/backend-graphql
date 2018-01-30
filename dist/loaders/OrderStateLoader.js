@@ -31,9 +31,13 @@ var orderStateLoaderByKey = exports.orderStateLoaderByKey = new _dataloader2.def
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        return _context.abrupt('return', orderStateService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ key: key }) })).first());
+                        _context.next = 2;
+                        return orderStateService.search((0, _immutable.Map)({ conditions: (0, _immutable.Map)({ key: key }) }));
 
-                      case 1:
+                      case 2:
+                        return _context.abrupt('return', _context.sent.first());
+
+                      case 3:
                       case 'end':
                         return _context.stop();
                     }
