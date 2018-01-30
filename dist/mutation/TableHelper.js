@@ -66,9 +66,9 @@ var updateTable = function () {
             return dataLoaders.tableStateLoaderByKey.load(tableState);
 
           case 14:
-            _context.t5 = _context.sent;
+            _context.t5 = _context.sent.get('id');
             _context.t6 = {
-              tableState: _context.t5
+              tableStateId: _context.t5
             };
             _context.t3 = (0, _context.t4)(_context.t6);
 
