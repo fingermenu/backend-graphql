@@ -6,3 +6,5 @@ export MenuConnection, { getMenus } from './MenuConnection';
 export MenuItemConnection, { getMenuItems } from './MenuItemConnection';
 export RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 export Table, { getTable } from './Table';
+export Order, { getOrder } from './Order';
+export OrderConnection, { getOrders } from './OrderConnection';

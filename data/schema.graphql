@@ -55,6 +55,17 @@ type BeServedWithMenuItemPrice implements Node {
   choiceItemPrices: [ChoiceItemPrice!]
 }
 
+input CancelOrderInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type CancelOrderPayload {
+  errorMessage: String
+  order: Order
+  clientMutationId: String
+}
+
 type ChoiceItem implements Node {
   id: ID!
   name: String
@@ -235,6 +246,9 @@ type Mutation {
   addMenuItem(input: AddMenuItemInput!): AddMenuItemPayload
   addRestaurant(input: AddRestaurantInput!): AddRestaurantPayload
   updateTable(input: UpdateTableInput!): UpdateTablePayload
+  placeOrder(input: PlaceOrderInput!): PlaceOrderPayload
+  updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
+  cancelOrder(input: CancelOrderInput!): CancelOrderPayload
 }
 
 # An object with an ID
@@ -255,14 +269,25 @@ type Order implements Node {
 }
 
 type OrderChoiceItemPrice {
-  quantity: Int
-  choiceItemPrice: ChoiceItemPrice
+  choiceItemPrice: ChoiceItemPrice!
+  quantity: Int!
+}
+
+input OrderChoiceItemPriceInput {
+  choiceItemPriceId: ID!
+  quantity: Int!
 }
 
 type OrderMenuItemPrice {
-  quantity: Int
-  menuItemPrice: MenuItemPrice
+  menuItemPrice: MenuItemPrice!
+  quantity: Int!
   orderChoiceItemPrices: [OrderChoiceItemPrice!]
+}
+
+input OrderMenuItemPriceInput {
+  menuItemPriceId: ID!
+  quantity: Int!
+  orderChoiceItemPrices: [OrderChoiceItemPriceInput!]
 }
 
 type OrderState implements Node {
@@ -352,6 +377,21 @@ type ParentTag implements Node {
 type Phone {
   label: String
   number: String
+}
+
+input PlaceOrderInput {
+  customerName: String
+  notes: String
+  totalPrice: Float
+  tableId: ID
+  details: [OrderMenuItemPriceInput!]
+  clientMutationId: String
+}
+
+type PlaceOrderPayload {
+  errorMessage: String
+  order: Order
+  clientMutationId: String
 }
 
 type Query {
@@ -508,6 +548,22 @@ type TagTypeEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+input UpdateOrderInput {
+  id: ID!
+  customerName: String
+  notes: String
+  totalPrice: Float
+  tableId: ID
+  details: [OrderMenuItemPriceInput!]
+  clientMutationId: String
+}
+
+type UpdateOrderPayload {
+  errorMessage: String
+  order: Order
+  clientMutationId: String
 }
 
 input UpdateTableInput {

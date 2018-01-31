@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getTable = exports.Table = exports.getRestaurants = exports.RestaurantConnection = exports.getMenuItems = exports.MenuItemConnection = exports.getMenus = exports.MenuConnection = exports.getChoiceItems = exports.ChoiceItemConnection = exports.RootQuery = undefined;
+exports.getOrders = exports.OrderConnection = exports.getOrder = exports.Order = exports.getTable = exports.Table = exports.getRestaurants = exports.RestaurantConnection = exports.getMenuItems = exports.MenuItemConnection = exports.getMenus = exports.MenuConnection = exports.getChoiceItems = exports.ChoiceItemConnection = exports.RootQuery = undefined;
 
 var _ChoiceItemConnection2 = require('./ChoiceItemConnection');
 
@@ -50,6 +50,24 @@ Object.defineProperty(exports, 'getTable', {
   }
 });
 
+var _Order2 = require('./Order');
+
+Object.defineProperty(exports, 'getOrder', {
+  enumerable: true,
+  get: function get() {
+    return _Order2.getOrder;
+  }
+});
+
+var _OrderConnection2 = require('./OrderConnection');
+
+Object.defineProperty(exports, 'getOrders', {
+  enumerable: true,
+  get: function get() {
+    return _OrderConnection2.getOrders;
+  }
+});
+
 var _RootQuery2 = require('./RootQuery');
 
 var _RootQuery3 = _interopRequireDefault(_RootQuery2);
@@ -64,6 +82,10 @@ var _RestaurantConnection3 = _interopRequireDefault(_RestaurantConnection2);
 
 var _Table3 = _interopRequireDefault(_Table2);
 
+var _Order3 = _interopRequireDefault(_Order2);
+
+var _OrderConnection3 = _interopRequireDefault(_OrderConnection2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.RootQuery = _RootQuery3.default;
@@ -72,3 +94,5 @@ exports.MenuConnection = _MenuConnection3.default;
 exports.MenuItemConnection = _MenuItemConnection3.default;
 exports.RestaurantConnection = _RestaurantConnection3.default;
 exports.Table = _Table3.default;
+exports.Order = _Order3.default;
+exports.OrderConnection = _OrderConnection3.default;

@@ -21,14 +21,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = new _graphql.GraphQLObjectType({
   name: 'OrderMenuItemPrice',
   fields: {
-    quantity: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('quantity');
-      }
-    },
     menuItemPrice: {
-      type: _MenuItemPrice2.default,
+      type: new _graphql.GraphQLNonNull(_MenuItemPrice2.default),
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, args, _ref2) {
           var dataLoaders = _ref2.dataLoaders;
@@ -50,6 +44,12 @@ exports.default = new _graphql.GraphQLObjectType({
           return _ref.apply(this, arguments);
         };
       }()
+    },
+    quantity: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
+      resolve: function resolve(_) {
+        return _.get('quantity');
+      }
     },
     orderChoiceItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderChoiceItemPrice2.default)),
