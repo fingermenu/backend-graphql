@@ -26,6 +26,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
     var customerName = _ref2.customerName,
         notes = _ref2.notes,
         totalPrice = _ref2.totalPrice,
+        restaurantId = _ref2.restaurantId,
         tableId = _ref2.tableId,
         details = _ref2.details;
     var acl;
@@ -39,6 +40,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
               notes: notes,
               totalPrice: totalPrice,
               placedAt: new Date(),
+              restaurantId: restaurantId,
               tableId: tableId,
               details: _immutable2.default.fromJS(details)
             }), acl, sessionToken));
@@ -89,9 +91,10 @@ var updateOrder = exports.updateOrder = function () {
         customerName = _ref5.customerName,
         notes = _ref5.notes,
         totalPrice = _ref5.totalPrice,
+        restaurantId = _ref5.restaurantId,
         tableId = _ref5.tableId,
         details = _ref5.details,
-        tableState = _ref5.tableState;
+        cancelledAt = _ref5.cancelledAt;
     var orderInfo;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -109,44 +112,21 @@ var updateOrder = exports.updateOrder = function () {
             return (0, _type.getOrder)(id, sessionToken);
 
           case 4:
-            _context3.t1 = _commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName });
-            _context3.t2 = _commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
-            _context3.t3 = _commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice });
+            _context3.t0 = _commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName });
+            _context3.t1 = _commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
+            _context3.t2 = _commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice });
+            _context3.t3 = _commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId });
             _context3.t4 = _commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId });
             _context3.t5 = _commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) });
-            _context3.t0 = _context3.sent.merge(_context3.t1).merge(_context3.t2).merge(_context3.t3).merge(_context3.t4).merge(_context3.t5);
-
-            if (!_commonJavascript.Common.isNullOrUndefined(tableState)) {
-              _context3.next = 14;
-              break;
-            }
-
-            _context3.t6 = (0, _immutable.Map)();
-            _context3.next = 20;
-            break;
-
-          case 14:
-            _context3.t7 = _immutable.Map;
-            _context3.next = 17;
-            return dataLoaders.tableStateLoaderByKey.load(tableState);
-
-          case 17:
-            _context3.t8 = _context3.sent.get('id');
-            _context3.t9 = {
-              tableStateId: _context3.t8
-            };
-            _context3.t6 = (0, _context3.t7)(_context3.t9);
-
-          case 20:
-            _context3.t10 = _context3.t6;
-            orderInfo = _context3.t0.merge.call(_context3.t0, _context3.t10);
-            _context3.next = 24;
+            _context3.t6 = _commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt });
+            orderInfo = _context3.sent.merge(_context3.t0).merge(_context3.t1).merge(_context3.t2).merge(_context3.t3).merge(_context3.t4).merge(_context3.t5).merge(_context3.t6);
+            _context3.next = 14;
             return new _parseServerCommon2.OrderService().update(orderInfo, sessionToken);
 
-          case 24:
+          case 14:
             return _context3.abrupt('return', orderInfo);
 
-          case 25:
+          case 15:
           case 'end':
             return _context3.stop();
         }
@@ -165,7 +145,7 @@ var cancelOrder = exports.cancelOrder = function () {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            return _context4.abrupt('return', updateOrder({ id: id }, dataLoaders, sessionToken));
+            return _context4.abrupt('return', updateOrder({ id: id, cancelledAt: new Date() }, dataLoaders, sessionToken));
 
           case 1:
           case 'end':

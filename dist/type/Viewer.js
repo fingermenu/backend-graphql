@@ -24,14 +24,6 @@ var _LanguageConnection = require('./LanguageConnection');
 
 var _LanguageConnection2 = _interopRequireDefault(_LanguageConnection);
 
-var _OrderState = require('./OrderState');
-
-var _OrderState2 = _interopRequireDefault(_OrderState);
-
-var _OrderStateConnection = require('./OrderStateConnection');
-
-var _OrderStateConnection2 = _interopRequireDefault(_OrderStateConnection);
-
 var _TableState = require('./TableState');
 
 var _TableState2 = _interopRequireDefault(_TableState);
@@ -121,22 +113,22 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    orderState: {
-      type: _OrderState2.default,
+    tableState: {
+      type: _TableState2.default,
       args: {
-        orderStateId: {
+        tableStateId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
         }
       },
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref7, _ref8) {
-          var orderStateId = _ref7.orderStateId;
+          var tableStateId = _ref7.tableStateId;
           var dataLoaders = _ref8.dataLoaders;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', orderStateId ? dataLoaders.orderStateLoaderById.load(orderStateId) : null);
+                  return _context3.abrupt('return', tableStateId ? dataLoaders.tableStateLoaderById.load(tableStateId) : null);
 
                 case 1:
                 case 'end':
@@ -148,75 +140,6 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x7, _x8, _x9) {
           return _ref6.apply(this, arguments);
-        };
-      }()
-    },
-    orderStates: {
-      type: _OrderStateConnection2.default.connectionType,
-      args: _extends({}, _graphqlRelay.connectionArgs, {
-        orderStateIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        key: {
-          type: _graphql.GraphQLString
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
-      }),
-      resolve: function () {
-        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref10) {
-          var sessionToken = _ref10.sessionToken,
-              language = _ref10.language;
-          return regeneratorRuntime.wrap(function _callee4$(_context4) {
-            while (1) {
-              switch (_context4.prev = _context4.next) {
-                case 0:
-                  return _context4.abrupt('return', (0, _OrderStateConnection.getOrderStates)(_immutable2.default.fromJS(args), sessionToken, language));
-
-                case 1:
-                case 'end':
-                  return _context4.stop();
-              }
-            }
-          }, _callee4, undefined);
-        }));
-
-        return function resolve(_x10, _x11, _x12) {
-          return _ref9.apply(this, arguments);
-        };
-      }()
-    },
-    tableState: {
-      type: _TableState2.default,
-      args: {
-        tableStateId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
-      },
-      resolve: function () {
-        var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, _ref12, _ref13) {
-          var tableStateId = _ref12.tableStateId;
-          var dataLoaders = _ref13.dataLoaders;
-          return regeneratorRuntime.wrap(function _callee5$(_context5) {
-            while (1) {
-              switch (_context5.prev = _context5.next) {
-                case 0:
-                  return _context5.abrupt('return', tableStateId ? dataLoaders.tableStateLoaderById.load(tableStateId) : null);
-
-                case 1:
-                case 'end':
-                  return _context5.stop();
-              }
-            }
-          }, _callee5, undefined);
-        }));
-
-        return function resolve(_x13, _x14, _x15) {
-          return _ref11.apply(this, arguments);
         };
       }()
     },
@@ -237,25 +160,25 @@ exports.default = new _graphql.GraphQLObjectType({
         }
       }),
       resolve: function () {
-        var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref15) {
-          var sessionToken = _ref15.sessionToken,
-              language = _ref15.language;
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref10) {
+          var sessionToken = _ref10.sessionToken,
+              language = _ref10.language;
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context6.prev = _context6.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _TableStateConnection.getTableStates)(_immutable2.default.fromJS(args), sessionToken, language));
+                  return _context4.abrupt('return', (0, _TableStateConnection.getTableStates)(_immutable2.default.fromJS(args), sessionToken, language));
 
                 case 1:
                 case 'end':
-                  return _context6.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee6, undefined);
+          }, _callee4, undefined);
         }));
 
-        return function resolve(_x16, _x17, _x18) {
-          return _ref14.apply(this, arguments);
+        return function resolve(_x10, _x11, _x12) {
+          return _ref9.apply(this, arguments);
         };
       }()
     }

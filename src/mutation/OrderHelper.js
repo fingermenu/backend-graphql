@@ -7,7 +7,7 @@ import { OrderService } from '@fingermenu/parse-server-common';
 import { getOrder } from '../type';
 
 export const addOrderForProvidedUser = async ({
-  customerName, notes, totalPrice, tableId, details,
+  customerName, notes, totalPrice, restaurantId, tableId, details,
 }, user, sessionToken) => {
   const acl = ParseWrapperService.createACL(user);
 
@@ -17,6 +17,7 @@ export const addOrderForProvidedUser = async ({
       notes,
       totalPrice,
       placedAt: new Date(),
+      restaurantId,
       tableId,
       details: Immutable.fromJS(details),
     }),
@@ -31,9 +32,13 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
   return addOrderForProvidedUser(info, user, sessionToken);
 };
 
-export const updateOrder = async ({
-  id, customerName, notes, totalPrice, tableId, details, tableState,
-}, dataLoaders, sessionToken) => {
+export const updateOrder = async (
+  {
+    id, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt,
+  },
+  dataLoaders,
+  sessionToken,
+) => {
   if (!id) {
     throw new Error('Order Id not provided.');
   }
@@ -42,13 +47,14 @@ export const updateOrder = async ({
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
     .merge(Common.isNullOrUndefined(totalPrice) ? Map() : Map({ totalPrice }))
+    .merge(Common.isNullOrUndefined(restaurantId) ? Map() : Map({ restaurantId }))
     .merge(Common.isNullOrUndefined(tableId) ? Map() : Map({ tableId }))
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))
-    .merge(Common.isNullOrUndefined(tableState) ? Map() : Map({ tableStateId: (await dataLoaders.tableStateLoaderByKey.load(tableState)).get('id') }));
+    .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
 
   await new OrderService().update(orderInfo, sessionToken);
 
   return orderInfo;
 };
 
-export const cancelOrder = async (id, dataLoaders, sessionToken) => updateOrder({ id }, dataLoaders, sessionToken);
+export const cancelOrder = async (id, dataLoaders, sessionToken) => updateOrder({ id, cancelledAt: new Date() }, dataLoaders, sessionToken);

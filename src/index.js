@@ -8,8 +8,6 @@ export {
   menuLoaderById,
   menuItemLoaderById,
   menuItemPriceLoaderById,
-  orderStateLoaderByKey,
-  orderStateLoaderById,
   restaurantLoaderById,
   sizeLoaderById,
   tableStateLoaderByKey,

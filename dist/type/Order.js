@@ -11,9 +11,9 @@ var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _interface = require('../interface');
 
-var _OrderState = require('./OrderState');
+var _Restaurant = require('./Restaurant');
 
-var _OrderState2 = _interopRequireDefault(_OrderState);
+var _Restaurant2 = _interopRequireDefault(_Restaurant);
 
 var _Table = require('./Table');
 
@@ -71,13 +71,32 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     totalPrice: {
       type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('totalPrice');
+      }
+    },
+    placedAt: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('placedAt') ? _.get('placedAt').toISOString() : null;
+      }
+    },
+    cancelledAt: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('cancelledAt') ? _.get('cancelledAt').toISOString() : null;
+      }
+    },
+    restaurant: {
+      type: _Restaurant2.default,
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
+          var dataLoaders = _ref3.dataLoaders;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('totalPrice'));
+                  return _context2.abrupt('return', _.get('restaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('restaurantId')) : null);
 
                 case 1:
                 case 'end':
@@ -87,20 +106,21 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee2, undefined);
         }));
 
-        return function resolve(_x3) {
+        return function resolve(_x3, _x4, _x5) {
           return _ref2.apply(this, arguments);
         };
       }()
     },
-    placedAt: {
-      type: _graphql.GraphQLString,
+    table: {
+      type: _Table2.default,
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
+          var sessionToken = _ref5.sessionToken;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _.get('placedAt'));
+                  return _context3.abrupt('return', _.get('tableId') ? (0, _Table.getTable)(_.get('tableId'), sessionToken) : null);
 
                 case 1:
                 case 'end':
@@ -110,56 +130,8 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee3, undefined);
         }));
 
-        return function resolve(_x4) {
-          return _ref3.apply(this, arguments);
-        };
-      }()
-    },
-    table: {
-      type: _Table2.default,
-      resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref5) {
-          var sessionToken = _ref5.sessionToken;
-          return regeneratorRuntime.wrap(function _callee4$(_context4) {
-            while (1) {
-              switch (_context4.prev = _context4.next) {
-                case 0:
-                  return _context4.abrupt('return', _.get('tableId') ? (0, _Table.getTable)(_.get('tableId'), sessionToken) : null);
-
-                case 1:
-                case 'end':
-                  return _context4.stop();
-              }
-            }
-          }, _callee4, undefined);
-        }));
-
-        return function resolve(_x5, _x6, _x7) {
+        return function resolve(_x6, _x7, _x8) {
           return _ref4.apply(this, arguments);
-        };
-      }()
-    },
-    orderState: {
-      type: _OrderState2.default,
-      resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref7) {
-          var dataLoaders = _ref7.dataLoaders;
-          return regeneratorRuntime.wrap(function _callee5$(_context5) {
-            while (1) {
-              switch (_context5.prev = _context5.next) {
-                case 0:
-                  return _context5.abrupt('return', _.get('orderStateId') ? dataLoaders.orderStateLoaderById.load(_.get('orderStateId')) : null);
-
-                case 1:
-                case 'end':
-                  return _context5.stop();
-              }
-            }
-          }, _callee5, undefined);
-        }));
-
-        return function resolve(_x8, _x9, _x10) {
-          return _ref6.apply(this, arguments);
         };
       }()
     },

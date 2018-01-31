@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.restaurantLoaderById = exports.orderStateLoaderById = exports.orderStateLoaderByKey = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -17,21 +17,6 @@ Object.defineProperty(exports, 'languageLoaderById', {
   enumerable: true,
   get: function get() {
     return _LanguageLoader.languageLoaderById;
-  }
-});
-
-var _OrderStateLoader = require('./OrderStateLoader');
-
-Object.defineProperty(exports, 'orderStateLoaderByKey', {
-  enumerable: true,
-  get: function get() {
-    return _OrderStateLoader.orderStateLoaderByKey;
-  }
-});
-Object.defineProperty(exports, 'orderStateLoaderById', {
-  enumerable: true,
-  get: function get() {
-    return _OrderStateLoader.orderStateLoaderById;
   }
 });
 
