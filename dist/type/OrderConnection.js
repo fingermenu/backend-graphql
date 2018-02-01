@@ -29,7 +29,7 @@ var getCriteria = function getCriteria(searchArgs) {
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
     })
-  }).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)());
+  }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)());
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {

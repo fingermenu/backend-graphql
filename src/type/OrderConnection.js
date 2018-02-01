@@ -15,6 +15,7 @@ const getCriteria = searchArgs =>
       contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
     }),
   })
+    .merge(searchArgs.has('restaurantId') ? Map({ conditions: Map({ restaurantId: searchArgs.get('restaurantId') }) }) : Map())
     .merge(searchArgs.has('tableId') ? Map({ conditions: Map({ tableId: searchArgs.get('tableId') }) }) : Map())
     .merge(searchArgs.has('orderStateId') ? Map({ conditions: Map({ orderStateId: searchArgs.get('orderStateId') }) }) : Map());
 

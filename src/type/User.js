@@ -317,8 +317,11 @@ export default new GraphQLObjectType({
         orderIds: {
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
-        tableId: {
+        restaurantId: {
           type: new GraphQLNonNull(GraphQLID),
+        },
+        tableId: {
+          type: GraphQLID,
         },
         name: {
           type: GraphQLString,

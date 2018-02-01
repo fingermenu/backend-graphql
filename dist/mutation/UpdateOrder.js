@@ -26,10 +26,10 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'UpdateOrder',
   inputFields: {
     id: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
+    restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     customerName: { type: _graphql.GraphQLString },
     notes: { type: _graphql.GraphQLString },
     totalPrice: { type: _graphql.GraphQLFloat },
-    restaurantId: { type: _graphql.GraphQLID },
     tableId: { type: _graphql.GraphQLID },
     details: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)) }
   },

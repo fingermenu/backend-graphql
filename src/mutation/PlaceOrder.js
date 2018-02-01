@@ -10,10 +10,10 @@ import OrderMenuItemPrice from './OrderMenuItemPrice';
 export default mutationWithClientMutationId({
   name: 'PlaceOrder',
   inputFields: {
+    restaurantId: { type: new GraphQLNonNull(GraphQLID) },
     customerName: { type: GraphQLString },
     notes: { type: GraphQLString },
     totalPrice: { type: GraphQLFloat },
-    restaurantId: { type: GraphQLID },
     tableId: { type: GraphQLID },
     details: { type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)) },
   },

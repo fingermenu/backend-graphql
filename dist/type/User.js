@@ -786,8 +786,11 @@ exports.default = new _graphql.GraphQLObjectType({
         orderIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
-        tableId: {
+        restaurantId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        },
+        tableId: {
+          type: _graphql.GraphQLID
         },
         name: {
           type: _graphql.GraphQLString
