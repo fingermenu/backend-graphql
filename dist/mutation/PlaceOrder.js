@@ -40,7 +40,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
       }
     },
     order: {
-      type: _type.Order,
+      type: _type.OrderConnection.edgeType,
       resolve: function resolve(_) {
         return _.get('order');
       }
@@ -49,7 +49,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(args, _ref2) {
       var dataLoaders = _ref2.dataLoaders,
-          sessionToken = _ref2.sessionToken;
+          sessionToken = _ref2.sessionToken,
+          language = _ref2.language;
       var orderId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -63,7 +64,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
               orderId = _context.sent;
               _context.t0 = _immutable.Map;
               _context.next = 7;
-              return (0, _type.getOrder)(orderId, sessionToken);
+              return (0, _type.getOrders)((0, _immutable.Map)({ orderIds: _immutable.List.of(orderId) }), dataLoaders, sessionToken, language);
 
             case 7:
               _context.t1 = _context.sent.edges[0];

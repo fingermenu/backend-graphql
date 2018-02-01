@@ -1,9 +1,9 @@
 // @flow
 
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import { GraphQLID, GraphQLFloat, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { Order, getOrder } from '../type';
+import { OrderConnection, getOrders } from '../type';
 import { addOrder } from './OrderHelper';
 import OrderMenuItemPrice from './OrderMenuItemPrice';
 
@@ -23,16 +23,16 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
     order: {
-      type: Order,
+      type: OrderConnection.edgeType,
       resolve: _ => _.get('order'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
     try {
       const orderId = await addOrder(args, dataLoaders, sessionToken);
 
       return Map({
-        order: (await getOrder(orderId, sessionToken)).edges[0],
+        order: (await getOrders(Map({ orderIds: List.of(orderId) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

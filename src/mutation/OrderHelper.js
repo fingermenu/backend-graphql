@@ -4,12 +4,13 @@ import { Common } from '@microbusiness/common-javascript';
 import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { OrderService } from '@fingermenu/parse-server-common';
-import { getOrder } from '../type';
 
 export const addOrderForProvidedUser = async ({
   customerName, notes, totalPrice, restaurantId, tableId, details,
 }, user, sessionToken) => {
   const acl = ParseWrapperService.createACL(user);
+
+  acl.setRoleWriteAccess('administrators', true);
 
   return new OrderService().create(
     Map({
@@ -43,7 +44,7 @@ export const updateOrder = async (
     throw new Error('Order Id not provided.');
   }
 
-  const orderInfo = (await getOrder(id, sessionToken))
+  const orderInfo = Map({ id })
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
     .merge(Common.isNullOrUndefined(totalPrice) ? Map() : Map({ totalPrice }))
@@ -53,8 +54,8 @@ export const updateOrder = async (
     .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
 
   await new OrderService().update(orderInfo, sessionToken);
-
-  return orderInfo;
 };
 
-export const cancelOrder = async (id, dataLoaders, sessionToken) => updateOrder({ id, cancelledAt: new Date() }, dataLoaders, sessionToken);
+export const cancelOrder = async (id, dataLoaders, sessionToken) => {
+  await updateOrder({ id, cancelledAt: new Date() }, dataLoaders, sessionToken);
+};

@@ -29,7 +29,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
       }
     },
     order: {
-      type: _type.Order,
+      type: _type.OrderConnection.edgeType,
       resolve: function resolve(_) {
         return _.get('order');
       }
@@ -39,34 +39,39 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var id = _ref2.id;
       var dataLoaders = _ref3.dataLoaders,
-          sessionToken = _ref3.sessionToken;
+          sessionToken = _ref3.sessionToken,
+          language = _ref3.language;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              _context.t0 = _immutable.Map;
-              _context.next = 4;
+              _context.next = 3;
               return (0, _OrderHelper.cancelOrder)(id, dataLoaders, sessionToken);
 
-            case 4:
-              _context.t1 = _context.sent;
+            case 3:
+              _context.t0 = _immutable.Map;
+              _context.next = 6;
+              return (0, _type.getOrders)((0, _immutable.Map)({ orderIds: _immutable.List.of(id) }), dataLoaders, sessionToken, language);
+
+            case 6:
+              _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 order: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 9:
-              _context.prev = 9;
+            case 11:
+              _context.prev = 11;
               _context.t3 = _context['catch'](0);
               return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t3 instanceof Error ? _context.t3.message : _context.t3 }));
 
-            case 12:
+            case 14:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 9]]);
+      }, _callee, undefined, [[0, 11]]);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {
