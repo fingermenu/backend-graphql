@@ -3,7 +3,6 @@
 import { Common } from '@microbusiness/common-javascript';
 import Immutable, { Map } from 'immutable';
 import { TableService } from '@fingermenu/parse-server-common';
-import { getTable } from '../type';
 
 const updateTable = async ({
   id, name, status, tableState, numberOfAdults, numberOfChildren, customerName, notes,
@@ -12,7 +11,7 @@ const updateTable = async ({
     throw new Error('Table Id not provided.');
   }
 
-  const tableInfo = (await getTable(id, sessionToken))
+  const tableInfo = Map({ id })
     .merge(Common.isNullOrUndefined(name)
       ? Map()
       : Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()))
@@ -24,8 +23,6 @@ const updateTable = async ({
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }));
 
   await new TableService().update(tableInfo, sessionToken);
-
-  return tableInfo;
 };
 
 export default updateTable;

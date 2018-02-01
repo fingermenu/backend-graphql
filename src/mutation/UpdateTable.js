@@ -1,9 +1,9 @@
 // @flow
 
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { Table } from '../type';
+import { TableConnection, getTables } from '../type';
 import updateTable from './TableHelper';
 import LanguageStringTuple from './LanguageStringTuple';
 
@@ -25,14 +25,16 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('errorMessage'),
     },
     table: {
-      type: Table,
+      type: TableConnection.edgeType,
       resolve: _ => _.get('table'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
     try {
+      await updateTable(args, dataLoaders, sessionToken);
+
       return Map({
-        table: await updateTable(args, dataLoaders, sessionToken),
+        table: (await getTables(Map({ tableIds: List.of(args.id) }), dataLoaders, sessionToken, language)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
