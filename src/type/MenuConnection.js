@@ -52,12 +52,34 @@ const getMenusMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, la
   );
 
 export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) => {
+  let finalSearchArgs = searchArgs;
+  const restaurantId = finalSearchArgs.get('restaurantId');
+
+  if (restaurantId) {
+    const menuIds = (await dataLoaders.restaurantLoaderById.load(restaurantId)).get('menuIds');
+
+    if (!menuIds || menuIds.isEmpty()) {
+      return {
+        edges: [],
+        count: 0,
+        pageInfo: {
+          startCursor: 'cursor not available',
+          endCursor: 'cursor not available',
+          hasPreviousPage: false,
+          hasNextPage: false,
+        },
+      };
+    }
+
+    finalSearchArgs = finalSearchArgs.set('menuIds', menuIds);
+  }
+
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getMenusCountMatchCriteria(searchArgs, userId, sessionToken, language);
+  const count = await getMenusCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const menus = await getMenusMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const menus = await getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
   const indexedMenus = menus.zip(Range(skip, skip + limit));
 
   const edges = indexedMenus.map(indexedItem => ({

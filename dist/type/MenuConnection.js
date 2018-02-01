@@ -97,27 +97,62 @@ var getMenusMatchCriteria = function () {
 
 var getMenus = exports.getMenus = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken, language) {
-    var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menus, indexedMenus, edges, firstEdge, lastEdge;
+    var finalSearchArgs, restaurantId, menuIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menus, indexedMenus, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            finalSearchArgs = searchArgs;
+            restaurantId = finalSearchArgs.get('restaurantId');
 
-          case 2:
-            userId = _context3.sent.id;
+            if (!restaurantId) {
+              _context3.next = 9;
+              break;
+            }
+
             _context3.next = 5;
-            return getMenusCountMatchCriteria(searchArgs, userId, sessionToken, language);
+            return dataLoaders.restaurantLoaderById.load(restaurantId);
 
           case 5:
-            count = _context3.sent;
-            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 9;
-            return getMenusMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+            menuIds = _context3.sent.get('menuIds');
+
+            if (!(!menuIds || menuIds.isEmpty())) {
+              _context3.next = 8;
+              break;
+            }
+
+            return _context3.abrupt('return', {
+              edges: [],
+              count: 0,
+              pageInfo: {
+                startCursor: 'cursor not available',
+                endCursor: 'cursor not available',
+                hasPreviousPage: false,
+                hasNextPage: false
+              }
+            });
+
+          case 8:
+
+            finalSearchArgs = finalSearchArgs.set('menuIds', menuIds);
 
           case 9:
+            _context3.next = 11;
+            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+
+          case 11:
+            userId = _context3.sent.id;
+            _context3.next = 14;
+            return getMenusCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
+
+          case 14:
+            count = _context3.sent;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _context3.next = 18;
+            return getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
+
+          case 18:
             menus = _context3.sent;
             indexedMenus = menus.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedMenus.map(function (indexedItem) {
@@ -139,7 +174,7 @@ var getMenus = exports.getMenus = function () {
               }
             });
 
-          case 15:
+          case 24:
           case 'end':
             return _context3.stop();
         }

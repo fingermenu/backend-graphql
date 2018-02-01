@@ -288,6 +288,9 @@ exports.default = new _graphql.GraphQLObjectType({
         menuIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
+        restaurantId: {
+          type: _graphql.GraphQLID
+        },
         name: {
           type: _graphql.GraphQLString
         },
@@ -429,6 +432,9 @@ exports.default = new _graphql.GraphQLObjectType({
         choiceItemPriceIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
+        menuItemPriceId: {
+          type: _graphql.GraphQLID
+        },
         sortOption: {
           type: _graphql.GraphQLString
         }
@@ -561,6 +567,9 @@ exports.default = new _graphql.GraphQLObjectType({
       args: _extends({}, _graphqlRelay.connectionArgs, {
         menuItemPriceIds: {
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        menuId: {
+          type: _graphql.GraphQLID
         },
         sortOption: {
           type: _graphql.GraphQLString

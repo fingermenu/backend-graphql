@@ -63,12 +63,34 @@ const getMenuItemPricesMatchCriteria = async (searchArgs, addedByUserId, session
   );
 
 export const getMenuItemPrices = async (searchArgs, dataLoaders, sessionToken) => {
+  let finalSearchArgs = searchArgs;
+  const menuId = finalSearchArgs.get('menuId');
+
+  if (menuId) {
+    const menuItemPriceIds = (await dataLoaders.menuLoaderById.load(menuId)).get('menuItemPriceIds');
+
+    if (!menuItemPriceIds || menuItemPriceIds.isEmpty()) {
+      return {
+        edges: [],
+        count: 0,
+        pageInfo: {
+          startCursor: 'cursor not available',
+          endCursor: 'cursor not available',
+          hasPreviousPage: false,
+          hasNextPage: false,
+        },
+      };
+    }
+
+    finalSearchArgs = finalSearchArgs.set('menuItemPriceIds', menuItemPriceIds);
+  }
+
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getMenuItemPricesCountMatchCriteria(searchArgs, userId, sessionToken);
+  const count = await getMenuItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const menuItemPrices = await getMenuItemPricesMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const menuItemPrices = await getMenuItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
   const indexedMenuItemPrices = menuItemPrices.zip(Range(skip, skip + limit));
 
   const edges = indexedMenuItemPrices.map(indexedItem => ({

@@ -62,12 +62,34 @@ const getChoiceItemPricesMatchCriteria = async (searchArgs, ownedByUserId, sessi
   );
 
 export const getChoiceItemPrices = async (searchArgs, dataLoaders, sessionToken) => {
+  let finalSearchArgs = searchArgs;
+  const menuItemPriceId = finalSearchArgs.get('menuItemPriceId');
+
+  if (menuItemPriceId) {
+    const choiceItemPriceIds = (await dataLoaders.menuItemPriceLoaderById.load(menuItemPriceId)).get('choiceItemPriceIds');
+
+    if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
+      return {
+        edges: [],
+        count: 0,
+        pageInfo: {
+          startCursor: 'cursor not available',
+          endCursor: 'cursor not available',
+          hasPreviousPage: false,
+          hasNextPage: false,
+        },
+      };
+    }
+
+    finalSearchArgs = finalSearchArgs.set('choiceItemPriceIds', choiceItemPriceIds);
+  }
+
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getChoiceItemPricesCountMatchCriteria(searchArgs, userId, sessionToken);
+  const count = await getChoiceItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const choiceItemPrices = await getChoiceItemPricesMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
+  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const choiceItemPrices = await getChoiceItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
   const indexedChoiceItemPrices = choiceItemPrices.zip(Range(skip, skip + limit));
 
   const edges = indexedChoiceItemPrices.map(indexedItem => ({
