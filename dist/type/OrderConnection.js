@@ -27,7 +27,7 @@ var getCriteria = function getCriteria(searchArgs) {
     conditions: (0, _immutable.Map)({
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notes: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
+      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
     })
   }).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)());
 };

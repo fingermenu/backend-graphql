@@ -29,7 +29,7 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
       ownedByUserId: ownedByUserId,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notes: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
+      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
     })
   }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableStateId: searchArgs.get('tableStateId') }) }) : (0, _immutable.Map)());
 };

@@ -12,7 +12,7 @@ const getCriteria = searchArgs =>
     conditions: Map({
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notes: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
+      contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
     }),
   })
     .merge(searchArgs.has('tableId') ? Map({ conditions: Map({ tableId: searchArgs.get('tableId') }) }) : Map())
