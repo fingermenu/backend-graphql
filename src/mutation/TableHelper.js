@@ -14,7 +14,9 @@ const updateTable = async ({
   const tableInfo = Map({ id })
     .merge(Common.isNullOrUndefined(name)
       ? Map()
-      : Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()))
+      : Map({
+        name: Immutable.fromJS(name).reduce((reduction, languageValue) => reduction.set(languageValue.language, languageValue.value), Map()),
+      }))
     .merge(Common.isNullOrUndefined(status) ? Map() : Map({ status }))
     .merge(Common.isNullOrUndefined(tableState) ? Map() : Map({ tableStateId: (await dataLoaders.tableStateLoaderByKey.load(tableState)).get('id') }))
     .merge(Common.isNullOrUndefined(numberOfAdults) ? Map() : Map({ numberOfAdults }))

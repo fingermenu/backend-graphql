@@ -39,9 +39,11 @@ var updateTable = function () {
             throw new Error('Table Id not provided.');
 
           case 2:
-            _context.t0 = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(name) ? (0, _immutable.Map)() : _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
-              return reduction.set(languageValue.language, languageValue.value);
-            }, (0, _immutable.Map)())).merge(_commonJavascript.Common.isNullOrUndefined(status) ? (0, _immutable.Map)() : (0, _immutable.Map)({ status: status }));
+            _context.t0 = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(name) ? (0, _immutable.Map)() : (0, _immutable.Map)({
+              name: _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
+                return reduction.set(languageValue.language, languageValue.value);
+              }, (0, _immutable.Map)())
+            })).merge(_commonJavascript.Common.isNullOrUndefined(status) ? (0, _immutable.Map)() : (0, _immutable.Map)({ status: status }));
 
             if (!_commonJavascript.Common.isNullOrUndefined(tableState)) {
               _context.next = 7;
