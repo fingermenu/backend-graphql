@@ -137,8 +137,8 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     details: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)),
-      resolve: function resolve() {
-        return [];
+      resolve: function resolve(_) {
+        return _.get('details') ? _.get('details').toArray() : null;
       }
     }
   },

@@ -46,7 +46,7 @@ export default new GraphQLObjectType({
     },
     details: {
       type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)),
-      resolve: () => [],
+      resolve: _ => (_.get('details') ? _.get('details').toArray() : null),
     },
   },
   interfaces: [NodeInterface],
