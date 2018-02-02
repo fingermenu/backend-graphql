@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLID, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { OrderService } from '@fingermenu/parse-server-common';
 import { NodeInterface } from '../interface';
 import Restaurant from './Restaurant';
@@ -15,6 +15,14 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
+    },
+    numberOfAdults: {
+      type: GraphQLInt,
+      resolve: _ => _.get('numberOfAdults'),
+    },
+    numberOfChildren: {
+      type: GraphQLInt,
+      resolve: _ => _.get('numberOfChildren'),
     },
     customerName: {
       type: GraphQLString,

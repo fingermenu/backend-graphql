@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.0.71",
+  "version": "0.0.72",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -18,14 +18,15 @@
   "author": "FingerMenu ltd<fingermenu.ltd@gmail.com>",
   "homepage": "https://bitbucket.org/fingermenu/finger-menu-backend-graphql#readme",
   "dependencies": {
-    "@fingermenu/parse-server-common": "0.0.36",
+    "@fingermenu/parse-server-common": "0.0.37",
     "@microbusiness/common-javascript": "^1.1.10",
     "@microbusiness/parse-server-common": "^1.1.23",
     "dataloader": "^1.4.0",
     "graphql": "0.11.7",
     "graphql-fields": "^1.0.2",
     "graphql-relay": "^0.5.4",
-    "immutable": "^4.0.0-rc.9"
+    "immutable": "^4.0.0-rc.9",
+    "js-joda": "^1.6.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

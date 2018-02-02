@@ -24,6 +24,7 @@ import Table, { getTable } from './Table';
 import TableConnection, { getTables } from './TableConnection';
 import Order, { getOrder } from './Order';
 import OrderConnection, { getOrders } from './OrderConnection';
+import DateRange from './DateRange';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -319,6 +320,12 @@ export default new GraphQLObjectType({
         },
         restaurantId: {
           type: new GraphQLNonNull(GraphQLID),
+        },
+        dateRange: {
+          type: new GraphQLNonNull(DateRange),
+        },
+        includeCancelledOrders: {
+          type: GraphQLBoolean,
         },
         tableId: {
           type: GraphQLID,

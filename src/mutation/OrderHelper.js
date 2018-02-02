@@ -5,15 +5,21 @@ import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { OrderService } from '@fingermenu/parse-server-common';
 
-export const addOrderForProvidedUser = async ({
-  customerName, notes, totalPrice, restaurantId, tableId, details,
-}, user, sessionToken) => {
+export const addOrderForProvidedUser = async (
+  {
+    numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details,
+  },
+  user,
+  sessionToken,
+) => {
   const acl = ParseWrapperService.createACL(user);
 
   acl.setRoleWriteAccess('administrators', true);
 
   return new OrderService().create(
     Map({
+      numberOfAdults,
+      numberOfChildren,
       customerName,
       notes,
       totalPrice,
@@ -35,7 +41,7 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 
 export const updateOrder = async (
   {
-    id, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt,
+    id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt,
   },
   dataLoaders,
   sessionToken,
@@ -45,6 +51,8 @@ export const updateOrder = async (
   }
 
   const orderInfo = Map({ id })
+    .merge(Common.isNullOrUndefined(numberOfAdults) ? Map() : Map({ numberOfAdults }))
+    .merge(Common.isNullOrUndefined(numberOfChildren) ? Map() : Map({ numberOfChildren }))
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
     .merge(Common.isNullOrUndefined(totalPrice) ? Map() : Map({ totalPrice }))

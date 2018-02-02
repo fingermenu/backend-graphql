@@ -1,13 +1,31 @@
 // @flow
 
+import { convert, ZonedDateTime } from 'js-joda';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { OrderService } from '@fingermenu/parse-server-common';
 import Order from './Order';
 
-const getCriteria = searchArgs =>
-  Map({
+const getCriteria = (searchArgs) => {
+  let dateRange;
+
+  if (searchArgs.has('dateRange')) {
+    dateRange = {
+      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'from']))).toDate(),
+      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'to']))).toDate(),
+    };
+
+    if (dateRange.to < dateRange.from) {
+      throw new Error("dateRange is invalid. 'to' is less than 'from'.");
+    }
+
+    if (dateRange.to - dateRange.from > 1000 * 60 * 60 * 24) {
+      throw new Error('dateRange is invalid. dateRange convers period longer than a day.');
+    }
+  }
+
+  return Map({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: Map({
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
@@ -15,9 +33,14 @@ const getCriteria = searchArgs =>
       contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
     }),
   })
+    .merge(searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders')
+      ? Map({ conditions: Map({ exist_cancelledAt: true }) })
+      : Map({ conditions: Map({ doesNotExist_cancelledAt: true }) }))
     .merge(searchArgs.has('restaurantId') ? Map({ conditions: Map({ restaurantId: searchArgs.get('restaurantId') }) }) : Map())
     .merge(searchArgs.has('tableId') ? Map({ conditions: Map({ tableId: searchArgs.get('tableId') }) }) : Map())
-    .merge(searchArgs.has('orderStateId') ? Map({ conditions: Map({ orderStateId: searchArgs.get('orderStateId') }) }) : Map());
+    .merge(searchArgs.has('orderStateId') ? Map({ conditions: Map({ orderStateId: searchArgs.get('orderStateId') }) }) : Map())
+    .merge(dateRange ? Map({ conditions: Map({ greaterThanOrEqualTo_placedAt: dateRange.from, lessThanOrEqualTo_placedAt: dateRange.to }) }) : Map());
+};
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('PlacedAtDescending') === 0) {

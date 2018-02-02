@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getOrders = undefined;
 
+var _jsJoda = require('js-joda');
+
 var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
@@ -22,6 +24,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getCriteria = function getCriteria(searchArgs) {
+  var dateRange = void 0;
+
+  if (searchArgs.has('dateRange')) {
+    dateRange = {
+      from: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'from']))).toDate(),
+      to: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'to']))).toDate()
+    };
+
+    if (dateRange.to < dateRange.from) {
+      throw new Error("dateRange is invalid. 'to' is less than 'from'.");
+    }
+
+    if (dateRange.to - dateRange.from > 1000 * 60 * 60 * 24) {
+      throw new Error('dateRange is invalid. dateRange convers period longer than a day.');
+    }
+  }
+
   return (0, _immutable.Map)({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: (0, _immutable.Map)({
@@ -29,7 +48,7 @@ var getCriteria = function getCriteria(searchArgs) {
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
     })
-  }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)());
+  }).merge(searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ exist_cancelledAt: true }) }) : (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ doesNotExist_cancelledAt: true }) })).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)()).merge(dateRange ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ greaterThanOrEqualTo_placedAt: dateRange.from, lessThanOrEqualTo_placedAt: dateRange.to }) }) : (0, _immutable.Map)());
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {

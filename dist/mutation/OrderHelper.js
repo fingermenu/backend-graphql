@@ -21,7 +21,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, sessionToken) {
-    var customerName = _ref2.customerName,
+    var numberOfAdults = _ref2.numberOfAdults,
+        numberOfChildren = _ref2.numberOfChildren,
+        customerName = _ref2.customerName,
         notes = _ref2.notes,
         totalPrice = _ref2.totalPrice,
         restaurantId = _ref2.restaurantId,
@@ -38,6 +40,8 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             acl.setRoleWriteAccess('administrators', true);
 
             return _context.abrupt('return', new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
+              numberOfAdults: numberOfAdults,
+              numberOfChildren: numberOfChildren,
               customerName: customerName,
               notes: notes,
               totalPrice: totalPrice,
@@ -90,6 +94,8 @@ var addOrder = exports.addOrder = function () {
 var updateOrder = exports.updateOrder = function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref5, dataLoaders, sessionToken) {
     var id = _ref5.id,
+        numberOfAdults = _ref5.numberOfAdults,
+        numberOfChildren = _ref5.numberOfChildren,
         customerName = _ref5.customerName,
         notes = _ref5.notes,
         totalPrice = _ref5.totalPrice,
@@ -110,7 +116,7 @@ var updateOrder = exports.updateOrder = function () {
             throw new Error('Order Id not provided.');
 
           case 2:
-            orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
+            orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults })).merge(_commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren })).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
             _context3.next = 5;
             return new _parseServerCommon2.OrderService().update(orderInfo, sessionToken);
 
