@@ -31,6 +31,10 @@ var _Table = require('./Table');
 
 var _Table2 = _interopRequireDefault(_Table);
 
+var _RestaurantConfigurations = require('./RestaurantConfigurations');
+
+var _RestaurantConfigurations2 = _interopRequireDefault(_RestaurantConfigurations);
+
 var _interface = require('../interface');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -302,6 +306,12 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
           return _ref11.apply(this, arguments);
         };
       }()
+    },
+    configurations: {
+      type: new _graphql.GraphQLNonNull(_RestaurantConfigurations2.default),
+      resolve: function resolve(_) {
+        return _.get('configurations') ? _.get('configurations') : (0, _immutable.Map)();
+      }
     }
   },
   interfaces: [_interface.NodeInterface]

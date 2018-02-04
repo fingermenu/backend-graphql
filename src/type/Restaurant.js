@@ -8,6 +8,7 @@ import Phone from './Phone';
 import Language from './Language';
 import Menu from './Menu';
 import Table from './Table';
+import RestaurantConfigurations from './RestaurantConfigurations';
 import { NodeInterface } from '../interface';
 
 const getTableCriteria = restaurantId =>
@@ -108,6 +109,10 @@ const ParentRestaurant = new GraphQLObjectType({
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
       resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toArray(),
+    },
+    configurations: {
+      type: new GraphQLNonNull(RestaurantConfigurations),
+      resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
     },
   },
   interfaces: [NodeInterface],
