@@ -205,6 +205,10 @@ export default new GraphQLObjectType({
       type: new GraphQLList(new GraphQLNonNull(Table)),
       resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toArray(),
     },
+    configurations: {
+      type: new GraphQLNonNull(RestaurantConfigurations),
+      resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
+    },
     parentRestaurant: {
       type: ParentRestaurant,
       resolve: async (_, args, { dataLoaders }) =>

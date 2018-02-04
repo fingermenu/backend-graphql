@@ -533,6 +533,12 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    configurations: {
+      type: new _graphql.GraphQLNonNull(_RestaurantConfigurations2.default),
+      resolve: function resolve(_) {
+        return _.get('configurations') ? _.get('configurations') : (0, _immutable.Map)();
+      }
+    },
     parentRestaurant: {
       type: ParentRestaurant,
       resolve: function () {

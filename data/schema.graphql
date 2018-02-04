@@ -414,6 +414,7 @@ type Restaurant implements Node {
   menus: [Menu!]
   languages: [Language!]
   tables: [Table!]
+  configurations: RestaurantConfigurations!
   parentRestaurant: ParentRestaurant
 }
 
