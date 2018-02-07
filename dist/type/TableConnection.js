@@ -123,7 +123,10 @@ var getTablesMatchCriteria = function () {
 }();
 
 var getTables = exports.getTables = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken, language) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken, language) {
+    var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
+        tableStateLoaderByKey = _ref4.tableStateLoaderByKey;
+
     var userId, tableStateId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, tables, indexedTables, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -131,7 +134,7 @@ var getTables = exports.getTables = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;
@@ -142,7 +145,7 @@ var getTables = exports.getTables = function () {
             }
 
             _context3.next = 6;
-            return dataLoaders.tableStateLoaderByKey(searchArgs.get('tableState'));
+            return tableStateLoaderByKey(searchArgs.get('tableState'));
 
           case 6:
             _context3.t0 = _context3.sent;

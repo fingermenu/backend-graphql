@@ -109,7 +109,10 @@ var getChoiceItemPricesMatchCriteria = function () {
 }();
 
 var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken) {
+    var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
+        menuItemPriceLoaderById = _ref4.menuItemPriceLoaderById;
+
     var finalSearchArgs, menuItemPriceId, choiceItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, choiceItemPrices, indexedChoiceItemPrices, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -125,7 +128,7 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
             }
 
             _context3.next = 5;
-            return dataLoaders.menuItemPriceLoaderById.load(menuItemPriceId);
+            return menuItemPriceLoaderById.load(menuItemPriceId);
 
           case 5:
             choiceItemPriceIds = _context3.sent.get('choiceItemPriceIds');
@@ -152,7 +155,7 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
 
           case 9:
             _context3.next = 11;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 11:
             userId = _context3.sent.id;

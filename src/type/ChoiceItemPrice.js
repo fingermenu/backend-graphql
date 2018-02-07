@@ -33,11 +33,12 @@ export default new GraphQLObjectType({
     },
     choiceItem: {
       type: ChoiceItem,
-      resolve: async (_, args, { dataLoaders }) => (_.get('choiceItemId') ? dataLoaders.choiceItemLoaderById.load(_.get('choiceItemId')) : null),
+      resolve: async (_, args, { dataLoaders: { choiceItemLoaderById } }) =>
+        (_.get('choiceItemId') ? choiceItemLoaderById.load(_.get('choiceItemId')) : null),
     },
     size: {
       type: Size,
-      resolve: async (_, args, { dataLoaders }) => (_.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null),
+      resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
   },
   interfaces: [NodeInterface],

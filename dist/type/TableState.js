@@ -11,6 +11,12 @@ var _graphql = require('graphql');
 
 var _interface = require('../interface');
 
+var _Common = require('./Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getTableState = exports.getTableState = function () {
@@ -51,23 +57,15 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     name: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_, args, _ref2) {
-        var language = _ref2.language;
-
-        var allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      }
-    },
-    imageUrl: {
-      type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
+          var language = _ref3.language,
+              configLoader = _ref3.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('imageUrl'));
+                  return _context2.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoader));
 
                 case 1:
                 case 'end':
@@ -77,8 +75,31 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee2, undefined);
         }));
 
-        return function resolve(_x3) {
-          return _ref3.apply(this, arguments);
+        return function resolve(_x3, _x4, _x5) {
+          return _ref2.apply(this, arguments);
+        };
+      }()
+    },
+    imageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  return _context3.abrupt('return', _.get('imageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, undefined);
+        }));
+
+        return function resolve(_x6) {
+          return _ref4.apply(this, arguments);
         };
       }()
     }

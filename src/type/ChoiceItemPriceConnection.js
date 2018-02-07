@@ -61,12 +61,12 @@ const getChoiceItemPricesMatchCriteria = async (searchArgs, ownedByUserId, sessi
     sessionToken,
   );
 
-export const getChoiceItemPrices = async (searchArgs, dataLoaders, sessionToken) => {
+export const getChoiceItemPrices = async (searchArgs, { userLoaderBySessionToken, menuItemPriceLoaderById }, sessionToken) => {
   let finalSearchArgs = searchArgs;
   const menuItemPriceId = finalSearchArgs.get('menuItemPriceId');
 
   if (menuItemPriceId) {
-    const choiceItemPriceIds = (await dataLoaders.menuItemPriceLoaderById.load(menuItemPriceId)).get('choiceItemPriceIds');
+    const choiceItemPriceIds = (await menuItemPriceLoaderById.load(menuItemPriceId)).get('choiceItemPriceIds');
 
     if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
       return {
@@ -84,7 +84,7 @@ export const getChoiceItemPrices = async (searchArgs, dataLoaders, sessionToken)
     finalSearchArgs = finalSearchArgs.set('choiceItemPriceIds', choiceItemPriceIds);
   }
 
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getChoiceItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,

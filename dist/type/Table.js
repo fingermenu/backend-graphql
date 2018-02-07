@@ -15,6 +15,10 @@ var _TableState = require('./TableState');
 
 var _TableState2 = _interopRequireDefault(_TableState);
 
+var _Common = require('./Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -51,13 +55,28 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     name: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_, args, _ref2) {
-        var language = _ref2.language;
+      resolve: function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
+          var language = _ref3.language,
+              configLoader = _ref3.dataLoaders.configLoader;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  return _context2.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoader));
 
-        var allValues = _.get('name');
+                case 1:
+                case 'end':
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, undefined);
+        }));
 
-        return allValues ? allValues.get(language) : null;
-      }
+        return function resolve(_x3, _x4, _x5) {
+          return _ref2.apply(this, arguments);
+        };
+      }()
     },
     status: {
       type: _graphql.GraphQLString,
@@ -92,24 +111,24 @@ exports.default = new _graphql.GraphQLObjectType({
     tableState: {
       type: _TableState2.default,
       resolve: function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
-          var dataLoaders = _ref4.dataLoaders;
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
+          var tableStateLoaderById = _ref5.dataLoaders.tableStateLoaderById;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('tableStateId') ? dataLoaders.tableStateLoaderById.load(_.get('tableStateId')) : null);
+                  return _context3.abrupt('return', _.get('tableStateId') ? tableStateLoaderById.load(_.get('tableStateId')) : null);
 
                 case 1:
                 case 'end':
-                  return _context2.stop();
+                  return _context3.stop();
               }
             }
-          }, _callee2, undefined);
+          }, _callee3, undefined);
         }));
 
-        return function resolve(_x3, _x4, _x5) {
-          return _ref3.apply(this, arguments);
+        return function resolve(_x6, _x7, _x8) {
+          return _ref4.apply(this, arguments);
         };
       }()
     }

@@ -110,7 +110,10 @@ var getMenuItemPricesMatchCriteria = function () {
 }();
 
 var getMenuItemPrices = exports.getMenuItemPrices = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken) {
+    var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
+        menuLoaderById = _ref4.menuLoaderById;
+
     var finalSearchArgs, menuId, menuItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItemPrices, indexedMenuItemPrices, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -126,7 +129,7 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
             }
 
             _context3.next = 5;
-            return dataLoaders.menuLoaderById.load(menuId);
+            return menuLoaderById.load(menuId);
 
           case 5:
             menuItemPriceIds = _context3.sent.get('menuItemPriceIds');
@@ -153,7 +156,7 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
 
           case 9:
             _context3.next = 11;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 11:
             userId = _context3.sent.id;

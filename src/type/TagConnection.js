@@ -69,8 +69,8 @@ const getTagsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, lan
     sessionToken,
   );
 
-export const getTags = async (searchArgs, dataLoaders, sessionToken, language) => {
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
+export const getTags = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getTagsCountMatchCriteria(searchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,

@@ -52,8 +52,8 @@ const getChoiceItemsMatchCriteria = async (searchArgs, addedByUserId, sessionTok
     sessionToken,
   );
 
-export const getChoiceItems = async (searchArgs, dataLoaders, sessionToken, language) => {
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
+export const getChoiceItems = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getChoiceItemsCountMatchCriteria(searchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,

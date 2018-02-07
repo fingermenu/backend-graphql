@@ -35,7 +35,6 @@ const getCriteria = (searchArgs) => {
       deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       tableId: searchArgs.has('tableId') ? searchArgs.get('tableId') : undefined,
-      orderStateId: searchArgs.has('orderStateId') ? searchArgs.get('orderStateId') : undefined,
       greaterThanOrEqualTo_placedAt: dateRange ? dateRange.from : undefined,
       lessThanOrEqualTo_placedAt: dateRange ? dateRange.to : undefined,
     }),
@@ -77,7 +76,7 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
     return criteria.set('orderByFieldAscending', 'customerName');
   }
 
-  return criteria.set('orderByFieldAscending', 'totalPrice');
+  return criteria.set('PlacedAtDescending', 'placedAt');
 };
 
 const getOrdersCountMatchCriteria = async (searchArgs, sessionToken) =>
@@ -91,14 +90,12 @@ const getOrdersMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
     sessionToken,
   );
 
-export const getOrders = async (searchArgs, dataLoaders, sessionToken) => {
-  const orderStateId = searchArgs.get('orderState') ? await dataLoaders.orderStateLoaderByKey(searchArgs.get('orderState')) : null;
-  const finalSearchArgs = searchArgs.merge(orderStateId ? Map({ orderStateId }) : Map());
-  const count = await getOrdersCountMatchCriteria(finalSearchArgs, sessionToken);
+export const getOrders = async (searchArgs, sessionToken) => {
+  const count = await getOrdersCountMatchCriteria(searchArgs, sessionToken);
   const {
     limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  const orders = await getOrdersMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
+  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const orders = await getOrdersMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedOrders = orders.zip(Range(skip, skip + limit));
 
   const edges = indexedOrders.map(indexedItem => ({

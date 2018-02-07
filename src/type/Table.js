@@ -4,6 +4,7 @@ import { TableService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import TableState from './TableState';
+import Common from './Common';
 
 export const getTable = async (tableId, sessionToken) => new TableService().read(tableId, null, sessionToken);
 
@@ -16,11 +17,7 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     status: {
       type: GraphQLString,
@@ -44,7 +41,8 @@ export default new GraphQLObjectType({
     },
     tableState: {
       type: TableState,
-      resolve: async (_, args, { dataLoaders }) => (_.get('tableStateId') ? dataLoaders.tableStateLoaderById.load(_.get('tableStateId')) : null),
+      resolve: async (_, args, { dataLoaders: { tableStateLoaderById } }) =>
+        (_.get('tableStateId') ? tableStateLoaderById.load(_.get('tableStateId')) : null),
     },
   },
   interfaces: [NodeInterface],

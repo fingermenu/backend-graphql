@@ -51,7 +51,6 @@ var getCriteria = function getCriteria(searchArgs) {
       deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       tableId: searchArgs.has('tableId') ? searchArgs.get('tableId') : undefined,
-      orderStateId: searchArgs.has('orderStateId') ? searchArgs.get('orderStateId') : undefined,
       greaterThanOrEqualTo_placedAt: dateRange ? dateRange.from : undefined,
       lessThanOrEqualTo_placedAt: dateRange ? dateRange.to : undefined
     })
@@ -93,7 +92,7 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', 'customerName');
   }
 
-  return criteria.set('orderByFieldAscending', 'totalPrice');
+  return criteria.set('PlacedAtDescending', 'placedAt');
 };
 
 var getOrdersCountMatchCriteria = function () {
@@ -139,42 +138,23 @@ var getOrdersMatchCriteria = function () {
 }();
 
 var getOrders = exports.getOrders = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken) {
-    var orderStateId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, orders, indexedOrders, edges, firstEdge, lastEdge;
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, sessionToken) {
+    var count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, orders, indexedOrders, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            if (!searchArgs.get('orderState')) {
-              _context3.next = 6;
-              break;
-            }
+            _context3.next = 2;
+            return getOrdersCountMatchCriteria(searchArgs, sessionToken);
 
-            _context3.next = 3;
-            return dataLoaders.orderStateLoaderByKey(searchArgs.get('orderState'));
-
-          case 3:
-            _context3.t0 = _context3.sent;
-            _context3.next = 7;
-            break;
+          case 2:
+            count = _context3.sent;
+            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
+            _context3.next = 6;
+            return getOrdersMatchCriteria(searchArgs, sessionToken, limit, skip);
 
           case 6:
-            _context3.t0 = null;
-
-          case 7:
-            orderStateId = _context3.t0;
-            finalSearchArgs = searchArgs.merge(orderStateId ? (0, _immutable.Map)({ orderStateId: orderStateId }) : (0, _immutable.Map)());
-            _context3.next = 11;
-            return getOrdersCountMatchCriteria(finalSearchArgs, sessionToken);
-
-          case 11:
-            count = _context3.sent;
-            _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 15;
-            return getOrdersMatchCriteria(finalSearchArgs, sessionToken, limit, skip);
-
-          case 15:
             orders = _context3.sent;
             indexedOrders = orders.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedOrders.map(function (indexedItem) {
@@ -196,7 +176,7 @@ var getOrders = exports.getOrders = function () {
               }
             });
 
-          case 21:
+          case 12:
           case 'end':
             return _context3.stop();
         }
@@ -204,7 +184,7 @@ var getOrders = exports.getOrders = function () {
     }, _callee3, undefined);
   }));
 
-  return function getOrders(_x7, _x8, _x9) {
+  return function getOrders(_x7, _x8) {
     return _ref3.apply(this, arguments);
   };
 }();

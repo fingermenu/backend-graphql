@@ -19,6 +19,10 @@ var _Tag = require('./Tag');
 
 var _Tag2 = _interopRequireDefault(_Tag);
 
+var _Common = require('./Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -55,33 +59,15 @@ exports.default = new _graphql.GraphQLObjectType({
     },
     name: {
       type: _graphql.GraphQLString,
-      resolve: function resolve(_, args, _ref2) {
-        var language = _ref2.language;
-
-        var allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      }
-    },
-    description: {
-      type: _graphql.GraphQLString,
-      resolve: function resolve(_, args, _ref3) {
-        var language = _ref3.language;
-
-        var allValues = _.get('description');
-
-        return allValues ? allValues.get(language) : null;
-      }
-    },
-    menuPageUrl: {
-      type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
+          var language = _ref3.language,
+              configLoader = _ref3.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('menuPageUrl'));
+                  return _context2.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoader));
 
                 case 1:
                 case 'end':
@@ -91,20 +77,22 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee2, undefined);
         }));
 
-        return function resolve(_x3) {
-          return _ref4.apply(this, arguments);
+        return function resolve(_x3, _x4, _x5) {
+          return _ref2.apply(this, arguments);
         };
       }()
     },
-    imageUrl: {
+    description: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
+          var language = _ref5.language,
+              configLoader = _ref5.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _.get('imageUrl'));
+                  return _context3.abrupt('return', _Common2.default.getTranslation(_, 'description', language, configLoader));
 
                 case 1:
                 case 'end':
@@ -114,44 +102,22 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee3, undefined);
         }));
 
-        return function resolve(_x4) {
-          return _ref5.apply(this, arguments);
+        return function resolve(_x6, _x7, _x8) {
+          return _ref4.apply(this, arguments);
         };
       }()
     },
-    menuItemPrices: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_MenuItemPrice2.default)),
+    menuPageUrl: {
+      type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref7) {
-          var dataLoaders = _ref7.dataLoaders;
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_) {
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  if (!(_.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty())) {
-                    _context4.next = 7;
-                    break;
-                  }
+                  return _context4.abrupt('return', _.get('menuPageUrl'));
 
-                  _context4.next = 3;
-                  return dataLoaders.menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
-
-                case 3:
-                  _context4.t1 = function (menuItemPrice) {
-                    return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
-                  };
-
-                  _context4.t0 = _context4.sent.filter(_context4.t1);
-                  _context4.next = 8;
-                  break;
-
-                case 7:
-                  _context4.t0 = [];
-
-                case 8:
-                  return _context4.abrupt('return', _context4.t0);
-
-                case 9:
+                case 1:
                 case 'end':
                   return _context4.stop();
               }
@@ -159,21 +125,20 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee4, undefined);
         }));
 
-        return function resolve(_x5, _x6, _x7) {
+        return function resolve(_x9) {
           return _ref6.apply(this, arguments);
         };
       }()
     },
-    tags: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Tag2.default)),
+    imageUrl: {
+      type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref9) {
-          var dataLoaders = _ref9.dataLoaders;
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_) {
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', _.get('tagIds') && !_.get('tagIds').isEmpty() ? dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()) : []);
+                  return _context5.abrupt('return', _.get('imageUrl'));
 
                 case 1:
                 case 'end':
@@ -183,8 +148,77 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee5, undefined);
         }));
 
-        return function resolve(_x8, _x9, _x10) {
+        return function resolve(_x10) {
+          return _ref7.apply(this, arguments);
+        };
+      }()
+    },
+    menuItemPrices: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_MenuItemPrice2.default)),
+      resolve: function () {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref9) {
+          var menuItemPriceLoaderById = _ref9.dataLoaders.menuItemPriceLoaderById;
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  if (!(_.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty())) {
+                    _context6.next = 7;
+                    break;
+                  }
+
+                  _context6.next = 3;
+                  return menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
+
+                case 3:
+                  _context6.t1 = function (menuItemPrice) {
+                    return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
+                  };
+
+                  _context6.t0 = _context6.sent.filter(_context6.t1);
+                  _context6.next = 8;
+                  break;
+
+                case 7:
+                  _context6.t0 = [];
+
+                case 8:
+                  return _context6.abrupt('return', _context6.t0);
+
+                case 9:
+                case 'end':
+                  return _context6.stop();
+              }
+            }
+          }, _callee6, undefined);
+        }));
+
+        return function resolve(_x11, _x12, _x13) {
           return _ref8.apply(this, arguments);
+        };
+      }()
+    },
+    tags: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Tag2.default)),
+      resolve: function () {
+        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref11) {
+          var tagLoaderById = _ref11.dataLoaders.tagLoaderById;
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  return _context7.abrupt('return', _.get('tagIds') && !_.get('tagIds').isEmpty() ? tagLoaderById.loadMany(_.get('tagIds').toArray()) : []);
+
+                case 1:
+                case 'end':
+                  return _context7.stop();
+              }
+            }
+          }, _callee7, undefined);
+        }));
+
+        return function resolve(_x14, _x15, _x16) {
+          return _ref10.apply(this, arguments);
         };
       }()
     }

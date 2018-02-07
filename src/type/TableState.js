@@ -3,6 +3,7 @@
 import { TableStateService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+import Common from './Common';
 
 export const getTableState = async (tableStateId, sessionToken) => new TableStateService().read(tableStateId, null, sessionToken);
 
@@ -19,11 +20,7 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     imageUrl: {
       type: GraphQLString,

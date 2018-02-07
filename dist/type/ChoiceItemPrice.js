@@ -149,12 +149,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _ChoiceItem2.default,
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref7) {
-          var dataLoaders = _ref7.dataLoaders;
+          var choiceItemLoaderById = _ref7.dataLoaders.choiceItemLoaderById;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', _.get('choiceItemId') ? dataLoaders.choiceItemLoaderById.load(_.get('choiceItemId')) : null);
+                  return _context6.abrupt('return', _.get('choiceItemId') ? choiceItemLoaderById.load(_.get('choiceItemId')) : null);
 
                 case 1:
                 case 'end':
@@ -173,12 +173,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _Size2.default,
       resolve: function () {
         var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref9) {
-          var dataLoaders = _ref9.dataLoaders;
+          var sizeLoaderById = _ref9.dataLoaders.sizeLoaderById;
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
               switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context7.abrupt('return', _.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null);
+                  return _context7.abrupt('return', _.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null);
 
                 case 1:
                 case 'end':

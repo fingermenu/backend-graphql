@@ -4,6 +4,7 @@ import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
+import Common from './Common';
 
 export const getChoiceItem = async (choiceItemId, sessionToken) => new ChoiceItemService().read(choiceItemId, null, sessionToken);
 
@@ -16,19 +17,11 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     description: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('description');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
     },
     menuItemPageUrl: {
       type: GraphQLString,
@@ -40,7 +33,7 @@ export default new GraphQLObjectType({
     },
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),
-      resolve: async (_, args, { dataLoaders }) => dataLoaders.tagLoaderById.loadMany(_.get('tagIds').toArray()),
+      resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => tagLoaderById.loadMany(_.get('tagIds').toArray()),
     },
   },
   interfaces: [NodeInterface],

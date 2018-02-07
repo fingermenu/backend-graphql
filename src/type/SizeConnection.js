@@ -42,8 +42,8 @@ const getSizesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, la
     sessionToken,
   );
 
-export const getSizes = async (searchArgs, dataLoaders, sessionToken, language) => {
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
+export const getSizes = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getSizesCountMatchCriteria(searchArgs, userId, sessionToken, language);
   const {
     limit, skip, hasNextPage, hasPreviousPage,

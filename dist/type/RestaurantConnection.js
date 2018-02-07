@@ -113,7 +113,9 @@ var getRestaurantsMatchCriteria = function () {
 }();
 
 var getRestaurants = exports.getRestaurants = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken, language) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken, language) {
+    var userLoaderBySessionToken = _ref4.userLoaderBySessionToken;
+
     var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, restaurants, indexedRestaurants, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -121,7 +123,7 @@ var getRestaurants = exports.getRestaurants = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 2:
             userId = _context3.sent.id;

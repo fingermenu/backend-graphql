@@ -3,6 +3,7 @@
 import { SizeService } from '@fingermenu/parse-server-common';
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+import Common from './Common';
 
 export const getSize = async (sizeId, sessionToken) => new SizeService().read(sizeId, null, sessionToken);
 
@@ -15,19 +16,11 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     description: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('description');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
     },
     imageUrl: {
       type: GraphQLString,

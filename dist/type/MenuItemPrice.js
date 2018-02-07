@@ -153,12 +153,12 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
       type: _MenuItem2.default,
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref7) {
-          var dataLoaders = _ref7.dataLoaders;
+          var menuItemLoaderById = _ref7.dataLoaders.menuItemLoaderById;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', _.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null);
+                  return _context6.abrupt('return', _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null);
 
                 case 1:
                 case 'end':
@@ -177,12 +177,12 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
       type: _Size2.default,
       resolve: function () {
         var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref9) {
-          var dataLoaders = _ref9.dataLoaders;
+          var sizeLoaderById = _ref9.dataLoaders.sizeLoaderById;
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
               switch (_context7.prev = _context7.next) {
                 case 0:
-                  return _context7.abrupt('return', _.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null);
+                  return _context7.abrupt('return', _.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null);
 
                 case 1:
                 case 'end':
@@ -201,7 +201,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
         var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref11) {
-          var dataLoaders = _ref11.dataLoaders;
+          var choiceItemPriceLoaderById = _ref11.dataLoaders.choiceItemPriceLoaderById;
           return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
               switch (_context8.prev = _context8.next) {
@@ -212,7 +212,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
                   }
 
                   _context8.next = 3;
-                  return dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
 
                 case 3:
                   _context8.t1 = function (choiceItemPrice) {
@@ -351,12 +351,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _MenuItem2.default,
       resolve: function () {
         var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, args, _ref17) {
-          var dataLoaders = _ref17.dataLoaders;
+          var menuItemLoaderById = _ref17.dataLoaders.menuItemLoaderById;
           return regeneratorRuntime.wrap(function _callee13$(_context13) {
             while (1) {
               switch (_context13.prev = _context13.next) {
                 case 0:
-                  return _context13.abrupt('return', _.get('menuItemId') ? dataLoaders.menuItemLoaderById.load(_.get('menuItemId')) : null);
+                  return _context13.abrupt('return', _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null);
 
                 case 1:
                 case 'end':
@@ -375,12 +375,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _Size2.default,
       resolve: function () {
         var _ref18 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(_, args, _ref19) {
-          var dataLoaders = _ref19.dataLoaders;
+          var sizeLoaderById = _ref19.dataLoaders.sizeLoaderById;
           return regeneratorRuntime.wrap(function _callee14$(_context14) {
             while (1) {
               switch (_context14.prev = _context14.next) {
                 case 0:
-                  return _context14.abrupt('return', _.get('sizeId') ? dataLoaders.sizeLoaderById.load(_.get('sizeId')) : null);
+                  return _context14.abrupt('return', _.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null);
 
                 case 1:
                 case 'end':
@@ -399,7 +399,7 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(BeServedWithMenuItemPrice)),
       resolve: function () {
         var _ref20 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, args, _ref21) {
-          var dataLoaders = _ref21.dataLoaders;
+          var menuItemPriceLoaderById = _ref21.dataLoaders.menuItemPriceLoaderById;
           return regeneratorRuntime.wrap(function _callee15$(_context15) {
             while (1) {
               switch (_context15.prev = _context15.next) {
@@ -410,7 +410,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   }
 
                   _context15.next = 3;
-                  return dataLoaders.menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray());
+                  return menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray());
 
                 case 3:
                   _context15.t1 = function (menuItemPrice) {
@@ -444,7 +444,7 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
         var _ref22 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(_, args, _ref23) {
-          var dataLoaders = _ref23.dataLoaders;
+          var choiceItemPriceLoaderById = _ref23.dataLoaders.choiceItemPriceLoaderById;
           return regeneratorRuntime.wrap(function _callee16$(_context16) {
             while (1) {
               switch (_context16.prev = _context16.next) {
@@ -455,7 +455,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   }
 
                   _context16.next = 3;
-                  return dataLoaders.choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
 
                 case 3:
                   _context16.t1 = function (choiceItemPrice) {

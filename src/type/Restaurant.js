@@ -10,6 +10,7 @@ import Menu from './Menu';
 import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
 import { NodeInterface } from '../interface';
+import Common from './Common';
 
 const getTableCriteria = restaurantId =>
   Map({
@@ -32,11 +33,7 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     websiteUrl: {
       type: GraphQLString,
@@ -92,18 +89,18 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     menus: {
       type: new GraphQLList(new GraphQLNonNull(Menu)),
-      resolve: async (_, args, { dataLoaders }) => {
+      resolve: async (_, args, { dataLoaders: { menuLoaderById } }) => {
         const menuIds = _.get('menuIds');
 
-        return !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+        return !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray());
       },
     },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders }) => {
+      resolve: async (_, args, { dataLoaders: { languageLoaderById } }) => {
         const languageIds = _.get('languageIds');
 
-        return !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+        return !languageIds || languageIds.isEmpty() ? [] : languageLoaderById.loadMany(languageIds.toArray());
       },
     },
     tables: {
@@ -127,11 +124,7 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     websiteUrl: {
       type: GraphQLString,
@@ -187,18 +180,18 @@ export default new GraphQLObjectType({
     },
     menus: {
       type: new GraphQLList(new GraphQLNonNull(Menu)),
-      resolve: async (_, args, { dataLoaders }) => {
+      resolve: async (_, args, { dataLoaders: { menuLoaderById } }) => {
         const menuIds = _.get('menuIds');
 
-        return !menuIds || menuIds.isEmpty() ? [] : dataLoaders.menuLoaderById.loadMany(menuIds.toArray());
+        return !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray());
       },
     },
     languages: {
       type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders }) => {
+      resolve: async (_, args, { dataLoaders: { languageLoaderById } }) => {
         const languageIds = _.get('languageIds');
 
-        return !languageIds || languageIds.isEmpty() ? [] : dataLoaders.languageLoaderById.loadMany(languageIds.toArray());
+        return !languageIds || languageIds.isEmpty() ? [] : languageLoaderById.loadMany(languageIds.toArray());
       },
     },
     tables: {
@@ -211,8 +204,8 @@ export default new GraphQLObjectType({
     },
     parentRestaurant: {
       type: ParentRestaurant,
-      resolve: async (_, args, { dataLoaders }) =>
-        (_.get('parentRestaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('parentRestaurantId')) : null),
+      resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) =>
+        (_.get('parentRestaurantId') ? restaurantLoaderById.load(_.get('parentRestaurantId')) : null),
     },
   },
   interfaces: [NodeInterface],

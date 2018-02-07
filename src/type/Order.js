@@ -46,7 +46,8 @@ export default new GraphQLObjectType({
     },
     restaurant: {
       type: Restaurant,
-      resolve: async (_, args, { dataLoaders }) => (_.get('restaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('restaurantId')) : null),
+      resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) =>
+        (_.get('restaurantId') ? restaurantLoaderById.load(_.get('restaurantId')) : null),
     },
     table: {
       type: Table,

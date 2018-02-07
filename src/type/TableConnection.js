@@ -78,9 +78,9 @@ const getTablesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, l
     sessionToken,
   );
 
-export const getTables = async (searchArgs, dataLoaders, sessionToken, language) => {
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
-  const tableStateId = searchArgs.get('tableState') ? await dataLoaders.tableStateLoaderByKey(searchArgs.get('tableState')) : null;
+export const getTables = async (searchArgs, { userLoaderBySessionToken, tableStateLoaderByKey }, sessionToken, language) => {
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
+  const tableStateId = searchArgs.get('tableState') ? await tableStateLoaderByKey(searchArgs.get('tableState')) : null;
   const finalSearchArgs = searchArgs.merge(tableStateId ? Map({ tableStateId }) : Map());
   const count = await getTablesCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
   const {

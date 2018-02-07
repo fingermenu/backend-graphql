@@ -339,14 +339,11 @@ export default new GraphQLObjectType({
         notes: {
           type: GraphQLString,
         },
-        orderState: {
-          type: GraphQLString,
-        },
         sortOption: {
           type: GraphQLString,
         },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken }) => getOrders(Immutable.fromJS(args), dataLoaders, sessionToken),
+      resolve: async (_, args, { sessionToken }) => getOrders(Immutable.fromJS(args), sessionToken),
     },
   },
   interfaces: [NodeInterface],

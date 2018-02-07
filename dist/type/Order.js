@@ -103,12 +103,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _Restaurant2.default,
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
-          var dataLoaders = _ref3.dataLoaders;
+          var restaurantLoaderById = _ref3.dataLoaders.restaurantLoaderById;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('restaurantId') ? dataLoaders.restaurantLoaderById.load(_.get('restaurantId')) : null);
+                  return _context2.abrupt('return', _.get('restaurantId') ? restaurantLoaderById.load(_.get('restaurantId')) : null);
 
                 case 1:
                 case 'end':

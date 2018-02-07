@@ -811,22 +811,18 @@ exports.default = new _graphql.GraphQLObjectType({
         notes: {
           type: _graphql.GraphQLString
         },
-        orderState: {
-          type: _graphql.GraphQLString
-        },
         sortOption: {
           type: _graphql.GraphQLString
         }
       }),
       resolve: function () {
         var _ref49 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref50) {
-          var dataLoaders = _ref50.dataLoaders,
-              sessionToken = _ref50.sessionToken;
+          var sessionToken = _ref50.sessionToken;
           return regeneratorRuntime.wrap(function _callee20$(_context20) {
             while (1) {
               switch (_context20.prev = _context20.next) {
                 case 0:
-                  return _context20.abrupt('return', (0, _OrderConnection.getOrders)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+                  return _context20.abrupt('return', (0, _OrderConnection.getOrders)(_immutable2.default.fromJS(args), sessionToken));
 
                 case 1:
                 case 'end':

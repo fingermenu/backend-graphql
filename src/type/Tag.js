@@ -3,6 +3,7 @@
 import { TagService } from '@fingermenu/parse-server-common';
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+import Common from './Common';
 
 export const getTag = async (tagId, sessionToken) => new TagService().read(tagId, null, sessionToken);
 
@@ -15,19 +16,11 @@ const ParentTag = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     description: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('description');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
     },
     imageUrl: {
       type: GraphQLString,
@@ -54,19 +47,11 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('name');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
     description: {
       type: GraphQLString,
-      resolve: (_, args, { language }) => {
-        const allValues = _.get('description');
-
-        return allValues ? allValues.get(language) : null;
-      },
+      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
     },
     imageUrl: {
       type: GraphQLString,
@@ -82,7 +67,7 @@ export default new GraphQLObjectType({
     },
     parentTag: {
       type: ParentTag,
-      resolve: async (_, args, { dataLoaders }) => (_.get('parentTagId') ? dataLoaders.tagLoaderById.load(_.get('parentTagId')) : null),
+      resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => (_.get('parentTagId') ? tagLoaderById.load(_.get('parentTagId')) : null),
     },
   },
   interfaces: [NodeInterface],
