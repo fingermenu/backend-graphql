@@ -1,10 +1,10 @@
 // @flow
 
+import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { OrderService } from '@fingermenu/parse-server-common';
 import { convert, ZonedDateTime } from 'js-joda';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
-import { OrderService } from '@fingermenu/parse-server-common';
 import Order from './Order';
 
 const getCriteria = (searchArgs) => {
@@ -25,21 +25,23 @@ const getCriteria = (searchArgs) => {
     }
   }
 
-  return Map({
+  const criteria = Map({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: Map({
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
+      exist_cancelledAt: searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders') ? true : undefined,
+      deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
+      restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
+      tableId: searchArgs.has('tableId') ? searchArgs.get('tableId') : undefined,
+      orderStateId: searchArgs.has('orderStateId') ? searchArgs.get('orderStateId') : undefined,
+      greaterThanOrEqualTo_placedAt: dateRange ? dateRange.from : undefined,
+      lessThanOrEqualTo_placedAt: dateRange ? dateRange.to : undefined,
     }),
-  })
-    .merge(searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders')
-      ? Map({ conditions: Map({ exist_cancelledAt: true }) })
-      : Map({ conditions: Map({ doesNotExist_cancelledAt: true }) }))
-    .merge(searchArgs.has('restaurantId') ? Map({ conditions: Map({ restaurantId: searchArgs.get('restaurantId') }) }) : Map())
-    .merge(searchArgs.has('tableId') ? Map({ conditions: Map({ tableId: searchArgs.get('tableId') }) }) : Map())
-    .merge(searchArgs.has('orderStateId') ? Map({ conditions: Map({ orderStateId: searchArgs.get('orderStateId') }) }) : Map())
-    .merge(dateRange ? Map({ conditions: Map({ greaterThanOrEqualTo_placedAt: dateRange.from, lessThanOrEqualTo_placedAt: dateRange.to }) }) : Map());
+  });
+
+  return ImmutableEx.removeUndefinedProps(criteria);
 };
 
 const addSortOptionToCriteria = (criteria, sortOption) => {

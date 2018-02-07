@@ -5,15 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getOrders = undefined;
 
+var _commonJavascript = require('@microbusiness/common-javascript');
+
+var _parseServerCommon = require('@fingermenu/parse-server-common');
+
 var _jsJoda = require('js-joda');
 
 var _immutable = require('immutable');
 
 var _graphqlRelay = require('graphql-relay');
-
-var _commonJavascript = require('@microbusiness/common-javascript');
-
-var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _Order = require('./Order');
 
@@ -41,14 +41,23 @@ var getCriteria = function getCriteria(searchArgs) {
     }
   }
 
-  return (0, _immutable.Map)({
+  var criteria = (0, _immutable.Map)({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: (0, _immutable.Map)({
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
+      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
+      exist_cancelledAt: searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders') ? true : undefined,
+      deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
+      restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
+      tableId: searchArgs.has('tableId') ? searchArgs.get('tableId') : undefined,
+      orderStateId: searchArgs.has('orderStateId') ? searchArgs.get('orderStateId') : undefined,
+      greaterThanOrEqualTo_placedAt: dateRange ? dateRange.from : undefined,
+      lessThanOrEqualTo_placedAt: dateRange ? dateRange.to : undefined
     })
-  }).merge(searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ exist_cancelledAt: true }) }) : (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ doesNotExist_cancelledAt: true }) })).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableId: searchArgs.get('tableId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('orderStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ orderStateId: searchArgs.get('orderStateId') }) }) : (0, _immutable.Map)()).merge(dateRange ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ greaterThanOrEqualTo_placedAt: dateRange.from, lessThanOrEqualTo_placedAt: dateRange.to }) }) : (0, _immutable.Map)());
+  });
+
+  return _commonJavascript.ImmutableEx.removeUndefinedProps(criteria);
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {

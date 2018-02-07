@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getRestaurant = undefined;
 
+var _parseServerCommon = require('@fingermenu/parse-server-common');
+
 var _immutable = require('immutable');
 
 var _graphql = require('graphql');
-
-var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _GeoLocation = require('./GeoLocation');
 

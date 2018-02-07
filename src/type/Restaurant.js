@@ -1,8 +1,8 @@
 // @flow
 
+import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import Language from './Language';

@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { LanguageService } from '@fingermenu/parse-server-common';
+import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 
 export const getLanguage = async (languageId, sessionToken) => new LanguageService().read(languageId, null, sessionToken);

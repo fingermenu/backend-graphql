@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { OrderService } from '@fingermenu/parse-server-common';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Restaurant from './Restaurant';
 import Table, { getTable } from './Table';

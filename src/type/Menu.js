@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { MenuService } from '@fingermenu/parse-server-common';
+import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import MenuItemPrice from './MenuItemPrice';
 import Tag from './Tag';

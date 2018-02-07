@@ -1,13 +1,13 @@
 // @flow
 
+import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { RestaurantService } from '@fingermenu/parse-server-common';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
-import { RestaurantService } from '@fingermenu/parse-server-common';
 import Restaurant from './Restaurant';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
-  Map({
+  ImmutableEx.removeUndefinedProps(Map({
     language,
     ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
     conditions: Map({
@@ -16,7 +16,7 @@ const getCriteria = (searchArgs, ownedByUserId, language) =>
       status: searchArgs.has('status') ? searchArgs.get('status') : undefined,
       inheritParentRestaurantMenus: searchArgs.has('inheritParentRestaurantMenus') ? searchArgs.get('inheritParentRestaurantMenus') : undefined,
     }),
-  });
+  }));
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {

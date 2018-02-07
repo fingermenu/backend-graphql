@@ -1,13 +1,13 @@
 // @flow
 
+import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { TagService } from '@fingermenu/parse-server-common';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
-import { TagService } from '@fingermenu/parse-server-common';
 import Tag from './Tag';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
-  Map({
+  ImmutableEx.removeUndefinedProps(Map({
     language,
     ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: Map({
@@ -17,7 +17,7 @@ const getCriteria = (searchArgs, ownedByUserId, language) =>
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,
       level: searchArgs.has('level') ? searchArgs.get('level') : undefined,
     }),
-  });
+  }));
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {

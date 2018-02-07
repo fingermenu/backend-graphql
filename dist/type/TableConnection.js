@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getTables = undefined;
 
-var _immutable = require('immutable');
-
-var _graphqlRelay = require('graphql-relay');
-
 var _commonJavascript = require('@microbusiness/common-javascript');
 
 var _parseServerCommon = require('@fingermenu/parse-server-common');
+
+var _immutable = require('immutable');
+
+var _graphqlRelay = require('graphql-relay');
 
 var _Table = require('./Table');
 
@@ -22,16 +22,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
-  return (0, _immutable.Map)({
+  return _commonJavascript.ImmutableEx.removeUndefinedProps((0, _immutable.Map)({
     language: language,
     ids: searchArgs.has('tableIds') ? searchArgs.get('tableIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes'))
+      contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
+      restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
+      tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined
     })
-  }).merge(searchArgs.has('restaurantId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ restaurantId: searchArgs.get('restaurantId') }) }) : (0, _immutable.Map)()).merge(searchArgs.has('tableStateId') ? (0, _immutable.Map)({ conditions: (0, _immutable.Map)({ tableStateId: searchArgs.get('tableStateId') }) }) : (0, _immutable.Map)());
+  }));
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption, language) {

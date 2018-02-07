@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { TagService } from '@fingermenu/parse-server-common';
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 
 export const getTag = async (tagId, sessionToken) => new TagService().read(tagId, null, sessionToken);

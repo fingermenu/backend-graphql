@@ -1,27 +1,24 @@
 // @flow
 
+import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { LanguageService } from '@fingermenu/parse-server-common';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
-import { LanguageService } from '@fingermenu/parse-server-common';
 import Language from './Language';
 
 const getCriteria = searchArgs =>
-  Map({
+  ImmutableEx.removeUndefinedProps(Map({
     ids: searchArgs.has('languageIds') ? searchArgs.get('languageIds') : undefined,
     conditions: Map({
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-    }),
-  }).merge(searchArgs.has('key')
-    ? Map({
-      conditions: Map({
-        key: searchArgs
+      key: searchArgs.has('key')
+        ? searchArgs
           .get('key')
           .trim()
-          .toLowerCase(),
-      }),
-    })
-    : Map());
+          .toLowerCase()
+        : undefined,
+    }),
+  }));
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {

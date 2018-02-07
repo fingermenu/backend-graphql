@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { TableService } from '@fingermenu/parse-server-common';
+import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import TableState from './TableState';
 

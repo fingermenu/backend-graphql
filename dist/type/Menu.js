@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getMenu = undefined;
 
-var _graphql = require('graphql');
-
 var _parseServerCommon = require('@fingermenu/parse-server-common');
+
+var _graphql = require('graphql');
 
 var _interface = require('../interface');
 

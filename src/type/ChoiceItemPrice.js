@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLID, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
+import { GraphQLID, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import ChoiceItem from './ChoiceItem';
 import Size from './Size';

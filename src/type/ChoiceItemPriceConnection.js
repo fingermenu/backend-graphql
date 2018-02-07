@@ -1,18 +1,18 @@
 // @flow
 
+import { ImmutableEx, RelayHelper } from '@microbusiness/common-javascript';
+import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper } from '@microbusiness/common-javascript';
-import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
 import ChoiceItemPrice from './ChoiceItemPrice';
 
 const getCriteria = (searchArgs, ownedByUserId) =>
-  Map({
+  ImmutableEx.removeUndefinedProps(Map({
     ids: searchArgs.has('choiceItemPriceIds') ? searchArgs.get('choiceItemPriceIds') : undefined,
     conditions: Map({
       ownedByUserId,
     }),
-  });
+  }));
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('CurrentPriceDescending') === 0) {

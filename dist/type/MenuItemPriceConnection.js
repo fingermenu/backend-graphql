@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getMenuItemPrices = undefined;
 
-var _immutable = require('immutable');
-
-var _graphqlRelay = require('graphql-relay');
-
 var _commonJavascript = require('@microbusiness/common-javascript');
 
 var _parseServerCommon = require('@fingermenu/parse-server-common');
+
+var _immutable = require('immutable');
+
+var _graphqlRelay = require('graphql-relay');
 
 var _MenuItemPrice = require('./MenuItemPrice');
 
@@ -22,13 +22,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getCriteria = function getCriteria(searchArgs, addedByUserId) {
-  return (0, _immutable.Map)({
+  return _commonJavascript.ImmutableEx.removeUndefinedProps((0, _immutable.Map)({
     ids: searchArgs.has('menuItemPriceIds') ? searchArgs.get('menuItemPriceIds') : undefined,
     conditions: (0, _immutable.Map)({
       addedByUserId: addedByUserId,
       doesNotExist_removedByUser: true
     })
-  });
+  }));
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption) {

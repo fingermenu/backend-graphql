@@ -1,7 +1,7 @@
 // @flow
 
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { SizeService } from '@fingermenu/parse-server-common';
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 
 export const getSize = async (sizeId, sessionToken) => new SizeService().read(sizeId, null, sessionToken);

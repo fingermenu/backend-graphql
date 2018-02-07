@@ -1,13 +1,13 @@
 // @flow
 
+import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
-import { RelayHelper, StringHelper } from '@microbusiness/common-javascript';
-import { ChoiceItemService } from '@fingermenu/parse-server-common';
 import ChoiceItem from './ChoiceItem';
 
 const getCriteria = (searchArgs, addedByUserId, language) =>
-  Map({
+  ImmutableEx.removeUndefinedProps(Map({
     language,
     ids: searchArgs.has('choiceItemIds') ? searchArgs.get('choiceItemIds') : undefined,
     conditions: Map({
@@ -16,7 +16,7 @@ const getCriteria = (searchArgs, addedByUserId, language) =>
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
     }),
-  });
+  }));
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
