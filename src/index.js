@@ -10,6 +10,7 @@ export {
   menuItemPriceLoaderById,
   restaurantLoaderById,
   sizeLoaderById,
+  tableLoaderById,
   tableStateLoaderByKey,
   tableStateLoaderById,
   tagLoaderById,

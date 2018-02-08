@@ -8,5 +8,6 @@ export menuItemLoaderById from './MenuItemLoader';
 export menuItemPriceLoaderById from './MenuItemPriceLoader';
 export restaurantLoaderById from './RestaurantLoader';
 export sizeLoaderById from './SizeLoader';
+export tableLoaderById from './TableLoader';
 export { tableStateLoaderByKey, tableStateLoaderById } from './TableStateLoader';
 export tagLoaderById from './TagLoader';
