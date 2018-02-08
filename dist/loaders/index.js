@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.sizeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -63,6 +63,10 @@ var _SizeLoader = require('./SizeLoader');
 
 var _SizeLoader2 = _interopRequireDefault(_SizeLoader);
 
+var _TableLoader = require('./TableLoader');
+
+var _TableLoader2 = _interopRequireDefault(_TableLoader);
+
 var _TagLoader = require('./TagLoader');
 
 var _TagLoader2 = _interopRequireDefault(_TagLoader);
@@ -76,4 +80,5 @@ exports.menuItemLoaderById = _MenuItemLoader2.default;
 exports.menuItemPriceLoaderById = _MenuItemPriceLoader2.default;
 exports.restaurantLoaderById = _RestaurantLoader2.default;
 exports.sizeLoaderById = _SizeLoader2.default;
+exports.tableLoaderById = _TableLoader2.default;
 exports.tagLoaderById = _TagLoader2.default;
