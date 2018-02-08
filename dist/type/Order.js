@@ -88,9 +88,9 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     placedAt: {
-      type: _graphql.GraphQLString,
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLString),
       resolve: function resolve(_) {
-        return _.get('placedAt') ? _.get('placedAt').toISOString() : null;
+        return _.get('placedAt').toISOString();
       }
     },
     cancelledAt: {
@@ -100,7 +100,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     restaurant: {
-      type: _Restaurant2.default,
+      type: new _graphql.GraphQLNonNull(_Restaurant2.default),
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
           var restaurantLoaderById = _ref3.dataLoaders.restaurantLoaderById;
@@ -108,7 +108,7 @@ exports.default = new _graphql.GraphQLObjectType({
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _.get('restaurantId') ? restaurantLoaderById.load(_.get('restaurantId')) : null);
+                  return _context2.abrupt('return', restaurantLoaderById.load(_.get('restaurantId')));
 
                 case 1:
                 case 'end':
@@ -127,12 +127,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _Table2.default,
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
-          var sessionToken = _ref5.sessionToken;
+          var tableLoaderById = _ref5.dataLoaders.tableLoaderById;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _.get('tableId') ? (0, _Table.getTable)(_.get('tableId'), sessionToken) : null);
+                  return _context3.abrupt('return', _.get('tableId') ? tableLoaderById.load(_.get('tableId')) : null);
 
                 case 1:
                 case 'end':

@@ -20,7 +20,7 @@ import MenuItemPrice from './MenuItemPrice';
 import MenuItemPriceConnection, { getMenuItemPrices } from './MenuItemPriceConnection';
 import Restaurant from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
-import Table, { getTable } from './Table';
+import Table from './Table';
 import TableConnection, { getTables } from './TableConnection';
 import Order, { getOrder } from './Order';
 import OrderConnection, { getOrders } from './OrderConnection';
@@ -40,7 +40,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { tagId }, { dataLoaders }) => (tagId ? dataLoaders.tagLoaderById.load(tagId) : null),
+      resolve: async (_, { tagId }, { dataLoaders: { tagLoaderById } }) => (tagId ? tagLoaderById.load(tagId) : null),
     },
     tags: {
       type: TagConnection.connectionType,
@@ -74,7 +74,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { sizeId }, { dataLoaders }) => (sizeId ? dataLoaders.sizeLoaderById.load(sizeId) : null),
+      resolve: async (_, { sizeId }, { dataLoaders: { sizeLoaderById } }) => (sizeId ? sizeLoaderById.load(sizeId) : null),
     },
     sizes: {
       type: SizeConnection.connectionType,
@@ -99,7 +99,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { menuId }, { dataLoaders }) => (menuId ? dataLoaders.menuLoaderById.load(menuId) : null),
+      resolve: async (_, { menuId }, { dataLoaders: { menuLoaderById } }) => (menuId ? menuLoaderById.load(menuId) : null),
     },
     menus: {
       type: MenuConnection.connectionType,
@@ -131,7 +131,8 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { choiceItemId }, { dataLoaders }) => (choiceItemId ? dataLoaders.choiceItemLoaderById.load(choiceItemId) : null),
+      resolve: async (_, { choiceItemId }, { dataLoaders: { choiceItemLoaderById } }) =>
+        (choiceItemId ? choiceItemLoaderById.load(choiceItemId) : null),
     },
     choiceItems: {
       type: ChoiceItemConnection.connectionType,
@@ -160,8 +161,8 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { choiceItemPriceId }, { dataLoaders }) =>
-        (choiceItemPriceId ? dataLoaders.choiceItemPriceLoaderById.load(choiceItemPriceId) : null),
+      resolve: async (_, { choiceItemPriceId }, { dataLoaders: { choiceItemPriceLoaderById } }) =>
+        (choiceItemPriceId ? choiceItemPriceLoaderById.load(choiceItemPriceId) : null),
     },
     choiceItemPrices: {
       type: ChoiceItemPriceConnection.connectionType,
@@ -186,7 +187,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { menuItemId }, { dataLoaders }) => (menuItemId ? dataLoaders.menuItemLoaderById.load(menuItemId) : null),
+      resolve: async (_, { menuItemId }, { dataLoaders: { menuItemLoaderById } }) => (menuItemId ? menuItemLoaderById.load(menuItemId) : null),
     },
     menuItems: {
       type: MenuItemConnection.connectionType,
@@ -214,8 +215,8 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { menuItemPriceId }, { dataLoaders }) =>
-        (menuItemPriceId ? dataLoaders.menuItemPriceLoaderById.load(menuItemPriceId) : null),
+      resolve: async (_, { menuItemPriceId }, { dataLoaders: { menuItemPriceLoaderById } }) =>
+        (menuItemPriceId ? menuItemPriceLoaderById.load(menuItemPriceId) : null),
     },
     menuItemPrices: {
       type: MenuItemPriceConnection.connectionType,
@@ -240,7 +241,8 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { restaurantId }, { dataLoaders }) => (restaurantId ? dataLoaders.restaurantLoaderById.load(restaurantId) : null),
+      resolve: async (_, { restaurantId }, { dataLoaders: { restaurantLoaderById } }) =>
+        (restaurantId ? restaurantLoaderById.load(restaurantId) : null),
     },
     restaurants: {
       type: RestaurantConnection.connectionType,
@@ -272,7 +274,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
       },
-      resolve: async (_, { tableId }, { sessionToken }) => getTable(tableId, sessionToken),
+      resolve: async (_, { tableId }, { dataLoaders: { tableLoaderById } }) => (tableId ? tableLoaderById.load(tableId) : null),
     },
     tables: {
       type: TableConnection.connectionType,

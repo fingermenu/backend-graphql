@@ -4,7 +4,7 @@ import { OrderService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Restaurant from './Restaurant';
-import Table, { getTable } from './Table';
+import Table from './Table';
 import OrderMenuItemPrice from './OrderMenuItemPrice';
 
 export const getOrder = async (orderId, sessionToken) => new OrderService().read(orderId, null, sessionToken);
@@ -37,21 +37,20 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('totalPrice'),
     },
     placedAt: {
-      type: GraphQLString,
-      resolve: _ => (_.get('placedAt') ? _.get('placedAt').toISOString() : null),
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: _ => _.get('placedAt').toISOString(),
     },
     cancelledAt: {
       type: GraphQLString,
       resolve: _ => (_.get('cancelledAt') ? _.get('cancelledAt').toISOString() : null),
     },
     restaurant: {
-      type: Restaurant,
-      resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) =>
-        (_.get('restaurantId') ? restaurantLoaderById.load(_.get('restaurantId')) : null),
+      type: new GraphQLNonNull(Restaurant),
+      resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) => restaurantLoaderById.load(_.get('restaurantId')),
     },
     table: {
       type: Table,
-      resolve: async (_, args, { sessionToken }) => (_.get('tableId') ? getTable(_.get('tableId'), sessionToken) : null),
+      resolve: async (_, args, { dataLoaders: { tableLoaderById } }) => (_.get('tableId') ? tableLoaderById.load(_.get('tableId')) : null),
     },
     details: {
       type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)),

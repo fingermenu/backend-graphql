@@ -39,10 +39,6 @@ const ParentRestaurant = new GraphQLObjectType({
       type: GraphQLString,
       resolve: async _ => _.get('websiteUrl'),
     },
-    imageUrl: {
-      type: GraphQLString,
-      resolve: async _ => _.get('imageUrl'),
-    },
     address: {
       type: GraphQLString,
       resolve: _ => _.get('address'),
@@ -129,10 +125,6 @@ export default new GraphQLObjectType({
     websiteUrl: {
       type: GraphQLString,
       resolve: async _ => _.get('websiteUrl'),
-    },
-    imageUrl: {
-      type: GraphQLString,
-      resolve: async _ => _.get('imageUrl'),
     },
     address: {
       type: GraphQLString,
