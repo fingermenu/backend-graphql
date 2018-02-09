@@ -5,7 +5,6 @@ import { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
-import Language from './Language';
 import Menu from './Menu';
 import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
@@ -91,14 +90,6 @@ const ParentRestaurant = new GraphQLObjectType({
         return !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray());
       },
     },
-    languages: {
-      type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders: { languageLoaderById } }) => {
-        const languageIds = _.get('languageIds');
-
-        return !languageIds || languageIds.isEmpty() ? [] : languageLoaderById.loadMany(languageIds.toArray());
-      },
-    },
     tables: {
       type: new GraphQLList(new GraphQLNonNull(Table)),
       resolve: async (_, args, { sessionToken }) => (await getTablesMatchCriteria(_.get('id'), sessionToken)).toArray(),
@@ -176,14 +167,6 @@ export default new GraphQLObjectType({
         const menuIds = _.get('menuIds');
 
         return !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray());
-      },
-    },
-    languages: {
-      type: new GraphQLList(new GraphQLNonNull(Language)),
-      resolve: async (_, args, { dataLoaders: { languageLoaderById } }) => {
-        const languageIds = _.get('languageIds');
-
-        return !languageIds || languageIds.isEmpty() ? [] : languageLoaderById.loadMany(languageIds.toArray());
       },
     },
     tables: {
