@@ -33,7 +33,7 @@ var getCriteria = function getCriteria(searchArgs) {
     };
 
     if (dateRange.to < dateRange.from) {
-      throw new Error("dateRange is invalid. 'to' is less than 'from'.");
+      throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
     }
 
     if (dateRange.to - dateRange.from > 1000 * 60 * 60 * 24) {

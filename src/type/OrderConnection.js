@@ -7,7 +7,7 @@ import { Map, Range } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import Order from './Order';
 
-const getCriteria = (searchArgs) => {
+const getCriteria = searchArgs => {
   let dateRange;
 
   if (searchArgs.has('dateRange')) {
@@ -17,7 +17,7 @@ const getCriteria = (searchArgs) => {
     };
 
     if (dateRange.to < dateRange.from) {
-      throw new Error("dateRange is invalid. 'to' is less than 'from'.");
+      throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
     }
 
     if (dateRange.to - dateRange.from > 1000 * 60 * 60 * 24) {
@@ -92,9 +92,7 @@ const getOrdersMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
 
 export const getOrders = async (searchArgs, sessionToken) => {
   const count = await getOrdersCountMatchCriteria(searchArgs, sessionToken);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const orders = await getOrdersMatchCriteria(searchArgs, sessionToken, limit, skip);
   const indexedOrders = orders.zip(Range(skip, skip + limit));
 
