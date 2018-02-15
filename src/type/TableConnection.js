@@ -7,20 +7,30 @@ import { connectionDefinitions } from 'graphql-relay';
 import Table from './Table';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
-  ImmutableEx.removeUndefinedProps(Map({
-    language,
-    ids: searchArgs.has('tableIds') ? searchArgs.get('tableIds') : undefined,
-    conditions: Map({
-      ownedByUserId,
-      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
-      contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
-      restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
-      tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined,
+  ImmutableEx.removeUndefinedProps(
+    Map({
+      language,
+      ids: searchArgs.has('tableIds') ? searchArgs.get('tableIds') : undefined,
+      conditions: Map({
+        ownedByUserId,
+        contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+        contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
+        contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
+        restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
+        tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined,
+      }),
     }),
-  }));
+  );
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
+  if (sortOption && sortOption.localeCompare('SortOrderIndexDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'sortOrderIndex');
+  }
+
+  if (sortOption && sortOption.localeCompare('SortOrderIndexAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'sortOrderIndex');
+  }
+
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
     return criteria.set('orderByFieldDescending', `${language}_name`);
   }
@@ -61,7 +71,7 @@ const addSortOptionToCriteria = (criteria, sortOption, language) => {
     return criteria.set('orderByFieldAscending', 'customerName');
   }
 
-  return criteria.set('orderByFieldAscending', `${language}_name`);
+  return criteria.set('orderByFieldAscending', 'sortOrderIndex');
 };
 
 const getTablesCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>
@@ -83,9 +93,7 @@ export const getTables = async (searchArgs, { userLoaderBySessionToken, tableSta
   const tableStateId = searchArgs.get('tableState') ? await tableStateLoaderByKey(searchArgs.get('tableState')) : null;
   const finalSearchArgs = searchArgs.merge(tableStateId ? Map({ tableStateId }) : Map());
   const count = await getTablesCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
   const tables = await getTablesMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
   const indexedTables = tables.zip(Range(skip, skip + limit));
 

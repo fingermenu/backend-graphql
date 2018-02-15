@@ -39,10 +39,14 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: _ => _.get('notes'),
     },
+    sortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('sortOrderIndex'),
+    },
     tableState: {
       type: TableState,
       resolve: async (_, args, { dataLoaders: { tableStateLoaderById } }) =>
-        (_.get('tableStateId') ? tableStateLoaderById.load(_.get('tableStateId')) : null),
+        _.get('tableStateId') ? tableStateLoaderById.load(_.get('tableStateId')) : null,
     },
   },
   interfaces: [NodeInterface],

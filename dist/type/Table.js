@@ -108,6 +108,12 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('notes');
       }
     },
+    sortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('sortOrderIndex');
+      }
+    },
     tableState: {
       type: _TableState2.default,
       resolve: function () {

@@ -37,6 +37,14 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
 };
 
 var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption, language) {
+  if (sortOption && sortOption.localeCompare('SortOrderIndexDescending') === 0) {
+    return criteria.set('orderByFieldDescending', 'sortOrderIndex');
+  }
+
+  if (sortOption && sortOption.localeCompare('SortOrderIndexAscending') === 0) {
+    return criteria.set('orderByFieldAscending', 'sortOrderIndex');
+  }
+
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
     return criteria.set('orderByFieldDescending', language + '_name');
   }
@@ -77,7 +85,7 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', 'customerName');
   }
 
-  return criteria.set('orderByFieldAscending', language + '_name');
+  return criteria.set('orderByFieldAscending', 'sortOrderIndex');
 };
 
 var getTablesCountMatchCriteria = function () {
