@@ -41,6 +41,10 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
       type: Size,
       resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
+    sortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('sortOrderIndex'),
+    },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>
@@ -86,13 +90,9 @@ export default new GraphQLObjectType({
       type: Size,
       resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
-    toBeServedWithMenuItemPriceSortOrderIndex: {
+    sortOrderIndex: {
       type: GraphQLInt,
-      resolve: _ => _.get('toBeServedWithMenuItemPriceSortOrderIndex'),
-    },
-    choiceItemPriceSortOrderIndex: {
-      type: GraphQLInt,
-      resolve: _ => _.get('choiceItemPriceSortOrderIndex'),
+      resolve: _ => _.get('sortOrderIndex'),
     },
     toBeServedWithMenuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),

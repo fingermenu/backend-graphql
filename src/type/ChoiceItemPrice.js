@@ -1,7 +1,7 @@
 // @flow
 
 import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import ChoiceItem from './ChoiceItem';
 import Size from './Size';
@@ -34,11 +34,15 @@ export default new GraphQLObjectType({
     choiceItem: {
       type: ChoiceItem,
       resolve: async (_, args, { dataLoaders: { choiceItemLoaderById } }) =>
-        (_.get('choiceItemId') ? choiceItemLoaderById.load(_.get('choiceItemId')) : null),
+        _.get('choiceItemId') ? choiceItemLoaderById.load(_.get('choiceItemId')) : null,
     },
     size: {
       type: Size,
       resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
+    },
+    sortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('sortOrderIndex'),
     },
   },
   interfaces: [NodeInterface],

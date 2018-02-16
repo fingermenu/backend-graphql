@@ -192,6 +192,12 @@ exports.default = new _graphql.GraphQLObjectType({
           return _ref8.apply(this, arguments);
         };
       }()
+    },
+    sortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('sortOrderIndex');
+      }
     }
   },
   interfaces: [_interface.NodeInterface]

@@ -52,6 +52,7 @@ type BeServedWithMenuItemPrice implements Node {
   validUntil: String
   menuItem: MenuItem
   size: Size
+  sortOrderIndex: Int
   choiceItemPrices: [ChoiceItemPrice!]
 }
 
@@ -83,6 +84,7 @@ type ChoiceItemPrice implements Node {
   validUntil: String
   choiceItem: ChoiceItem
   size: Size
+  sortOrderIndex: Int
 }
 
 # A connection to a list of items.
@@ -167,7 +169,7 @@ type Menu implements Node {
   description: String
   menuPageUrl: String
   imageUrl: String
-  menuItemSortOrderIndex: Int
+  sortOrderIndex: Int
   menuItemPrices: [MenuItemPrice!]
   tags: [Tag!]
 }
@@ -189,8 +191,7 @@ type MenuItemPrice implements Node {
   validUntil: String
   menuItem: MenuItem
   size: Size
-  toBeServedWithMenuItemPriceSortOrderIndex: Int
-  choiceItemPriceSortOrderIndex: Int
+  sortOrderIndex: Int
   toBeServedWithMenuItemPrices: [BeServedWithMenuItemPrice!]
   choiceItemPrices: [ChoiceItemPrice!]
 }
@@ -348,7 +349,6 @@ type ParentRestaurant implements Node {
   menus: [Menu!]
   tables: [Table!]
   configurations: RestaurantConfigurations!
-  menuSortOrderIndex: Int
 }
 
 type ParentTag implements Node {
@@ -415,7 +415,6 @@ type Restaurant implements Node {
   menus: [Menu!]
   tables: [Table!]
   configurations: RestaurantConfigurations!
-  menuSortOrderIndex: Int
   parentRestaurant: ParentRestaurant
 }
 

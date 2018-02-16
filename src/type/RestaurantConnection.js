@@ -7,16 +7,18 @@ import { connectionDefinitions } from 'graphql-relay';
 import Restaurant from './Restaurant';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
-  ImmutableEx.removeUndefinedProps(Map({
-    language,
-    ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
-    conditions: Map({
-      ownedByUserId,
-      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      status: searchArgs.has('status') ? searchArgs.get('status') : undefined,
-      inheritParentRestaurantMenus: searchArgs.has('inheritParentRestaurantMenus') ? searchArgs.get('inheritParentRestaurantMenus') : undefined,
+  ImmutableEx.removeUndefinedProps(
+    Map({
+      language,
+      ids: searchArgs.has('restaurantIds') ? searchArgs.get('restaurantIds') : undefined,
+      conditions: Map({
+        ownedByUserId,
+        contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+        status: searchArgs.has('status') ? searchArgs.get('status') : undefined,
+        inheritParentRestaurantMenus: searchArgs.has('inheritParentRestaurantMenus') ? searchArgs.get('inheritParentRestaurantMenus') : undefined,
+      }),
     }),
-  }));
+  );
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
@@ -71,9 +73,7 @@ const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionTok
 export const getRestaurants = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken, language);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
   const restaurants = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
   const indexedRestaurants = restaurants.zip(Range(skip, skip + limit));
 

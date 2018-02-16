@@ -197,6 +197,12 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    sortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('sortOrderIndex');
+      }
+    },
     choiceItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
@@ -395,16 +401,10 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    toBeServedWithMenuItemPriceSortOrderIndex: {
+    sortOrderIndex: {
       type: _graphql.GraphQLInt,
       resolve: function resolve(_) {
-        return _.get('toBeServedWithMenuItemPriceSortOrderIndex');
-      }
-    },
-    choiceItemPriceSortOrderIndex: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('choiceItemPriceSortOrderIndex');
+        return _.get('sortOrderIndex');
       }
     },
     toBeServedWithMenuItemPrices: {

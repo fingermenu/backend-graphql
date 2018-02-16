@@ -153,10 +153,10 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    menuItemSortOrderIndex: {
+    sortOrderIndex: {
       type: _graphql.GraphQLInt,
       resolve: function resolve(_) {
-        return _.get('menuItemSortOrderIndex');
+        return _.get('sortOrderIndex');
       }
     },
     menuItemPrices: {

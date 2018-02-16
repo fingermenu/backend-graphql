@@ -2231,7 +2231,7 @@
               "deprecationReason": null
             },
             {
-              "name": "menuItemSortOrderIndex",
+              "name": "sortOrderIndex",
               "description": null,
               "args": [],
               "type": {
@@ -2388,19 +2388,7 @@
               "deprecationReason": null
             },
             {
-              "name": "toBeServedWithMenuItemPriceSortOrderIndex",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "choiceItemPriceSortOrderIndex",
+              "name": "sortOrderIndex",
               "description": null,
               "args": [],
               "type": {
@@ -2668,6 +2656,18 @@
               "deprecationReason": null
             },
             {
+              "name": "sortOrderIndex",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "choiceItemPrices",
               "description": null,
               "args": [],
@@ -2787,6 +2787,18 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Size",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sortOrderIndex",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3509,18 +3521,6 @@
               "deprecationReason": null
             },
             {
-              "name": "menuSortOrderIndex",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "parentRestaurant",
               "description": null,
               "args": [],
@@ -4162,18 +4162,6 @@
                   "name": "RestaurantConfigurations",
                   "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "menuSortOrderIndex",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

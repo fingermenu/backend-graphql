@@ -32,9 +32,9 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async _ => _.get('imageUrl'),
     },
-    menuItemSortOrderIndex: {
+    sortOrderIndex: {
       type: GraphQLInt,
-      resolve: _ => _.get('menuItemSortOrderIndex'),
+      resolve: _ => _.get('sortOrderIndex'),
     },
     menuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(MenuItemPrice)),

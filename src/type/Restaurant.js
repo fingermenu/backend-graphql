@@ -2,7 +2,7 @@
 
 import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import { Map } from 'immutable';
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import Menu from './Menu';
@@ -98,10 +98,6 @@ const ParentRestaurant = new GraphQLObjectType({
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
     },
-    menuSortOrderIndex: {
-      type: GraphQLInt,
-      resolve: _ => _.get('menuSortOrderIndex'),
-    },
   },
   interfaces: [NodeInterface],
 });
@@ -180,10 +176,6 @@ export default new GraphQLObjectType({
     configurations: {
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
-    },
-    menuSortOrderIndex: {
-      type: GraphQLInt,
-      resolve: _ => _.get('menuSortOrderIndex'),
     },
     parentRestaurant: {
       type: ParentRestaurant,
