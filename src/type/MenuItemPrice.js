@@ -1,7 +1,7 @@
 // @flow
 
 import { MenuItemPriceService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
@@ -35,7 +35,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     menuItem: {
       type: MenuItem,
       resolve: async (_, args, { dataLoaders: { menuItemLoaderById } }) =>
-        (_.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null),
+        _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null,
     },
     size: {
       type: Size,
@@ -44,9 +44,11 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>
-        (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'))
-          : []),
+        _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
+          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+            choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+          )
+          : [],
     },
   },
   interfaces: [NodeInterface],
@@ -78,25 +80,37 @@ export default new GraphQLObjectType({
     menuItem: {
       type: MenuItem,
       resolve: async (_, args, { dataLoaders: { menuItemLoaderById } }) =>
-        (_.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null),
+        _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null,
     },
     size: {
       type: Size,
       resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
+    toBeServedWithMenuItemPriceSortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('toBeServedWithMenuItemPriceSortOrderIndex'),
+    },
+    choiceItemPriceSortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('choiceItemPriceSortOrderIndex'),
+    },
     toBeServedWithMenuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),
       resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById } }) =>
-        (_.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty()
-          ? (await menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())).filter(menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'))
-          : []),
+        _.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty()
+          ? (await menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())).filter(
+            menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'),
+          )
+          : [],
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>
-        (_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'))
-          : []),
+        _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
+          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+            choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+          )
+          : [],
     },
   },
   interfaces: [NodeInterface],

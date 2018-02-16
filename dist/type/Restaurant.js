@@ -278,6 +278,12 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('configurations') ? _.get('configurations') : (0, _immutable.Map)();
       }
+    },
+    menuSortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('menuSortOrderIndex');
+      }
     }
   },
   interfaces: [_interface.NodeInterface]
@@ -469,6 +475,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLNonNull(_RestaurantConfigurations2.default),
       resolve: function resolve(_) {
         return _.get('configurations') ? _.get('configurations') : (0, _immutable.Map)();
+      }
+    },
+    menuSortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('menuSortOrderIndex');
       }
     },
     parentRestaurant: {

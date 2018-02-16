@@ -2,7 +2,7 @@
 
 import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
 import { Map } from 'immutable';
-import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
 import Menu from './Menu';
@@ -44,7 +44,7 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     geoLocation: {
       type: GeoLocation,
-      resolve: (_) => {
+      resolve: _ => {
         const geoLocation = _.get('geoLocation');
 
         if (!geoLocation) {
@@ -56,7 +56,7 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     phones: {
       type: new GraphQLList(new GraphQLNonNull(Phone)),
-      resolve: (_) => {
+      resolve: _ => {
         const phones = _.get('phones');
 
         if (!phones) {
@@ -97,6 +97,10 @@ const ParentRestaurant = new GraphQLObjectType({
     configurations: {
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
+    },
+    menuSortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('menuSortOrderIndex'),
     },
   },
   interfaces: [NodeInterface],
@@ -123,7 +127,7 @@ export default new GraphQLObjectType({
     },
     geoLocation: {
       type: GeoLocation,
-      resolve: (_) => {
+      resolve: _ => {
         const geoLocation = _.get('geoLocation');
 
         if (!geoLocation) {
@@ -135,7 +139,7 @@ export default new GraphQLObjectType({
     },
     phones: {
       type: new GraphQLList(new GraphQLNonNull(Phone)),
-      resolve: (_) => {
+      resolve: _ => {
         const phones = _.get('phones');
 
         if (!phones) {
@@ -177,10 +181,14 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
     },
+    menuSortOrderIndex: {
+      type: GraphQLInt,
+      resolve: _ => _.get('menuSortOrderIndex'),
+    },
     parentRestaurant: {
       type: ParentRestaurant,
       resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) =>
-        (_.get('parentRestaurantId') ? restaurantLoaderById.load(_.get('parentRestaurantId')) : null),
+        _.get('parentRestaurantId') ? restaurantLoaderById.load(_.get('parentRestaurantId')) : null,
     },
   },
   interfaces: [NodeInterface],

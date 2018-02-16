@@ -395,6 +395,18 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    toBeServedWithMenuItemPriceSortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('toBeServedWithMenuItemPriceSortOrderIndex');
+      }
+    },
+    choiceItemPriceSortOrderIndex: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('choiceItemPriceSortOrderIndex');
+      }
+    },
     toBeServedWithMenuItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(BeServedWithMenuItemPrice)),
       resolve: function () {
