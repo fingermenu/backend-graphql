@@ -7,12 +7,14 @@ import { connectionDefinitions } from 'graphql-relay';
 import ChoiceItemPrice from './ChoiceItemPrice';
 
 const getCriteria = (searchArgs, ownedByUserId) =>
-  ImmutableEx.removeUndefinedProps(Map({
-    ids: searchArgs.has('choiceItemPriceIds') ? searchArgs.get('choiceItemPriceIds') : undefined,
-    conditions: Map({
-      ownedByUserId,
+  ImmutableEx.removeUndefinedProps(
+    Map({
+      ids: searchArgs.has('choiceItemPriceIds') ? searchArgs.get('choiceItemPriceIds') : undefined,
+      conditions: Map({
+        ownedByUserId,
+      }),
     }),
-  }));
+  );
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('CurrentPriceDescending') === 0) {
@@ -64,9 +66,12 @@ const getChoiceItemPricesMatchCriteria = async (searchArgs, ownedByUserId, sessi
 export const getChoiceItemPrices = async (searchArgs, { userLoaderBySessionToken, menuItemPriceLoaderById }, sessionToken) => {
   let finalSearchArgs = searchArgs;
   const menuItemPriceId = finalSearchArgs.get('menuItemPriceId');
+  let menuItemPrice;
 
   if (menuItemPriceId) {
-    const choiceItemPriceIds = (await menuItemPriceLoaderById.load(menuItemPriceId)).get('choiceItemPriceIds');
+    menuItemPrice = await menuItemPriceLoaderById.load(menuItemPriceId);
+
+    const choiceItemPriceIds = menuItemPrice.get('choiceItemPriceIds');
 
     if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
       return {
@@ -86,10 +91,17 @@ export const getChoiceItemPrices = async (searchArgs, { userLoaderBySessionToken
 
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getChoiceItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  const choiceItemPrices = await getChoiceItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  let choiceItemPrices = await getChoiceItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
+
+  if (menuItemPrice) {
+    const choiceItemPriceSortOrderIndices = menuItemPrice.get('choiceItemPriceSortOrderIndices');
+
+    if (choiceItemPriceSortOrderIndices) {
+      choiceItemPrices = choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
+    }
+  }
+
   const indexedChoiceItemPrices = choiceItemPrices.zip(Range(skip, skip + limit));
 
   const edges = indexedChoiceItemPrices.map(indexedItem => ({

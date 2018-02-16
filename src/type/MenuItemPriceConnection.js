@@ -7,13 +7,15 @@ import { connectionDefinitions } from 'graphql-relay';
 import MenuItemPrice from './MenuItemPrice';
 
 const getCriteria = (searchArgs, addedByUserId) =>
-  ImmutableEx.removeUndefinedProps(Map({
-    ids: searchArgs.has('menuItemPriceIds') ? searchArgs.get('menuItemPriceIds') : undefined,
-    conditions: Map({
-      addedByUserId,
-      doesNotExist_removedByUser: true,
+  ImmutableEx.removeUndefinedProps(
+    Map({
+      ids: searchArgs.has('menuItemPriceIds') ? searchArgs.get('menuItemPriceIds') : undefined,
+      conditions: Map({
+        addedByUserId,
+        doesNotExist_removedByUser: true,
+      }),
     }),
-  }));
+  );
 
 const addSortOptionToCriteria = (criteria, sortOption) => {
   if (sortOption && sortOption.localeCompare('CurrentPriceDescending') === 0) {
@@ -65,9 +67,12 @@ const getMenuItemPricesMatchCriteria = async (searchArgs, addedByUserId, session
 export const getMenuItemPrices = async (searchArgs, { userLoaderBySessionToken, menuLoaderById }, sessionToken) => {
   let finalSearchArgs = searchArgs;
   const menuId = finalSearchArgs.get('menuId');
+  let menu;
 
   if (menuId) {
-    const menuItemPriceIds = (await menuLoaderById.load(menuId)).get('menuItemPriceIds');
+    let menu = await menuLoaderById.load(menuId);
+
+    const menuItemPriceIds = menu.get('menuItemPriceIds');
 
     if (!menuItemPriceIds || menuItemPriceIds.isEmpty()) {
       return {
@@ -87,10 +92,17 @@ export const getMenuItemPrices = async (searchArgs, { userLoaderBySessionToken, 
 
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getMenuItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  const menuItemPrices = await getMenuItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  let menuItemPrices = await getMenuItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
+
+  if (menu) {
+    const menuItemPriceSortOrderIndices = menu.get('menuItemPriceSortOrderIndices');
+
+    if (menuItemPriceSortOrderIndices) {
+      menuItemPrices = menuItemPrices.map(_ => _.set('sortOrderIndex', menuItemPriceSortOrderIndices.get(_.get('id'))));
+    }
+  }
+
   const indexedMenuItemPrices = menuItemPrices.zip(Range(skip, skip + limit));
 
   const edges = indexedMenuItemPrices.map(indexedItem => ({

@@ -113,7 +113,7 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
     var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
         menuItemPriceLoaderById = _ref4.menuItemPriceLoaderById;
 
-    var finalSearchArgs, menuItemPriceId, choiceItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, choiceItemPrices, indexedChoiceItemPrices, edges, firstEdge, lastEdge;
+    var finalSearchArgs, menuItemPriceId, menuItemPrice, choiceItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, choiceItemPrices, choiceItemPriceSortOrderIndices, indexedChoiceItemPrices, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -121,20 +121,22 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
           case 0:
             finalSearchArgs = searchArgs;
             menuItemPriceId = finalSearchArgs.get('menuItemPriceId');
+            menuItemPrice = void 0;
 
             if (!menuItemPriceId) {
-              _context3.next = 9;
+              _context3.next = 11;
               break;
             }
 
-            _context3.next = 5;
+            _context3.next = 6;
             return menuItemPriceLoaderById.load(menuItemPriceId);
 
-          case 5:
-            choiceItemPriceIds = _context3.sent.get('choiceItemPriceIds');
+          case 6:
+            menuItemPrice = _context3.sent;
+            choiceItemPriceIds = menuItemPrice.get('choiceItemPriceIds');
 
             if (!(!choiceItemPriceIds || choiceItemPriceIds.isEmpty())) {
-              _context3.next = 8;
+              _context3.next = 10;
               break;
             }
 
@@ -149,27 +151,40 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
               }
             });
 
-          case 8:
+          case 10:
 
             finalSearchArgs = finalSearchArgs.set('choiceItemPriceIds', choiceItemPriceIds);
 
-          case 9:
-            _context3.next = 11;
+          case 11:
+            _context3.next = 13;
             return userLoaderBySessionToken.load(sessionToken);
 
-          case 11:
+          case 13:
             userId = _context3.sent.id;
-            _context3.next = 14;
+            _context3.next = 16;
             return getChoiceItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
 
-          case 14:
+          case 16:
             count = _context3.sent;
             _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 18;
+            _context3.next = 20;
             return getChoiceItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
 
-          case 18:
+          case 20:
             choiceItemPrices = _context3.sent;
+
+
+            if (menuItemPrice) {
+              choiceItemPriceSortOrderIndices = menuItemPrice.get('choiceItemPriceSortOrderIndices');
+
+
+              if (choiceItemPriceSortOrderIndices) {
+                choiceItemPrices = choiceItemPrices.map(function (_) {
+                  return _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id')));
+                });
+              }
+            }
+
             indexedChoiceItemPrices = choiceItemPrices.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedChoiceItemPrices.map(function (indexedItem) {
               return {
@@ -190,7 +205,7 @@ var getChoiceItemPrices = exports.getChoiceItemPrices = function () {
               }
             });
 
-          case 24:
+          case 27:
           case 'end':
             return _context3.stop();
         }

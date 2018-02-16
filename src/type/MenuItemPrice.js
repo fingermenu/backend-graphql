@@ -41,10 +41,6 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
       type: Size,
       resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
-    sortOrderIndex: {
-      type: GraphQLInt,
-      resolve: _ => _.get('sortOrderIndex'),
-    },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
       resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>

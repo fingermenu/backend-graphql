@@ -52,7 +52,6 @@ type BeServedWithMenuItemPrice implements Node {
   validUntil: String
   menuItem: MenuItem
   size: Size
-  sortOrderIndex: Int
   choiceItemPrices: [ChoiceItemPrice!]
 }
 

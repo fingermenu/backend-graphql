@@ -114,7 +114,7 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
     var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
         menuLoaderById = _ref4.menuLoaderById;
 
-    var finalSearchArgs, menuId, menuItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItemPrices, indexedMenuItemPrices, edges, firstEdge, lastEdge;
+    var finalSearchArgs, menuId, menu, _menu, menuItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItemPrices, menuItemPriceSortOrderIndices, indexedMenuItemPrices, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -122,20 +122,22 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
           case 0:
             finalSearchArgs = searchArgs;
             menuId = finalSearchArgs.get('menuId');
+            menu = void 0;
 
             if (!menuId) {
-              _context3.next = 9;
+              _context3.next = 11;
               break;
             }
 
-            _context3.next = 5;
+            _context3.next = 6;
             return menuLoaderById.load(menuId);
 
-          case 5:
-            menuItemPriceIds = _context3.sent.get('menuItemPriceIds');
+          case 6:
+            _menu = _context3.sent;
+            menuItemPriceIds = _menu.get('menuItemPriceIds');
 
             if (!(!menuItemPriceIds || menuItemPriceIds.isEmpty())) {
-              _context3.next = 8;
+              _context3.next = 10;
               break;
             }
 
@@ -150,27 +152,40 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
               }
             });
 
-          case 8:
+          case 10:
 
             finalSearchArgs = finalSearchArgs.set('menuItemPriceIds', menuItemPriceIds);
 
-          case 9:
-            _context3.next = 11;
+          case 11:
+            _context3.next = 13;
             return userLoaderBySessionToken.load(sessionToken);
 
-          case 11:
+          case 13:
             userId = _context3.sent.id;
-            _context3.next = 14;
+            _context3.next = 16;
             return getMenuItemPricesCountMatchCriteria(finalSearchArgs, userId, sessionToken);
 
-          case 14:
+          case 16:
             count = _context3.sent;
             _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 18;
+            _context3.next = 20;
             return getMenuItemPricesMatchCriteria(finalSearchArgs, userId, sessionToken, limit, skip);
 
-          case 18:
+          case 20:
             menuItemPrices = _context3.sent;
+
+
+            if (menu) {
+              menuItemPriceSortOrderIndices = menu.get('menuItemPriceSortOrderIndices');
+
+
+              if (menuItemPriceSortOrderIndices) {
+                menuItemPrices = menuItemPrices.map(function (_) {
+                  return _.set('sortOrderIndex', menuItemPriceSortOrderIndices.get(_.get('id')));
+                });
+              }
+            }
+
             indexedMenuItemPrices = menuItemPrices.zip((0, _immutable.Range)(skip, skip + limit));
             edges = indexedMenuItemPrices.map(function (indexedItem) {
               return {
@@ -191,7 +206,7 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
               }
             });
 
-          case 24:
+          case 27:
           case 'end':
             return _context3.stop();
         }

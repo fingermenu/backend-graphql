@@ -7,15 +7,17 @@ import { connectionDefinitions } from 'graphql-relay';
 import Menu from './Menu';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
-  ImmutableEx.removeUndefinedProps(Map({
-    language,
-    ids: searchArgs.has('menuIds') ? searchArgs.get('menuIds') : undefined,
-    conditions: Map({
-      ownedByUserId,
-      contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
+  ImmutableEx.removeUndefinedProps(
+    Map({
+      language,
+      ids: searchArgs.has('menuIds') ? searchArgs.get('menuIds') : undefined,
+      conditions: Map({
+        ownedByUserId,
+        contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
+        contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
+      }),
     }),
-  }));
+  );
 
 const addSortOptionToCriteria = (criteria, sortOption, language) => {
   if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
@@ -54,9 +56,12 @@ const getMenusMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, la
 export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) => {
   let finalSearchArgs = searchArgs;
   const restaurantId = finalSearchArgs.get('restaurantId');
+  let restaurant;
 
   if (restaurantId) {
-    const menuIds = (await dataLoaders.restaurantLoaderById.load(restaurantId)).get('menuIds');
+    restaurant = await dataLoaders.restaurantLoaderById.load(restaurantId);
+
+    const menuIds = restaurant.get('menuIds');
 
     if (!menuIds || menuIds.isEmpty()) {
       return {
@@ -76,10 +81,17 @@ export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) 
 
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getMenusCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
-  const {
-    limit, skip, hasNextPage, hasPreviousPage,
-  } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  const menus = await getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
+  const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
+  let menus = await getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
+
+  if (restaurant) {
+    const menuSortOrderIndices = restaurant.get('menuSortOrderIndices');
+
+    if (menuSortOrderIndices) {
+      menus = menus.map(_ => _.set('sortOrderIndex', menuSortOrderIndices.get(_.get('id'))));
+    }
+  }
+
   const indexedMenus = menus.zip(Range(skip, skip + limit));
 
   const edges = indexedMenus.map(indexedItem => ({

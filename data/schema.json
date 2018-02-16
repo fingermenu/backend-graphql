@@ -2656,18 +2656,6 @@
               "deprecationReason": null
             },
             {
-              "name": "sortOrderIndex",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "choiceItemPrices",
               "description": null,
               "args": [],

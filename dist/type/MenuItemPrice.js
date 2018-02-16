@@ -197,12 +197,6 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    sortOrderIndex: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('sortOrderIndex');
-      }
-    },
     choiceItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
