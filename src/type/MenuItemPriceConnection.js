@@ -70,7 +70,7 @@ export const getMenuItemPrices = async (searchArgs, { userLoaderBySessionToken, 
   let menu;
 
   if (menuId) {
-    let menu = await menuLoaderById.load(menuId);
+    menu = await menuLoaderById.load(menuId);
 
     const menuItemPriceIds = menu.get('menuItemPriceIds');
 
