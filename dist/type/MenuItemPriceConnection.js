@@ -114,7 +114,7 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
     var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
         menuLoaderById = _ref4.menuLoaderById;
 
-    var finalSearchArgs, menuId, menu, _menu, menuItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItemPrices, menuItemPriceSortOrderIndices, indexedMenuItemPrices, edges, firstEdge, lastEdge;
+    var finalSearchArgs, menuId, menu, menuItemPriceIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, menuItemPrices, menuItemPriceSortOrderIndices, indexedMenuItemPrices, edges, firstEdge, lastEdge;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -133,8 +133,8 @@ var getMenuItemPrices = exports.getMenuItemPrices = function () {
             return menuLoaderById.load(menuId);
 
           case 6:
-            _menu = _context3.sent;
-            menuItemPriceIds = _menu.get('menuItemPriceIds');
+            menu = _context3.sent;
+            menuItemPriceIds = menu.get('menuItemPriceIds');
 
             if (!(!menuItemPriceIds || menuItemPriceIds.isEmpty())) {
               _context3.next = 10;
