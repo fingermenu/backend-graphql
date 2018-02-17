@@ -84,10 +84,22 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     menus: {
       type: new GraphQLList(new GraphQLNonNull(Menu)),
-      resolve: async (_, args, { dataLoaders: { menuLoaderById } }) => {
+      resolve: async (_, { restaurantId }, { dataLoaders: { menuLoaderById, restaurantLoaderById } }) => {
         const menuIds = _.get('menuIds');
 
-        return !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray());
+        if (!menuIds || menuIds.isEmpty()) {
+          return [];
+        }
+
+        const menus = await menuLoaderById.loadMany(menuIds.toArray());
+
+        if (!restaurantId) {
+          return menus;
+        }
+
+        const menuSortOrderIndices = (await restaurantLoaderById.load(restaurantId)).get('menuSortOrderIndices');
+
+        return menus.map(_ => _.set('sortOrderIndex', menuSortOrderIndices.get(_.get('id'))));
       },
     },
     tables: {

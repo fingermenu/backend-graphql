@@ -222,17 +222,50 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
     menus: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Menu2.default)),
       resolve: function () {
-        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref8) {
-          var menuLoaderById = _ref8.dataLoaders.menuLoaderById;
-          var menuIds;
+        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, _ref8, _ref9) {
+          var restaurantId = _ref8.restaurantId;
+          var _ref9$dataLoaders = _ref9.dataLoaders,
+              menuLoaderById = _ref9$dataLoaders.menuLoaderById,
+              restaurantLoaderById = _ref9$dataLoaders.restaurantLoaderById;
+          var menuIds, menus, menuSortOrderIndices;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
                   menuIds = _.get('menuIds');
-                  return _context6.abrupt('return', !menuIds || menuIds.isEmpty() ? [] : menuLoaderById.loadMany(menuIds.toArray()));
 
-                case 2:
+                  if (!(!menuIds || menuIds.isEmpty())) {
+                    _context6.next = 3;
+                    break;
+                  }
+
+                  return _context6.abrupt('return', []);
+
+                case 3:
+                  _context6.next = 5;
+                  return menuLoaderById.loadMany(menuIds.toArray());
+
+                case 5:
+                  menus = _context6.sent;
+
+                  if (restaurantId) {
+                    _context6.next = 8;
+                    break;
+                  }
+
+                  return _context6.abrupt('return', menus);
+
+                case 8:
+                  _context6.next = 10;
+                  return restaurantLoaderById.load(restaurantId);
+
+                case 10:
+                  menuSortOrderIndices = _context6.sent.get('menuSortOrderIndices');
+                  return _context6.abrupt('return', menus.map(function (_) {
+                    return _.set('sortOrderIndex', menuSortOrderIndices.get(_.get('id')));
+                  }));
+
+                case 12:
                 case 'end':
                   return _context6.stop();
               }
@@ -248,8 +281,8 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
     tables: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Table2.default)),
       resolve: function () {
-        var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref10) {
-          var sessionToken = _ref10.sessionToken;
+        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref11) {
+          var sessionToken = _ref11.sessionToken;
           return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
               switch (_context7.prev = _context7.next) {
@@ -269,7 +302,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x13, _x14, _x15) {
-          return _ref9.apply(this, arguments);
+          return _ref10.apply(this, arguments);
         };
       }()
     },
@@ -295,9 +328,9 @@ exports.default = new _graphql.GraphQLObjectType({
     name: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref12) {
-          var language = _ref12.language,
-              configLoader = _ref12.dataLoaders.configLoader;
+        var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref13) {
+          var language = _ref13.language,
+              configLoader = _ref13.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
               switch (_context8.prev = _context8.next) {
@@ -313,14 +346,14 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x16, _x17, _x18) {
-          return _ref11.apply(this, arguments);
+          return _ref12.apply(this, arguments);
         };
       }()
     },
     websiteUrl: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_) {
+        var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_) {
           return regeneratorRuntime.wrap(function _callee9$(_context9) {
             while (1) {
               switch (_context9.prev = _context9.next) {
@@ -336,7 +369,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x19) {
-          return _ref13.apply(this, arguments);
+          return _ref14.apply(this, arguments);
         };
       }()
     },
@@ -391,7 +424,7 @@ exports.default = new _graphql.GraphQLObjectType({
     pin: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_) {
+        var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_) {
           return regeneratorRuntime.wrap(function _callee10$(_context10) {
             while (1) {
               switch (_context10.prev = _context10.next) {
@@ -407,15 +440,15 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x20) {
-          return _ref14.apply(this, arguments);
+          return _ref15.apply(this, arguments);
         };
       }()
     },
     menus: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Menu2.default)),
       resolve: function () {
-        var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref16) {
-          var menuLoaderById = _ref16.dataLoaders.menuLoaderById;
+        var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref17) {
+          var menuLoaderById = _ref17.dataLoaders.menuLoaderById;
           var menuIds;
           return regeneratorRuntime.wrap(function _callee11$(_context11) {
             while (1) {
@@ -433,15 +466,15 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x21, _x22, _x23) {
-          return _ref15.apply(this, arguments);
+          return _ref16.apply(this, arguments);
         };
       }()
     },
     tables: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Table2.default)),
       resolve: function () {
-        var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref18) {
-          var sessionToken = _ref18.sessionToken;
+        var _ref18 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref19) {
+          var sessionToken = _ref19.sessionToken;
           return regeneratorRuntime.wrap(function _callee12$(_context12) {
             while (1) {
               switch (_context12.prev = _context12.next) {
@@ -461,7 +494,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x24, _x25, _x26) {
-          return _ref17.apply(this, arguments);
+          return _ref18.apply(this, arguments);
         };
       }()
     },
@@ -474,8 +507,8 @@ exports.default = new _graphql.GraphQLObjectType({
     parentRestaurant: {
       type: ParentRestaurant,
       resolve: function () {
-        var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, args, _ref20) {
-          var restaurantLoaderById = _ref20.dataLoaders.restaurantLoaderById;
+        var _ref20 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, args, _ref21) {
+          var restaurantLoaderById = _ref21.dataLoaders.restaurantLoaderById;
           return regeneratorRuntime.wrap(function _callee13$(_context13) {
             while (1) {
               switch (_context13.prev = _context13.next) {
@@ -491,7 +524,7 @@ exports.default = new _graphql.GraphQLObjectType({
         }));
 
         return function resolve(_x27, _x28, _x29) {
-          return _ref19.apply(this, arguments);
+          return _ref20.apply(this, arguments);
         };
       }()
     }
