@@ -167,14 +167,14 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref5) {
-          var dataloaders = _ref5.dataloaders,
+          var dataLoaders = _ref5.dataLoaders,
               sessionToken = _ref5.sessionToken,
               language = _ref5.language;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', (0, _TagConnection.getTags)(_immutable2.default.fromJS(args), dataloaders, sessionToken, language));
+                  return _context2.abrupt('return', (0, _TagConnection.getTags)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
@@ -234,14 +234,14 @@ exports.default = new _graphql.GraphQLObjectType({
       }),
       resolve: function () {
         var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref10) {
-          var dataloaders = _ref10.dataloaders,
+          var dataLoaders = _ref10.dataLoaders,
               sessionToken = _ref10.sessionToken,
               language = _ref10.language;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', (0, _SizeConnection.getSizes)(_immutable2.default.fromJS(args), dataloaders, sessionToken, language));
+                  return _context4.abrupt('return', (0, _SizeConnection.getSizes)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
@@ -308,14 +308,14 @@ exports.default = new _graphql.GraphQLObjectType({
 
       resolve: function () {
         var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref15) {
-          var dataloaders = _ref15.dataloaders,
+          var dataLoaders = _ref15.dataLoaders,
               sessionToken = _ref15.sessionToken,
               language = _ref15.language;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', (0, _MenuConnection.getMenus)(_immutable2.default.fromJS(args), dataloaders, sessionToken, language));
+                  return _context6.abrupt('return', (0, _MenuConnection.getMenus)(_immutable2.default.fromJS(args), dataLoaders, sessionToken, language));
 
                 case 1:
                 case 'end':
