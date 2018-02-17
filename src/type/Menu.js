@@ -49,7 +49,7 @@ export default new GraphQLObjectType({
           menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'),
         );
 
-        if (menuItemPrices.isEmpty()) {
+        if (menuItemPrices.length === 0) {
           return [];
         }
 

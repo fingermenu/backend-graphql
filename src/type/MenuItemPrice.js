@@ -54,7 +54,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
           choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
         );
 
-        if (choiceItemPrices.isEmpty()) {
+        if (choiceItemPrices.length === 0) {
           return [];
         }
 
@@ -119,7 +119,7 @@ export default new GraphQLObjectType({
             !toBeServedWithMenuItemPricePrice.has('removedByUser') || !toBeServedWithMenuItemPricePrice.get('removedByUser'),
         );
 
-        if (toBeServedWithMenuItemPricePrices.isEmpty()) {
+        if (toBeServedWithMenuItemPricePrices.length === 0) {
           return [];
         }
 
@@ -143,7 +143,7 @@ export default new GraphQLObjectType({
           choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
         );
 
-        if (choiceItemPrices.isEmpty()) {
+        if (choiceItemPrices.length === 0) {
           return [];
         }
 

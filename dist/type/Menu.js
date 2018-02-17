@@ -191,7 +191,7 @@ exports.default = new _graphql.GraphQLObjectType({
 
                   menuItemPrices = _context6.sent.filter(_context6.t0);
 
-                  if (!menuItemPrices.isEmpty()) {
+                  if (!(menuItemPrices.length === 0)) {
                     _context6.next = 9;
                     break;
                   }

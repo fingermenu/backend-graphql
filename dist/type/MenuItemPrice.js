@@ -229,7 +229,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
 
                   choiceItemPrices = _context8.sent.filter(_context8.t0);
 
-                  if (!choiceItemPrices.isEmpty()) {
+                  if (!(choiceItemPrices.length === 0)) {
                     _context8.next = 9;
                     break;
                   }
@@ -450,7 +450,7 @@ exports.default = new _graphql.GraphQLObjectType({
 
                   toBeServedWithMenuItemPricePrices = _context15.sent.filter(_context15.t0);
 
-                  if (!toBeServedWithMenuItemPricePrices.isEmpty()) {
+                  if (!(toBeServedWithMenuItemPricePrices.length === 0)) {
                     _context15.next = 9;
                     break;
                   }
@@ -512,7 +512,7 @@ exports.default = new _graphql.GraphQLObjectType({
 
                   choiceItemPrices = _context16.sent.filter(_context16.t0);
 
-                  if (!choiceItemPrices.isEmpty()) {
+                  if (!(choiceItemPrices.length === 0)) {
                     _context16.next = 9;
                     break;
                   }
