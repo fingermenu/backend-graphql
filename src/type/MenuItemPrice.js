@@ -43,12 +43,25 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
-      resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>
-        _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
-            choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
-          )
-          : [],
+      resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById, choiceItemPriceLoaderById } }) => {
+        const choiceItemPriceIds = _.get('choiceItemPriceIds');
+
+        if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
+          return [];
+        }
+
+        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+          choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+        );
+
+        if (choiceItemPrices.isEmpty()) {
+          return [];
+        }
+
+        const choiceItemPriceSortOrderIndices = (await menuItemPriceLoaderById.load(_.get('id'))).get('choiceItemPriceSortOrderIndices');
+
+        return choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
+      },
     },
   },
   interfaces: [NodeInterface],
@@ -92,21 +105,52 @@ export default new GraphQLObjectType({
     },
     toBeServedWithMenuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(BeServedWithMenuItemPrice)),
-      resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById } }) =>
-        _.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty()
-          ? (await menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray())).filter(
-            menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'),
-          )
-          : [],
+      resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById, toBeServedWithMenuItemPricePriceLoaderById } }) => {
+        const toBeServedWithMenuItemPricePriceIds = _.get('toBeServedWithMenuItemPricePriceIds');
+
+        if (!toBeServedWithMenuItemPricePriceIds || toBeServedWithMenuItemPricePriceIds.isEmpty()) {
+          return [];
+        }
+
+        const toBeServedWithMenuItemPricePrices = (await toBeServedWithMenuItemPricePriceLoaderById.loadMany(
+          _.get('toBeServedWithMenuItemPricePriceIds').toArray(),
+        )).filter(
+          toBeServedWithMenuItemPricePrice =>
+            !toBeServedWithMenuItemPricePrice.has('removedByUser') || !toBeServedWithMenuItemPricePrice.get('removedByUser'),
+        );
+
+        if (toBeServedWithMenuItemPricePrices.isEmpty()) {
+          return [];
+        }
+
+        const toBeServedWithMenuItemPricePriceSortOrderIndices = (await menuItemPriceLoaderById.load(_.get('id'))).get(
+          'toBeServedWithMenuItemPricePriceSortOrderIndices',
+        );
+
+        return toBeServedWithMenuItemPricePrices.map(_ => _.set('sortOrderIndex', toBeServedWithMenuItemPricePriceSortOrderIndices.get(_.get('id'))));
+      },
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
-      resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) =>
-        _.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty()
-          ? (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
-            choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
-          )
-          : [],
+      resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById, choiceItemPriceLoaderById } }) => {
+        const choiceItemPriceIds = _.get('choiceItemPriceIds');
+
+        if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
+          return [];
+        }
+
+        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+          choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+        );
+
+        if (choiceItemPrices.isEmpty()) {
+          return [];
+        }
+
+        const choiceItemPriceSortOrderIndices = (await menuItemPriceLoaderById.load(_.get('id'))).get('choiceItemPriceSortOrderIndices');
+
+        return choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
+      },
     },
   },
   interfaces: [NodeInterface],

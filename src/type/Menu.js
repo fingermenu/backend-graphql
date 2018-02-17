@@ -38,12 +38,25 @@ export default new GraphQLObjectType({
     },
     menuItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(MenuItemPrice)),
-      resolve: async (_, args, { dataLoaders: { menuItemPriceLoaderById } }) =>
-        _.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty()
-          ? (await menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray())).filter(
-            menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'),
-          )
-          : [],
+      resolve: async (_, args, { dataLoaders: { menuLoaderById, menuItemPriceLoaderById } }) => {
+        const menuItemPriceIds = _.get('menuItemPriceIds');
+
+        if (!menuItemPriceIds || menuItemPriceIds.isEmpty()) {
+          return [];
+        }
+
+        const menuItemPrices = (await menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray())).filter(
+          menuItemPrice => !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser'),
+        );
+
+        if (menuItemPrices.isEmpty()) {
+          return [];
+        }
+
+        const menuItemPriceSortOrderIndices = (await menuLoaderById.load(_.get('id'))).get('menuItemPriceSortOrderIndices');
+
+        return menuItemPrices.map(_ => _.set('sortOrderIndex', menuItemPriceSortOrderIndices.get(_.get('id'))));
+      },
     },
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),

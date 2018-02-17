@@ -201,35 +201,52 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
         var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref11) {
-          var choiceItemPriceLoaderById = _ref11.dataLoaders.choiceItemPriceLoaderById;
+          var _ref11$dataLoaders = _ref11.dataLoaders,
+              menuItemPriceLoaderById = _ref11$dataLoaders.menuItemPriceLoaderById,
+              choiceItemPriceLoaderById = _ref11$dataLoaders.choiceItemPriceLoaderById;
+          var choiceItemPriceIds, choiceItemPrices, choiceItemPriceSortOrderIndices;
           return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
               switch (_context8.prev = _context8.next) {
                 case 0:
-                  if (!(_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty())) {
-                    _context8.next = 7;
+                  choiceItemPriceIds = _.get('choiceItemPriceIds');
+
+                  if (!(!choiceItemPriceIds || choiceItemPriceIds.isEmpty())) {
+                    _context8.next = 3;
                     break;
                   }
 
-                  _context8.next = 3;
-                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+                  return _context8.abrupt('return', []);
 
                 case 3:
-                  _context8.t1 = function (choiceItemPrice) {
+                  _context8.next = 5;
+                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+
+                case 5:
+                  _context8.t0 = function (choiceItemPrice) {
                     return !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser');
                   };
 
-                  _context8.t0 = _context8.sent.filter(_context8.t1);
-                  _context8.next = 8;
-                  break;
+                  choiceItemPrices = _context8.sent.filter(_context8.t0);
 
-                case 7:
-                  _context8.t0 = [];
+                  if (!choiceItemPrices.isEmpty()) {
+                    _context8.next = 9;
+                    break;
+                  }
 
-                case 8:
-                  return _context8.abrupt('return', _context8.t0);
+                  return _context8.abrupt('return', []);
 
                 case 9:
+                  _context8.next = 11;
+                  return menuItemPriceLoaderById.load(_.get('id'));
+
+                case 11:
+                  choiceItemPriceSortOrderIndices = _context8.sent.get('choiceItemPriceSortOrderIndices');
+                  return _context8.abrupt('return', choiceItemPrices.map(function (_) {
+                    return _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id')));
+                  }));
+
+                case 13:
                 case 'end':
                   return _context8.stop();
               }
@@ -405,35 +422,52 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(BeServedWithMenuItemPrice)),
       resolve: function () {
         var _ref20 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, args, _ref21) {
-          var menuItemPriceLoaderById = _ref21.dataLoaders.menuItemPriceLoaderById;
+          var _ref21$dataLoaders = _ref21.dataLoaders,
+              menuItemPriceLoaderById = _ref21$dataLoaders.menuItemPriceLoaderById,
+              toBeServedWithMenuItemPricePriceLoaderById = _ref21$dataLoaders.toBeServedWithMenuItemPricePriceLoaderById;
+          var toBeServedWithMenuItemPricePriceIds, toBeServedWithMenuItemPricePrices, toBeServedWithMenuItemPricePriceSortOrderIndices;
           return regeneratorRuntime.wrap(function _callee15$(_context15) {
             while (1) {
               switch (_context15.prev = _context15.next) {
                 case 0:
-                  if (!(_.get('toBeServedWithMenuItemPriceIds') && !_.get('toBeServedWithMenuItemPriceIds').isEmpty())) {
-                    _context15.next = 7;
+                  toBeServedWithMenuItemPricePriceIds = _.get('toBeServedWithMenuItemPricePriceIds');
+
+                  if (!(!toBeServedWithMenuItemPricePriceIds || toBeServedWithMenuItemPricePriceIds.isEmpty())) {
+                    _context15.next = 3;
                     break;
                   }
 
-                  _context15.next = 3;
-                  return menuItemPriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPriceIds').toArray());
+                  return _context15.abrupt('return', []);
 
                 case 3:
-                  _context15.t1 = function (menuItemPrice) {
-                    return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
+                  _context15.next = 5;
+                  return toBeServedWithMenuItemPricePriceLoaderById.loadMany(_.get('toBeServedWithMenuItemPricePriceIds').toArray());
+
+                case 5:
+                  _context15.t0 = function (toBeServedWithMenuItemPricePrice) {
+                    return !toBeServedWithMenuItemPricePrice.has('removedByUser') || !toBeServedWithMenuItemPricePrice.get('removedByUser');
                   };
 
-                  _context15.t0 = _context15.sent.filter(_context15.t1);
-                  _context15.next = 8;
-                  break;
+                  toBeServedWithMenuItemPricePrices = _context15.sent.filter(_context15.t0);
 
-                case 7:
-                  _context15.t0 = [];
+                  if (!toBeServedWithMenuItemPricePrices.isEmpty()) {
+                    _context15.next = 9;
+                    break;
+                  }
 
-                case 8:
-                  return _context15.abrupt('return', _context15.t0);
+                  return _context15.abrupt('return', []);
 
                 case 9:
+                  _context15.next = 11;
+                  return menuItemPriceLoaderById.load(_.get('id'));
+
+                case 11:
+                  toBeServedWithMenuItemPricePriceSortOrderIndices = _context15.sent.get('toBeServedWithMenuItemPricePriceSortOrderIndices');
+                  return _context15.abrupt('return', toBeServedWithMenuItemPricePrices.map(function (_) {
+                    return _.set('sortOrderIndex', toBeServedWithMenuItemPricePriceSortOrderIndices.get(_.get('id')));
+                  }));
+
+                case 13:
                 case 'end':
                   return _context15.stop();
               }
@@ -450,35 +484,52 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_ChoiceItemPrice2.default)),
       resolve: function () {
         var _ref22 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(_, args, _ref23) {
-          var choiceItemPriceLoaderById = _ref23.dataLoaders.choiceItemPriceLoaderById;
+          var _ref23$dataLoaders = _ref23.dataLoaders,
+              menuItemPriceLoaderById = _ref23$dataLoaders.menuItemPriceLoaderById,
+              choiceItemPriceLoaderById = _ref23$dataLoaders.choiceItemPriceLoaderById;
+          var choiceItemPriceIds, choiceItemPrices, choiceItemPriceSortOrderIndices;
           return regeneratorRuntime.wrap(function _callee16$(_context16) {
             while (1) {
               switch (_context16.prev = _context16.next) {
                 case 0:
-                  if (!(_.get('choiceItemPriceIds') && !_.get('choiceItemPriceIds').isEmpty())) {
-                    _context16.next = 7;
+                  choiceItemPriceIds = _.get('choiceItemPriceIds');
+
+                  if (!(!choiceItemPriceIds || choiceItemPriceIds.isEmpty())) {
+                    _context16.next = 3;
                     break;
                   }
 
-                  _context16.next = 3;
-                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+                  return _context16.abrupt('return', []);
 
                 case 3:
-                  _context16.t1 = function (choiceItemPrice) {
+                  _context16.next = 5;
+                  return choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray());
+
+                case 5:
+                  _context16.t0 = function (choiceItemPrice) {
                     return !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser');
                   };
 
-                  _context16.t0 = _context16.sent.filter(_context16.t1);
-                  _context16.next = 8;
-                  break;
+                  choiceItemPrices = _context16.sent.filter(_context16.t0);
 
-                case 7:
-                  _context16.t0 = [];
+                  if (!choiceItemPrices.isEmpty()) {
+                    _context16.next = 9;
+                    break;
+                  }
 
-                case 8:
-                  return _context16.abrupt('return', _context16.t0);
+                  return _context16.abrupt('return', []);
 
                 case 9:
+                  _context16.next = 11;
+                  return menuItemPriceLoaderById.load(_.get('id'));
+
+                case 11:
+                  choiceItemPriceSortOrderIndices = _context16.sent.get('choiceItemPriceSortOrderIndices');
+                  return _context16.abrupt('return', choiceItemPrices.map(function (_) {
+                    return _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id')));
+                  }));
+
+                case 13:
                 case 'end':
                   return _context16.stop();
               }

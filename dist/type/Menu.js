@@ -163,35 +163,52 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_MenuItemPrice2.default)),
       resolve: function () {
         var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref9) {
-          var menuItemPriceLoaderById = _ref9.dataLoaders.menuItemPriceLoaderById;
+          var _ref9$dataLoaders = _ref9.dataLoaders,
+              menuLoaderById = _ref9$dataLoaders.menuLoaderById,
+              menuItemPriceLoaderById = _ref9$dataLoaders.menuItemPriceLoaderById;
+          var menuItemPriceIds, menuItemPrices, menuItemPriceSortOrderIndices;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  if (!(_.get('menuItemPriceIds') && !_.get('menuItemPriceIds').isEmpty())) {
-                    _context6.next = 7;
+                  menuItemPriceIds = _.get('menuItemPriceIds');
+
+                  if (!(!menuItemPriceIds || menuItemPriceIds.isEmpty())) {
+                    _context6.next = 3;
                     break;
                   }
 
-                  _context6.next = 3;
-                  return menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
+                  return _context6.abrupt('return', []);
 
                 case 3:
-                  _context6.t1 = function (menuItemPrice) {
+                  _context6.next = 5;
+                  return menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
+
+                case 5:
+                  _context6.t0 = function (menuItemPrice) {
                     return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
                   };
 
-                  _context6.t0 = _context6.sent.filter(_context6.t1);
-                  _context6.next = 8;
-                  break;
+                  menuItemPrices = _context6.sent.filter(_context6.t0);
 
-                case 7:
-                  _context6.t0 = [];
+                  if (!menuItemPrices.isEmpty()) {
+                    _context6.next = 9;
+                    break;
+                  }
 
-                case 8:
-                  return _context6.abrupt('return', _context6.t0);
+                  return _context6.abrupt('return', []);
 
                 case 9:
+                  _context6.next = 11;
+                  return menuLoaderById.load(_.get('id'));
+
+                case 11:
+                  menuItemPriceSortOrderIndices = _context6.sent.get('menuItemPriceSortOrderIndices');
+                  return _context6.abrupt('return', menuItemPrices.map(function (_) {
+                    return _.set('sortOrderIndex', menuItemPriceSortOrderIndices.get(_.get('id')));
+                  }));
+
+                case 13:
                 case 'end':
                   return _context6.stop();
               }
