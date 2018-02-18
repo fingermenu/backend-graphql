@@ -14,6 +14,10 @@ var _Printer = require('./Printer');
 
 var _Printer2 = _interopRequireDefault(_Printer);
 
+var _DocumentTemplate = require('./DocumentTemplate');
+
+var _DocumentTemplate2 = _interopRequireDefault(_DocumentTemplate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = new _graphql.GraphQLObjectType({
@@ -29,6 +33,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Printer2.default)),
       resolve: function resolve(_) {
         return _.get('printers') ? _.get('printers').toArray() : [];
+      }
+    },
+    documentTemplates: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DocumentTemplate2.default)),
+      resolve: function resolve(_) {
+        return _.get('documentTemplates') ? _.get('documentTemplates').toArray() : [];
       }
     }
   }
