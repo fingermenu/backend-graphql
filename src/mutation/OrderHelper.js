@@ -6,14 +6,13 @@ import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { OrderService } from '@fingermenu/parse-server-common';
 
 export const addOrderForProvidedUser = async (
-  {
-    numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details,
-  },
+  { numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
   user,
   sessionToken,
 ) => {
   const acl = ParseWrapperService.createACL(user);
 
+  acl.setRoleReadAccess('administrators', true);
   acl.setRoleWriteAccess('administrators', true);
 
   return new OrderService().create(
@@ -40,9 +39,7 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 };
 
 export const updateOrder = async (
-  {
-    id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt,
-  },
+  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt },
   dataLoaders,
   sessionToken,
 ) => {

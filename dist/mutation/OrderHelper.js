@@ -37,6 +37,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             acl = _parseServerCommon.ParseWrapperService.createACL(user);
 
 
+            acl.setRoleReadAccess('administrators', true);
             acl.setRoleWriteAccess('administrators', true);
 
             return _context.abrupt('return', new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
@@ -51,7 +52,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
               details: _immutable2.default.fromJS(details)
             }), acl, sessionToken));
 
-          case 3:
+          case 4:
           case 'end':
             return _context.stop();
         }
