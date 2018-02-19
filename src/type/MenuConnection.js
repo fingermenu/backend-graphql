@@ -2,9 +2,10 @@
 
 import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { MenuService } from '@fingermenu/parse-server-common';
-import { Map, Range } from 'immutable';
+import { Map } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import Menu from './Menu';
+import Common from './Common';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
   ImmutableEx.removeUndefinedProps(
@@ -64,16 +65,7 @@ export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) 
     const menuIds = restaurant.get('menuIds');
 
     if (!menuIds || menuIds.isEmpty()) {
-      return {
-        edges: [],
-        count: 0,
-        pageInfo: {
-          startCursor: 'cursor not available',
-          endCursor: 'cursor not available',
-          hasPreviousPage: false,
-          hasNextPage: false,
-        },
-      };
+      return Common.getEmptyResult();
     }
 
     finalSearchArgs = finalSearchArgs.set('menuIds', menuIds);
@@ -81,37 +73,23 @@ export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) 
 
   const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getMenusCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
+
+  if (count === 0) {
+    return Common.getEmptyResult();
+  }
+
   const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000);
-  let menus = await getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
+  let results = await getMenusMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
 
   if (restaurant) {
     const menuSortOrderIndices = restaurant.get('menuSortOrderIndices');
 
     if (menuSortOrderIndices) {
-      menus = menus.map(_ => _.set('sortOrderIndex', menuSortOrderIndices.get(_.get('id'))));
+      results = results.map(_ => _.set('sortOrderIndex', menuSortOrderIndices.get(_.get('id'))));
     }
   }
 
-  const indexedMenus = menus.zip(Range(skip, skip + limit));
-
-  const edges = indexedMenus.map(indexedItem => ({
-    node: indexedItem[0],
-    cursor: indexedItem[1] + 1,
-  }));
-
-  const firstEdge = edges.first();
-  const lastEdge = edges.last();
-
-  return {
-    edges: edges.toArray(),
-    count,
-    pageInfo: {
-      startCursor: firstEdge ? firstEdge.cursor : 'cursor not available',
-      endCursor: lastEdge ? lastEdge.cursor : 'cursor not available',
-      hasPreviousPage,
-      hasNextPage,
-    },
-  };
+  return Common.convertResultsToRelayConnectionResponse(results, skip, limit, count, hasNextPage, hasPreviousPage);
 };
 
 export default connectionDefinitions({

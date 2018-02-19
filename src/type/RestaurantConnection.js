@@ -2,9 +2,10 @@
 
 import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { RestaurantService } from '@fingermenu/parse-server-common';
-import { Map, Range } from 'immutable';
+import { Map } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import Restaurant from './Restaurant';
+import Common from './Common';
 
 const getCriteria = (searchArgs, ownedByUserId, language) =>
   ImmutableEx.removeUndefinedProps(
@@ -73,28 +74,15 @@ const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionTok
 export const getRestaurants = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getRestaurantsCountMatchCriteria(searchArgs, userId, sessionToken, language);
+
+  if (count === 0) {
+    return Common.getEmptyResult();
+  }
+
   const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const restaurants = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
-  const indexedRestaurants = restaurants.zip(Range(skip, skip + limit));
+  const results = await getRestaurantsMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
 
-  const edges = indexedRestaurants.map(indexedItem => ({
-    node: indexedItem[0],
-    cursor: indexedItem[1] + 1,
-  }));
-
-  const firstEdge = edges.first();
-  const lastEdge = edges.last();
-
-  return {
-    edges: edges.toArray(),
-    count,
-    pageInfo: {
-      startCursor: firstEdge ? firstEdge.cursor : 'cursor not available',
-      endCursor: lastEdge ? lastEdge.cursor : 'cursor not available',
-      hasPreviousPage,
-      hasNextPage,
-    },
-  };
+  return Common.convertResultsToRelayConnectionResponse(results, skip, limit, count, hasNextPage, hasPreviousPage);
 };
 
 export default connectionDefinitions({

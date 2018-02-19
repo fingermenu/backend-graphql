@@ -29,12 +29,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('order'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
     try {
       const orderId = await addOrder(args, dataLoaders, sessionToken);
 
       return Map({
-        order: (await getOrders(Map({ orderIds: List.of(orderId) }), dataLoaders, sessionToken, language)).edges[0],
+        order: (await getOrders(Map({ orderIds: List.of(orderId) }), sessionToken)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });

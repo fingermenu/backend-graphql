@@ -4,10 +4,11 @@ import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { ChoiceItemService } from '@fingermenu/parse-server-common';
 
-export const addChoiceItemForProvidedUser = async ({
-  name, description, choiceItemPageUrl, imageUrl,
-}, user, sessionToken) => {
+export const addChoiceItemForProvidedUser = async ({ name, description, choiceItemPageUrl, imageUrl }, user, sessionToken) => {
   const acl = ParseWrapperService.createACL(user);
+
+  acl.setRoleReadAccess('administrators', true);
+  acl.setRoleWriteAccess('administrators', true);
 
   return new ChoiceItemService().create(
     Map({

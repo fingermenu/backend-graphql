@@ -17,6 +17,10 @@ var _Table = require('./Table');
 
 var _Table2 = _interopRequireDefault(_Table);
 
+var _Common = require('./Common');
+
+var _Common2 = _interopRequireDefault(_Common);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -135,7 +139,7 @@ var getTables = exports.getTables = function () {
     var userLoaderBySessionToken = _ref4.userLoaderBySessionToken,
         tableStateLoaderByKey = _ref4.tableStateLoaderByKey;
 
-    var userId, tableStateId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, tables, indexedTables, edges, firstEdge, lastEdge;
+    var userId, tableStateId, finalSearchArgs, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, results;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -171,33 +175,24 @@ var getTables = exports.getTables = function () {
 
           case 14:
             count = _context3.sent;
+
+            if (!(count === 0)) {
+              _context3.next = 17;
+              break;
+            }
+
+            return _context3.abrupt('return', _Common2.default.getEmptyResult());
+
+          case 17:
             _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(finalSearchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
-            _context3.next = 18;
+            _context3.next = 20;
             return getTablesMatchCriteria(finalSearchArgs, userId, sessionToken, language, limit, skip);
 
-          case 18:
-            tables = _context3.sent;
-            indexedTables = tables.zip((0, _immutable.Range)(skip, skip + limit));
-            edges = indexedTables.map(function (indexedItem) {
-              return {
-                node: indexedItem[0],
-                cursor: indexedItem[1] + 1
-              };
-            });
-            firstEdge = edges.first();
-            lastEdge = edges.last();
-            return _context3.abrupt('return', {
-              edges: edges.toArray(),
-              count: count,
-              pageInfo: {
-                startCursor: firstEdge ? firstEdge.cursor : 'cursor not available',
-                endCursor: lastEdge ? lastEdge.cursor : 'cursor not available',
-                hasPreviousPage: hasPreviousPage,
-                hasNextPage: hasNextPage
-              }
-            });
+          case 20:
+            results = _context3.sent;
+            return _context3.abrupt('return', _Common2.default.convertResultsToRelayConnectionResponse(results, skip, limit, count, hasNextPage, hasPreviousPage));
 
-          case 24:
+          case 22:
           case 'end':
             return _context3.stop();
         }

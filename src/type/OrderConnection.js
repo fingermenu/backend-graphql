@@ -3,9 +3,10 @@
 import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
 import { OrderService } from '@fingermenu/parse-server-common';
 import { convert, ZonedDateTime } from 'js-joda';
-import { Map, Range } from 'immutable';
+import { Map } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import Order from './Order';
+import Common from './Common';
 
 const getCriteria = searchArgs => {
   let dateRange;
@@ -92,28 +93,15 @@ const getOrdersMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
 
 export const getOrders = async (searchArgs, sessionToken) => {
   const count = await getOrdersCountMatchCriteria(searchArgs, sessionToken);
+
+  if (count === 0) {
+    return Common.getEmptyResult();
+  }
+
   const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const orders = await getOrdersMatchCriteria(searchArgs, sessionToken, limit, skip);
-  const indexedOrders = orders.zip(Range(skip, skip + limit));
+  const results = await getOrdersMatchCriteria(searchArgs, sessionToken, limit, skip);
 
-  const edges = indexedOrders.map(indexedItem => ({
-    node: indexedItem[0],
-    cursor: indexedItem[1] + 1,
-  }));
-
-  const firstEdge = edges.first();
-  const lastEdge = edges.last();
-
-  return {
-    edges: edges.toArray(),
-    count,
-    pageInfo: {
-      startCursor: firstEdge ? firstEdge.cursor : 'cursor not available',
-      endCursor: lastEdge ? lastEdge.cursor : 'cursor not available',
-      hasPreviousPage,
-      hasNextPage,
-    },
-  };
+  return Common.convertResultsToRelayConnectionResponse(results, skip, limit, count, hasNextPage, hasPreviousPage);
 };
 
 export default connectionDefinitions({

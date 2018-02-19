@@ -40,7 +40,6 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 
 export const updateOrder = async (
   { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt },
-  dataLoaders,
   sessionToken,
 ) => {
   if (!id) {
@@ -61,6 +60,6 @@ export const updateOrder = async (
   await new OrderService().update(orderInfo, sessionToken);
 };
 
-export const cancelOrder = async (id, dataLoaders, sessionToken) => {
-  await updateOrder({ id, cancelledAt: new Date() }, dataLoaders, sessionToken);
+export const cancelOrder = async (id, sessionToken) => {
+  await updateOrder({ id, cancelledAt: new Date() }, sessionToken);
 };

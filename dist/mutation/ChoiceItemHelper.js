@@ -29,6 +29,11 @@ var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = functi
         switch (_context.prev = _context.next) {
           case 0:
             acl = _parseServerCommon.ParseWrapperService.createACL(user);
+
+
+            acl.setRoleReadAccess('administrators', true);
+            acl.setRoleWriteAccess('administrators', true);
+
             return _context.abrupt('return', new _parseServerCommon2.ChoiceItemService().create((0, _immutable.Map)({
               ownedByUser: user,
               name: _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
@@ -41,7 +46,7 @@ var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = functi
               imageUrl: imageUrl
             }), acl, sessionToken));
 
-          case 2:
+          case 4:
           case 'end':
             return _context.stop();
         }

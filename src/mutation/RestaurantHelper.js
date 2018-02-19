@@ -5,13 +5,14 @@ import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { RestaurantService } from '@fingermenu/parse-server-common';
 
 export const addRestaurantForProvidedUser = async (
-  {
-    name, websiteUrl, imageUrl, address, googleMapUrl, status, inheritParentRestaurantMenus, pin,
-  },
+  { name, websiteUrl, imageUrl, address, googleMapUrl, status, inheritParentRestaurantMenus, pin },
   user,
   sessionToken,
 ) => {
   const acl = ParseWrapperService.createACL(user);
+
+  acl.setRoleReadAccess('administrators', true);
+  acl.setRoleWriteAccess('administrators', true);
 
   return new RestaurantService().create(
     Map({

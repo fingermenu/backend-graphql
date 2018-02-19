@@ -4,12 +4,51 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _immutable = require('immutable');
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Common = function Common() {
   _classCallCheck(this, Common);
+};
+
+Common.getEmptyResult = function () {
+  return {
+    edges: [],
+    count: 0,
+    pageInfo: {
+      startCursor: 'cursor not available',
+      endCursor: 'cursor not available',
+      hasPreviousPage: false,
+      hasNextPage: false
+    }
+  };
+};
+
+Common.convertResultsToRelayConnectionResponse = function (results, skip, limit, count, hasNextPage, hasPreviousPage) {
+  var indexedResults = results.zip((0, _immutable.Range)(skip, skip + limit));
+  var edges = indexedResults.map(function (indexedResult) {
+    return {
+      node: indexedResult[0],
+      cursor: indexedResult[1] + 1
+    };
+  });
+
+  var firstEdge = edges.first();
+  var lastEdge = edges.last();
+
+  return {
+    edges: edges.toArray(),
+    count: count,
+    pageInfo: {
+      startCursor: firstEdge ? firstEdge.cursor : 'cursor not available',
+      endCursor: lastEdge ? lastEdge.cursor : 'cursor not available',
+      hasPreviousPage: hasPreviousPage,
+      hasNextPage: hasNextPage
+    }
+  };
 };
 
 Common.getTranslation = function () {

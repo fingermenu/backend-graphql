@@ -93,7 +93,7 @@ var addOrder = exports.addOrder = function () {
 }();
 
 var updateOrder = exports.updateOrder = function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref5, dataLoaders, sessionToken) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref5, sessionToken) {
     var id = _ref5.id,
         numberOfAdults = _ref5.numberOfAdults,
         numberOfChildren = _ref5.numberOfChildren,
@@ -129,19 +129,19 @@ var updateOrder = exports.updateOrder = function () {
     }, _callee3, undefined);
   }));
 
-  return function updateOrder(_x7, _x8, _x9) {
+  return function updateOrder(_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
 }();
 
 var cancelOrder = exports.cancelOrder = function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id, dataLoaders, sessionToken) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(id, sessionToken) {
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return updateOrder({ id: id, cancelledAt: new Date() }, dataLoaders, sessionToken);
+            return updateOrder({ id: id, cancelledAt: new Date() }, sessionToken);
 
           case 2:
           case 'end':
@@ -151,7 +151,7 @@ var cancelOrder = exports.cancelOrder = function () {
     }, _callee4, undefined);
   }));
 
-  return function cancelOrder(_x10, _x11, _x12) {
+  return function cancelOrder(_x9, _x10) {
     return _ref6.apply(this, arguments);
   };
 }();

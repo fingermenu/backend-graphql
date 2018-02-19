@@ -21,12 +21,12 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('order'),
     },
   },
-  mutateAndGetPayload: async ({ id }, { dataLoaders, sessionToken, language }) => {
+  mutateAndGetPayload: async ({ id }, { sessionToken }) => {
     try {
-      await cancelOrder(id, dataLoaders, sessionToken);
+      await cancelOrder(id, sessionToken);
 
       return Map({
-        order: (await getOrders(Map({ orderIds: List.of(id) }), dataLoaders, sessionToken, language)).edges[0],
+        order: (await getOrders(Map({ orderIds: List.of(id) }), sessionToken)).edges[0],
       });
     } catch (ex) {
       return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
