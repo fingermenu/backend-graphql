@@ -34,6 +34,10 @@ const ParentRestaurant = new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
+    nameToPrint: {
+      type: GraphQLString,
+      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+    },
     websiteUrl: {
       type: GraphQLString,
       resolve: async _ => _.get('websiteUrl'),
@@ -119,6 +123,10 @@ export default new GraphQLObjectType({
     name: {
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
+    },
+    nameToPrint: {
+      type: GraphQLString,
+      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
     },
     websiteUrl: {
       type: GraphQLString,

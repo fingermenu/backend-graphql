@@ -19,6 +19,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
+    nameToPrint: {
+      type: GraphQLString,
+      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+    },
     status: {
       type: GraphQLString,
       resolve: _ => _.get('status'),

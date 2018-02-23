@@ -19,9 +19,17 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
     },
+    nameToPrint: {
+      type: GraphQLString,
+      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+    },
     description: {
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
+    },
+    descriptionToPrint: {
+      type: GraphQLString,
+      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'description', configLoader),
     },
     menuItemPageUrl: {
       type: GraphQLString,

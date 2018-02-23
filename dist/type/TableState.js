@@ -80,15 +80,16 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    imageUrl: {
+    nameToPrint: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
+          var configLoader = _ref5.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _.get('imageUrl'));
+                  return _context3.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoader));
 
                 case 1:
                 case 'end':
@@ -98,8 +99,31 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee3, undefined);
         }));
 
-        return function resolve(_x6) {
+        return function resolve(_x6, _x7, _x8) {
           return _ref4.apply(this, arguments);
+        };
+      }()
+    },
+    imageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_) {
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  return _context4.abrupt('return', _.get('imageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context4.stop();
+              }
+            }
+          }, _callee4, undefined);
+        }));
+
+        return function resolve(_x9) {
+          return _ref6.apply(this, arguments);
         };
       }()
     }

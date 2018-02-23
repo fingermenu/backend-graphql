@@ -49,4 +49,14 @@ export default class Common {
 
     return allValues.get(await configLoader.load('fallbackLanguage'));
   };
+
+  static getTranslationToPrint = async (info, columnName, configLoader) => {
+    const allValues = info.get(columnName);
+
+    if (!allValues) {
+      return null;
+    }
+
+    return allValues.get(await configLoader.load('fallbackLanguage'));
+  };
 }

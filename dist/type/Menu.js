@@ -82,17 +82,16 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    description: {
+    nameToPrint: {
       type: _graphql.GraphQLString,
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
-          var language = _ref5.language,
-              configLoader = _ref5.dataLoaders.configLoader;
+          var configLoader = _ref5.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _Common2.default.getTranslation(_, 'description', language, configLoader));
+                  return _context3.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoader));
 
                 case 1:
                 case 'end':
@@ -107,15 +106,17 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    menuPageUrl: {
+    description: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_) {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref7) {
+          var language = _ref7.language,
+              configLoader = _ref7.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', _.get('menuPageUrl'));
+                  return _context4.abrupt('return', _Common2.default.getTranslation(_, 'description', language, configLoader));
 
                 case 1:
                 case 'end':
@@ -125,20 +126,21 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee4, undefined);
         }));
 
-        return function resolve(_x9) {
+        return function resolve(_x9, _x10, _x11) {
           return _ref6.apply(this, arguments);
         };
       }()
     },
-    imageUrl: {
+    descriptionToPrint: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_) {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref9) {
+          var configLoader = _ref9.dataLoaders.configLoader;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', _.get('imageUrl'));
+                  return _context5.abrupt('return', _Common2.default.getTranslationToPrint(_, 'description', configLoader));
 
                 case 1:
                 case 'end':
@@ -148,8 +150,54 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee5, undefined);
         }));
 
-        return function resolve(_x10) {
-          return _ref7.apply(this, arguments);
+        return function resolve(_x12, _x13, _x14) {
+          return _ref8.apply(this, arguments);
+        };
+      }()
+    },
+    menuPageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_) {
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            while (1) {
+              switch (_context6.prev = _context6.next) {
+                case 0:
+                  return _context6.abrupt('return', _.get('menuPageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context6.stop();
+              }
+            }
+          }, _callee6, undefined);
+        }));
+
+        return function resolve(_x15) {
+          return _ref10.apply(this, arguments);
+        };
+      }()
+    },
+    imageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_) {
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  return _context7.abrupt('return', _.get('imageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context7.stop();
+              }
+            }
+          }, _callee7, undefined);
+        }));
+
+        return function resolve(_x16) {
+          return _ref11.apply(this, arguments);
         };
       }()
     },
@@ -162,86 +210,86 @@ exports.default = new _graphql.GraphQLObjectType({
     menuItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_MenuItemPrice2.default)),
       resolve: function () {
-        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref9) {
-          var _ref9$dataLoaders = _ref9.dataLoaders,
-              menuLoaderById = _ref9$dataLoaders.menuLoaderById,
-              menuItemPriceLoaderById = _ref9$dataLoaders.menuItemPriceLoaderById;
+        var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref13) {
+          var _ref13$dataLoaders = _ref13.dataLoaders,
+              menuLoaderById = _ref13$dataLoaders.menuLoaderById,
+              menuItemPriceLoaderById = _ref13$dataLoaders.menuItemPriceLoaderById;
           var menuItemPriceIds, menuItemPrices, menuItemPriceSortOrderIndices;
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
-              switch (_context6.prev = _context6.next) {
+              switch (_context8.prev = _context8.next) {
                 case 0:
                   menuItemPriceIds = _.get('menuItemPriceIds');
 
                   if (!(!menuItemPriceIds || menuItemPriceIds.isEmpty())) {
-                    _context6.next = 3;
+                    _context8.next = 3;
                     break;
                   }
 
-                  return _context6.abrupt('return', []);
+                  return _context8.abrupt('return', []);
 
                 case 3:
-                  _context6.next = 5;
+                  _context8.next = 5;
                   return menuItemPriceLoaderById.loadMany(_.get('menuItemPriceIds').toArray());
 
                 case 5:
-                  _context6.t0 = function (menuItemPrice) {
+                  _context8.t0 = function (menuItemPrice) {
                     return !menuItemPrice.has('removedByUser') || !menuItemPrice.get('removedByUser');
                   };
 
-                  menuItemPrices = _context6.sent.filter(_context6.t0);
+                  menuItemPrices = _context8.sent.filter(_context8.t0);
 
                   if (!(menuItemPrices.length === 0)) {
-                    _context6.next = 9;
+                    _context8.next = 9;
                     break;
                   }
 
-                  return _context6.abrupt('return', []);
+                  return _context8.abrupt('return', []);
 
                 case 9:
-                  _context6.next = 11;
+                  _context8.next = 11;
                   return menuLoaderById.load(_.get('id'));
 
                 case 11:
-                  menuItemPriceSortOrderIndices = _context6.sent.get('menuItemPriceSortOrderIndices');
-                  return _context6.abrupt('return', menuItemPrices.map(function (_) {
+                  menuItemPriceSortOrderIndices = _context8.sent.get('menuItemPriceSortOrderIndices');
+                  return _context8.abrupt('return', menuItemPrices.map(function (_) {
                     return _.set('sortOrderIndex', menuItemPriceSortOrderIndices.get(_.get('id')));
                   }));
 
                 case 13:
                 case 'end':
-                  return _context6.stop();
+                  return _context8.stop();
               }
             }
-          }, _callee6, undefined);
+          }, _callee8, undefined);
         }));
 
-        return function resolve(_x11, _x12, _x13) {
-          return _ref8.apply(this, arguments);
+        return function resolve(_x17, _x18, _x19) {
+          return _ref12.apply(this, arguments);
         };
       }()
     },
     tags: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Tag2.default)),
       resolve: function () {
-        var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, args, _ref11) {
-          var tagLoaderById = _ref11.dataLoaders.tagLoaderById;
-          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_, args, _ref15) {
+          var tagLoaderById = _ref15.dataLoaders.tagLoaderById;
+          return regeneratorRuntime.wrap(function _callee9$(_context9) {
             while (1) {
-              switch (_context7.prev = _context7.next) {
+              switch (_context9.prev = _context9.next) {
                 case 0:
-                  return _context7.abrupt('return', _.get('tagIds') && !_.get('tagIds').isEmpty() ? tagLoaderById.loadMany(_.get('tagIds').toArray()) : []);
+                  return _context9.abrupt('return', _.get('tagIds') && !_.get('tagIds').isEmpty() ? tagLoaderById.loadMany(_.get('tagIds').toArray()) : []);
 
                 case 1:
                 case 'end':
-                  return _context7.stop();
+                  return _context9.stop();
               }
             }
-          }, _callee7, undefined);
+          }, _callee9, undefined);
         }));
 
-        return function resolve(_x14, _x15, _x16) {
-          return _ref10.apply(this, arguments);
+        return function resolve(_x20, _x21, _x22) {
+          return _ref14.apply(this, arguments);
         };
       }()
     }
