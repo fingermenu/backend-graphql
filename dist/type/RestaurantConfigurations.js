@@ -40,6 +40,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('documentTemplates') ? _.get('documentTemplates').toArray() : [];
       }
+    },
+    numberOfPrintCopiesForKitchen: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('numberOfPrintCopiesForKitchen') ? _.get('numberOfPrintCopiesForKitchen') : 1;
+      }
     }
   }
 });

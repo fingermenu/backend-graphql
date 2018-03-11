@@ -51,6 +51,12 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('quantity');
       }
     },
+    notes: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('notes');
+      }
+    },
     orderChoiceItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderChoiceItemPrice2.default)),
       resolve: function resolve(_) {

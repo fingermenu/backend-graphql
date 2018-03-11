@@ -46,6 +46,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('quantity');
       }
+    },
+    notes: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('notes');
+      }
     }
   }
 });

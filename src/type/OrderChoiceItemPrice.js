@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLNonNull, GraphQLInt, GraphQLObjectType } from 'graphql';
+import { GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
 import ChoiceItemPrice from './ChoiceItemPrice';
 
 export default new GraphQLObjectType({
@@ -9,11 +9,15 @@ export default new GraphQLObjectType({
     choiceItemPrice: {
       type: new GraphQLNonNull(ChoiceItemPrice),
       resolve: async (_, args, { dataLoaders }) =>
-        (_.get('choiceItemPriceId') ? dataLoaders.choiceItemPriceLoaderById.load(_.get('choiceItemPriceId')) : null),
+        _.get('choiceItemPriceId') ? dataLoaders.choiceItemPriceLoaderById.load(_.get('choiceItemPriceId')) : null,
     },
     quantity: {
       type: new GraphQLNonNull(GraphQLInt),
       resolve: _ => _.get('quantity'),
+    },
+    notes: {
+      type: GraphQLString,
+      resolve: _ => _.get('notes'),
     },
   },
 });
