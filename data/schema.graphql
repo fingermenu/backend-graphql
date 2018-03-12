@@ -278,7 +278,7 @@ interface Node {
 
 type Order implements Node {
   id: ID!
-  corelationId: ID!
+  corelationId: ID
   numberOfAdults: Int
   numberOfChildren: Int
   customerName: String

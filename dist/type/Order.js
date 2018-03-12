@@ -58,7 +58,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     corelationId: {
-      type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
+      type: _graphql.GraphQLID,
       resolve: function resolve(_) {
         return _.get('corelationId');
       }
