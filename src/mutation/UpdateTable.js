@@ -18,6 +18,7 @@ export default mutationWithClientMutationId({
     numberOfChildren: { type: GraphQLInt },
     customerName: { type: GraphQLString },
     notes: { type: GraphQLString },
+    lastOrderCorelationId: { type: GraphQLID },
   },
   outputFields: {
     errorMessage: {

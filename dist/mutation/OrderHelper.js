@@ -19,12 +19,16 @@ var _parseServerCommon = require('@microbusiness/parse-server-common');
 
 var _parseServerCommon2 = require('@fingermenu/parse-server-common');
 
+var _TableHelper = require('./TableHelper');
+
+var _TableHelper2 = _interopRequireDefault(_TableHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, sessionToken) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, dataLoaders, sessionToken) {
     var corelationId = _ref2.corelationId,
         numberOfAdults = _ref2.numberOfAdults,
         numberOfChildren = _ref2.numberOfChildren,
@@ -34,7 +38,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
         restaurantId = _ref2.restaurantId,
         tableId = _ref2.tableId,
         details = _ref2.details;
-    var acl;
+    var acl, calculatedCorelationId, newOrderId;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -45,8 +49,10 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             acl.setRoleReadAccess('administrators', true);
             acl.setRoleWriteAccess('administrators', true);
 
-            return _context.abrupt('return', new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
-              corelationId: corelationId ? corelationId : (0, _cuid2.default)(),
+            calculatedCorelationId = corelationId ? corelationId : (0, _cuid2.default)();
+            _context.next = 6;
+            return new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
+              corelationId: calculatedCorelationId,
               numberOfAdults: numberOfAdults,
               numberOfChildren: numberOfChildren,
               customerName: customerName,
@@ -56,9 +62,23 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
               restaurantId: restaurantId,
               tableId: tableId,
               details: _immutable2.default.fromJS(details)
-            }), acl, sessionToken));
+            }), acl, sessionToken);
 
-          case 4:
+          case 6:
+            newOrderId = _context.sent;
+
+            if (_commonJavascript.Common.isNullOrUndefined(tableId)) {
+              _context.next = 10;
+              break;
+            }
+
+            _context.next = 10;
+            return (0, _TableHelper2.default)({ id: tableId, lastOrderCorelationId: calculatedCorelationId }, dataLoaders, sessionToken);
+
+          case 10:
+            return _context.abrupt('return', newOrderId);
+
+          case 11:
           case 'end':
             return _context.stop();
         }
@@ -66,7 +86,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
     }, _callee, undefined);
   }));
 
-  return function addOrderForProvidedUser(_x, _x2, _x3) {
+  return function addOrderForProvidedUser(_x, _x2, _x3, _x4) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -83,7 +103,7 @@ var addOrder = exports.addOrder = function () {
 
           case 2:
             user = _context2.sent;
-            return _context2.abrupt('return', addOrderForProvidedUser(info, user, sessionToken));
+            return _context2.abrupt('return', addOrderForProvidedUser(info, user, dataLoaders, sessionToken));
 
           case 4:
           case 'end':
@@ -93,7 +113,7 @@ var addOrder = exports.addOrder = function () {
     }, _callee2, undefined);
   }));
 
-  return function addOrder(_x4, _x5, _x6) {
+  return function addOrder(_x5, _x6, _x7) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -135,7 +155,7 @@ var updateOrder = exports.updateOrder = function () {
     }, _callee3, undefined);
   }));
 
-  return function updateOrder(_x7, _x8) {
+  return function updateOrder(_x8, _x9) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -157,7 +177,7 @@ var cancelOrder = exports.cancelOrder = function () {
     }, _callee4, undefined);
   }));
 
-  return function cancelOrder(_x9, _x10) {
+  return function cancelOrder(_x10, _x11) {
     return _ref6.apply(this, arguments);
   };
 }();

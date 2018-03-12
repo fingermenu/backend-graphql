@@ -47,6 +47,10 @@ export default new GraphQLObjectType({
       type: GraphQLInt,
       resolve: _ => _.get('sortOrderIndex'),
     },
+    lastOrderCorelationId: {
+      type: GraphQLID,
+      resolve: _ => _.get('lastOrderCorelationId'),
+    },
     tableState: {
       type: TableState,
       resolve: async (_, args, { dataLoaders: { tableStateLoaderById } }) =>

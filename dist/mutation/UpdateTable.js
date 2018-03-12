@@ -34,7 +34,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     numberOfAdults: { type: _graphql.GraphQLInt },
     numberOfChildren: { type: _graphql.GraphQLInt },
     customerName: { type: _graphql.GraphQLString },
-    notes: { type: _graphql.GraphQLString }
+    notes: { type: _graphql.GraphQLString },
+    lastOrderCorelationId: { type: _graphql.GraphQLID }
   },
   outputFields: {
     errorMessage: {

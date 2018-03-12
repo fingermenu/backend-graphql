@@ -714,6 +714,9 @@ exports.default = new _graphql.GraphQLObjectType({
         restaurantId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
         },
+        lastOrderCorelationId: {
+          type: _graphql.GraphQLID
+        },
         name: {
           type: _graphql.GraphQLString
         },

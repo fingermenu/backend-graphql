@@ -286,6 +286,9 @@ export default new GraphQLObjectType({
         restaurantId: {
           type: new GraphQLNonNull(GraphQLID),
         },
+        lastOrderCorelationId: {
+          type: GraphQLID,
+        },
         name: {
           type: GraphQLString,
         },

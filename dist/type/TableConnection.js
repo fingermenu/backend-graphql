@@ -35,7 +35,8 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
-      tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined
+      tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined,
+      lastOrderCorelationId: searchArgs.has('lastOrderCorelationId') ? searchArgs.get('lastOrderCorelationId') : undefined
     })
   }));
 };

@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "parse": "^1.x"
   },
   "devDependencies": {
-    "@fingermenu/parse-server-common": "^0.2.0",
+    "@fingermenu/parse-server-common": "^0.3.0",
     "@microbusiness/common-javascript": "^1.1.14",
     "@microbusiness/parse-server-common": "^1.1.34",
     "babel-cli": "^6.26.0",

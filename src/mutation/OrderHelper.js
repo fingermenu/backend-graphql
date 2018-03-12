@@ -5,10 +5,12 @@ import cuid from 'cuid';
 import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { OrderService } from '@fingermenu/parse-server-common';
+import updateTable from './TableHelper';
 
 export const addOrderForProvidedUser = async (
   { corelationId, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
   user,
+  dataLoaders,
   sessionToken,
 ) => {
   const acl = ParseWrapperService.createACL(user);
@@ -16,9 +18,10 @@ export const addOrderForProvidedUser = async (
   acl.setRoleReadAccess('administrators', true);
   acl.setRoleWriteAccess('administrators', true);
 
-  return new OrderService().create(
+  const calculatedCorelationId = corelationId ? corelationId : cuid();
+  const newOrderId = await new OrderService().create(
     Map({
-      corelationId: corelationId ? corelationId : cuid(),
+      corelationId: calculatedCorelationId,
       numberOfAdults,
       numberOfChildren,
       customerName,
@@ -32,12 +35,18 @@ export const addOrderForProvidedUser = async (
     acl,
     sessionToken,
   );
+
+  if (!Common.isNullOrUndefined(tableId)) {
+    await updateTable({ id: tableId, lastOrderCorelationId: calculatedCorelationId }, dataLoaders, sessionToken);
+  }
+
+  return newOrderId;
 };
 
 export const addOrder = async (info, dataLoaders, sessionToken) => {
   const user = await dataLoaders.userLoaderBySessionToken.load(sessionToken);
 
-  return addOrderForProvidedUser(info, user, sessionToken);
+  return addOrderForProvidedUser(info, user, dataLoaders, sessionToken);
 };
 
 export const updateOrder = async (
