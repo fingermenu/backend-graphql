@@ -321,7 +321,7 @@ export default new GraphQLObjectType({
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
         corelationId: {
-          type: new GraphQLNonNull(GraphQLID),
+          type: GraphQLID,
         },
         restaurantId: {
           type: new GraphQLNonNull(GraphQLID),

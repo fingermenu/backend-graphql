@@ -791,7 +791,7 @@ exports.default = new _graphql.GraphQLObjectType({
           type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
         },
         corelationId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+          type: _graphql.GraphQLID
         },
         restaurantId: {
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
