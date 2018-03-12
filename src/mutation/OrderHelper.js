@@ -1,12 +1,13 @@
 // @flow
 
 import { Common } from '@microbusiness/common-javascript';
+import cuid from 'cuid';
 import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { OrderService } from '@fingermenu/parse-server-common';
 
 export const addOrderForProvidedUser = async (
-  { numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
+  { corelationId, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
   user,
   sessionToken,
 ) => {
@@ -17,6 +18,7 @@ export const addOrderForProvidedUser = async (
 
   return new OrderService().create(
     Map({
+      corelationId: corelationId ? corelationId : cuid(),
       numberOfAdults,
       numberOfChildren,
       customerName,

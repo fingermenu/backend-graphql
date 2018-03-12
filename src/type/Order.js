@@ -16,6 +16,10 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
     },
+    corelationId: {
+      type: new GraphQLNonNull(GraphQLID),
+      resolve: _ => _.get('corelationId'),
+    },
     numberOfAdults: {
       type: GraphQLInt,
       resolve: _ => _.get('numberOfAdults'),

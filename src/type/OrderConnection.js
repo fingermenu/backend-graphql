@@ -29,6 +29,7 @@ const getCriteria = searchArgs => {
   const criteria = Map({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: Map({
+      corelationId: searchArgs.has('corelationId') ? searchArgs.get('corelationId') : undefined,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),

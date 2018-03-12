@@ -7,6 +7,10 @@ exports.cancelOrder = exports.updateOrder = exports.addOrder = exports.addOrderF
 
 var _commonJavascript = require('@microbusiness/common-javascript');
 
+var _cuid = require('cuid');
+
+var _cuid2 = _interopRequireDefault(_cuid);
+
 var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
@@ -21,7 +25,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, sessionToken) {
-    var numberOfAdults = _ref2.numberOfAdults,
+    var corelationId = _ref2.corelationId,
+        numberOfAdults = _ref2.numberOfAdults,
         numberOfChildren = _ref2.numberOfChildren,
         customerName = _ref2.customerName,
         notes = _ref2.notes,
@@ -41,6 +46,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             acl.setRoleWriteAccess('administrators', true);
 
             return _context.abrupt('return', new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
+              corelationId: corelationId ? corelationId : (0, _cuid2.default)(),
               numberOfAdults: numberOfAdults,
               numberOfChildren: numberOfChildren,
               customerName: customerName,

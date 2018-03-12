@@ -48,6 +48,7 @@ var getCriteria = function getCriteria(searchArgs) {
   var criteria = (0, _immutable.Map)({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: (0, _immutable.Map)({
+      corelationId: searchArgs.has('corelationId') ? searchArgs.get('corelationId') : undefined,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),

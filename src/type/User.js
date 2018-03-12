@@ -320,6 +320,9 @@ export default new GraphQLObjectType({
         orderIds: {
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
+        corelationId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
         restaurantId: {
           type: new GraphQLNonNull(GraphQLID),
         },
