@@ -17,7 +17,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('id'),
     },
     corelationId: {
-      type: new GraphQLNonNull(GraphQLID),
+      type: GraphQLID,
       resolve: _ => _.get('corelationId'),
     },
     numberOfAdults: {
