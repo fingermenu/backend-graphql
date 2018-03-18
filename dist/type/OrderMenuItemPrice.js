@@ -57,6 +57,12 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('notes');
       }
     },
+    paid: {
+      type: _graphql.GraphQLBoolean,
+      resolve: function resolve(_) {
+        return _.get('paid');
+      }
+    },
     orderChoiceItemPrices: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderChoiceItemPrice2.default)),
       resolve: function resolve(_) {

@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
+import { GraphQLBoolean, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
 import ChoiceItemPrice from './ChoiceItemPrice';
 
 export default new GraphQLObjectType({
@@ -18,6 +18,10 @@ export default new GraphQLObjectType({
     notes: {
       type: GraphQLString,
       resolve: _ => _.get('notes'),
+    },
+    paid: {
+      type: GraphQLBoolean,
+      resolve: _ => _.get('paid'),
     },
   },
 });

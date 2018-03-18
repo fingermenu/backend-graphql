@@ -295,18 +295,21 @@ type OrderChoiceItemPrice {
   choiceItemPrice: ChoiceItemPrice!
   quantity: Int!
   notes: String
+  paid: Boolean
 }
 
 input OrderChoiceItemPriceInput {
   choiceItemPriceId: ID!
   quantity: Int!
   notes: String
+  paid: Boolean
 }
 
 type OrderMenuItemPrice {
   menuItemPrice: MenuItemPrice!
   quantity: Int!
   notes: String
+  paid: Boolean
   orderChoiceItemPrices: [OrderChoiceItemPrice!]
 }
 
@@ -314,6 +317,7 @@ input OrderMenuItemPriceInput {
   menuItemPriceId: ID!
   quantity: Int!
   notes: String
+  paid: Boolean
   orderChoiceItemPrices: [OrderChoiceItemPriceInput!]
 }
 

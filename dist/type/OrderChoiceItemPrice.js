@@ -52,6 +52,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('notes');
       }
+    },
+    paid: {
+      type: _graphql.GraphQLBoolean,
+      resolve: function resolve(_) {
+        return _.get('paid');
+      }
     }
   }
 });
