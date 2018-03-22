@@ -286,7 +286,7 @@ export default new GraphQLObjectType({
         restaurantId: {
           type: new GraphQLNonNull(GraphQLID),
         },
-        lastOrderCorelationId: {
+        lastOrderCorrelationId: {
           type: GraphQLID,
         },
         name: {
@@ -323,7 +323,7 @@ export default new GraphQLObjectType({
         orderIds: {
           type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
         },
-        corelationId: {
+        correlationId: {
           type: GraphQLID,
         },
         restaurantId: {

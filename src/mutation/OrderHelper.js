@@ -8,7 +8,7 @@ import { OrderService } from '@fingermenu/parse-server-common';
 import updateTable from './TableHelper';
 
 export const addOrderForProvidedUser = async (
-  { corelationId, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
+  { correlationId, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
   user,
   dataLoaders,
   sessionToken,
@@ -18,10 +18,10 @@ export const addOrderForProvidedUser = async (
   acl.setRoleReadAccess('administrators', true);
   acl.setRoleWriteAccess('administrators', true);
 
-  const calculatedCorelationId = corelationId ? corelationId : cuid();
+  const calculatedCorrelationId = correlationId ? correlationId : cuid();
   const newOrderId = await new OrderService().create(
     Map({
-      corelationId: calculatedCorelationId,
+      correlationId: calculatedCorrelationId,
       numberOfAdults,
       numberOfChildren,
       customerName,
@@ -37,7 +37,7 @@ export const addOrderForProvidedUser = async (
   );
 
   if (!Common.isNullOrUndefined(tableId)) {
-    await updateTable({ id: tableId, lastOrderCorelationId: calculatedCorelationId }, dataLoaders, sessionToken);
+    await updateTable({ id: tableId, lastOrderCorrelationId: calculatedCorrelationId }, dataLoaders, sessionToken);
   }
 
   return newOrderId;

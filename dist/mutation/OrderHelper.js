@@ -29,7 +29,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, dataLoaders, sessionToken) {
-    var corelationId = _ref2.corelationId,
+    var correlationId = _ref2.correlationId,
         numberOfAdults = _ref2.numberOfAdults,
         numberOfChildren = _ref2.numberOfChildren,
         customerName = _ref2.customerName,
@@ -38,7 +38,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
         restaurantId = _ref2.restaurantId,
         tableId = _ref2.tableId,
         details = _ref2.details;
-    var acl, calculatedCorelationId, newOrderId;
+    var acl, calculatedCorrelationId, newOrderId;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -49,10 +49,10 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             acl.setRoleReadAccess('administrators', true);
             acl.setRoleWriteAccess('administrators', true);
 
-            calculatedCorelationId = corelationId ? corelationId : (0, _cuid2.default)();
+            calculatedCorrelationId = correlationId ? correlationId : (0, _cuid2.default)();
             _context.next = 6;
             return new _parseServerCommon2.OrderService().create((0, _immutable.Map)({
-              corelationId: calculatedCorelationId,
+              correlationId: calculatedCorrelationId,
               numberOfAdults: numberOfAdults,
               numberOfChildren: numberOfChildren,
               customerName: customerName,
@@ -73,7 +73,7 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
             }
 
             _context.next = 10;
-            return (0, _TableHelper2.default)({ id: tableId, lastOrderCorelationId: calculatedCorelationId }, dataLoaders, sessionToken);
+            return (0, _TableHelper2.default)({ id: tableId, lastOrderCorrelationId: calculatedCorrelationId }, dataLoaders, sessionToken);
 
           case 10:
             return _context.abrupt('return', newOrderId);

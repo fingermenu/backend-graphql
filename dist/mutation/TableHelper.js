@@ -26,7 +26,7 @@ var updateTable = function () {
         numberOfChildren = _ref2.numberOfChildren,
         customerName = _ref2.customerName,
         notes = _ref2.notes,
-        lastOrderCorelationId = _ref2.lastOrderCorelationId;
+        lastOrderCorrelationId = _ref2.lastOrderCorrelationId;
     var tableInfo;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -73,7 +73,7 @@ var updateTable = function () {
             _context.t7 = _commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren });
             _context.t8 = _commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName });
             _context.t9 = _commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
-            _context.t10 = _commonJavascript.Common.isNullOrUndefined(lastOrderCorelationId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ lastOrderCorelationId: lastOrderCorelationId });
+            _context.t10 = _commonJavascript.Common.isNullOrUndefined(lastOrderCorrelationId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ lastOrderCorrelationId: lastOrderCorrelationId });
             tableInfo = _context.t0.merge.call(_context.t0, _context.t5).merge(_context.t6).merge(_context.t7).merge(_context.t8).merge(_context.t9).merge(_context.t10);
             _context.next = 22;
             return new _parseServerCommon.TableService().update(tableInfo, sessionToken);

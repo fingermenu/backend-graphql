@@ -39,16 +39,12 @@ var getCriteria = function getCriteria(searchArgs) {
     if (dateRange.to < dateRange.from) {
       throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
     }
-
-    if (dateRange.to - dateRange.from > 1000 * 60 * 60 * 24) {
-      throw new Error('dateRange is invalid. dateRange convers period longer than a day.');
-    }
   }
 
   var criteria = (0, _immutable.Map)({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: (0, _immutable.Map)({
-      corelationId: searchArgs.has('corelationId') ? searchArgs.get('corelationId') : undefined,
+      correlationId: searchArgs.has('correlationId') ? searchArgs.get('correlationId') : undefined,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),

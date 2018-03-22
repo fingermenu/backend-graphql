@@ -25,7 +25,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'PlaceOrder',
   inputFields: {
-    corelationId: { type: _graphql.GraphQLID },
+    correlationId: { type: _graphql.GraphQLID },
     restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     numberOfAdults: { type: _graphql.GraphQLInt },
     numberOfChildren: { type: _graphql.GraphQLInt },

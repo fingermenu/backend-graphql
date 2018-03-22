@@ -47,9 +47,9 @@ export default new GraphQLObjectType({
       type: GraphQLInt,
       resolve: _ => _.get('sortOrderIndex'),
     },
-    lastOrderCorelationId: {
+    lastOrderCorrelationId: {
       type: GraphQLID,
-      resolve: _ => _.get('lastOrderCorelationId'),
+      resolve: _ => _.get('lastOrderCorrelationId'),
     },
     tableState: {
       type: TableState,

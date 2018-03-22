@@ -5,7 +5,7 @@ import Immutable, { Map } from 'immutable';
 import { TableService } from '@fingermenu/parse-server-common';
 
 const updateTable = async (
-  { id, name, status, tableState, numberOfAdults, numberOfChildren, customerName, notes, lastOrderCorelationId },
+  { id, name, status, tableState, numberOfAdults, numberOfChildren, customerName, notes, lastOrderCorrelationId },
   dataLoaders,
   sessionToken,
 ) => {
@@ -27,7 +27,7 @@ const updateTable = async (
     .merge(Common.isNullOrUndefined(numberOfChildren) ? Map() : Map({ numberOfChildren }))
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
-    .merge(Common.isNullOrUndefined(lastOrderCorelationId) ? Map() : Map({ lastOrderCorelationId }));
+    .merge(Common.isNullOrUndefined(lastOrderCorrelationId) ? Map() : Map({ lastOrderCorrelationId }));
 
   await new TableService().update(tableInfo, sessionToken);
 };

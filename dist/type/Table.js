@@ -138,10 +138,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('sortOrderIndex');
       }
     },
-    lastOrderCorelationId: {
+    lastOrderCorrelationId: {
       type: _graphql.GraphQLID,
       resolve: function resolve(_) {
-        return _.get('lastOrderCorelationId');
+        return _.get('lastOrderCorrelationId');
       }
     },
     tableState: {

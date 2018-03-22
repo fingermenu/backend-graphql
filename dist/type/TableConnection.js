@@ -36,7 +36,7 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined,
-      lastOrderCorelationId: searchArgs.has('lastOrderCorelationId') ? searchArgs.get('lastOrderCorelationId') : undefined
+      lastOrderCorrelationId: searchArgs.has('lastOrderCorrelationId') ? searchArgs.get('lastOrderCorrelationId') : undefined
     })
   }));
 };
