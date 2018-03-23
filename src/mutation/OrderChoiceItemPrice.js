@@ -5,6 +5,7 @@ import { GraphQLBoolean, GraphQLNonNull, GraphQLID, GraphQLInt, GraphQLString, G
 export default new GraphQLInputObjectType({
   name: 'OrderChoiceItemPriceInput',
   fields: {
+    id: { type: GraphQLID },
     choiceItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },

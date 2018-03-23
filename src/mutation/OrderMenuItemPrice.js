@@ -6,6 +6,7 @@ import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 export default new GraphQLInputObjectType({
   name: 'OrderMenuItemPriceInput',
   fields: {
+    id: { type: GraphQLID },
     menuItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },

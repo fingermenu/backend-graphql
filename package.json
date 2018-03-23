@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "graphql": "0.13.2",
     "graphql-fields": "^1.0.2",
     "graphql-relay": "github:micro-business/graphql-relay-js",
-    "js-joda": "^1.8.0"
+    "js-joda": "^1.8.2"
   },
   "peerDependencies": {
     "@fingermenu/parse-server-common": "0.x",

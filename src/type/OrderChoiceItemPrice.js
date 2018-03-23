@@ -1,11 +1,15 @@
 // @flow
 
-import { GraphQLBoolean, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
 import ChoiceItemPrice from './ChoiceItemPrice';
 
 export default new GraphQLObjectType({
   name: 'OrderChoiceItemPrice',
   fields: {
+    id: {
+      type: GraphQLID,
+      resolve: _ => _.get('id'),
+    },
     choiceItemPrice: {
       type: new GraphQLNonNull(ChoiceItemPrice),
       resolve: async (_, args, { dataLoaders }) =>
