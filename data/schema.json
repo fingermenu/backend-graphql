@@ -4093,7 +4093,7 @@
           "description": null,
           "fields": [
             {
-              "name": "logo",
+              "name": "logoImageUrl",
               "description": null,
               "args": [],
               "type": {
