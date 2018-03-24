@@ -9,6 +9,12 @@ var _graphql = require('graphql');
 exports.default = new _graphql.GraphQLObjectType({
   name: 'RestaurantImages',
   fields: {
+    logo: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('logo');
+      }
+    },
     primaryLandingPageBackgroundImageUrl: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {

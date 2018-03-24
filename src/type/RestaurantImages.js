@@ -5,6 +5,10 @@ import { GraphQLString, GraphQLObjectType } from 'graphql';
 export default new GraphQLObjectType({
   name: 'RestaurantImages',
   fields: {
+    logo: {
+      type: GraphQLString,
+      resolve: _ => _.get('logo'),
+    },
     primaryLandingPageBackgroundImageUrl: {
       type: GraphQLString,
       resolve: _ => _.get('primaryLandingPageBackgroundImageUrl'),
