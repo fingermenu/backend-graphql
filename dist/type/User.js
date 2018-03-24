@@ -800,7 +800,7 @@ exports.default = new _graphql.GraphQLObjectType({
           type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
         },
         dateRange: {
-          type: new _graphql.GraphQLNonNull(_DateRange2.default)
+          type: _DateRange2.default
         },
         includeCancelledOrders: {
           type: _graphql.GraphQLBoolean

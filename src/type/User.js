@@ -330,7 +330,7 @@ export default new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLID),
         },
         dateRange: {
-          type: new GraphQLNonNull(DateRange),
+          type: DateRange,
         },
         includeCancelledOrders: {
           type: GraphQLBoolean,
