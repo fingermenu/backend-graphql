@@ -21,24 +21,16 @@ export default mutationWithClientMutationId({
     details: { type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)) },
   },
   outputFields: {
-    errorMessage: {
-      type: GraphQLString,
-      resolve: _ => _.get('errorMessage'),
-    },
     order: {
       type: OrderConnection.edgeType,
       resolve: _ => _.get('order'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
-    try {
-      const orderId = await addOrder(args, dataLoaders, sessionToken);
+    const orderId = await addOrder(args, dataLoaders, sessionToken);
 
-      return Map({
-        order: (await getOrders(Map({ orderIds: List.of(orderId) }), sessionToken)).edges[0],
-      });
-    } catch (ex) {
-      return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
-    }
+    return Map({
+      order: (await getOrders(Map({ orderIds: List.of(orderId) }), sessionToken)).edges[0],
+    });
   },
 });

@@ -21,24 +21,16 @@ export default mutationWithClientMutationId({
     lastOrderCorrelationId: { type: GraphQLID },
   },
   outputFields: {
-    errorMessage: {
-      type: GraphQLString,
-      resolve: _ => _.get('errorMessage'),
-    },
     table: {
       type: TableConnection.edgeType,
       resolve: _ => _.get('table'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    try {
-      await updateTable(args, dataLoaders, sessionToken);
+    await updateTable(args, dataLoaders, sessionToken);
 
-      return Map({
-        table: (await getTables(Map({ tableIds: List.of(args.id) }), dataLoaders, sessionToken, language)).edges[0],
-      });
-    } catch (ex) {
-      return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
-    }
+    return Map({
+      table: (await getTables(Map({ tableIds: List.of(args.id) }), dataLoaders, sessionToken, language)).edges[0],
+    });
   },
 });

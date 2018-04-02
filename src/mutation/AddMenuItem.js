@@ -16,24 +16,16 @@ export default mutationWithClientMutationId({
     imageUrl: { type: GraphQLString },
   },
   outputFields: {
-    errorMessage: {
-      type: GraphQLString,
-      resolve: _ => _.get('errorMessage'),
-    },
     menuItem: {
       type: MenuItemConnection.edgeType,
       resolve: _ => _.get('menuItem'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    try {
-      const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
+    const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
 
-      return Map({
-        menuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken, language)).edges[0],
-      });
-    } catch (ex) {
-      return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
-    }
+    return Map({
+      menuItem: (await getMenuItems(Map({ MenuItemIds: List.of(menuItemId) }), dataLoaders, sessionToken, language)).edges[0],
+    });
   },
 });

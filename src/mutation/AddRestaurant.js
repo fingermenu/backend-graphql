@@ -20,24 +20,16 @@ export default mutationWithClientMutationId({
     pin: { type: GraphQLString },
   },
   outputFields: {
-    errorMessage: {
-      type: GraphQLString,
-      resolve: _ => _.get('errorMessage'),
-    },
     restaurant: {
       type: RestaurantConnection.edgeType,
       resolve: _ => _.get('restaurant'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    try {
-      const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
+    const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 
-      return Map({
-        restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken, language)).edges[0],
-      });
-    } catch (ex) {
-      return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
-    }
+    return Map({
+      restaurant: (await getRestaurants(Map({ RestaurantIds: List.of(restaurantId) }), dataLoaders, sessionToken, language)).edges[0],
+    });
   },
 });

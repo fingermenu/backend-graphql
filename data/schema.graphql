@@ -7,7 +7,6 @@ input AddChoiceItemInput {
 }
 
 type AddChoiceItemPayload {
-  errorMessage: String
   choiceItem: ChoiceItemTypeEdge
   clientMutationId: String
 }
@@ -21,7 +20,6 @@ input AddMenuItemInput {
 }
 
 type AddMenuItemPayload {
-  errorMessage: String
   menuItem: MenuItemTypeEdge
   clientMutationId: String
 }
@@ -39,7 +37,6 @@ input AddRestaurantInput {
 }
 
 type AddRestaurantPayload {
-  errorMessage: String
   restaurant: RestaurantTypeEdge
   clientMutationId: String
 }
@@ -61,7 +58,6 @@ input CancelOrderInput {
 }
 
 type CancelOrderPayload {
-  errorMessage: String
   order: OrderTypeEdge
   clientMutationId: String
 }
@@ -405,7 +401,6 @@ input PlaceOrderInput {
 }
 
 type PlaceOrderPayload {
-  errorMessage: String
   order: OrderTypeEdge
   clientMutationId: String
 }
@@ -610,7 +605,6 @@ input UpdateOrderInput {
 }
 
 type UpdateOrderPayload {
-  errorMessage: String
   order: OrderTypeEdge
   clientMutationId: String
 }
@@ -629,7 +623,6 @@ input UpdateTableInput {
 }
 
 type UpdateTablePayload {
-  errorMessage: String
   table: TableTypeEdge
   clientMutationId: String
 }

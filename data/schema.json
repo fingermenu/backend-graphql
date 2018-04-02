@@ -5953,18 +5953,6 @@
           "description": null,
           "fields": [
             {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "choiceItem",
               "description": null,
               "args": [],
@@ -6072,18 +6060,6 @@
           "name": "AddMenuItemPayload",
           "description": null,
           "fields": [
-            {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
             {
               "name": "menuItem",
               "description": null,
@@ -6228,18 +6204,6 @@
           "name": "AddRestaurantPayload",
           "description": null,
           "fields": [
-            {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
             {
               "name": "restaurant",
               "description": null,
@@ -6394,18 +6358,6 @@
           "name": "UpdateTablePayload",
           "description": null,
           "fields": [
-            {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
             {
               "name": "table",
               "description": null,
@@ -6721,18 +6673,6 @@
           "description": null,
           "fields": [
             {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "order",
               "description": null,
               "args": [],
@@ -6895,18 +6835,6 @@
           "description": null,
           "fields": [
             {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "order",
               "description": null,
               "args": [],
@@ -6976,18 +6904,6 @@
           "name": "CancelOrderPayload",
           "description": null,
           "fields": [
-            {
-              "name": "errorMessage",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
             {
               "name": "order",
               "description": null,

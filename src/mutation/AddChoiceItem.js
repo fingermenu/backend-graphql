@@ -16,24 +16,16 @@ export default mutationWithClientMutationId({
     imageUrl: { type: GraphQLString },
   },
   outputFields: {
-    errorMessage: {
-      type: GraphQLString,
-      resolve: _ => _.get('errorMessage'),
-    },
     choiceItem: {
       type: ChoiceItemConnection.edgeType,
       resolve: _ => _.get('choiceItem'),
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    try {
-      const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
+    const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 
-      return Map({
-        choiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken, language)).edges[0],
-      });
-    } catch (ex) {
-      return Map({ errorMessage: ex instanceof Error ? ex.message : ex });
-    }
+    return Map({
+      choiceItem: (await getChoiceItems(Map({ ChoiceItemIds: List.of(choiceItemId) }), dataLoaders, sessionToken, language)).edges[0],
+    });
   },
 });

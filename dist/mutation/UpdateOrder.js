@@ -36,12 +36,6 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     details: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)) }
   },
   outputFields: {
-    errorMessage: {
-      type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('errorMessage');
-      }
-    },
     order: {
       type: _type.OrderConnection.edgeType,
       resolve: function resolve(_) {
@@ -56,33 +50,27 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              _context.next = 2;
               return (0, _OrderHelper.updateOrder)(args, sessionToken);
 
-            case 3:
+            case 2:
               _context.t0 = _immutable.Map;
-              _context.next = 6;
+              _context.next = 5;
               return (0, _type.getOrders)((0, _immutable.Map)({ orderIds: _immutable.List.of(args.id) }), sessionToken);
 
-            case 6:
+            case 5:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 order: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 11:
-              _context.prev = 11;
-              _context.t3 = _context['catch'](0);
-              return _context.abrupt('return', (0, _immutable.Map)({ errorMessage: _context.t3 instanceof Error ? _context.t3.message : _context.t3 }));
-
-            case 14:
+            case 8:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 11]]);
+      }, _callee, undefined);
     }));
 
     return function mutateAndGetPayload(_x, _x2) {
