@@ -6,6 +6,7 @@ import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
 import Size from './Size';
+import Tag from './Tag';
 
 export const getMenuItemPrice = async (menuItemPriceId, sessionToken) => new MenuItemPriceService().read(menuItemPriceId, null, sessionToken);
 
@@ -151,6 +152,10 @@ export default new GraphQLObjectType({
 
         return choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
       },
+    },
+    tags: {
+      type: new GraphQLList(new GraphQLNonNull(Tag)),
+      resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => tagLoaderById.loadMany(_.get('tagIds').toArray()),
     },
   },
   interfaces: [NodeInterface],

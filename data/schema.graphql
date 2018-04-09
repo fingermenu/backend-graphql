@@ -82,6 +82,7 @@ type ChoiceItemPrice implements Node {
   choiceItem: ChoiceItem
   size: Size
   sortOrderIndex: Int
+  tags: [Tag!]
 }
 
 # A connection to a list of items.
@@ -200,6 +201,7 @@ type MenuItemPrice implements Node {
   sortOrderIndex: Int
   toBeServedWithMenuItemPrices: [BeServedWithMenuItemPrice!]
   choiceItemPrices: [ChoiceItemPrice!]
+  tags: [Tag!]
 }
 
 # A connection to a list of items.
@@ -474,6 +476,29 @@ type RestaurantTypeEdge {
   cursor: String!
 }
 
+type ServingTime implements Node {
+  id: ID!
+  tag: Tag
+}
+
+# A connection to a list of items.
+type ServingTimeTypeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ServingTimeTypeEdge]
+}
+
+# An edge in a connection.
+type ServingTimeTypeEdge {
+  # The item at the end of the edge
+  node: ServingTime
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type Size implements Node {
   id: ID!
   name: String
@@ -649,6 +674,8 @@ type User implements Node {
   tables(after: String, first: Int, before: String, last: Int, tableIds: [ID!], restaurantId: ID!, lastOrderCorrelationId: ID, name: String, customerName: String, notes: String, tableState: String, sortOption: String): TableTypeConnection
   order(orderId: ID!): Order
   orders(after: String, first: Int, before: String, last: Int, orderIds: [ID!], correlationId: ID, restaurantId: ID!, dateRange: DateRange, includeCancelledOrders: Boolean, tableId: ID, name: String, customerName: String, notes: String, sortOption: String): OrderTypeConnection
+  servingTime(servingTimeId: ID!): ServingTime
+  servingTimes(after: String, first: Int, before: String, last: Int, servingTimeIds: [ID!], sortOption: String): ServingTimeTypeConnection
 }
 
 type Viewer implements Node {

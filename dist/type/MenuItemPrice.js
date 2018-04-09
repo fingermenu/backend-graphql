@@ -23,6 +23,10 @@ var _Size = require('./Size');
 
 var _Size2 = _interopRequireDefault(_Size);
 
+var _Tag = require('./Tag');
+
+var _Tag2 = _interopRequireDefault(_Tag);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -539,6 +543,30 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x29, _x30, _x31) {
           return _ref22.apply(this, arguments);
+        };
+      }()
+    },
+    tags: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Tag2.default)),
+      resolve: function () {
+        var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(_, args, _ref25) {
+          var tagLoaderById = _ref25.dataLoaders.tagLoaderById;
+          return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            while (1) {
+              switch (_context17.prev = _context17.next) {
+                case 0:
+                  return _context17.abrupt('return', tagLoaderById.loadMany(_.get('tagIds').toArray()));
+
+                case 1:
+                case 'end':
+                  return _context17.stop();
+              }
+            }
+          }, _callee17, undefined);
+        }));
+
+        return function resolve(_x32, _x33, _x34) {
+          return _ref24.apply(this, arguments);
         };
       }()
     }

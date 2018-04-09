@@ -100,6 +100,14 @@ var _DateRange = require('./DateRange');
 
 var _DateRange2 = _interopRequireDefault(_DateRange);
 
+var _ServingTime = require('./ServingTime');
+
+var _ServingTime2 = _interopRequireDefault(_ServingTime);
+
+var _ServingTimeConnection = require('./ServingTimeConnection');
+
+var _ServingTimeConnection2 = _interopRequireDefault(_ServingTimeConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -840,6 +848,69 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x58, _x59, _x60) {
           return _ref49.apply(this, arguments);
+        };
+      }()
+    },
+    servingTime: {
+      type: _ServingTime2.default,
+      args: {
+        servingTimeId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref51 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(_, _ref52, _ref53) {
+          var servingTimeId = _ref52.servingTimeId;
+          var servingTimeLoaderById = _ref53.dataLoaders.servingTimeLoaderById;
+          return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            while (1) {
+              switch (_context21.prev = _context21.next) {
+                case 0:
+                  return _context21.abrupt('return', servingTimeId ? servingTimeLoaderById.load(servingTimeId) : null);
+
+                case 1:
+                case 'end':
+                  return _context21.stop();
+              }
+            }
+          }, _callee21, undefined);
+        }));
+
+        return function resolve(_x61, _x62, _x63) {
+          return _ref51.apply(this, arguments);
+        };
+      }()
+    },
+    servingTimes: {
+      type: _ServingTimeConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        servingTimeIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref54 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22(_, args, _ref55) {
+          var dataLoaders = _ref55.dataLoaders,
+              sessionToken = _ref55.sessionToken;
+          return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            while (1) {
+              switch (_context22.prev = _context22.next) {
+                case 0:
+                  return _context22.abrupt('return', (0, _ServingTimeConnection.getServingTimes)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context22.stop();
+              }
+            }
+          }, _callee22, undefined);
+        }));
+
+        return function resolve(_x64, _x65, _x66) {
+          return _ref54.apply(this, arguments);
         };
       }()
     }

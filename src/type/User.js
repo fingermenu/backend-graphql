@@ -25,6 +25,8 @@ import TableConnection, { getTables } from './TableConnection';
 import Order, { getOrder } from './Order';
 import OrderConnection, { getOrders } from './OrderConnection';
 import DateRange from './DateRange';
+import ServingTime from './ServingTime';
+import ServingTimeConnection, { getServingTimes } from './ServingTimeConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -352,6 +354,29 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { sessionToken }) => getOrders(Immutable.fromJS(args), sessionToken),
+    },
+    servingTime: {
+      type: ServingTime,
+      args: {
+        servingTimeId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { servingTimeId }, { dataLoaders: { servingTimeLoaderById } }) =>
+        servingTimeId ? servingTimeLoaderById.load(servingTimeId) : null,
+    },
+    servingTimes: {
+      type: ServingTimeConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        servingTimeIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getServingTimes(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],
