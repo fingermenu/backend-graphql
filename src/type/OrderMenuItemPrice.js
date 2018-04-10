@@ -11,6 +11,10 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('id'),
     },
+    groupId: {
+      type: GraphQLID,
+      resolve: _ => _.get('groupId'),
+    },
     menuItemPrice: {
       type: new GraphQLNonNull(MenuItemPrice),
       resolve: async (_, args, { dataLoaders }) =>

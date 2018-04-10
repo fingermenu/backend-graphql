@@ -27,6 +27,12 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('id');
       }
     },
+    groupId: {
+      type: _graphql.GraphQLID,
+      resolve: function resolve(_) {
+        return _.get('groupId');
+      }
+    },
     menuItemPrice: {
       type: new _graphql.GraphQLNonNull(_MenuItemPrice2.default),
       resolve: function () {

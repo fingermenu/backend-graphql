@@ -16,6 +16,7 @@ exports.default = new _graphql.GraphQLInputObjectType({
   name: 'OrderMenuItemPriceInput',
   fields: {
     id: { type: _graphql.GraphQLID },
+    groupId: { type: _graphql.GraphQLID },
     menuItemPriceId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     quantity: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt) },
     notes: { type: _graphql.GraphQLString },
