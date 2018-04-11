@@ -7,6 +7,7 @@ export menuLoaderById from './MenuLoader';
 export menuItemLoaderById from './MenuItemLoader';
 export menuItemPriceLoaderById from './MenuItemPriceLoader';
 export restaurantLoaderById from './RestaurantLoader';
+export servingTimeLoaderById from './ServingTimeLoader';
 export sizeLoaderById from './SizeLoader';
 export tableLoaderById from './TableLoader';
 export { tableStateLoaderByKey, tableStateLoaderById } from './TableStateLoader';

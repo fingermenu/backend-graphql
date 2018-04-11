@@ -9,6 +9,7 @@ export {
   menuItemLoaderById,
   menuItemPriceLoaderById,
   restaurantLoaderById,
+  servingTimeLoaderById,
   sizeLoaderById,
   tableLoaderById,
   tableStateLoaderByKey,
