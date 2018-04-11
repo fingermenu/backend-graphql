@@ -10,6 +10,10 @@ var _MenuItemPrice = require('./MenuItemPrice');
 
 var _MenuItemPrice2 = _interopRequireDefault(_MenuItemPrice);
 
+var _ServingTime = require('./ServingTime');
+
+var _ServingTime2 = _interopRequireDefault(_ServingTime);
+
 var _OrderChoiceItemPrice = require('./OrderChoiceItemPrice');
 
 var _OrderChoiceItemPrice2 = _interopRequireDefault(_OrderChoiceItemPrice);
@@ -80,6 +84,30 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('orderChoiceItemPrices') ? _.get('orderChoiceItemPrices').toArray() : [];
       }
+    },
+    servingTime: {
+      type: _ServingTime2.default,
+      resolve: function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref4) {
+          var dataLoaders = _ref4.dataLoaders;
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  return _context2.abrupt('return', _.get('servingTimeId') ? dataLoaders.servingTimeLoaderById.load(_.get('servingTimeId')) : null);
+
+                case 1:
+                case 'end':
+                  return _context2.stop();
+              }
+            }
+          }, _callee2, undefined);
+        }));
+
+        return function resolve(_x4, _x5, _x6) {
+          return _ref3.apply(this, arguments);
+        };
+      }()
     }
   }
 });

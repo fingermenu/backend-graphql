@@ -21,6 +21,7 @@ exports.default = new _graphql.GraphQLInputObjectType({
     quantity: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt) },
     notes: { type: _graphql.GraphQLString },
     paid: { type: _graphql.GraphQLBoolean },
-    orderChoiceItemPrices: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderChoiceItemPrice2.default)) }
+    orderChoiceItemPrices: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderChoiceItemPrice2.default)) },
+    servingTimeId: { type: _graphql.GraphQLID }
   }
 });

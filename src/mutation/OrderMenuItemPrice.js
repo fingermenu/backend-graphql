@@ -13,5 +13,6 @@ export default new GraphQLInputObjectType({
     notes: { type: GraphQLString },
     paid: { type: GraphQLBoolean },
     orderChoiceItemPrices: { type: new GraphQLList(new GraphQLNonNull(OrderChoiceItemPrice)) },
+    servingTimeId: { type: GraphQLID },
   },
 });

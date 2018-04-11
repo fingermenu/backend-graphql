@@ -2,6 +2,7 @@
 
 import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
 import MenuItemPrice from './MenuItemPrice';
+import ServingTime from './ServingTime';
 import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 
 export default new GraphQLObjectType({
@@ -35,6 +36,10 @@ export default new GraphQLObjectType({
     orderChoiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(OrderChoiceItemPrice)),
       resolve: _ => (_.get('orderChoiceItemPrices') ? _.get('orderChoiceItemPrices').toArray() : []),
+    },
+    servingTime: {
+      type: ServingTime,
+      resolve: async (_, args, { dataLoaders }) => (_.get('servingTimeId') ? dataLoaders.servingTimeLoaderById.load(_.get('servingTimeId')) : null),
     },
   },
 });

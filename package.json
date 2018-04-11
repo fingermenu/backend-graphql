@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
