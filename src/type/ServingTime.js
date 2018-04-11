@@ -16,7 +16,7 @@ export default new GraphQLObjectType({
     },
     tag: {
       type: Tag,
-      resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => (_.get('tagId') ? tagLoaderById.load(_.get('choiceItemId')) : null),
+      resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => (_.get('tagId') ? tagLoaderById.load(_.get('tagId')) : null),
     },
   },
   interfaces: [NodeInterface],
