@@ -27,6 +27,8 @@ import OrderConnection, { getOrders } from './OrderConnection';
 import DateRange from './DateRange';
 import ServingTime from './ServingTime';
 import ServingTimeConnection, { getServingTimes } from './ServingTimeConnection';
+import DietaryOption from './DietaryOption';
+import DietaryOptionConnection, { getDietaryOptions } from './DietaryOptionConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -377,6 +379,29 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getServingTimes(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    dietaryOption: {
+      type: DietaryOption,
+      args: {
+        dietaryOptionId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { dietaryOptionId }, { dataLoaders: { dietaryOptionLoaderById } }) =>
+        dietaryOptionId ? dietaryOptionLoaderById.load(dietaryOptionId) : null,
+    },
+    dietaryOptions: {
+      type: DietaryOptionConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        dietaryOptionIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getDietaryOptions(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

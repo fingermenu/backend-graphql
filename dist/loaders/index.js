@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dietaryOptionLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -43,6 +43,10 @@ var _ChoiceItemPriceLoader = require('./ChoiceItemPriceLoader');
 
 var _ChoiceItemPriceLoader2 = _interopRequireDefault(_ChoiceItemPriceLoader);
 
+var _DietaryOptionLoader = require('./DietaryOptionLoader');
+
+var _DietaryOptionLoader2 = _interopRequireDefault(_DietaryOptionLoader);
+
 var _MenuLoader = require('./MenuLoader');
 
 var _MenuLoader2 = _interopRequireDefault(_MenuLoader);
@@ -79,6 +83,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.choiceItemLoaderById = _ChoiceItemLoader2.default;
 exports.choiceItemPriceLoaderById = _ChoiceItemPriceLoader2.default;
+exports.dietaryOptionLoaderById = _DietaryOptionLoader2.default;
 exports.menuLoaderById = _MenuLoader2.default;
 exports.menuItemLoaderById = _MenuItemLoader2.default;
 exports.menuItemPriceLoaderById = _MenuItemPriceLoader2.default;

@@ -2,6 +2,7 @@
 
 export choiceItemLoaderById from './ChoiceItemLoader';
 export choiceItemPriceLoaderById from './ChoiceItemPriceLoader';
+export dietaryOptionLoaderById from './DietaryOptionLoader';
 export { languageLoaderByKey, languageLoaderById } from './LanguageLoader';
 export menuLoaderById from './MenuLoader';
 export menuItemLoaderById from './MenuItemLoader';

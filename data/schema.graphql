@@ -126,6 +126,29 @@ input DateRange {
   to: String!
 }
 
+type DietaryOption implements Node {
+  id: ID!
+  tag: Tag
+}
+
+# A connection to a list of items.
+type DietaryOptionTypeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [DietaryOptionTypeEdge]
+}
+
+# An edge in a connection.
+type DietaryOptionTypeEdge {
+  # The item at the end of the edge
+  node: DietaryOption
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type DocumentTemplate {
   name: String
   template: String!
@@ -680,6 +703,8 @@ type User implements Node {
   orders(after: String, first: Int, before: String, last: Int, orderIds: [ID!], correlationId: ID, restaurantId: ID!, dateRange: DateRange, includeCancelledOrders: Boolean, tableId: ID, name: String, customerName: String, notes: String, sortOption: String): OrderTypeConnection
   servingTime(servingTimeId: ID!): ServingTime
   servingTimes(after: String, first: Int, before: String, last: Int, servingTimeIds: [ID!], sortOption: String): ServingTimeTypeConnection
+  dietaryOption(dietaryOptionId: ID!): DietaryOption
+  dietaryOptions(after: String, first: Int, before: String, last: Int, dietaryOptionIds: [ID!], sortOption: String): DietaryOptionTypeConnection
 }
 
 type Viewer implements Node {

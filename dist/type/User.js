@@ -108,6 +108,14 @@ var _ServingTimeConnection = require('./ServingTimeConnection');
 
 var _ServingTimeConnection2 = _interopRequireDefault(_ServingTimeConnection);
 
+var _DietaryOption = require('./DietaryOption');
+
+var _DietaryOption2 = _interopRequireDefault(_DietaryOption);
+
+var _DietaryOptionConnection = require('./DietaryOptionConnection');
+
+var _DietaryOptionConnection2 = _interopRequireDefault(_DietaryOptionConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -911,6 +919,69 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x64, _x65, _x66) {
           return _ref54.apply(this, arguments);
+        };
+      }()
+    },
+    dietaryOption: {
+      type: _DietaryOption2.default,
+      args: {
+        dietaryOptionId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref56 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23(_, _ref57, _ref58) {
+          var dietaryOptionId = _ref57.dietaryOptionId;
+          var dietaryOptionLoaderById = _ref58.dataLoaders.dietaryOptionLoaderById;
+          return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            while (1) {
+              switch (_context23.prev = _context23.next) {
+                case 0:
+                  return _context23.abrupt('return', dietaryOptionId ? dietaryOptionLoaderById.load(dietaryOptionId) : null);
+
+                case 1:
+                case 'end':
+                  return _context23.stop();
+              }
+            }
+          }, _callee23, undefined);
+        }));
+
+        return function resolve(_x67, _x68, _x69) {
+          return _ref56.apply(this, arguments);
+        };
+      }()
+    },
+    dietaryOptions: {
+      type: _DietaryOptionConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        dietaryOptionIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref59 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24(_, args, _ref60) {
+          var dataLoaders = _ref60.dataLoaders,
+              sessionToken = _ref60.sessionToken;
+          return regeneratorRuntime.wrap(function _callee24$(_context24) {
+            while (1) {
+              switch (_context24.prev = _context24.next) {
+                case 0:
+                  return _context24.abrupt('return', (0, _DietaryOptionConnection.getDietaryOptions)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context24.stop();
+              }
+            }
+          }, _callee24, undefined);
+        }));
+
+        return function resolve(_x70, _x71, _x72) {
+          return _ref59.apply(this, arguments);
         };
       }()
     }
