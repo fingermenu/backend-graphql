@@ -8,6 +8,7 @@ import updateTable from './UpdateTable';
 import placeOrder from './PlaceOrder';
 import updateOrder from './UpdateOrder';
 import cancelOrder from './CancelOrder';
+import submitUserFeedback from './SubmitUserFeedback';
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -19,5 +20,6 @@ export default new GraphQLObjectType({
     placeOrder,
     updateOrder,
     cancelOrder,
+    submitUserFeedback,
   },
 });

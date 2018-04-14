@@ -1,8 +1,8 @@
 // @flow
 
 import { Common } from '@microbusiness/common-javascript';
-import Immutable, { Map } from 'immutable';
 import { TableService } from '@fingermenu/parse-server-common';
+import Immutable, { Map } from 'immutable';
 
 const updateTable = async (
   { id, name, status, tableState, numberOfAdults, numberOfChildren, customerName, notes, lastOrderCorrelationId },

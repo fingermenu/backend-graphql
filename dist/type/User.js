@@ -116,6 +116,14 @@ var _DietaryOptionConnection = require('./DietaryOptionConnection');
 
 var _DietaryOptionConnection2 = _interopRequireDefault(_DietaryOptionConnection);
 
+var _UserFeedback = require('./UserFeedback');
+
+var _UserFeedback2 = _interopRequireDefault(_UserFeedback);
+
+var _UserFeedbackConnection = require('./UserFeedbackConnection');
+
+var _UserFeedbackConnection2 = _interopRequireDefault(_UserFeedbackConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -982,6 +990,75 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x70, _x71, _x72) {
           return _ref59.apply(this, arguments);
+        };
+      }()
+    },
+    userFeedback: {
+      type: _UserFeedback2.default,
+      args: {
+        userFeedbackId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref61 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25(_, _ref62, _ref63) {
+          var userFeedbackId = _ref62.userFeedbackId;
+          var userFeedbackLoaderById = _ref63.dataLoaders.userFeedbackLoaderById;
+          return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            while (1) {
+              switch (_context25.prev = _context25.next) {
+                case 0:
+                  return _context25.abrupt('return', userFeedbackId ? userFeedbackLoaderById.load(userFeedbackId) : null);
+
+                case 1:
+                case 'end':
+                  return _context25.stop();
+              }
+            }
+          }, _callee25, undefined);
+        }));
+
+        return function resolve(_x73, _x74, _x75) {
+          return _ref61.apply(this, arguments);
+        };
+      }()
+    },
+    userFeedbacks: {
+      type: _UserFeedbackConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        userFeedbackIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        others: {
+          type: _graphql.GraphQLString
+        },
+        dateRange: {
+          type: _DateRange2.default
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref64 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26(_, args, _ref65) {
+          var dataLoaders = _ref65.dataLoaders,
+              sessionToken = _ref65.sessionToken;
+          return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            while (1) {
+              switch (_context26.prev = _context26.next) {
+                case 0:
+                  return _context26.abrupt('return', (0, _UserFeedbackConnection.getUserFeedbacks)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context26.stop();
+              }
+            }
+          }, _callee26, undefined);
+        }));
+
+        return function resolve(_x76, _x77, _x78) {
+          return _ref64.apply(this, arguments);
         };
       }()
     }

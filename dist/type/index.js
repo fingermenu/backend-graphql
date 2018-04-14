@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOrders = exports.OrderConnection = exports.getOrder = exports.Order = exports.getTables = exports.TableConnection = exports.getTable = exports.Table = exports.getRestaurants = exports.RestaurantConnection = exports.getRestaurant = exports.Restaurant = exports.getMenuItems = exports.MenuItemConnection = exports.getMenuItem = exports.MenuItem = exports.getChoiceItems = exports.ChoiceItemConnection = exports.getChoiceItem = exports.ChoiceItem = exports.getMenus = exports.MenuConnection = exports.getMenu = exports.Menu = exports.RootQuery = undefined;
+exports.getUserFeedbacks = exports.UserFeedbackConnection = exports.getUserFeedback = exports.UserFeedback = exports.getOrders = exports.OrderConnection = exports.getOrder = exports.Order = exports.getTables = exports.TableConnection = exports.getTable = exports.Table = exports.getRestaurants = exports.RestaurantConnection = exports.getRestaurant = exports.Restaurant = exports.getMenuItems = exports.MenuItemConnection = exports.getMenuItem = exports.MenuItem = exports.getChoiceItems = exports.ChoiceItemConnection = exports.getChoiceItem = exports.ChoiceItem = exports.getMenus = exports.MenuConnection = exports.getMenu = exports.Menu = exports.RootQuery = undefined;
 
 var _Menu2 = require('./Menu');
 
@@ -113,6 +113,24 @@ Object.defineProperty(exports, 'getOrders', {
   }
 });
 
+var _UserFeedback2 = require('./UserFeedback');
+
+Object.defineProperty(exports, 'getUserFeedback', {
+  enumerable: true,
+  get: function get() {
+    return _UserFeedback2.getUserFeedback;
+  }
+});
+
+var _UserFeedbackConnection2 = require('./UserFeedbackConnection');
+
+Object.defineProperty(exports, 'getUserFeedbacks', {
+  enumerable: true,
+  get: function get() {
+    return _UserFeedbackConnection2.getUserFeedbacks;
+  }
+});
+
 var _RootQuery2 = require('./RootQuery');
 
 var _RootQuery3 = _interopRequireDefault(_RootQuery2);
@@ -141,6 +159,10 @@ var _Order3 = _interopRequireDefault(_Order2);
 
 var _OrderConnection3 = _interopRequireDefault(_OrderConnection2);
 
+var _UserFeedback3 = _interopRequireDefault(_UserFeedback2);
+
+var _UserFeedbackConnection3 = _interopRequireDefault(_UserFeedbackConnection2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.RootQuery = _RootQuery3.default;
@@ -156,3 +178,5 @@ exports.Table = _Table3.default;
 exports.TableConnection = _TableConnection3.default;
 exports.Order = _Order3.default;
 exports.OrderConnection = _OrderConnection3.default;
+exports.UserFeedback = _UserFeedback3.default;
+exports.UserFeedbackConnection = _UserFeedbackConnection3.default;

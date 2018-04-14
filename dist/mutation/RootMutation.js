@@ -34,6 +34,10 @@ var _CancelOrder = require('./CancelOrder');
 
 var _CancelOrder2 = _interopRequireDefault(_CancelOrder);
 
+var _SubmitUserFeedback = require('./SubmitUserFeedback');
+
+var _SubmitUserFeedback2 = _interopRequireDefault(_SubmitUserFeedback);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = new _graphql.GraphQLObjectType({
@@ -45,6 +49,7 @@ exports.default = new _graphql.GraphQLObjectType({
     updateTable: _UpdateTable2.default,
     placeOrder: _PlaceOrder2.default,
     updateOrder: _UpdateOrder2.default,
-    cancelOrder: _CancelOrder2.default
+    cancelOrder: _CancelOrder2.default,
+    submitUserFeedback: _SubmitUserFeedback2.default
   }
 });

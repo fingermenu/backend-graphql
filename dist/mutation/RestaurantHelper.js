@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addRestaurant = exports.addRestaurantForProvidedUser = undefined;
 
-var _immutable = require('immutable');
-
-var _immutable2 = _interopRequireDefault(_immutable);
-
 var _parseServerCommon = require('@microbusiness/parse-server-common');
 
 var _parseServerCommon2 = require('@fingermenu/parse-server-common');
+
+var _immutable = require('immutable');
+
+var _immutable2 = _interopRequireDefault(_immutable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

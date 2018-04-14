@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addChoiceItem = exports.addChoiceItemForProvidedUser = undefined;
+exports.addUserFeedback = exports.addUserFeedbackForProvidedUser = undefined;
 
 var _parseServerCommon = require('@microbusiness/parse-server-common');
 
@@ -17,12 +17,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, sessionToken) {
-    var name = _ref2.name,
-        description = _ref2.description,
-        choiceItemPageUrl = _ref2.choiceItemPageUrl,
-        imageUrl = _ref2.imageUrl;
+var addUserFeedbackForProvidedUser = exports.addUserFeedbackForProvidedUser = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, dataLoaders, sessionToken) {
+    var questionAndAnswers = _ref2.questionAndAnswers,
+        others = _ref2.others;
     var acl;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -34,16 +32,11 @@ var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = functi
             acl.setRoleReadAccess('administrators', true);
             acl.setRoleWriteAccess('administrators', true);
 
-            return _context.abrupt('return', new _parseServerCommon2.ChoiceItemService().create((0, _immutable.Map)({
-              ownedByUser: user,
-              name: _immutable2.default.fromJS(name).reduce(function (reduction, languageValue) {
-                return reduction.set(languageValue.language, languageValue.value);
-              }, (0, _immutable.Map)()),
-              description: _immutable2.default.fromJS(description).reduce(function (reduction, languageValue) {
-                return reduction.set(languageValue.language, languageValue.value);
-              }, (0, _immutable.Map)()),
-              choiceItemPageUrl: choiceItemPageUrl,
-              imageUrl: imageUrl
+            return _context.abrupt('return', new _parseServerCommon2.UserFeedbackService().create((0, _immutable.Map)({
+              questionAndAnswers: _immutable2.default.fromJS(questionAndAnswers),
+              others: others,
+              submittedAt: new Date(),
+              addedByUser: user
             }), acl, sessionToken));
 
           case 4:
@@ -54,12 +47,12 @@ var addChoiceItemForProvidedUser = exports.addChoiceItemForProvidedUser = functi
     }, _callee, undefined);
   }));
 
-  return function addChoiceItemForProvidedUser(_x, _x2, _x3) {
+  return function addUserFeedbackForProvidedUser(_x, _x2, _x3, _x4) {
     return _ref.apply(this, arguments);
   };
 }();
 
-var addChoiceItem = exports.addChoiceItem = function () {
+var addUserFeedback = exports.addUserFeedback = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(info, dataLoaders, sessionToken) {
     var user;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -71,7 +64,7 @@ var addChoiceItem = exports.addChoiceItem = function () {
 
           case 2:
             user = _context2.sent;
-            return _context2.abrupt('return', addChoiceItemForProvidedUser(info, user, sessionToken));
+            return _context2.abrupt('return', addUserFeedbackForProvidedUser(info, user, dataLoaders, sessionToken));
 
           case 4:
           case 'end':
@@ -81,7 +74,7 @@ var addChoiceItem = exports.addChoiceItem = function () {
     }, _callee2, undefined);
   }));
 
-  return function addChoiceItem(_x4, _x5, _x6) {
+  return function addUserFeedback(_x5, _x6, _x7) {
     return _ref3.apply(this, arguments);
   };
 }();

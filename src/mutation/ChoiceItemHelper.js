@@ -1,8 +1,8 @@
 // @flow
 
-import Immutable, { Map } from 'immutable';
 import { ParseWrapperService } from '@microbusiness/parse-server-common';
 import { ChoiceItemService } from '@fingermenu/parse-server-common';
+import Immutable, { Map } from 'immutable';
 
 export const addChoiceItemForProvidedUser = async ({ name, description, choiceItemPageUrl, imageUrl }, user, sessionToken) => {
   const acl = ParseWrapperService.createACL(user);

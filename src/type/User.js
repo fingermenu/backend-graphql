@@ -29,6 +29,8 @@ import ServingTime from './ServingTime';
 import ServingTimeConnection, { getServingTimes } from './ServingTimeConnection';
 import DietaryOption from './DietaryOption';
 import DietaryOptionConnection, { getDietaryOptions } from './DietaryOptionConnection';
+import UserFeedback from './UserFeedback';
+import UserFeedbackConnection, { getUserFeedbacks } from './UserFeedbackConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -402,6 +404,35 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getDietaryOptions(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    userFeedback: {
+      type: UserFeedback,
+      args: {
+        userFeedbackId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { userFeedbackId }, { dataLoaders: { userFeedbackLoaderById } }) =>
+        userFeedbackId ? userFeedbackLoaderById.load(userFeedbackId) : null,
+    },
+    userFeedbacks: {
+      type: UserFeedbackConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        userFeedbackIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        others: {
+          type: GraphQLString,
+        },
+        dateRange: {
+          type: DateRange,
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getUserFeedbacks(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

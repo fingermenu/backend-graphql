@@ -13,3 +13,5 @@ export Table, { getTable } from './Table';
 export TableConnection, { getTables } from './TableConnection';
 export Order, { getOrder } from './Order';
 export OrderConnection, { getOrders } from './OrderConnection';
+export UserFeedback, { getUserFeedback } from './UserFeedback';
+export UserFeedbackConnection, { getUserFeedbacks } from './UserFeedbackConnection';

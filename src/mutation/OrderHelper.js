@@ -1,10 +1,10 @@
 // @flow
 
+import { ParseWrapperService } from '@microbusiness/parse-server-common';
+import { OrderService } from '@fingermenu/parse-server-common';
 import { Common } from '@microbusiness/common-javascript';
 import cuid from 'cuid';
 import Immutable, { Map } from 'immutable';
-import { ParseWrapperService } from '@microbusiness/parse-server-common';
-import { OrderService } from '@fingermenu/parse-server-common';
 import updateTable from './TableHelper';
 
 export const addOrderForProvidedUser = async (
