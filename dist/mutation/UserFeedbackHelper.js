@@ -20,7 +20,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var addUserFeedbackForProvidedUser = exports.addUserFeedbackForProvidedUser = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, user, dataLoaders, sessionToken) {
     var questionAndAnswers = _ref2.questionAndAnswers,
-        others = _ref2.others;
+        others = _ref2.others,
+        restaurantId = _ref2.restaurantId;
     var acl;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -36,6 +37,7 @@ var addUserFeedbackForProvidedUser = exports.addUserFeedbackForProvidedUser = fu
               questionAndAnswers: _immutable2.default.fromJS(questionAndAnswers),
               others: others,
               submittedAt: new Date(),
+              restaurantId: restaurantId,
               addedByUser: user
             }), acl, sessionToken));
 

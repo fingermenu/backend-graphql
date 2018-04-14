@@ -26,7 +26,8 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'SubmitUserFeedback',
   inputFields: {
     questionAndAnswers: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_QuestionAndAnswer2.default)) },
-    others: { type: _graphql.GraphQLString }
+    others: { type: _graphql.GraphQLString },
+    restaurantId: { type: _graphql.GraphQLID }
   },
   outputFields: {
     userFeedback: {

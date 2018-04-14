@@ -1,7 +1,7 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import { GraphQLString, GraphQLList, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLString, GraphQLList, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { UserFeedbackConnection, getUserFeedbacks } from '../type';
 import { addUserFeedback } from './UserFeedbackHelper';
@@ -12,6 +12,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     questionAndAnswers: { type: new GraphQLList(new GraphQLNonNull(QuestionAndAnswer)) },
     others: { type: GraphQLString },
+    restaurantId: { type: GraphQLID },
   },
   outputFields: {
     userFeedback: {

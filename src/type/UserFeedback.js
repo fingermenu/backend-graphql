@@ -4,6 +4,7 @@ import { UserFeedbackService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLList, GraphQLString, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import QuestionAndAnswer from './QuestionAndAnswer';
+import Restaurant from './Restaurant';
 
 export const getUserFeedback = async (serviceTimeId, sessionToken) => new UserFeedbackService().read(serviceTimeId, null, sessionToken);
 
@@ -25,6 +26,11 @@ export default new GraphQLObjectType({
     submittedAt: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: _ => _.get('submittedAt').toISOString(),
+    },
+    restaurant: {
+      type: Restaurant,
+      resolve: async (_, args, { dataLoaders: { restaurantLoaderById } }) =>
+        _.get('restaurantId') ? restaurantLoaderById.load(_.get('restaurantId')) : null,
     },
   },
   interfaces: [NodeInterface],
