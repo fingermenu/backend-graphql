@@ -1,60 +1,47 @@
 // @flow
 
-import { ImmutableEx, RelayHelper, StringHelper } from '@microbusiness/common-javascript';
+import { ImmutableEx, RelayHelper } from '@microbusiness/common-javascript';
 import { SizeService } from '@fingermenu/parse-server-common';
 import { Map } from 'immutable';
 import { connectionDefinitions } from 'graphql-relay';
 import Size from './Size';
 import Common from './Common';
 
-const getCriteria = (searchArgs, ownedByUserId, language) =>
+const getCriteria = (searchArgs, ownedByUserId) =>
   ImmutableEx.removeUndefinedProps(
     Map({
-      language,
       ids: searchArgs.has('sizeIds') ? searchArgs.get('sizeIds') : undefined,
       conditions: Map({
         ownedByUserId,
-        contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       }),
     }),
   );
 
-const addSortOptionToCriteria = (criteria, sortOption, language) => {
-  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', `${language}_name`);
-  }
-
-  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', `${language}_name`);
-  }
-
-  return criteria.set('orderByFieldAscending', `${language}_name`);
+const addSortOptionToCriteria = criteria => {
+  return criteria;
 };
 
-const getSizesCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language) =>
-  new SizeService().count(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language),
-    sessionToken,
-  );
+const getSizesCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken) =>
+  new SizeService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken);
 
-const getSizesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
+const getSizesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new SizeService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
       .set('limit', limit)
       .set('skip', skip),
     sessionToken,
   );
 
-export const getSizes = async (searchArgs, { userLoaderBySessionToken }, sessionToken, language) => {
+export const getSizes = async (searchArgs, { userLoaderBySessionToken }, sessionToken) => {
   const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
-  const count = await getSizesCountMatchCriteria(searchArgs, userId, sessionToken, language);
+  const count = await getSizesCountMatchCriteria(searchArgs, userId, sessionToken);
 
   if (count === 0) {
     return Common.getEmptyResult();
   }
 
   const { limit, skip, hasNextPage, hasPreviousPage } = RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000);
-  const results = await getSizesMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+  const results = await getSizesMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
   return Common.convertResultsToRelayConnectionResponse(results, skip, limit, count, hasNextPage, hasPreviousPage);
 };

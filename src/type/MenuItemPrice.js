@@ -5,7 +5,6 @@ import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, Gr
 import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
-import Size from './Size';
 import Tag from './Tag';
 
 export const getMenuItemPrice = async (menuItemPriceId, sessionToken) => new MenuItemPriceService().read(menuItemPriceId, null, sessionToken);
@@ -37,10 +36,6 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
       type: MenuItem,
       resolve: async (_, args, { dataLoaders: { menuItemLoaderById } }) =>
         _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null,
-    },
-    size: {
-      type: Size,
-      resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
     choiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
@@ -95,10 +90,6 @@ export default new GraphQLObjectType({
       type: MenuItem,
       resolve: async (_, args, { dataLoaders: { menuItemLoaderById } }) =>
         _.get('menuItemId') ? menuItemLoaderById.load(_.get('menuItemId')) : null,
-    },
-    size: {
-      type: Size,
-      resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
     sortOrderIndex: {
       type: GraphQLInt,

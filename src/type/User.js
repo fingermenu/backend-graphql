@@ -6,8 +6,6 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 import TagConnection, { getTags } from './TagConnection';
-import Size from './Size';
-import SizeConnection, { getSizes } from './SizeConnection';
 import Menu from './Menu';
 import MenuConnection, { getMenus } from './MenuConnection';
 import ChoiceItem from './ChoiceItem';
@@ -31,6 +29,8 @@ import DietaryOption from './DietaryOption';
 import DietaryOptionConnection, { getDietaryOptions } from './DietaryOptionConnection';
 import UserFeedback from './UserFeedback';
 import UserFeedbackConnection, { getUserFeedbacks } from './UserFeedbackConnection';
+import Size from './Size';
+import SizeConnection, { getSizes } from './SizeConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -72,31 +72,6 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) => getTags(Immutable.fromJS(args), dataLoaders, sessionToken, language),
-    },
-    size: {
-      type: Size,
-      args: {
-        sizeId: {
-          type: new GraphQLNonNull(GraphQLID),
-        },
-      },
-      resolve: async (_, { sizeId }, { dataLoaders: { sizeLoaderById } }) => (sizeId ? sizeLoaderById.load(sizeId) : null),
-    },
-    sizes: {
-      type: SizeConnection.connectionType,
-      args: {
-        ...connectionArgs,
-        sizeIds: {
-          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
-        },
-        name: {
-          type: GraphQLString,
-        },
-        sortOption: {
-          type: GraphQLString,
-        },
-      },
-      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getSizes(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     menu: {
       type: Menu,
@@ -433,6 +408,28 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getUserFeedbacks(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    size: {
+      type: Size,
+      args: {
+        sizeId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { sizeId }, { dataLoaders: { sizeLoaderById } }) => (sizeId ? sizeLoaderById.load(sizeId) : null),
+    },
+    sizes: {
+      type: SizeConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        sizeIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getSizes(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

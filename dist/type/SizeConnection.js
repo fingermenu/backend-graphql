@@ -25,36 +25,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
+var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
   return _commonJavascript.ImmutableEx.removeUndefinedProps((0, _immutable.Map)({
-    language: language,
     ids: searchArgs.has('sizeIds') ? searchArgs.get('sizeIds') : undefined,
     conditions: (0, _immutable.Map)({
-      ownedByUserId: ownedByUserId,
-      contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name'))
+      ownedByUserId: ownedByUserId
     })
   }));
 };
 
-var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOption, language) {
-  if (sortOption && sortOption.localeCompare('NameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', language + '_name');
-  }
-
-  if (sortOption && sortOption.localeCompare('NameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', language + '_name');
-  }
-
-  return criteria.set('orderByFieldAscending', language + '_name');
+var addSortOptionToCriteria = function addSortOptionToCriteria(criteria) {
+  return criteria;
 };
 
 var getSizesCountMatchCriteria = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, ownedByUserId, sessionToken, language) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, ownedByUserId, sessionToken) {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt('return', new _parseServerCommon.SizeService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language), sessionToken));
+            return _context.abrupt('return', new _parseServerCommon.SizeService().count(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')), sessionToken));
 
           case 1:
           case 'end':
@@ -64,18 +54,18 @@ var getSizesCountMatchCriteria = function () {
     }, _callee, undefined);
   }));
 
-  return function getSizesCountMatchCriteria(_x, _x2, _x3, _x4) {
+  return function getSizesCountMatchCriteria(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
 
 var getSizesMatchCriteria = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, ownedByUserId, sessionToken, language, limit, skip) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(searchArgs, ownedByUserId, sessionToken, limit, skip) {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', new _parseServerCommon.SizeService().search(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language).set('limit', limit).set('skip', skip), sessionToken));
+            return _context2.abrupt('return', new _parseServerCommon.SizeService().search(addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).set('limit', limit).set('skip', skip), sessionToken));
 
           case 1:
           case 'end':
@@ -85,13 +75,13 @@ var getSizesMatchCriteria = function () {
     }, _callee2, undefined);
   }));
 
-  return function getSizesMatchCriteria(_x5, _x6, _x7, _x8, _x9, _x10) {
+  return function getSizesMatchCriteria(_x4, _x5, _x6, _x7, _x8) {
     return _ref2.apply(this, arguments);
   };
 }();
 
 var getSizes = exports.getSizes = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken, language) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken) {
     var userLoaderBySessionToken = _ref4.userLoaderBySessionToken;
 
     var userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, results;
@@ -106,7 +96,7 @@ var getSizes = exports.getSizes = function () {
           case 2:
             userId = _context3.sent.id;
             _context3.next = 5;
-            return getSizesCountMatchCriteria(searchArgs, userId, sessionToken, language);
+            return getSizesCountMatchCriteria(searchArgs, userId, sessionToken);
 
           case 5:
             count = _context3.sent;
@@ -121,7 +111,7 @@ var getSizes = exports.getSizes = function () {
           case 8:
             _RelayHelper$getLimit = _commonJavascript.RelayHelper.getLimitAndSkipValue(searchArgs, count, 10, 1000), limit = _RelayHelper$getLimit.limit, skip = _RelayHelper$getLimit.skip, hasNextPage = _RelayHelper$getLimit.hasNextPage, hasPreviousPage = _RelayHelper$getLimit.hasPreviousPage;
             _context3.next = 11;
-            return getSizesMatchCriteria(searchArgs, userId, sessionToken, language, limit, skip);
+            return getSizesMatchCriteria(searchArgs, userId, sessionToken, limit, skip);
 
           case 11:
             results = _context3.sent;
@@ -135,7 +125,7 @@ var getSizes = exports.getSizes = function () {
     }, _callee3, undefined);
   }));
 
-  return function getSizes(_x11, _x12, _x13, _x14) {
+  return function getSizes(_x9, _x10, _x11) {
     return _ref3.apply(this, arguments);
   };
 }();
