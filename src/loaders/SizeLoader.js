@@ -1,11 +1,11 @@
 // @flow
 
 import { SizeService } from '@fingermenu/parse-server-common';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const sizeLoaderById = new Dataloader(async ids => {
-  const sizes = await new SizeService().search(Map({ ids }));
+  const sizes = await new SizeService().search(Map({ ids: List(ids) }));
 
   return ids.map(id => sizes.find(size => size.get('id').localeCompare(id) === 0));
 });

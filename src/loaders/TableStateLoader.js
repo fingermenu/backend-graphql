@@ -1,7 +1,7 @@
 // @flow
 
 import { TableStateService } from '@fingermenu/parse-server-common';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 export const tableStateLoaderByKey = new Dataloader(async keys => {
@@ -11,7 +11,7 @@ export const tableStateLoaderByKey = new Dataloader(async keys => {
 });
 
 export const tableStateLoaderById = new Dataloader(async ids => {
-  const tableStates = await new TableStateService().search(Map({ ids }));
+  const tableStates = await new TableStateService().search(Map({ ids: List(ids) }));
 
   return ids.map(id => tableStates.find(tableState => tableState.get('id').localeCompare(id) === 0));
 });

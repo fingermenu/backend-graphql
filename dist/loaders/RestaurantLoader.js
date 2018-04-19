@@ -24,7 +24,7 @@ var restaurantLoaderById = new _dataloader2.default(function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return new _parseServerCommon.RestaurantService().search((0, _immutable.Map)({ ids: ids }));
+            return new _parseServerCommon.RestaurantService().search((0, _immutable.Map)({ ids: (0, _immutable.List)(ids) }));
 
           case 2:
             restaurants = _context.sent;

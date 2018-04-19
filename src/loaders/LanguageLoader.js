@@ -1,7 +1,7 @@
 // @flow
 
 import { LanguageService } from '@fingermenu/parse-server-common';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 export const languageLoaderByKey = new Dataloader(async keys => {
@@ -11,7 +11,7 @@ export const languageLoaderByKey = new Dataloader(async keys => {
 });
 
 export const languageLoaderById = new Dataloader(async ids => {
-  const languages = await new LanguageService().search(Map({ ids }));
+  const languages = await new LanguageService().search(Map({ ids: List(ids) }));
 
   return ids.map(id => languages.find(language => language.get('id').localeCompare(id) === 0));
 });
