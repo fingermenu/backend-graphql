@@ -124,6 +124,14 @@ var _SizeConnection = require('./SizeConnection');
 
 var _SizeConnection2 = _interopRequireDefault(_SizeConnection);
 
+var _DishType = require('./DishType');
+
+var _DishType2 = _interopRequireDefault(_DishType);
+
+var _DishTypeConnection = require('./DishTypeConnection');
+
+var _DishTypeConnection2 = _interopRequireDefault(_DishTypeConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -1055,6 +1063,69 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x76, _x77, _x78) {
           return _ref64.apply(this, arguments);
+        };
+      }()
+    },
+    dishType: {
+      type: _DishType2.default,
+      args: {
+        dishTypeId: {
+          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
+        }
+      },
+      resolve: function () {
+        var _ref66 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27(_, _ref67, _ref68) {
+          var dishTypeId = _ref67.dishTypeId;
+          var dishTypeLoaderById = _ref68.dataLoaders.dishTypeLoaderById;
+          return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            while (1) {
+              switch (_context27.prev = _context27.next) {
+                case 0:
+                  return _context27.abrupt('return', dishTypeId ? dishTypeLoaderById.load(dishTypeId) : null);
+
+                case 1:
+                case 'end':
+                  return _context27.stop();
+              }
+            }
+          }, _callee27, undefined);
+        }));
+
+        return function resolve(_x79, _x80, _x81) {
+          return _ref66.apply(this, arguments);
+        };
+      }()
+    },
+    dishTypes: {
+      type: _DishTypeConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        dishTypeIds: {
+          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
+        },
+        sortOption: {
+          type: _graphql.GraphQLString
+        }
+      }),
+      resolve: function () {
+        var _ref69 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28(_, args, _ref70) {
+          var dataLoaders = _ref70.dataLoaders,
+              sessionToken = _ref70.sessionToken;
+          return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            while (1) {
+              switch (_context28.prev = _context28.next) {
+                case 0:
+                  return _context28.abrupt('return', (0, _DishTypeConnection.getDishTypes)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context28.stop();
+              }
+            }
+          }, _callee28, undefined);
+        }));
+
+        return function resolve(_x82, _x83, _x84) {
+          return _ref69.apply(this, arguments);
         };
       }()
     }

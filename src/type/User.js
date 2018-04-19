@@ -31,6 +31,8 @@ import UserFeedback from './UserFeedback';
 import UserFeedbackConnection, { getUserFeedbacks } from './UserFeedbackConnection';
 import Size from './Size';
 import SizeConnection, { getSizes } from './SizeConnection';
+import DishType from './DishType';
+import DishTypeConnection, { getDishTypes } from './DishTypeConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -430,6 +432,28 @@ export default new GraphQLObjectType({
         },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getSizes(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    dishType: {
+      type: DishType,
+      args: {
+        dishTypeId: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: async (_, { dishTypeId }, { dataLoaders: { dishTypeLoaderById } }) => (dishTypeId ? dishTypeLoaderById.load(dishTypeId) : null),
+    },
+    dishTypes: {
+      type: DishTypeConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        dishTypeIds: {
+          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
+        },
+        sortOption: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getDishTypes(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

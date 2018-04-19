@@ -4,6 +4,7 @@ export {
   choiceItemLoaderById,
   choiceItemPriceLoaderById,
   dietaryOptionLoaderById,
+  dishTypeLoaderById,
   languageLoaderByKey,
   languageLoaderById,
   menuLoaderById,
