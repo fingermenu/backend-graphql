@@ -1,6 +1,7 @@
 // @flow
 
 import { ChoiceItemService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const choiceItemLoaderById = new Dataloader(async ids => {

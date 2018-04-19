@@ -1,6 +1,7 @@
 // @flow
 
 import { SizeService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const sizeLoaderById = new Dataloader(async ids => {

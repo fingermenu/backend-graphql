@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _parseServerCommon = require('@fingermenu/parse-server-common');
 
+var _immutable = require('immutable');
+
 var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
@@ -22,7 +24,7 @@ var sizeLoaderById = new _dataloader2.default(function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return new _parseServerCommon.SizeService().search(Map({ ids: ids }));
+            return new _parseServerCommon.SizeService().search((0, _immutable.Map)({ ids: ids }));
 
           case 2:
             sizes = _context.sent;

@@ -1,6 +1,7 @@
 // @flow
 
 import { MenuService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const menuLoaderById = new Dataloader(async ids => {

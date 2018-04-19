@@ -1,6 +1,7 @@
 // @flow
 
 import { TagService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const tagLoaderById = new Dataloader(async ids => {

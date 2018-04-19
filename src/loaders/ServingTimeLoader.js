@@ -1,6 +1,7 @@
 // @flow
 
 import { ServingTimeService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const servingTimeLoaderById = new Dataloader(async ids => {

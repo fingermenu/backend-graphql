@@ -1,6 +1,7 @@
 // @flow
 
 import { TableService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const tableLoaderById = new Dataloader(async ids => {

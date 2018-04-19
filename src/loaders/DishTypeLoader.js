@@ -1,6 +1,7 @@
 // @flow
 
 import { DishTypeService } from '@fingermenu/parse-server-common';
+import { Map } from 'immutable';
 import Dataloader from 'dataloader';
 
 const dishTypeLoaderById = new Dataloader(async ids => {
