@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.tableStateLoaderById = exports.tableStateLoaderByKey = undefined;
 
+var _parseServerCommon = require('@fingermenu/parse-server-common');
+
 var _immutable = require('immutable');
 
 var _dataloader = require('dataloader');
 
 var _dataloader2 = _interopRequireDefault(_dataloader);
-
-var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64,40 +64,29 @@ var tableStateLoaderByKey = exports.tableStateLoaderByKey = new _dataloader2.def
 }());
 
 var tableStateLoaderById = exports.tableStateLoaderById = new _dataloader2.default(function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(ids) {
-    var tableStateService;
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(ids) {
+    var tableStates;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            tableStateService = new _parseServerCommon.TableStateService();
-            return _context4.abrupt('return', Promise.all(ids.map(function () {
-              var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
-                return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                  while (1) {
-                    switch (_context3.prev = _context3.next) {
-                      case 0:
-                        return _context3.abrupt('return', tableStateService.read(id, null));
-
-                      case 1:
-                      case 'end':
-                        return _context3.stop();
-                    }
-                  }
-                }, _callee3, undefined);
-              }));
-
-              return function (_x4) {
-                return _ref4.apply(this, arguments);
-              };
-            }())));
+            _context3.next = 2;
+            return new _parseServerCommon.TableStateService().search((0, _immutable.Map)({ ids: ids }));
 
           case 2:
+            tableStates = _context3.sent;
+            return _context3.abrupt('return', ids.map(function (id) {
+              return tableStates.find(function (tableState) {
+                return tableState.get('id').localeCompare(id) === 0;
+              });
+            }));
+
+          case 4:
           case 'end':
-            return _context4.stop();
+            return _context3.stop();
         }
       }
-    }, _callee4, undefined);
+    }, _callee3, undefined);
   }));
 
   return function (_x3) {

@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { DishTypeService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
 const dishTypeLoaderById = new Dataloader(async ids => {
-  const dishTypeService = new DishTypeService();
+  const dishTypes = await new DishTypeService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => dishTypeService.read(id, null)));
+  return ids.map(id => dishTypes.find(dishType => dishType.get('id').localeCompare(id) === 0));
 });
 
 export default dishTypeLoaderById;

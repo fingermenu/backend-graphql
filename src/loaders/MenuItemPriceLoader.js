@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { MenuItemPriceService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
-const menuItemPriceLoaderById = new Dataloader(async (ids) => {
-  const menuItemPriceService = new MenuItemPriceService();
+const menuItemPriceLoaderById = new Dataloader(async ids => {
+  const menuItemPrices = await new MenuItemPriceService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => menuItemPriceService.read(id, null)));
+  return ids.map(id => menuItemPrices.find(menuItemPrice => menuItemPrice.get('id').localeCompare(id) === 0));
 });
 
 export default menuItemPriceLoaderById;

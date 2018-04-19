@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { DietaryOptionService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
 const dietaryOptionLoaderById = new Dataloader(async ids => {
-  const dietaryOptionService = new DietaryOptionService();
+  const dietaryOptions = await new DietaryOptionService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => dietaryOptionService.read(id, null)));
+  return ids.map(id => dietaryOptions.find(dietaryOption => dietaryOption.get('id').localeCompare(id) === 0));
 });
 
 export default dietaryOptionLoaderById;

@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { SizeService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
-const sizeLoaderById = new Dataloader(async (ids) => {
-  const sizeService = new SizeService();
+const sizeLoaderById = new Dataloader(async ids => {
+  const sizes = await new SizeService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => sizeService.read(id, null)));
+  return ids.map(id => sizes.find(size => size.get('id').localeCompare(id) === 0));
 });
 
 export default sizeLoaderById;

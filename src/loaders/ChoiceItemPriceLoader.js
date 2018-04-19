@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
-const choiceItemPriceLoaderById = new Dataloader(async (ids) => {
-  const choiceItemPriceService = new ChoiceItemPriceService();
+const choiceItemPriceLoaderById = new Dataloader(async ids => {
+  const choiceItemPrices = await new ChoiceItemPriceService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => choiceItemPriceService.read(id, null)));
+  return ids.map(id => choiceItemPrices.find(choiceItemPrice => choiceItemPrice.get('id').localeCompare(id) === 0));
 });
 
 export default choiceItemPriceLoaderById;

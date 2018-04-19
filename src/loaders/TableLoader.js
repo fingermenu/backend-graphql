@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { TableService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
-const tableLoaderById = new Dataloader(async (ids) => {
-  const tableService = new TableService();
+const tableLoaderById = new Dataloader(async ids => {
+  const tables = await new TableService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => tableService.read(id, null)));
+  return ids.map(id => tables.find(table => table.get('id').localeCompare(id) === 0));
 });
 
 export default tableLoaderById;

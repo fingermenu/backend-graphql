@@ -1,12 +1,12 @@
 // @flow
 
-import Dataloader from 'dataloader';
 import { ServingTimeService } from '@fingermenu/parse-server-common';
+import Dataloader from 'dataloader';
 
 const servingTimeLoaderById = new Dataloader(async ids => {
-  const servingTimeService = new ServingTimeService();
+  const servingTimes = await new ServingTimeService().search(Map({ ids }));
 
-  return Promise.all(ids.map(async id => servingTimeService.read(id, null)));
+  return ids.map(id => servingTimes.find(servingTime => servingTime.get('id').localeCompare(id) === 0));
 });
 
 export default servingTimeLoaderById;
