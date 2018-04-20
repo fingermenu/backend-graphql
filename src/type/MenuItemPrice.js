@@ -6,6 +6,7 @@ import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
 import Tag from './Tag';
+import MenuItemPriceRules from './MenuItemPriceRules';
 
 export const getMenuItemPrice = async (menuItemPriceId, sessionToken) => new MenuItemPriceService().read(menuItemPriceId, null, sessionToken);
 
@@ -46,7 +47,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
           return [];
         }
 
-        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray())).filter(
           choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
         );
 
@@ -58,6 +59,24 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
 
         return choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
       },
+    },
+    defaultChoiceItemPrices: {
+      type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
+      resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) => {
+        const choiceItemPriceIds = _.get('defaultChoiceItemPriceIds');
+
+        if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
+          return [];
+        }
+
+        return (await choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray())).filter(
+          choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+        );
+      },
+    },
+    rules: {
+      type: MenuItemPriceRules,
+      resolve: async _ => _.get('rules'),
     },
   },
   interfaces: [NodeInterface],
@@ -131,7 +150,7 @@ export default new GraphQLObjectType({
           return [];
         }
 
-        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(_.get('choiceItemPriceIds').toArray())).filter(
+        const choiceItemPrices = (await choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray())).filter(
           choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
         );
 
@@ -144,9 +163,27 @@ export default new GraphQLObjectType({
         return choiceItemPrices.map(_ => _.set('sortOrderIndex', choiceItemPriceSortOrderIndices.get(_.get('id'))));
       },
     },
+    defaultChoiceItemPrices: {
+      type: new GraphQLList(new GraphQLNonNull(ChoiceItemPrice)),
+      resolve: async (_, args, { dataLoaders: { choiceItemPriceLoaderById } }) => {
+        const choiceItemPriceIds = _.get('defaultChoiceItemPriceIds');
+
+        if (!choiceItemPriceIds || choiceItemPriceIds.isEmpty()) {
+          return [];
+        }
+
+        return (await choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray())).filter(
+          choiceItemPrice => !choiceItemPrice.has('removedByUser') || !choiceItemPrice.get('removedByUser'),
+        );
+      },
+    },
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),
       resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => tagLoaderById.loadMany(_.get('tagIds').toArray()),
+    },
+    rules: {
+      type: MenuItemPriceRules,
+      resolve: async _ => _.get('rules'),
     },
   },
   interfaces: [NodeInterface],
