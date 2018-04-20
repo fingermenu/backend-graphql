@@ -76,7 +76,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     },
     rules: {
       type: MenuItemPriceRules,
-      resolve: async _ => _.get('rules'),
+      resolve: _ => (_.get('rules') ? _.get('rules') : null),
     },
   },
   interfaces: [NodeInterface],
@@ -183,7 +183,7 @@ export default new GraphQLObjectType({
     },
     rules: {
       type: MenuItemPriceRules,
-      resolve: async _ => _.get('rules'),
+      resolve: _ => (_.get('rules') ? _.get('rules') : null),
     },
   },
   interfaces: [NodeInterface],
