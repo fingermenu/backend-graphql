@@ -11,7 +11,7 @@ export const languageLoaderByKey = new Dataloader(async keys => {
 });
 
 export const languageLoaderById = new Dataloader(async ids => {
-  const languages = await new LanguageService().search(Map({ ids: List(ids) }));
+  const languages = await new LanguageService().search(Map({ ids: List(ids), limit: 1000, skip: 0 }));
 
   return ids.map(id => languages.find(language => language.get('id').localeCompare(id) === 0));
 });

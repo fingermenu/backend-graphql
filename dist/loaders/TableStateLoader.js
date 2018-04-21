@@ -71,7 +71,7 @@ var tableStateLoaderById = exports.tableStateLoaderById = new _dataloader2.defau
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return new _parseServerCommon.TableStateService().search((0, _immutable.Map)({ ids: (0, _immutable.List)(ids) }));
+            return new _parseServerCommon.TableStateService().search((0, _immutable.Map)({ ids: (0, _immutable.List)(ids), limit: 1000, skip: 0 }));
 
           case 2:
             tableStates = _context3.sent;

@@ -24,7 +24,7 @@ var dietaryOptionLoaderById = new _dataloader2.default(function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return new _parseServerCommon.DietaryOptionService().search((0, _immutable.Map)({ ids: (0, _immutable.List)(ids) }));
+            return new _parseServerCommon.DietaryOptionService().search((0, _immutable.Map)({ ids: (0, _immutable.List)(ids), limit: 1000, skip: 0 }));
 
           case 2:
             dietaryOptions = _context.sent;

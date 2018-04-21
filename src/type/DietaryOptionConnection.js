@@ -26,9 +26,7 @@ const getDietaryOptionsCountMatchCriteria = async (searchArgs, ownedByUserId, se
 
 const getDietaryOptionsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new DietaryOptionService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).merge(Map({ limit, skip })),
     sessionToken,
   );
 

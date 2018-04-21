@@ -48,9 +48,7 @@ const getMenuItemsCountMatchCriteria = async (searchArgs, ownedByUserId, session
 
 const getMenuItemsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new MenuItemService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language).merge(Map({ limit, skip })),
     sessionToken,
   );
 

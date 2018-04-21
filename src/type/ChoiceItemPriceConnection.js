@@ -58,9 +58,7 @@ const getChoiceItemPricesCountMatchCriteria = async (searchArgs, ownedByUserId, 
 
 const getChoiceItemPricesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new ChoiceItemPriceService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).merge(Map({ limit, skip })),
     sessionToken,
   );
 

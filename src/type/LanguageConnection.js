@@ -40,9 +40,7 @@ const getLanguagesCountMatchCriteria = async (searchArgs, sessionToken) =>
 
 const getLanguagesMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
   new LanguageService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).merge(Map({ limit, skip })),
     sessionToken,
   );
 

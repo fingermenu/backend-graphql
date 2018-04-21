@@ -81,12 +81,7 @@ const getOrdersCountMatchCriteria = async (searchArgs, sessionToken) =>
   new OrderService().count(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')), sessionToken);
 
 const getOrdersMatchCriteria = async (searchArgs, sessionToken, limit, skip) =>
-  new OrderService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
-    sessionToken,
-  );
+  new OrderService().search(addSortOptionToCriteria(getCriteria(searchArgs), searchArgs.get('sortOption')).merge(Map({ limit, skip })), sessionToken);
 
 export const getOrders = async (searchArgs, sessionToken) => {
   const count = await getOrdersCountMatchCriteria(searchArgs, sessionToken);

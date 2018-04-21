@@ -59,9 +59,7 @@ const getMenuItemPricesCountMatchCriteria = async (searchArgs, addedByUserId, se
 
 const getMenuItemPricesMatchCriteria = async (searchArgs, addedByUserId, sessionToken, limit, skip) =>
   new MenuItemPriceService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, addedByUserId), searchArgs.get('sortOption')).merge(Map({ limit, skip })),
     sessionToken,
   );
 

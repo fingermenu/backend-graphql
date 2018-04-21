@@ -26,9 +26,7 @@ const getServingTimesCountMatchCriteria = async (searchArgs, ownedByUserId, sess
 
 const getServingTimesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, limit, skip) =>
   new ServingTimeService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption'))
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId), searchArgs.get('sortOption')).merge(Map({ limit, skip })),
     sessionToken,
   );
 

@@ -11,7 +11,7 @@ export const tableStateLoaderByKey = new Dataloader(async keys => {
 });
 
 export const tableStateLoaderById = new Dataloader(async ids => {
-  const tableStates = await new TableStateService().search(Map({ ids: List(ids) }));
+  const tableStates = await new TableStateService().search(Map({ ids: List(ids), limit: 1000, skip: 0 }));
 
   return ids.map(id => tableStates.find(tableState => tableState.get('id').localeCompare(id) === 0));
 });

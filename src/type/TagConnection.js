@@ -66,9 +66,7 @@ const getTagsCountMatchCriteria = async (searchArgs, ownedByUserId, sessionToken
 
 const getTagsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new TagService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language).merge(Map({ limit, skip })),
     sessionToken,
   );
 

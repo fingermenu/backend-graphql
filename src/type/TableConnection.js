@@ -84,9 +84,7 @@ const getTablesCountMatchCriteria = async (searchArgs, ownedByUserId, sessionTok
 
 const getTablesMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new TableService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language).merge(Map({ limit, skip })),
     sessionToken,
   );
 

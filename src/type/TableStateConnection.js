@@ -41,9 +41,7 @@ const getTableStatesCountMatchCriteria = async (searchArgs, sessionToken, langua
 
 const getTableStatesMatchCriteria = async (searchArgs, sessionToken, language, limit, skip) =>
   new TableStateService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, language), searchArgs.get('sortOption'), language)
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, language), searchArgs.get('sortOption'), language).merge(Map({ limit, skip })),
     sessionToken,
   );
 

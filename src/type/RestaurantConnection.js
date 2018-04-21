@@ -65,9 +65,7 @@ const getRestaurantsCountMatchCriteria = async (searchArgs, ownedByUserId, sessi
 
 const getRestaurantsMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, language, limit, skip) =>
   new RestaurantService().search(
-    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language)
-      .set('limit', limit)
-      .set('skip', skip),
+    addSortOptionToCriteria(getCriteria(searchArgs, ownedByUserId, language), searchArgs.get('sortOption'), language).merge(Map({ limit, skip })),
     sessionToken,
   );
 
