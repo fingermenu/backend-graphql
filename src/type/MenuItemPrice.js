@@ -2,6 +2,7 @@
 
 import { MenuItemPriceService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { Map } from 'immutable';
 import { NodeInterface } from '../interface';
 import ChoiceItemPrice from './ChoiceItemPrice';
 import MenuItem from './MenuItem';
@@ -76,7 +77,7 @@ const BeServedWithMenuItemPrice = new GraphQLObjectType({
     },
     rules: {
       type: MenuItemPriceRules,
-      resolve: _ => (_.get('rules') ? _.get('rules') : null),
+      resolve: _ => (_.get('rules') ? _.get('rules') : Map()),
     },
   },
   interfaces: [NodeInterface],
@@ -183,7 +184,7 @@ export default new GraphQLObjectType({
     },
     rules: {
       type: MenuItemPriceRules,
-      resolve: _ => (_.get('rules') ? _.get('rules') : null),
+      resolve: _ => (_.get('rules') ? _.get('rules') : Map()),
     },
   },
   interfaces: [NodeInterface],

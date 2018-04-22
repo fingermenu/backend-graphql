@@ -9,6 +9,8 @@ var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _graphql = require('graphql');
 
+var _immutable = require('immutable');
+
 var _interface = require('../interface');
 
 var _ChoiceItemPrice = require('./ChoiceItemPrice');
@@ -285,7 +287,7 @@ var BeServedWithMenuItemPrice = new _graphql.GraphQLObjectType({
     rules: {
       type: _MenuItemPriceRules2.default,
       resolve: function resolve(_) {
-        return _.get('rules') ? _.get('rules') : null;
+        return _.get('rules') ? _.get('rules') : (0, _immutable.Map)();
       }
     }
   },
@@ -617,7 +619,7 @@ exports.default = new _graphql.GraphQLObjectType({
     rules: {
       type: _MenuItemPriceRules2.default,
       resolve: function resolve(_) {
-        return _.get('rules') ? _.get('rules') : null;
+        return _.get('rules') ? _.get('rules') : (0, _immutable.Map)();
       }
     }
   },
