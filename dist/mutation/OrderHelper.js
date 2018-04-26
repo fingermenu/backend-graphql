@@ -149,13 +149,15 @@ var updateOrder = exports.updateOrder = function () {
 
 
             if (details && printingGroupId) {
-              orderInfo = orderInfo.update('details', details.map(function (item) {
-                if (printingGroupId.localeCompare(item.printingGroupId) === 0) {
-                  return item.set('printingDateTime', printingDateTime);
-                }
+              orderInfo = orderInfo.update('details', function (details) {
+                return details.map(function (item) {
+                  if (printingGroupId.localeCompare(item.get('printingGroupId')) === 0) {
+                    return item.set('printingDateTime', printingDateTime);
+                  }
 
-                return item;
-              }));
+                  return item;
+                });
+              });
             }
 
             _context3.next = 7;
