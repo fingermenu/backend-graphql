@@ -34,7 +34,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     totalPrice: { type: _graphql.GraphQLFloat },
     tableId: { type: _graphql.GraphQLID },
     details: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)) },
-    printingGroupIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) }
+    printingGroupId: { type: _graphql.GraphQLID }
   },
   outputFields: {
     order: {
