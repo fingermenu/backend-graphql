@@ -16,6 +16,14 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('groupId'),
     },
+    printingGroupId: {
+      type: GraphQLID,
+      resolve: _ => _.get('printingGroupId'),
+    },
+    printingDateTime: {
+      type: GraphQLString,
+      resolve: _ => (_.get('printingDateTime') ? _.get('printingDateTime').toISOString() : null),
+    },
     menuItemPrice: {
       type: new GraphQLNonNull(MenuItemPrice),
       resolve: async (_, args, { dataLoaders }) =>

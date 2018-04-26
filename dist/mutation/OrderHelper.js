@@ -129,8 +129,9 @@ var updateOrder = exports.updateOrder = function () {
         restaurantId = _ref5.restaurantId,
         tableId = _ref5.tableId,
         details = _ref5.details,
-        cancelledAt = _ref5.cancelledAt;
-    var orderInfo;
+        cancelledAt = _ref5.cancelledAt,
+        printingGroupIds = _ref5.printingGroupIds;
+    var orderInfo, printingDateTime;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -144,10 +145,25 @@ var updateOrder = exports.updateOrder = function () {
 
           case 2:
             orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults })).merge(_commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren })).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
-            _context3.next = 5;
+            printingDateTime = new Date();
+
+
+            if (details && printingGroupIds) {
+              orderInfo = orderInfo.update('details', details.map(function (item) {
+                if (printingGroupIds.find(function (id) {
+                  return id.localeCompare(item.get('printingGroupId')) === 0;
+                })) {
+                  return item.set('printingDateTime', printingDateTime);
+                }
+
+                return item;
+              }));
+            }
+
+            _context3.next = 7;
             return new _parseServerCommon2.OrderService().update(orderInfo, sessionToken);
 
-          case 5:
+          case 7:
           case 'end':
             return _context3.stop();
         }

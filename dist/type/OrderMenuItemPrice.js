@@ -37,6 +37,18 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('groupId');
       }
     },
+    printingGroupId: {
+      type: _graphql.GraphQLID,
+      resolve: function resolve(_) {
+        return _.get('printingGroupId');
+      }
+    },
+    printingDateTime: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('printingDateTime') ? _.get('printingDateTime').toISOString() : null;
+      }
+    },
     menuItemPrice: {
       type: new _graphql.GraphQLNonNull(_MenuItemPrice2.default),
       resolve: function () {

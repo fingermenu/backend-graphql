@@ -50,14 +50,14 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 };
 
 export const updateOrder = async (
-  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt },
+  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt, printingGroupIds },
   sessionToken,
 ) => {
   if (!id) {
     throw new Error('Order Id not provided.');
   }
 
-  const orderInfo = Map({ id })
+  let orderInfo = Map({ id })
     .merge(Common.isNullOrUndefined(numberOfAdults) ? Map() : Map({ numberOfAdults }))
     .merge(Common.isNullOrUndefined(numberOfChildren) ? Map() : Map({ numberOfChildren }))
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
@@ -67,6 +67,21 @@ export const updateOrder = async (
     .merge(Common.isNullOrUndefined(tableId) ? Map() : Map({ tableId }))
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))
     .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
+
+  const printingDateTime = new Date();
+
+  if (details && printingGroupIds) {
+    orderInfo = orderInfo.update(
+      'details',
+      details.map(item => {
+        if (printingGroupIds.find(id => id.localeCompare(item.get('printingGroupId')) === 0)) {
+          return item.set('printingDateTime', printingDateTime);
+        }
+
+        return item;
+      }),
+    );
+  }
 
   await new OrderService().update(orderInfo, sessionToken);
 };

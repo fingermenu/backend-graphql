@@ -19,6 +19,7 @@ export default mutationWithClientMutationId({
     totalPrice: { type: GraphQLFloat },
     tableId: { type: GraphQLID },
     details: { type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)) },
+    printingGroupIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
   },
   outputFields: {
     order: {

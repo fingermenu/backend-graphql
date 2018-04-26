@@ -8,6 +8,8 @@ export default new GraphQLInputObjectType({
   fields: {
     id: { type: GraphQLID },
     groupId: { type: GraphQLID },
+    printingGroupId: { type: GraphQLID },
+    printingDateTime: { type: GraphQLString },
     menuItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },
