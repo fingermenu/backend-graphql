@@ -22,7 +22,7 @@ export default new GraphQLObjectType({
     },
     printingDateTime: {
       type: GraphQLString,
-      resolve: _ => (_.get('printingDateTime') ? _.get('printingDateTime').toISOString() : null),
+      resolve: _ => (_.get('printingDateTime') ? _.get('printingDateTime') : null),
     },
     menuItemPrice: {
       type: new GraphQLNonNull(MenuItemPrice),

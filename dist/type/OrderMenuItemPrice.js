@@ -46,7 +46,7 @@ exports.default = new _graphql.GraphQLObjectType({
     printingDateTime: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('printingDateTime') ? _.get('printingDateTime').toISOString() : null;
+        return _.get('printingDateTime') ? _.get('printingDateTime') : null;
       }
     },
     menuItemPrice: {
