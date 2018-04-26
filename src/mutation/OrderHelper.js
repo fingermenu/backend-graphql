@@ -71,10 +71,9 @@ export const updateOrder = async (
   const printingDateTime = new Date();
 
   if (details && printingGroupId) {
-    orderInfo = orderInfo.update(
-      'details',
+    orderInfo = orderInfo.update('details', details =>
       details.map(item => {
-        if (printingGroupId.localeCompare(item.printingGroupId) === 0) {
+        if (printingGroupId.localeCompare(item.get('printingGroupId')) === 0) {
           return item.set('printingDateTime', printingDateTime);
         }
 
