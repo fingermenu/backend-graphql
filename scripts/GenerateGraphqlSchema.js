@@ -4,7 +4,7 @@ import { graphql, printSchema } from 'graphql';
 import { introspectionQuery } from 'graphql/utilities';
 import { getRootSchema } from '../src';
 
-fs.writeFileSync(path.resolve(__dirname, '../data/schema.graphql'), printSchema(getRootSchema(), { commentDescriptions: true }));
+fs.writeFileSync(path.resolve(__dirname, '../data/schema.graphql'), printSchema(getRootSchema()));
 
 graphql(getRootSchema(), introspectionQuery)
   .then((json) => {
