@@ -34,7 +34,6 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
         numberOfChildren = _ref2.numberOfChildren,
         customerName = _ref2.customerName,
         notes = _ref2.notes,
-        totalPrice = _ref2.totalPrice,
         restaurantId = _ref2.restaurantId,
         tableId = _ref2.tableId,
         details = _ref2.details;
@@ -57,7 +56,6 @@ var addOrderForProvidedUser = exports.addOrderForProvidedUser = function () {
               numberOfChildren: numberOfChildren,
               customerName: customerName,
               notes: notes,
-              totalPrice: totalPrice,
               placedAt: new Date(),
               restaurantId: restaurantId,
               tableId: tableId,
@@ -125,7 +123,6 @@ var updateOrder = exports.updateOrder = function () {
         numberOfChildren = _ref5.numberOfChildren,
         customerName = _ref5.customerName,
         notes = _ref5.notes,
-        totalPrice = _ref5.totalPrice,
         restaurantId = _ref5.restaurantId,
         tableId = _ref5.tableId,
         details = _ref5.details,
@@ -144,7 +141,7 @@ var updateOrder = exports.updateOrder = function () {
             throw new Error('Order Id not provided.');
 
           case 2:
-            orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults })).merge(_commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren })).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
+            orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults })).merge(_commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren })).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
             paymentGroupDateTime = new Date();
 
 

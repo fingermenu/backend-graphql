@@ -87,18 +87,6 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('notes');
       }
     },
-    totalPrice: {
-      type: _graphql.GraphQLFloat,
-      resolve: function resolve(_) {
-        return _.get('totalPrice');
-      }
-    },
-    totalPriceAfterDiscount: {
-      type: _graphql.GraphQLFloat,
-      resolve: function resolve(_) {
-        return _.get('totalPriceAfterDiscount');
-      }
-    },
     placedAt: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString),
       resolve: function resolve(_) {

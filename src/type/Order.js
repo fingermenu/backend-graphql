@@ -1,7 +1,7 @@
 // @flow
 
 import { OrderService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Restaurant from './Restaurant';
 import Table from './Table';
@@ -35,14 +35,6 @@ export default new GraphQLObjectType({
     notes: {
       type: GraphQLString,
       resolve: _ => _.get('notes'),
-    },
-    totalPrice: {
-      type: GraphQLFloat,
-      resolve: _ => _.get('totalPrice'),
-    },
-    totalPriceAfterDiscount: {
-      type: GraphQLFloat,
-      resolve: _ => _.get('totalPriceAfterDiscount'),
     },
     placedAt: {
       type: new GraphQLNonNull(GraphQLString),

@@ -8,7 +8,7 @@ import Immutable, { Map } from 'immutable';
 import updateTable from './TableHelper';
 
 export const addOrderForProvidedUser = async (
-  { correlationId, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details },
+  { correlationId, numberOfAdults, numberOfChildren, customerName, notes, restaurantId, tableId, details },
   user,
   dataLoaders,
   sessionToken,
@@ -26,7 +26,6 @@ export const addOrderForProvidedUser = async (
       numberOfChildren,
       customerName,
       notes,
-      totalPrice,
       placedAt: new Date(),
       restaurantId,
       tableId,
@@ -50,7 +49,7 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 };
 
 export const updateOrder = async (
-  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt, paymentGroupId },
+  { id, numberOfAdults, numberOfChildren, customerName, notes, restaurantId, tableId, details, cancelledAt, paymentGroupId },
   sessionToken,
 ) => {
   if (!id) {
@@ -62,7 +61,6 @@ export const updateOrder = async (
     .merge(Common.isNullOrUndefined(numberOfChildren) ? Map() : Map({ numberOfChildren }))
     .merge(Common.isNullOrUndefined(customerName) ? Map() : Map({ customerName }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
-    .merge(Common.isNullOrUndefined(totalPrice) ? Map() : Map({ totalPrice }))
     .merge(Common.isNullOrUndefined(restaurantId) ? Map() : Map({ restaurantId }))
     .merge(Common.isNullOrUndefined(tableId) ? Map() : Map({ tableId }))
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))

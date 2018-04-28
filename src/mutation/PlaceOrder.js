@@ -1,7 +1,7 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import { GraphQLID, GraphQLInt, GraphQLFloat, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { OrderConnection, getOrders } from '../type';
 import { addOrder } from './OrderHelper';
@@ -16,8 +16,6 @@ export default mutationWithClientMutationId({
     numberOfChildren: { type: GraphQLInt },
     customerName: { type: GraphQLString },
     notes: { type: GraphQLString },
-    totalPrice: { type: GraphQLFloat },
-    totalPriceAfterDiscount: { type: GraphQLFloat },
     tableId: { type: GraphQLID },
     details: { type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)) },
   },
