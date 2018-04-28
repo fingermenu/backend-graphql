@@ -24,9 +24,9 @@ export default new GraphQLObjectType({
       type: GraphQLFloat,
       resolve: _ => _.get('paymentGroupDiscount'),
     },
-    printingDateTime: {
+    paymentGroupDateTime: {
       type: GraphQLString,
-      resolve: _ => (_.get('printingDateTime') ? _.get('printingDateTime') : null),
+      resolve: _ => (_.get('paymentGroupDateTime') ? _.get('paymentGroupDateTime') : null),
     },
     menuItemPrice: {
       type: new GraphQLNonNull(MenuItemPrice),

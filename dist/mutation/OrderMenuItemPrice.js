@@ -19,7 +19,7 @@ exports.default = new _graphql.GraphQLInputObjectType({
     groupId: { type: _graphql.GraphQLID },
     paymentGroupId: { type: _graphql.GraphQLID },
     paymentGroupDiscount: { type: _graphql.GraphQLFloat },
-    printingDateTime: { type: _graphql.GraphQLString },
+    paymentGroupDateTime: { type: _graphql.GraphQLString },
     menuItemPriceId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     quantity: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt) },
     notes: { type: _graphql.GraphQLString },

@@ -68,13 +68,13 @@ export const updateOrder = async (
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))
     .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
 
-  const printingDateTime = new Date();
+  const paymentGroupDateTime = new Date();
 
   if (details && paymentGroupId) {
     orderInfo = orderInfo.update('details', details =>
       details.map(item => {
         if (paymentGroupId.localeCompare(item.get('paymentGroupId')) === 0) {
-          return item.set('printingDateTime', printingDateTime);
+          return item.set('paymentGroupDateTime', paymentGroupDateTime);
         }
 
         return item;

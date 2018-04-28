@@ -131,7 +131,7 @@ var updateOrder = exports.updateOrder = function () {
         details = _ref5.details,
         cancelledAt = _ref5.cancelledAt,
         paymentGroupId = _ref5.paymentGroupId;
-    var orderInfo, printingDateTime;
+    var orderInfo, paymentGroupDateTime;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -145,14 +145,14 @@ var updateOrder = exports.updateOrder = function () {
 
           case 2:
             orderInfo = (0, _immutable.Map)({ id: id }).merge(_commonJavascript.Common.isNullOrUndefined(numberOfAdults) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfAdults: numberOfAdults })).merge(_commonJavascript.Common.isNullOrUndefined(numberOfChildren) ? (0, _immutable.Map)() : (0, _immutable.Map)({ numberOfChildren: numberOfChildren })).merge(_commonJavascript.Common.isNullOrUndefined(customerName) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customerName: customerName })).merge(_commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes })).merge(_commonJavascript.Common.isNullOrUndefined(totalPrice) ? (0, _immutable.Map)() : (0, _immutable.Map)({ totalPrice: totalPrice })).merge(_commonJavascript.Common.isNullOrUndefined(restaurantId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ restaurantId: restaurantId })).merge(_commonJavascript.Common.isNullOrUndefined(tableId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ tableId: tableId })).merge(_commonJavascript.Common.isNullOrUndefined(details) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(details) })).merge(_commonJavascript.Common.isNullOrUndefined(cancelledAt) ? (0, _immutable.Map)() : (0, _immutable.Map)({ cancelledAt: cancelledAt }));
-            printingDateTime = new Date();
+            paymentGroupDateTime = new Date();
 
 
             if (details && paymentGroupId) {
               orderInfo = orderInfo.update('details', function (details) {
                 return details.map(function (item) {
                   if (paymentGroupId.localeCompare(item.get('paymentGroupId')) === 0) {
-                    return item.set('printingDateTime', printingDateTime);
+                    return item.set('paymentGroupDateTime', paymentGroupDateTime);
                   }
 
                   return item;

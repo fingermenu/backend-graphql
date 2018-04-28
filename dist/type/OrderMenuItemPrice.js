@@ -49,10 +49,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('paymentGroupDiscount');
       }
     },
-    printingDateTime: {
+    paymentGroupDateTime: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('printingDateTime') ? _.get('printingDateTime') : null;
+        return _.get('paymentGroupDateTime') ? _.get('paymentGroupDateTime') : null;
       }
     },
     menuItemPrice: {

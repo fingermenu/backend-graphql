@@ -10,7 +10,7 @@ export default new GraphQLInputObjectType({
     groupId: { type: GraphQLID },
     paymentGroupId: { type: GraphQLID },
     paymentGroupDiscount: { type: GraphQLFloat },
-    printingDateTime: { type: GraphQLString },
+    paymentGroupDateTime: { type: GraphQLString },
     menuItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },
