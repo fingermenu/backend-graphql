@@ -50,7 +50,7 @@ export const addOrder = async (info, dataLoaders, sessionToken) => {
 };
 
 export const updateOrder = async (
-  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt, printingGroupId },
+  { id, numberOfAdults, numberOfChildren, customerName, notes, totalPrice, restaurantId, tableId, details, cancelledAt, paymentGroupId },
   sessionToken,
 ) => {
   if (!id) {
@@ -70,10 +70,10 @@ export const updateOrder = async (
 
   const printingDateTime = new Date();
 
-  if (details && printingGroupId) {
+  if (details && paymentGroupId) {
     orderInfo = orderInfo.update('details', details =>
       details.map(item => {
-        if (printingGroupId.localeCompare(item.get('printingGroupId')) === 0) {
+        if (paymentGroupId.localeCompare(item.get('paymentGroupId')) === 0) {
           return item.set('printingDateTime', printingDateTime);
         }
 

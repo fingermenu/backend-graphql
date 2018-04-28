@@ -17,6 +17,7 @@ export default mutationWithClientMutationId({
     customerName: { type: GraphQLString },
     notes: { type: GraphQLString },
     totalPrice: { type: GraphQLFloat },
+    totalPriceAfterDiscount: { type: GraphQLFloat },
     tableId: { type: GraphQLID },
     details: { type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)) },
   },

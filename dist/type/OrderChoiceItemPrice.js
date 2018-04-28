@@ -64,6 +64,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('paid');
       }
+    },
+    discount: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('discount');
+      }
     }
   }
 });

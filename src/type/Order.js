@@ -40,6 +40,10 @@ export default new GraphQLObjectType({
       type: GraphQLFloat,
       resolve: _ => _.get('totalPrice'),
     },
+    totalPriceAfterDiscount: {
+      type: GraphQLFloat,
+      resolve: _ => _.get('totalPriceAfterDiscount'),
+    },
     placedAt: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: _ => _.get('placedAt').toISOString(),

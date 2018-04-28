@@ -130,7 +130,7 @@ var updateOrder = exports.updateOrder = function () {
         tableId = _ref5.tableId,
         details = _ref5.details,
         cancelledAt = _ref5.cancelledAt,
-        printingGroupId = _ref5.printingGroupId;
+        paymentGroupId = _ref5.paymentGroupId;
     var orderInfo, printingDateTime;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -148,10 +148,10 @@ var updateOrder = exports.updateOrder = function () {
             printingDateTime = new Date();
 
 
-            if (details && printingGroupId) {
+            if (details && paymentGroupId) {
               orderInfo = orderInfo.update('details', function (details) {
                 return details.map(function (item) {
-                  if (printingGroupId.localeCompare(item.get('printingGroupId')) === 0) {
+                  if (paymentGroupId.localeCompare(item.get('paymentGroupId')) === 0) {
                     return item.set('printingDateTime', printingDateTime);
                   }
 

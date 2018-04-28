@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLBoolean, GraphQLNonNull, GraphQLID, GraphQLInt, GraphQLString, GraphQLInputObjectType } from 'graphql';
+import { GraphQLBoolean, GraphQLFloat, GraphQLNonNull, GraphQLID, GraphQLInt, GraphQLString, GraphQLInputObjectType } from 'graphql';
 
 export default new GraphQLInputObjectType({
   name: 'OrderChoiceItemPriceInput',
@@ -10,5 +10,6 @@ export default new GraphQLInputObjectType({
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },
     paid: { type: GraphQLBoolean },
+    discount: { type: GraphQLFloat },
   },
 });

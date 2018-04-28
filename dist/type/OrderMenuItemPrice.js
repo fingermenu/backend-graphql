@@ -37,10 +37,16 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('groupId');
       }
     },
-    printingGroupId: {
+    paymentGroupId: {
       type: _graphql.GraphQLID,
       resolve: function resolve(_) {
-        return _.get('printingGroupId');
+        return _.get('paymentGroupId');
+      }
+    },
+    paymentGroupDiscount: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('paymentGroupDiscount');
       }
     },
     printingDateTime: {
@@ -89,6 +95,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _graphql.GraphQLBoolean,
       resolve: function resolve(_) {
         return _.get('paid');
+      }
+    },
+    discount: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('discount');
       }
     },
     orderChoiceItemPrices: {

@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLFloat, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
 import MenuItemPrice from './MenuItemPrice';
 import ServingTime from './ServingTime';
 import OrderChoiceItemPrice from './OrderChoiceItemPrice';
@@ -16,9 +16,13 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('groupId'),
     },
-    printingGroupId: {
+    paymentGroupId: {
       type: GraphQLID,
-      resolve: _ => _.get('printingGroupId'),
+      resolve: _ => _.get('paymentGroupId'),
+    },
+    paymentGroupDiscount: {
+      type: GraphQLFloat,
+      resolve: _ => _.get('paymentGroupDiscount'),
     },
     printingDateTime: {
       type: GraphQLString,
@@ -40,6 +44,10 @@ export default new GraphQLObjectType({
     paid: {
       type: GraphQLBoolean,
       resolve: _ => _.get('paid'),
+    },
+    discount: {
+      type: GraphQLFloat,
+      resolve: _ => _.get('discount'),
     },
     orderChoiceItemPrices: {
       type: new GraphQLList(new GraphQLNonNull(OrderChoiceItemPrice)),
