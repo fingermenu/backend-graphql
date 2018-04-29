@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _graphql = require('graphql');
 
+var _PaymentGroup = require('./PaymentGroup');
+
+var _PaymentGroup2 = _interopRequireDefault(_PaymentGroup);
+
 var _OrderChoiceItemPrice = require('./OrderChoiceItemPrice');
 
 var _OrderChoiceItemPrice2 = _interopRequireDefault(_OrderChoiceItemPrice);
@@ -17,9 +21,7 @@ exports.default = new _graphql.GraphQLInputObjectType({
   fields: {
     id: { type: _graphql.GraphQLID },
     groupId: { type: _graphql.GraphQLID },
-    paymentGroupId: { type: _graphql.GraphQLID },
-    paymentGroupDiscount: { type: _graphql.GraphQLFloat },
-    paymentGroupDateTime: { type: _graphql.GraphQLString },
+    paymentGroup: { type: _PaymentGroup2.default },
     menuItemPriceId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     quantity: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt) },
     notes: { type: _graphql.GraphQLString },

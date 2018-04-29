@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _immutable = require('immutable');
+
 var _graphql = require('graphql');
 
 var _MenuItemPrice = require('./MenuItemPrice');
@@ -13,6 +15,10 @@ var _MenuItemPrice2 = _interopRequireDefault(_MenuItemPrice);
 var _ServingTime = require('./ServingTime');
 
 var _ServingTime2 = _interopRequireDefault(_ServingTime);
+
+var _PaymentGroup = require('./PaymentGroup');
+
+var _PaymentGroup2 = _interopRequireDefault(_PaymentGroup);
 
 var _OrderChoiceItemPrice = require('./OrderChoiceItemPrice');
 
@@ -37,22 +43,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('groupId');
       }
     },
-    paymentGroupId: {
-      type: _graphql.GraphQLID,
+    paymentGroup: {
+      type: _PaymentGroup2.default,
       resolve: function resolve(_) {
-        return _.get('paymentGroupId');
-      }
-    },
-    paymentGroupDiscount: {
-      type: _graphql.GraphQLFloat,
-      resolve: function resolve(_) {
-        return _.get('paymentGroupDiscount');
-      }
-    },
-    paymentGroupDateTime: {
-      type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('paymentGroupDateTime') ? _.get('paymentGroupDateTime') : null;
+        return _.get('paymentGroup') ? _.get('paymentGroup') : (0, _immutable.Map)();
       }
     },
     menuItemPrice: {
