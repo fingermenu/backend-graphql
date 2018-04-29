@@ -5,6 +5,7 @@ import { OrderService } from '@fingermenu/parse-server-common';
 import { Common } from '@microbusiness/common-javascript';
 import cuid from 'cuid';
 import Immutable, { Map } from 'immutable';
+import { ZonedDateTime } from 'js-joda';
 import updateTable from './TableHelper';
 
 export const addOrderForProvidedUser = async (
@@ -66,7 +67,7 @@ export const updateOrder = async (
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))
     .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
 
-  const paymentGroupPaidAt = new Date();
+  const paymentGroupPaidAt = ZonedDateTime.now().toString();
 
   if (details && paymentGroupId) {
     orderInfo = orderInfo.update('details', details =>
