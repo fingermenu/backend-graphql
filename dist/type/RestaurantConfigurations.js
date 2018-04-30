@@ -46,6 +46,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('numberOfPrintCopiesForKitchen') ? _.get('numberOfPrintCopiesForKitchen') : 1;
       }
+    },
+    gstPercentage: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('gstPercentage');
+      }
     }
   }
 });
