@@ -1,6 +1,7 @@
 // @flow
 
 import { GraphQLBoolean, GraphQLFloat, GraphQLNonNull, GraphQLID, GraphQLInt, GraphQLList, GraphQLString, GraphQLInputObjectType } from 'graphql';
+import Customer from './Customer';
 import PaymentGroup from './PaymentGroup';
 import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 
@@ -9,6 +10,7 @@ export default new GraphQLInputObjectType({
   fields: {
     id: { type: GraphQLID },
     groupId: { type: GraphQLID },
+    customer: { type: Customer },
     paymentGroup: { type: PaymentGroup },
     menuItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },

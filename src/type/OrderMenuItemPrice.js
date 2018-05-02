@@ -1,10 +1,10 @@
 // @flow
 
-import { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLFloat, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
 import MenuItemPrice from './MenuItemPrice';
 import ServingTime from './ServingTime';
 import PaymentGroup from './PaymentGroup';
+import Customer from './Customer';
 import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 
 export default new GraphQLObjectType({
@@ -18,9 +18,13 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('groupId'),
     },
+    customer: {
+      type: Customer,
+      resolve: _ => _.get('customer'),
+    },
     paymentGroup: {
       type: PaymentGroup,
-      resolve: _ => (_.get('paymentGroup') ? _.get('paymentGroup') : Map()),
+      resolve: _ => _.get('paymentGroup'),
     },
     menuItemPrice: {
       type: new GraphQLNonNull(MenuItemPrice),

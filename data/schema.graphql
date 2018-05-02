@@ -122,6 +122,16 @@ type ChoiceItemTypeEdge {
   cursor: String!
 }
 
+type Customer {
+  id: ID
+  name: String
+}
+
+input CustomerInput {
+  id: ID
+  name: String
+}
+
 input DateRange {
   from: String!
   to: String!
@@ -365,6 +375,7 @@ input OrderChoiceItemPriceInput {
 type OrderMenuItemPrice {
   id: ID
   groupId: ID
+  customer: Customer
   paymentGroup: PaymentGroup
   menuItemPrice: MenuItemPrice!
   quantity: Int!
@@ -378,6 +389,7 @@ type OrderMenuItemPrice {
 input OrderMenuItemPriceInput {
   id: ID
   groupId: ID
+  customer: CustomerInput
   paymentGroup: PaymentGroupInput
   menuItemPriceId: ID!
   quantity: Int!
