@@ -3,8 +3,8 @@
 import { GraphQLBoolean, GraphQLID, GraphQLFloat, GraphQLNonNull, GraphQLInt, GraphQLList, GraphQLString, GraphQLObjectType } from 'graphql';
 import MenuItemPrice from './MenuItemPrice';
 import ServingTime from './ServingTime';
-import PaymentGroup from './PaymentGroup';
 import Customer from './Customer';
+import PaymentGroup from './PaymentGroup';
 import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 
 export default new GraphQLObjectType({

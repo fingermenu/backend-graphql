@@ -14,13 +14,13 @@ var _ServingTime = require('./ServingTime');
 
 var _ServingTime2 = _interopRequireDefault(_ServingTime);
 
-var _PaymentGroup = require('./PaymentGroup');
-
-var _PaymentGroup2 = _interopRequireDefault(_PaymentGroup);
-
 var _Customer = require('./Customer');
 
 var _Customer2 = _interopRequireDefault(_Customer);
+
+var _PaymentGroup = require('./PaymentGroup');
+
+var _PaymentGroup2 = _interopRequireDefault(_PaymentGroup);
 
 var _OrderChoiceItemPrice = require('./OrderChoiceItemPrice');
 

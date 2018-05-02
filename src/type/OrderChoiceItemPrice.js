@@ -2,6 +2,7 @@
 
 import { GraphQLBoolean, GraphQLFloat, GraphQLID, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLObjectType } from 'graphql';
 import ChoiceItemPrice from './ChoiceItemPrice';
+import Customer from './Customer';
 
 export default new GraphQLObjectType({
   name: 'OrderChoiceItemPrice',
@@ -30,6 +31,10 @@ export default new GraphQLObjectType({
     discount: {
       type: GraphQLFloat,
       resolve: _ => _.get('discount'),
+    },
+    customer: {
+      type: Customer,
+      resolve: _ => _.get('customer'),
     },
   },
 });

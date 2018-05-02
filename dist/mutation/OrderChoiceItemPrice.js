@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _graphql = require('graphql');
 
+var _Customer = require('./Customer');
+
+var _Customer2 = _interopRequireDefault(_Customer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = new _graphql.GraphQLInputObjectType({
   name: 'OrderChoiceItemPriceInput',
   fields: {
@@ -14,6 +20,7 @@ exports.default = new _graphql.GraphQLInputObjectType({
     quantity: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt) },
     notes: { type: _graphql.GraphQLString },
     paid: { type: _graphql.GraphQLBoolean },
-    discount: { type: _graphql.GraphQLFloat }
+    discount: { type: _graphql.GraphQLFloat },
+    customer: { type: _Customer2.default }
   }
 });
