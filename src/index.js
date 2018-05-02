@@ -10,6 +10,7 @@ export {
   menuLoaderById,
   menuItemLoaderById,
   menuItemPriceLoaderById,
+  packageBundleLoaderByRestaurantId,
   restaurantLoaderById,
   servingTimeLoaderById,
   sizeLoaderById,

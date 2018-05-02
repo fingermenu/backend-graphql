@@ -406,6 +406,11 @@ type OrderTypeEdge {
   cursor: String!
 }
 
+type PackageBundle {
+  url: String
+  checksum: String
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -436,6 +441,7 @@ type ParentRestaurant implements Node {
   menus: [Menu!]
   tables: [Table!]
   configurations: RestaurantConfigurations!
+  packageBundle: PackageBundle
 }
 
 type ParentTag implements Node {
@@ -526,6 +532,7 @@ type Restaurant implements Node {
   menus: [Menu!]
   tables: [Table!]
   configurations: RestaurantConfigurations!
+  packageBundle: PackageBundle
   parentRestaurant: ParentRestaurant
 }
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.packageBundleLoaderByRestaurantId = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -63,6 +63,10 @@ var _MenuItemPriceLoader = require('./MenuItemPriceLoader');
 
 var _MenuItemPriceLoader2 = _interopRequireDefault(_MenuItemPriceLoader);
 
+var _PackageBundleLoader = require('./PackageBundleLoader');
+
+var _PackageBundleLoader2 = _interopRequireDefault(_PackageBundleLoader);
+
 var _RestaurantLoader = require('./RestaurantLoader');
 
 var _RestaurantLoader2 = _interopRequireDefault(_RestaurantLoader);
@@ -88,6 +92,7 @@ exports.dishTypeLoaderById = _ServingTimeLoader2.default;
 exports.menuLoaderById = _MenuLoader2.default;
 exports.menuItemLoaderById = _MenuItemLoader2.default;
 exports.menuItemPriceLoaderById = _MenuItemPriceLoader2.default;
+exports.packageBundleLoaderByRestaurantId = _PackageBundleLoader2.default;
 exports.restaurantLoaderById = _RestaurantLoader2.default;
 exports.servingTimeLoaderById = _ServingTimeLoader2.default;
 exports.sizeLoaderById = _SizeLoader2.default;

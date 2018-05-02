@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getRootSchema = exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.getRootSchema = exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.packageBundleLoaderByRestaurantId = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _loaders = require('./loaders');
 
@@ -59,6 +59,12 @@ Object.defineProperty(exports, 'menuItemPriceLoaderById', {
   enumerable: true,
   get: function get() {
     return _loaders.menuItemPriceLoaderById;
+  }
+});
+Object.defineProperty(exports, 'packageBundleLoaderByRestaurantId', {
+  enumerable: true,
+  get: function get() {
+    return _loaders.packageBundleLoaderByRestaurantId;
   }
 });
 Object.defineProperty(exports, 'restaurantLoaderById', {

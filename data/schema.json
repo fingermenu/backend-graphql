@@ -4128,6 +4128,18 @@
               "deprecationReason": null
             },
             {
+              "name": "packageBundle",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PackageBundle",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "parentRestaurant",
               "description": null,
               "args": [],
@@ -4713,6 +4725,41 @@
         },
         {
           "kind": "OBJECT",
+          "name": "PackageBundle",
+          "description": null,
+          "fields": [
+            {
+              "name": "url",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checksum",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "ParentRestaurant",
           "description": null,
           "fields": [
@@ -4912,6 +4959,18 @@
                   "name": "RestaurantConfigurations",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "packageBundle",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PackageBundle",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null

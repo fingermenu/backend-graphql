@@ -8,6 +8,7 @@ import Phone from './Phone';
 import Menu from './Menu';
 import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
+import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
 import Common from './Common';
 
@@ -109,6 +110,10 @@ const ParentRestaurant = new GraphQLObjectType({
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
     },
+    packageBundle: {
+      type: PackageBundle,
+      resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
+    },
   },
   interfaces: [NodeInterface],
 });
@@ -198,6 +203,10 @@ export default new GraphQLObjectType({
     configurations: {
       type: new GraphQLNonNull(RestaurantConfigurations),
       resolve: _ => (_.get('configurations') ? _.get('configurations') : Map()),
+    },
+    packageBundle: {
+      type: PackageBundle,
+      resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
     parentRestaurant: {
       type: ParentRestaurant,

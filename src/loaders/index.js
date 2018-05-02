@@ -8,6 +8,7 @@ export { languageLoaderByKey, languageLoaderById } from './LanguageLoader';
 export menuLoaderById from './MenuLoader';
 export menuItemLoaderById from './MenuItemLoader';
 export menuItemPriceLoaderById from './MenuItemPriceLoader';
+export packageBundleLoaderByRestaurantId from './PackageBundleLoader';
 export restaurantLoaderById from './RestaurantLoader';
 export servingTimeLoaderById from './ServingTimeLoader';
 export sizeLoaderById from './SizeLoader';
