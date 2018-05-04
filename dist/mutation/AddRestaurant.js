@@ -18,6 +18,10 @@ var _LanguageStringTuple = require('./LanguageStringTuple');
 
 var _LanguageStringTuple2 = _interopRequireDefault(_LanguageStringTuple);
 
+var _RequestLogHelper = require('./RequestLogHelper');
+
+var _RequestLogHelper2 = _interopRequireDefault(_RequestLogHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -25,6 +29,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'AddRestaurant',
   inputFields: {
+    appVersion: { type: _graphql.GraphQLString },
     name: { type: new _graphql.GraphQLNonNull(new _graphql.GraphQLList(_LanguageStringTuple2.default)) },
     websiteUrl: { type: _graphql.GraphQLString },
     imageUrl: { type: _graphql.GraphQLString },
@@ -52,23 +57,25 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              (0, _RequestLogHelper2.default)(args, 'Mutation - Add Restaurant', dataLoaders, sessionToken);
+
+              _context.next = 3;
               return (0, _RestaurantHelper.addRestaurant)(args, dataLoaders, sessionToken);
 
-            case 2:
+            case 3:
               restaurantId = _context.sent;
               _context.t0 = _immutable.Map;
-              _context.next = 6;
+              _context.next = 7;
               return (0, _type.getRestaurants)((0, _immutable.Map)({ RestaurantIds: _immutable.List.of(restaurantId) }), dataLoaders, sessionToken, language);
 
-            case 6:
+            case 7:
               _context.t1 = _context.sent.edges[0];
               _context.t2 = {
                 restaurant: _context.t1
               };
               return _context.abrupt('return', (0, _context.t0)(_context.t2));
 
-            case 9:
+            case 10:
             case 'end':
               return _context.stop();
           }

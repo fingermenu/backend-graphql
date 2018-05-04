@@ -148,9 +148,7 @@ exports.default = new _graphql.GraphQLObjectType({
     tag: {
       type: _Tag2.default,
       args: {
-        tagId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        tagId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, _ref2, _ref3) {
@@ -178,24 +176,12 @@ exports.default = new _graphql.GraphQLObjectType({
     tags: {
       type: _TagConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        tagIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        description: {
-          type: _graphql.GraphQLString
-        },
-        level: {
-          type: _graphql.GraphQLInt
-        },
-        forDisplay: {
-          type: _graphql.GraphQLBoolean
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        tagIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        name: { type: _graphql.GraphQLString },
+        description: { type: _graphql.GraphQLString },
+        level: { type: _graphql.GraphQLInt },
+        forDisplay: { type: _graphql.GraphQLBoolean },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref5) {
@@ -224,9 +210,7 @@ exports.default = new _graphql.GraphQLObjectType({
     menu: {
       type: _Menu2.default,
       args: {
-        menuId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        menuId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref7, _ref8) {
@@ -254,21 +238,11 @@ exports.default = new _graphql.GraphQLObjectType({
     menus: {
       type: _MenuConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        menuIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        restaurantId: {
-          type: _graphql.GraphQLID
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        description: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        menuIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        restaurantId: { type: _graphql.GraphQLID },
+        name: { type: _graphql.GraphQLString },
+        description: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
 
       resolve: function () {
@@ -298,9 +272,7 @@ exports.default = new _graphql.GraphQLObjectType({
     choiceItem: {
       type: _ChoiceItem2.default,
       args: {
-        choiceItemId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        choiceItemId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, _ref12, _ref13) {
@@ -328,18 +300,10 @@ exports.default = new _graphql.GraphQLObjectType({
     choiceItems: {
       type: _ChoiceItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        choiceItemIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        description: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        choiceItemIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        name: { type: _graphql.GraphQLString },
+        description: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref15) {
@@ -368,9 +332,7 @@ exports.default = new _graphql.GraphQLObjectType({
     choiceItemPrice: {
       type: _ChoiceItemPrice2.default,
       args: {
-        choiceItemPriceId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        choiceItemPriceId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_, _ref17, _ref18) {
@@ -398,15 +360,9 @@ exports.default = new _graphql.GraphQLObjectType({
     choiceItemPrices: {
       type: _ChoiceItemPriceConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        choiceItemPriceIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        menuItemPriceId: {
-          type: _graphql.GraphQLID
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        choiceItemPriceIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        menuItemPriceId: { type: _graphql.GraphQLID },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(_, args, _ref20) {
@@ -434,9 +390,7 @@ exports.default = new _graphql.GraphQLObjectType({
     menuItem: {
       type: _MenuItem2.default,
       args: {
-        menuItemId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        menuItemId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref21 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_, _ref22, _ref23) {
@@ -464,18 +418,10 @@ exports.default = new _graphql.GraphQLObjectType({
     menuItems: {
       type: _MenuItemConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        menuItemIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        description: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        menuItemIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        name: { type: _graphql.GraphQLString },
+        description: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref24 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_, args, _ref25) {
@@ -504,9 +450,7 @@ exports.default = new _graphql.GraphQLObjectType({
     menuItemPrice: {
       type: _MenuItemPrice2.default,
       args: {
-        menuItemPriceId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        menuItemPriceId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref26 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, _ref27, _ref28) {
@@ -534,15 +478,9 @@ exports.default = new _graphql.GraphQLObjectType({
     menuItemPrices: {
       type: _MenuItemPriceConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        menuItemPriceIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        menuId: {
-          type: _graphql.GraphQLID
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        menuItemPriceIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        menuId: { type: _graphql.GraphQLID },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref29 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(_, args, _ref30) {
@@ -570,9 +508,7 @@ exports.default = new _graphql.GraphQLObjectType({
     restaurant: {
       type: _Restaurant2.default,
       args: {
-        restaurantId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref31 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(_, _ref32, _ref33) {
@@ -600,21 +536,11 @@ exports.default = new _graphql.GraphQLObjectType({
     restaurants: {
       type: _RestaurantConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        restaurantIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        status: {
-          type: _graphql.GraphQLBoolean
-        },
-        inheritParentRestaurantMenus: {
-          type: _graphql.GraphQLBoolean
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        restaurantIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        name: { type: _graphql.GraphQLString },
+        status: { type: _graphql.GraphQLBoolean },
+        inheritParentRestaurantMenus: { type: _graphql.GraphQLBoolean },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref34 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(_, args, _ref35) {
@@ -643,9 +569,7 @@ exports.default = new _graphql.GraphQLObjectType({
     table: {
       type: _Table2.default,
       args: {
-        tableId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        tableId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref36 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(_, _ref37, _ref38) {
@@ -673,30 +597,14 @@ exports.default = new _graphql.GraphQLObjectType({
     tables: {
       type: _TableConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        tableIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        restaurantId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        },
-        lastOrderCorrelationId: {
-          type: _graphql.GraphQLID
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        customerName: {
-          type: _graphql.GraphQLString
-        },
-        notes: {
-          type: _graphql.GraphQLString
-        },
-        tableState: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        tableIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
+        lastOrderCorrelationId: { type: _graphql.GraphQLID },
+        name: { type: _graphql.GraphQLString },
+        customerName: { type: _graphql.GraphQLString },
+        notes: { type: _graphql.GraphQLString },
+        tableState: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref39 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(_, args, _ref40) {
@@ -725,9 +633,7 @@ exports.default = new _graphql.GraphQLObjectType({
     order: {
       type: _Order2.default,
       args: {
-        orderId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        orderId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref41 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(_, _ref42, _ref43) {
@@ -755,36 +661,16 @@ exports.default = new _graphql.GraphQLObjectType({
     orders: {
       type: _OrderConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        orderIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        correlationId: {
-          type: _graphql.GraphQLID
-        },
-        restaurantId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        },
-        dateRange: {
-          type: _DateRange2.default
-        },
-        includeCancelledOrders: {
-          type: _graphql.GraphQLBoolean
-        },
-        tableId: {
-          type: _graphql.GraphQLID
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        customerName: {
-          type: _graphql.GraphQLString
-        },
-        notes: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        orderIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        correlationId: { type: _graphql.GraphQLID },
+        restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
+        dateRange: { type: _DateRange2.default },
+        includeCancelledOrders: { type: _graphql.GraphQLBoolean },
+        tableId: { type: _graphql.GraphQLID },
+        name: { type: _graphql.GraphQLString },
+        customerName: { type: _graphql.GraphQLString },
+        notes: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref44 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18(_, args, _ref45) {
@@ -811,9 +697,7 @@ exports.default = new _graphql.GraphQLObjectType({
     servingTime: {
       type: _ServingTime2.default,
       args: {
-        servingTimeId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        servingTimeId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref46 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(_, _ref47, _ref48) {
@@ -841,12 +725,8 @@ exports.default = new _graphql.GraphQLObjectType({
     servingTimes: {
       type: _ServingTimeConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        servingTimeIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        servingTimeIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref49 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref50) {
@@ -874,9 +754,7 @@ exports.default = new _graphql.GraphQLObjectType({
     dietaryOption: {
       type: _DietaryOption2.default,
       args: {
-        dietaryOptionId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        dietaryOptionId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref51 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(_, _ref52, _ref53) {
@@ -904,12 +782,8 @@ exports.default = new _graphql.GraphQLObjectType({
     dietaryOptions: {
       type: _DietaryOptionConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        dietaryOptionIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        dietaryOptionIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref54 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22(_, args, _ref55) {
@@ -937,9 +811,7 @@ exports.default = new _graphql.GraphQLObjectType({
     userFeedback: {
       type: _UserFeedback2.default,
       args: {
-        userFeedbackId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        userFeedbackId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref56 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23(_, _ref57, _ref58) {
@@ -967,18 +839,10 @@ exports.default = new _graphql.GraphQLObjectType({
     userFeedbacks: {
       type: _UserFeedbackConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        userFeedbackIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        others: {
-          type: _graphql.GraphQLString
-        },
-        dateRange: {
-          type: _DateRange2.default
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        userFeedbackIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        others: { type: _graphql.GraphQLString },
+        dateRange: { type: _DateRange2.default },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref59 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24(_, args, _ref60) {
@@ -1006,9 +870,7 @@ exports.default = new _graphql.GraphQLObjectType({
     size: {
       type: _Size2.default,
       args: {
-        sizeId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        sizeId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref61 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25(_, _ref62, _ref63) {
@@ -1036,12 +898,8 @@ exports.default = new _graphql.GraphQLObjectType({
     sizes: {
       type: _SizeConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        sizeIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        sizeIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref64 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26(_, args, _ref65) {
@@ -1069,9 +927,7 @@ exports.default = new _graphql.GraphQLObjectType({
     dishType: {
       type: _DishType2.default,
       args: {
-        dishTypeId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        dishTypeId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref66 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27(_, _ref67, _ref68) {
@@ -1099,12 +955,8 @@ exports.default = new _graphql.GraphQLObjectType({
     dishTypes: {
       type: _DishTypeConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        dishTypeIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        dishTypeIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref69 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee28(_, args, _ref70) {

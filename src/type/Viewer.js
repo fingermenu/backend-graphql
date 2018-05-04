@@ -19,9 +19,7 @@ export default new GraphQLObjectType({
     language: {
       type: Language,
       args: {
-        languageId: {
-          type: new GraphQLNonNull(GraphQLID),
-        },
+        languageId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: async (_, { languageId }, { dataLoaders }) => (languageId ? dataLoaders.languageLoaderById.load(languageId) : null),
     },
@@ -29,27 +27,17 @@ export default new GraphQLObjectType({
       type: LanguageConnection.connectionType,
       args: {
         ...connectionArgs,
-        languageIds: {
-          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
-        },
-        key: {
-          type: GraphQLString,
-        },
-        name: {
-          type: GraphQLString,
-        },
-        sortOption: {
-          type: GraphQLString,
-        },
+        languageIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        key: { type: GraphQLString },
+        name: { type: GraphQLString },
+        sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { sessionToken }) => getLanguages(Immutable.fromJS(args), sessionToken),
     },
     tableState: {
       type: TableState,
       args: {
-        tableStateId: {
-          type: new GraphQLNonNull(GraphQLID),
-        },
+        tableStateId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: async (_, { tableStateId }, { dataLoaders }) => (tableStateId ? dataLoaders.tableStateLoaderById.load(tableStateId) : null),
     },
@@ -57,18 +45,10 @@ export default new GraphQLObjectType({
       type: TableStateConnection.connectionType,
       args: {
         ...connectionArgs,
-        tableStateIds: {
-          type: new GraphQLList(new GraphQLNonNull(GraphQLID)),
-        },
-        key: {
-          type: GraphQLString,
-        },
-        name: {
-          type: GraphQLString,
-        },
-        sortOption: {
-          type: GraphQLString,
-        },
+        tableStateIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        key: { type: GraphQLString },
+        name: { type: GraphQLString },
+        sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { sessionToken, language }) => getTableStates(Immutable.fromJS(args), sessionToken, language),
     },

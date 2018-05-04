@@ -6,10 +6,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import { MenuItemConnection, getMenuItems } from '../type';
 import { addMenuItem } from './MenuItemHelper';
 import LanguageStringTuple from './LanguageStringTuple';
+import logUserRequest from './RequestLogHelper';
 
 export default mutationWithClientMutationId({
   name: 'AddMenuItem',
   inputFields: {
+    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     description: { type: new GraphQLList(LanguageStringTuple) },
     menuItemPageUrl: { type: GraphQLString },
@@ -22,6 +24,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
+    logUserRequest(args, 'Mutation - Add Menu Item', dataLoaders, sessionToken);
+
     const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
 
     return Map({

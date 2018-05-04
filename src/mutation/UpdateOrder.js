@@ -6,10 +6,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import { OrderConnection, getOrders } from '../type';
 import { updateOrder } from './OrderHelper';
 import OrderMenuItemPrice from './OrderMenuItemPrice';
+import logUserRequest from './RequestLogHelper';
 
 export default mutationWithClientMutationId({
   name: 'UpdateOrder',
   inputFields: {
+    appVersion: { type: GraphQLString },
     id: { type: new GraphQLNonNull(GraphQLID) },
     restaurantId: { type: new GraphQLNonNull(GraphQLID) },
     numberOfAdults: { type: GraphQLInt },
@@ -26,7 +28,9 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('order'),
     },
   },
-  mutateAndGetPayload: async (args, { sessionToken }) => {
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
+    logUserRequest(args, 'Mutation - Update Order', dataLoaders, sessionToken);
+
     await updateOrder(args, sessionToken);
 
     return Map({

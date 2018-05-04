@@ -6,10 +6,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import { UserFeedbackConnection, getUserFeedbacks } from '../type';
 import { addUserFeedback } from './UserFeedbackHelper';
 import QuestionAndAnswer from './QuestionAndAnswer';
+import logUserRequest from './RequestLogHelper';
 
 export default mutationWithClientMutationId({
   name: 'SubmitUserFeedback',
   inputFields: {
+    appVersion: { type: GraphQLString },
     questionAndAnswers: { type: new GraphQLList(new GraphQLNonNull(QuestionAndAnswer)) },
     others: { type: GraphQLString },
     restaurantId: { type: GraphQLID },
@@ -21,6 +23,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
+    logUserRequest(args, 'Mutation - Submit User Feedback', dataLoaders, sessionToken);
+
     const userFeedbackId = await addUserFeedback(args, dataLoaders, sessionToken);
 
     return Map({

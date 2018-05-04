@@ -48,9 +48,7 @@ exports.default = new _graphql.GraphQLObjectType({
     language: {
       type: _Language2.default,
       args: {
-        languageId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        languageId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, _ref2, _ref3) {
@@ -78,18 +76,10 @@ exports.default = new _graphql.GraphQLObjectType({
     languages: {
       type: _LanguageConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        languageIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        key: {
-          type: _graphql.GraphQLString
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        languageIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        key: { type: _graphql.GraphQLString },
+        name: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref5) {
@@ -116,9 +106,7 @@ exports.default = new _graphql.GraphQLObjectType({
     tableState: {
       type: _TableState2.default,
       args: {
-        tableStateId: {
-          type: new _graphql.GraphQLNonNull(_graphql.GraphQLID)
-        }
+        tableStateId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
       },
       resolve: function () {
         var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, _ref7, _ref8) {
@@ -146,18 +134,10 @@ exports.default = new _graphql.GraphQLObjectType({
     tableStates: {
       type: _TableStateConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
-        tableStateIds: {
-          type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID))
-        },
-        key: {
-          type: _graphql.GraphQLString
-        },
-        name: {
-          type: _graphql.GraphQLString
-        },
-        sortOption: {
-          type: _graphql.GraphQLString
-        }
+        tableStateIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        key: { type: _graphql.GraphQLString },
+        name: { type: _graphql.GraphQLString },
+        sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {
         var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref10) {

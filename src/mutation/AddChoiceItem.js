@@ -6,10 +6,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import { ChoiceItemConnection, getChoiceItems } from '../type';
 import { addChoiceItem } from './ChoiceItemHelper';
 import LanguageStringTuple from './LanguageStringTuple';
+import logUserRequest from './RequestLogHelper';
 
 export default mutationWithClientMutationId({
   name: 'AddChoiceItem',
   inputFields: {
+    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     description: { type: new GraphQLList(LanguageStringTuple) },
     choiceItemPageUrl: { type: GraphQLString },
@@ -22,6 +24,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
+    logUserRequest(args, 'Mutation - Add Choice Item', dataLoaders, sessionToken);
+
     const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 
     return Map({

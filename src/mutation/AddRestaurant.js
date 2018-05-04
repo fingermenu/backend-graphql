@@ -6,10 +6,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import { RestaurantConnection, getRestaurants } from '../type';
 import { addRestaurant } from './RestaurantHelper';
 import LanguageStringTuple from './LanguageStringTuple';
+import logUserRequest from './RequestLogHelper';
 
 export default mutationWithClientMutationId({
   name: 'AddRestaurant',
   inputFields: {
+    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     websiteUrl: { type: GraphQLString },
     imageUrl: { type: GraphQLString },
@@ -26,6 +28,8 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
+    logUserRequest(args, 'Mutation - Add Restaurant', dataLoaders, sessionToken);
+
     const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 
     return Map({
