@@ -1,9 +1,10 @@
 // @flow
 
 import { TableService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import TableState from './TableState';
+import Customer from './Customer';
 import Common from './Common';
 
 export const getTable = async (tableId, sessionToken) => new TableService().read(tableId, null, sessionToken);
@@ -14,6 +15,10 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
+    },
+    customers: {
+      type: new GraphQLList(new GraphQLNonNull(Customer)),
+      resolve: _ => (_.get('customers') ? _.get('customers').toArray() : null),
     },
     name: {
       type: GraphQLString,
@@ -26,18 +31,6 @@ export default new GraphQLObjectType({
     status: {
       type: GraphQLString,
       resolve: _ => _.get('status'),
-    },
-    numberOfAdults: {
-      type: GraphQLInt,
-      resolve: _ => _.get('numberOfAdults'),
-    },
-    numberOfChildren: {
-      type: GraphQLInt,
-      resolve: _ => _.get('numberOfChildren'),
-    },
-    customerName: {
-      type: GraphQLString,
-      resolve: _ => _.get('customerName'),
     },
     notes: {
       type: GraphQLString,

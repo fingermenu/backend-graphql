@@ -22,6 +22,10 @@ var _RequestLogHelper = require('./RequestLogHelper');
 
 var _RequestLogHelper2 = _interopRequireDefault(_RequestLogHelper);
 
+var _Customer = require('./Customer');
+
+var _Customer2 = _interopRequireDefault(_Customer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -32,9 +36,7 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
     appVersion: { type: _graphql.GraphQLString },
     correlationId: { type: _graphql.GraphQLID },
     restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
-    numberOfAdults: { type: _graphql.GraphQLInt },
-    numberOfChildren: { type: _graphql.GraphQLInt },
-    customerName: { type: _graphql.GraphQLString },
+    customers: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)) },
     notes: { type: _graphql.GraphQLString },
     tableId: { type: _graphql.GraphQLID },
     details: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)) }

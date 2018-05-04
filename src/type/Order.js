@@ -1,10 +1,11 @@
 // @flow
 
 import { OrderService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Restaurant from './Restaurant';
 import Table from './Table';
+import Customer from './Customer';
 import OrderMenuItemPrice from './OrderMenuItemPrice';
 
 export const getOrder = async (orderId, sessionToken) => new OrderService().read(orderId, null, sessionToken);
@@ -20,17 +21,9 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('correlationId'),
     },
-    numberOfAdults: {
-      type: GraphQLInt,
-      resolve: _ => _.get('numberOfAdults'),
-    },
-    numberOfChildren: {
-      type: GraphQLInt,
-      resolve: _ => _.get('numberOfChildren'),
-    },
-    customerName: {
-      type: GraphQLString,
-      resolve: _ => _.get('customerName'),
+    customers: {
+      type: new GraphQLList(new GraphQLNonNull(Customer)),
+      resolve: _ => (_.get('customers') ? _.get('customers').toArray() : null),
     },
     notes: {
       type: GraphQLString,

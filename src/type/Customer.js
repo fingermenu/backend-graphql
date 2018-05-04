@@ -13,5 +13,9 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: _ => _.get('name'),
     },
+    type: {
+      type: GraphQLString,
+      resolve: _ => _.get('type'),
+    },
   },
 });

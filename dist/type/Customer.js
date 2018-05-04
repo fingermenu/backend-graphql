@@ -20,6 +20,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('name');
       }
+    },
+    type: {
+      type: _graphql.GraphQLString,
+      resolve: function resolve(_) {
+        return _.get('type');
+      }
     }
   }
 });

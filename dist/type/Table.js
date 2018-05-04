@@ -15,6 +15,10 @@ var _TableState = require('./TableState');
 
 var _TableState2 = _interopRequireDefault(_TableState);
 
+var _Customer = require('./Customer');
+
+var _Customer2 = _interopRequireDefault(_Customer);
+
 var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
@@ -51,6 +55,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
       resolve: function resolve(_) {
         return _.get('id');
+      }
+    },
+    customers: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)),
+      resolve: function resolve(_) {
+        return _.get('customers') ? _.get('customers').toArray() : null;
       }
     },
     name: {
@@ -106,24 +116,6 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
         return _.get('status');
-      }
-    },
-    numberOfAdults: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('numberOfAdults');
-      }
-    },
-    numberOfChildren: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('numberOfChildren');
-      }
-    },
-    customerName: {
-      type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('customerName');
       }
     },
     notes: {

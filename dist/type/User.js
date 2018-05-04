@@ -601,7 +601,6 @@ exports.default = new _graphql.GraphQLObjectType({
         restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
         lastOrderCorrelationId: { type: _graphql.GraphQLID },
         name: { type: _graphql.GraphQLString },
-        customerName: { type: _graphql.GraphQLString },
         notes: { type: _graphql.GraphQLString },
         tableState: { type: _graphql.GraphQLString },
         sortOption: { type: _graphql.GraphQLString }
@@ -668,7 +667,6 @@ exports.default = new _graphql.GraphQLObjectType({
         includeCancelledOrders: { type: _graphql.GraphQLBoolean },
         tableId: { type: _graphql.GraphQLID },
         name: { type: _graphql.GraphQLString },
-        customerName: { type: _graphql.GraphQLString },
         notes: { type: _graphql.GraphQLString },
         sortOption: { type: _graphql.GraphQLString }
       }),

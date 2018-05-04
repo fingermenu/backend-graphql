@@ -19,6 +19,10 @@ var _Table = require('./Table');
 
 var _Table2 = _interopRequireDefault(_Table);
 
+var _Customer = require('./Customer');
+
+var _Customer2 = _interopRequireDefault(_Customer);
+
 var _OrderMenuItemPrice = require('./OrderMenuItemPrice');
 
 var _OrderMenuItemPrice2 = _interopRequireDefault(_OrderMenuItemPrice);
@@ -63,22 +67,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('correlationId');
       }
     },
-    numberOfAdults: {
-      type: _graphql.GraphQLInt,
+    customers: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)),
       resolve: function resolve(_) {
-        return _.get('numberOfAdults');
-      }
-    },
-    numberOfChildren: {
-      type: _graphql.GraphQLInt,
-      resolve: function resolve(_) {
-        return _.get('numberOfChildren');
-      }
-    },
-    customerName: {
-      type: _graphql.GraphQLString,
-      resolve: function resolve(_) {
-        return _.get('customerName');
+        return _.get('customers') ? _.get('customers').toArray() : null;
       }
     },
     notes: {

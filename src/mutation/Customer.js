@@ -7,5 +7,6 @@ export default new GraphQLInputObjectType({
   fields: {
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    type: { type: GraphQLString },
   },
 });

@@ -1,12 +1,13 @@
 // @flow
 
 import { List, Map } from 'immutable';
-import { GraphQLID, GraphQLInt, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { TableConnection, getTables } from '../type';
 import updateTable from './TableHelper';
 import LanguageStringTuple from './LanguageStringTuple';
 import logUserRequest from './RequestLogHelper';
+import Customer from './Customer';
 
 export default mutationWithClientMutationId({
   name: 'UpdateTable',
@@ -14,11 +15,9 @@ export default mutationWithClientMutationId({
     appVersion: { type: GraphQLString },
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLList(LanguageStringTuple) },
+    customers: { type: new GraphQLList(new GraphQLNonNull(Customer)) },
     status: { type: GraphQLString },
     tableState: { type: GraphQLString },
-    numberOfAdults: { type: GraphQLInt },
-    numberOfChildren: { type: GraphQLInt },
-    customerName: { type: GraphQLString },
     notes: { type: GraphQLString },
     lastOrderCorrelationId: { type: GraphQLID },
   },

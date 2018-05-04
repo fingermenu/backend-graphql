@@ -27,7 +27,6 @@ const getCriteria = searchArgs => {
     conditions: Map({
       correlationId: searchArgs.has('correlationId') ? searchArgs.get('correlationId') : undefined,
       contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      contains_customerNames: StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
       exist_cancelledAt: searchArgs.has('includeCancelledOrders') && searchArgs.get('includeCancelledOrders') ? true : undefined,
       deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
@@ -64,14 +63,6 @@ const addSortOptionToCriteria = (criteria, sortOption) => {
 
   if (sortOption && sortOption.localeCompare('NotesAscending') === 0) {
     return criteria.set('orderByFieldAscending', 'notes');
-  }
-
-  if (sortOption && sortOption.localeCompare('CustomerNameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'customerName');
-  }
-
-  if (sortOption && sortOption.localeCompare('CustomerNameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'customerName');
   }
 
   return criteria.set('PlacedAtDescending', 'placedAt');

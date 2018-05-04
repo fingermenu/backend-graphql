@@ -32,7 +32,6 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
-      contains_customerNames: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('customerName')),
       contains_notess: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('notes')),
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       tableStateId: searchArgs.has('tableStateId') ? searchArgs.get('tableStateId') : undefined,
@@ -80,14 +79,6 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
 
   if (sortOption && sortOption.localeCompare('NotesAscending') === 0) {
     return criteria.set('orderByFieldAscending', 'notes');
-  }
-
-  if (sortOption && sortOption.localeCompare('CustomerNameDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'customerName');
-  }
-
-  if (sortOption && sortOption.localeCompare('CustomerNameAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'customerName');
   }
 
   return criteria.set('orderByFieldAscending', 'sortOrderIndex');
