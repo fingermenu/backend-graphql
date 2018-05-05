@@ -67,12 +67,6 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('correlationId');
       }
     },
-    customers: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)),
-      resolve: function resolve(_) {
-        return _.get('customers') ? _.get('customers').toArray() : null;
-      }
-    },
     notes: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
@@ -142,7 +136,13 @@ exports.default = new _graphql.GraphQLObjectType({
     details: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_OrderMenuItemPrice2.default)),
       resolve: function resolve(_) {
-        return _.get('details') ? _.get('details').toArray() : null;
+        return _.get('details').toArray();
+      }
+    },
+    customers: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)),
+      resolve: function resolve(_) {
+        return _.get('customers').toArray();
       }
     }
   },

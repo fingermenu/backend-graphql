@@ -18,7 +18,7 @@ export default new GraphQLObjectType({
     },
     customers: {
       type: new GraphQLList(new GraphQLNonNull(Customer)),
-      resolve: _ => (_.get('customers') ? _.get('customers').toArray() : null),
+      resolve: _ => _.get('customers').toArray(),
     },
     name: {
       type: GraphQLString,

@@ -21,10 +21,6 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('correlationId'),
     },
-    customers: {
-      type: new GraphQLList(new GraphQLNonNull(Customer)),
-      resolve: _ => (_.get('customers') ? _.get('customers').toArray() : null),
-    },
     notes: {
       type: GraphQLString,
       resolve: _ => _.get('notes'),
@@ -47,7 +43,11 @@ export default new GraphQLObjectType({
     },
     details: {
       type: new GraphQLList(new GraphQLNonNull(OrderMenuItemPrice)),
-      resolve: _ => (_.get('details') ? _.get('details').toArray() : null),
+      resolve: _ => _.get('details').toArray(),
+    },
+    customers: {
+      type: new GraphQLList(new GraphQLNonNull(Customer)),
+      resolve: _ => _.get('customers').toArray(),
     },
   },
   interfaces: [NodeInterface],

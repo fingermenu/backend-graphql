@@ -60,7 +60,7 @@ exports.default = new _graphql.GraphQLObjectType({
     customers: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)),
       resolve: function resolve(_) {
-        return _.get('customers') ? _.get('customers').toArray() : null;
+        return _.get('customers').toArray();
       }
     },
     name: {

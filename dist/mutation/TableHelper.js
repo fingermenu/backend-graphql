@@ -67,7 +67,7 @@ var updateTable = function () {
 
           case 13:
             _context.t5 = _context.t1;
-            _context.t6 = _commonJavascript.Common.isNullOrUndefined(customers) ? (0, _immutable.Map)() : (0, _immutable.Map)({ details: _immutable2.default.fromJS(customers) });
+            _context.t6 = _commonJavascript.Common.isNullOrUndefined(customers) ? (0, _immutable.Map)() : (0, _immutable.Map)({ customers: _immutable2.default.fromJS(customers) });
             _context.t7 = _commonJavascript.Common.isNullOrUndefined(notes) ? (0, _immutable.Map)() : (0, _immutable.Map)({ notes: notes });
             _context.t8 = _commonJavascript.Common.isNullOrUndefined(lastOrderCorrelationId) ? (0, _immutable.Map)() : (0, _immutable.Map)({ lastOrderCorrelationId: lastOrderCorrelationId });
             tableInfo = _context.t0.merge.call(_context.t0, _context.t5).merge(_context.t6).merge(_context.t7).merge(_context.t8);

@@ -19,7 +19,7 @@ const updateTable = async ({ id, name, status, tableState, customers, notes, las
     )
     .merge(Common.isNullOrUndefined(status) ? Map() : Map({ status }))
     .merge(Common.isNullOrUndefined(tableState) ? Map() : Map({ tableStateId: (await dataLoaders.tableStateLoaderByKey.load(tableState)).get('id') }))
-    .merge(Common.isNullOrUndefined(customers) ? Map() : Map({ details: Immutable.fromJS(customers) }))
+    .merge(Common.isNullOrUndefined(customers) ? Map() : Map({ customers: Immutable.fromJS(customers) }))
     .merge(Common.isNullOrUndefined(notes) ? Map() : Map({ notes }))
     .merge(Common.isNullOrUndefined(lastOrderCorrelationId) ? Map() : Map({ lastOrderCorrelationId }));
 

@@ -349,13 +349,13 @@ interface Node {
 type Order implements Node {
   id: ID!
   correlationId: ID
-  customers: [Customer!]
   notes: String
   placedAt: String!
   cancelledAt: String
   restaurant: Restaurant!
   table: Table
   details: [OrderMenuItemPrice!]
+  customers: [Customer!]
 }
 
 type OrderChoiceItemPrice {

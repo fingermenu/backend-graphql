@@ -57,7 +57,7 @@ export const updateOrder = async ({ id, customers, notes, restaurantId, tableId,
     .merge(Common.isNullOrUndefined(restaurantId) ? Map() : Map({ restaurantId }))
     .merge(Common.isNullOrUndefined(tableId) ? Map() : Map({ tableId }))
     .merge(Common.isNullOrUndefined(details) ? Map() : Map({ details: Immutable.fromJS(details) }))
-    .merge(Common.isNullOrUndefined(customers) ? Map() : Map({ details: Immutable.fromJS(customers) }))
+    .merge(Common.isNullOrUndefined(customers) ? Map() : Map({ customers: Immutable.fromJS(customers) }))
     .merge(Common.isNullOrUndefined(cancelledAt) ? Map() : Map({ cancelledAt }));
 
   const paymentGroupPaidAt = ZonedDateTime.now().toString();
