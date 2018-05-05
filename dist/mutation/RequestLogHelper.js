@@ -20,42 +20,50 @@ var logUserRequest = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return configLoader.load('enableLogRequest');
-
-          case 2:
-            enableLogRequest = _context.sent;
-
-            if (enableLogRequest) {
-              _context.next = 5;
+            if (!('watchdog-app'.localeCompare(appVersion) === 0)) {
+              _context.next = 2;
               break;
             }
 
             return _context.abrupt('return');
 
-          case 5:
+          case 2:
+            _context.next = 4;
+            return configLoader.load('enableLogRequest');
+
+          case 4:
+            enableLogRequest = _context.sent;
+
+            if (enableLogRequest) {
+              _context.next = 7;
+              break;
+            }
+
+            return _context.abrupt('return');
+
+          case 7:
             _context.t0 = new _parseServerCommon.RequestLogService();
             _context.t1 = _immutable.Map;
             _context.t2 = appVersion;
             _context.t3 = requestType;
 
             if (!sessionToken) {
-              _context.next = 15;
+              _context.next = 17;
               break;
             }
 
-            _context.next = 12;
+            _context.next = 14;
             return userLoaderBySessionToken.load(sessionToken);
 
-          case 12:
+          case 14:
             _context.t4 = _context.sent.id;
-            _context.next = 16;
+            _context.next = 18;
             break;
 
-          case 15:
+          case 17:
             _context.t4 = undefined;
 
-          case 16:
+          case 18:
             _context.t5 = _context.t4;
             _context.t6 = {
               appVersion: _context.t2,
@@ -66,7 +74,7 @@ var logUserRequest = function () {
             _context.t8 = sessionToken;
             return _context.abrupt('return', _context.t0.create.call(_context.t0, _context.t7, null, _context.t8));
 
-          case 21:
+          case 23:
           case 'end':
             return _context.stop();
         }
