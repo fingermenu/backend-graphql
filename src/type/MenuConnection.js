@@ -52,13 +52,13 @@ const getMenusMatchCriteria = async (searchArgs, ownedByUserId, sessionToken, la
     sessionToken,
   );
 
-export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) => {
+export const getMenus = async (searchArgs, { restaurantLoaderById, userLoaderBySessionToken }, sessionToken, language) => {
   let finalSearchArgs = searchArgs;
   const restaurantId = finalSearchArgs.get('restaurantId');
   let restaurant;
 
   if (restaurantId) {
-    restaurant = await dataLoaders.restaurantLoaderById.load(restaurantId);
+    restaurant = await restaurantLoaderById.load(restaurantId);
 
     const menuIds = restaurant.get('menuIds');
 
@@ -69,7 +69,7 @@ export const getMenus = async (searchArgs, dataLoaders, sessionToken, language) 
     finalSearchArgs = finalSearchArgs.set('menuIds', menuIds);
   }
 
-  const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
+  const userId = (await userLoaderBySessionToken.load(sessionToken)).id;
   const count = await getMenusCountMatchCriteria(finalSearchArgs, userId, sessionToken, language);
 
   if (count === 0) {

@@ -109,12 +109,12 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref4) {
           var language = _ref4.language,
-              configLoader = _ref4.dataLoaders.configLoader;
+              configLoaderByKey = _ref4.dataLoaders.configLoaderByKey;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoader));
+                  return _context3.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoaderByKey));
 
                 case 1:
                 case 'end':
@@ -133,12 +133,12 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
       type: _graphql.GraphQLString,
       resolve: function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref6) {
-          var configLoader = _ref6.dataLoaders.configLoader;
+          var configLoaderByKey = _ref6.dataLoaders.configLoaderByKey;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoader));
+                  return _context4.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoaderByKey));
 
                 case 1:
                 case 'end':
@@ -372,12 +372,12 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(_, args, _ref16) {
           var language = _ref16.language,
-              configLoader = _ref16.dataLoaders.configLoader;
+              configLoaderByKey = _ref16.dataLoaders.configLoaderByKey;
           return regeneratorRuntime.wrap(function _callee10$(_context10) {
             while (1) {
               switch (_context10.prev = _context10.next) {
                 case 0:
-                  return _context10.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoader));
+                  return _context10.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoaderByKey));
 
                 case 1:
                 case 'end':
@@ -396,12 +396,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _graphql.GraphQLString,
       resolve: function () {
         var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref18) {
-          var configLoader = _ref18.dataLoaders.configLoader;
+          var configLoaderByKey = _ref18.dataLoaders.configLoaderByKey;
           return regeneratorRuntime.wrap(function _callee11$(_context11) {
             while (1) {
               switch (_context11.prev = _context11.next) {
                 case 0:
-                  return _context11.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoader));
+                  return _context11.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoaderByKey));
 
                 case 1:
                 case 'end':

@@ -17,23 +17,24 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
+      resolve: async (_, args, { language, dataLoaders: { configLoaderByKey } }) => Common.getTranslation(_, 'name', language, configLoaderByKey),
     },
     nameToPrint: {
       type: GraphQLString,
-      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+      resolve: async (_, args, { dataLoaders: { configLoaderByKey } }) => Common.getTranslationToPrint(_, 'name', configLoaderByKey),
     },
     description: {
       type: GraphQLString,
-      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'description', language, configLoader),
+      resolve: async (_, args, { language, dataLoaders: { configLoaderByKey } }) =>
+        Common.getTranslation(_, 'description', language, configLoaderByKey),
     },
     descriptionToPrint: {
       type: GraphQLString,
-      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'description', configLoader),
+      resolve: async (_, args, { dataLoaders: { configLoaderByKey } }) => Common.getTranslationToPrint(_, 'description', configLoaderByKey),
     },
-    menuItemPageUrl: {
+    choiceItemPageUrl: {
       type: GraphQLString,
-      resolve: async _ => _.get('menuItemPageUrl'),
+      resolve: async _ => _.get('choiceItemPageUrl'),
     },
     imageUrl: {
       type: GraphQLString,

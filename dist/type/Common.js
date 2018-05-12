@@ -52,7 +52,7 @@ Common.convertResultsToRelayConnectionResponse = function (results, skip, limit,
 };
 
 Common.getTranslation = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(info, columnName, language, configLoader) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(info, columnName, language, configLoaderByKey) {
     var allValues;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -78,7 +78,7 @@ Common.getTranslation = function () {
           case 5:
             _context.t0 = allValues;
             _context.next = 8;
-            return configLoader.load('fallbackLanguage');
+            return configLoaderByKey.load('fallbackLanguage');
 
           case 8:
             _context.t1 = _context.sent;
@@ -98,7 +98,7 @@ Common.getTranslation = function () {
 }();
 
 Common.getTranslationToPrint = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(info, columnName, configLoader) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(info, columnName, configLoaderByKey) {
     var allValues;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
@@ -116,7 +116,7 @@ Common.getTranslationToPrint = function () {
           case 3:
             _context2.t0 = allValues;
             _context2.next = 6;
-            return configLoader.load('fallbackLanguage');
+            return configLoaderByKey.load('fallbackLanguage');
 
           case 6:
             _context2.t1 = _context2.sent;

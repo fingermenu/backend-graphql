@@ -100,7 +100,10 @@ var getMenusMatchCriteria = function () {
 }();
 
 var getMenus = exports.getMenus = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, dataLoaders, sessionToken, language) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(searchArgs, _ref4, sessionToken, language) {
+    var restaurantLoaderById = _ref4.restaurantLoaderById,
+        userLoaderBySessionToken = _ref4.userLoaderBySessionToken;
+
     var finalSearchArgs, restaurantId, restaurant, menuIds, userId, count, _RelayHelper$getLimit, limit, skip, hasNextPage, hasPreviousPage, results, menuSortOrderIndices;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -117,7 +120,7 @@ var getMenus = exports.getMenus = function () {
             }
 
             _context3.next = 6;
-            return dataLoaders.restaurantLoaderById.load(restaurantId);
+            return restaurantLoaderById.load(restaurantId);
 
           case 6:
             restaurant = _context3.sent;
@@ -136,7 +139,7 @@ var getMenus = exports.getMenus = function () {
 
           case 11:
             _context3.next = 13;
-            return dataLoaders.userLoaderBySessionToken.load(sessionToken);
+            return userLoaderBySessionToken.load(sessionToken);
 
           case 13:
             userId = _context3.sent.id;

@@ -6,8 +6,6 @@ import { connectionArgs } from 'graphql-relay';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 import TagConnection, { getTags } from './TagConnection';
-import Menu from './Menu';
-import MenuConnection, { getMenus } from './MenuConnection';
 import ChoiceItem from './ChoiceItem';
 import ChoiceItemConnection, { getChoiceItems } from './ChoiceItemConnection';
 import ChoiceItemPrice from './ChoiceItemPrice';
@@ -16,10 +14,12 @@ import MenuItem from './MenuItem';
 import MenuItemConnection, { getMenuItems } from './MenuItemConnection';
 import MenuItemPrice from './MenuItemPrice';
 import MenuItemPriceConnection, { getMenuItemPrices } from './MenuItemPriceConnection';
-import Restaurant from './Restaurant';
-import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
+import Menu from './Menu';
+import MenuConnection, { getMenus } from './MenuConnection';
 import Table from './Table';
 import TableConnection, { getTables } from './TableConnection';
+import Restaurant from './Restaurant';
+import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 import Order, { getOrder } from './Order';
 import OrderConnection, { getOrders } from './OrderConnection';
 import DateRange from './DateRange';
@@ -60,26 +60,6 @@ export default new GraphQLObjectType({
         sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) => getTags(Immutable.fromJS(args), dataLoaders, sessionToken, language),
-    },
-    menu: {
-      type: Menu,
-      args: {
-        menuId: { type: new GraphQLNonNull(GraphQLID) },
-      },
-      resolve: async (_, { menuId }, { dataLoaders: { menuLoaderById } }) => (menuId ? menuLoaderById.load(menuId) : null),
-    },
-    menus: {
-      type: MenuConnection.connectionType,
-      args: {
-        ...connectionArgs,
-        menuIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
-        restaurantId: { type: GraphQLID },
-        name: { type: GraphQLString },
-        description: { type: GraphQLString },
-        sortOption: { type: GraphQLString },
-      },
-
-      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getMenus(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     choiceItem: {
       type: ChoiceItem,
@@ -155,26 +135,24 @@ export default new GraphQLObjectType({
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getMenuItemPrices(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
-    restaurant: {
-      type: Restaurant,
+    menu: {
+      type: Menu,
       args: {
-        restaurantId: { type: new GraphQLNonNull(GraphQLID) },
+        menuId: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve: async (_, { restaurantId }, { dataLoaders: { restaurantLoaderById } }) =>
-        restaurantId ? restaurantLoaderById.load(restaurantId) : null,
+      resolve: async (_, { menuId }, { dataLoaders: { menuLoaderById } }) => (menuId ? menuLoaderById.load(menuId) : null),
     },
-    restaurants: {
-      type: RestaurantConnection.connectionType,
+    menus: {
+      type: MenuConnection.connectionType,
       args: {
         ...connectionArgs,
-        restaurantIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        menuIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        restaurantId: { type: GraphQLID },
         name: { type: GraphQLString },
-        status: { type: GraphQLBoolean },
-        inheritParentRestaurantMenus: { type: GraphQLBoolean },
+        description: { type: GraphQLString },
         sortOption: { type: GraphQLString },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
-        getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) => getMenus(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     table: {
       type: Table,
@@ -196,6 +174,27 @@ export default new GraphQLObjectType({
         sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { dataLoaders, sessionToken, language }) => getTables(Immutable.fromJS(args), dataLoaders, sessionToken, language),
+    },
+    restaurant: {
+      type: Restaurant,
+      args: {
+        restaurantId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (_, { restaurantId }, { dataLoaders: { restaurantLoaderById } }) =>
+        restaurantId ? restaurantLoaderById.load(restaurantId) : null,
+    },
+    restaurants: {
+      type: RestaurantConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        restaurantIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        name: { type: GraphQLString },
+        status: { type: GraphQLBoolean },
+        inheritParentRestaurantMenus: { type: GraphQLBoolean },
+        sortOption: { type: GraphQLString },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken, language }) =>
+        getRestaurants(Immutable.fromJS(args), dataLoaders, sessionToken, language),
     },
     order: {
       type: Order,

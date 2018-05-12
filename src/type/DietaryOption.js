@@ -5,7 +5,7 @@ import { GraphQLID, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 
-export const getDietaryOption = async (serviceTimeId, sessionToken) => new DietaryOptionService().read(serviceTimeId, null, sessionToken);
+export const getDietaryOption = async (dietaryOptionId, sessionToken) => new DietaryOptionService().read(dietaryOptionId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'DietaryOption',

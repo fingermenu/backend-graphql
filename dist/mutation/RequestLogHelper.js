@@ -14,7 +14,7 @@ var logUserRequest = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, requestType, _ref3, sessionToken) {
     var appVersion = _ref2.appVersion;
     var userLoaderBySessionToken = _ref3.userLoaderBySessionToken,
-        configLoader = _ref3.configLoader;
+        configLoaderByKey = _ref3.configLoaderByKey;
     var enableLogRequest;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -29,7 +29,7 @@ var logUserRequest = function () {
 
           case 2:
             _context.next = 4;
-            return configLoader.load('enableLogRequest');
+            return configLoaderByKey.load('enableLogRequest');
 
           case 4:
             enableLogRequest = _context.sent;

@@ -57,22 +57,6 @@ var addSortOptionToCriteria = function addSortOptionToCriteria(criteria, sortOpt
     return criteria.set('orderByFieldAscending', language + '_name');
   }
 
-  if (sortOption && sortOption.localeCompare('NumberOfAdultsDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'numberOfAdults');
-  }
-
-  if (sortOption && sortOption.localeCompare('NumberOfAdultsAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'numberOfAdults');
-  }
-
-  if (sortOption && sortOption.localeCompare('NumberOfChildrenDescending') === 0) {
-    return criteria.set('orderByFieldDescending', 'numberOfChildren');
-  }
-
-  if (sortOption && sortOption.localeCompare('NumberOfChildrenAscending') === 0) {
-    return criteria.set('orderByFieldAscending', 'numberOfChildren');
-  }
-
   if (sortOption && sortOption.localeCompare('NotesDescending') === 0) {
     return criteria.set('orderByFieldDescending', 'notes');
   }

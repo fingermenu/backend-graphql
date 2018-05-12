@@ -4,7 +4,6 @@ import { ChoiceItemPriceService } from '@fingermenu/parse-server-common';
 import { GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import ChoiceItem from './ChoiceItem';
-import Size from './Size';
 import Tag from './Tag';
 
 export const getChoiceItemPrice = async (choiceItemPriceId, sessionToken) => new ChoiceItemPriceService().read(choiceItemPriceId, null, sessionToken);
@@ -36,10 +35,6 @@ export default new GraphQLObjectType({
       type: ChoiceItem,
       resolve: async (_, args, { dataLoaders: { choiceItemLoaderById } }) =>
         _.get('choiceItemId') ? choiceItemLoaderById.load(_.get('choiceItemId')) : null,
-    },
-    size: {
-      type: Size,
-      resolve: async (_, args, { dataLoaders: { sizeLoaderById } }) => (_.get('sizeId') ? sizeLoaderById.load(_.get('sizeId')) : null),
     },
     sortOrderIndex: {
       type: GraphQLInt,

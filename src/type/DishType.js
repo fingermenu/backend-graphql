@@ -5,7 +5,7 @@ import { GraphQLID, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 
-export const getDishType = async (serviceTimeId, sessionToken) => new DishTypeService().read(serviceTimeId, null, sessionToken);
+export const getDishType = async (dishTypeId, sessionToken) => new DishTypeService().read(dishTypeId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'DishType',

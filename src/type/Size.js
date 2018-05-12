@@ -5,7 +5,7 @@ import { GraphQLID, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 
-export const getSize = async (serviceTimeId, sessionToken) => new SizeService().read(serviceTimeId, null, sessionToken);
+export const getSize = async (sizeId, sessionToken) => new SizeService().read(sizeId, null, sessionToken);
 
 export default new GraphQLObjectType({
   name: 'Size',

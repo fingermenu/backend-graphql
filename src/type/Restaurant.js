@@ -33,11 +33,11 @@ const ParentRestaurant = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
+      resolve: async (_, args, { language, dataLoaders: { configLoaderByKey } }) => Common.getTranslation(_, 'name', language, configLoaderByKey),
     },
     nameToPrint: {
       type: GraphQLString,
-      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+      resolve: async (_, args, { dataLoaders: { configLoaderByKey } }) => Common.getTranslationToPrint(_, 'name', configLoaderByKey),
     },
     websiteUrl: {
       type: GraphQLString,
@@ -127,11 +127,11 @@ export default new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: async (_, args, { language, dataLoaders: { configLoader } }) => Common.getTranslation(_, 'name', language, configLoader),
+      resolve: async (_, args, { language, dataLoaders: { configLoaderByKey } }) => Common.getTranslation(_, 'name', language, configLoaderByKey),
     },
     nameToPrint: {
       type: GraphQLString,
-      resolve: async (_, args, { dataLoaders: { configLoader } }) => Common.getTranslationToPrint(_, 'name', configLoader),
+      resolve: async (_, args, { dataLoaders: { configLoaderByKey } }) => Common.getTranslationToPrint(_, 'name', configLoaderByKey),
     },
     websiteUrl: {
       type: GraphQLString,
