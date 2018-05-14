@@ -554,6 +554,7 @@ type Restaurant implements Node {
 
 type RestaurantConfigurations {
   images: RestaurantImages
+  languages: RestaurantLanguages
   printers: [Printer!]
   documentTemplates: [DocumentTemplate!]
   numberOfPrintCopiesForKitchen: Int
@@ -566,6 +567,12 @@ type RestaurantImages {
   secondaryLandingPageBackgroundImageUrl: String
   primaryTopBannerImageUrl: String
   secondaryTopBannerImageUrl: String
+}
+
+type RestaurantLanguages {
+  display: String
+  printToKitchen: String
+  printOnReceipt: String
 }
 
 """A connection to a list of items."""

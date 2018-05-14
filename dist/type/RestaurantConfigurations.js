@@ -4,11 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _immutable = require('immutable');
+
 var _graphql = require('graphql');
 
 var _RestaurantImages = require('./RestaurantImages');
 
 var _RestaurantImages2 = _interopRequireDefault(_RestaurantImages);
+
+var _RestaurantLanguages = require('./RestaurantLanguages');
+
+var _RestaurantLanguages2 = _interopRequireDefault(_RestaurantLanguages);
 
 var _Printer = require('./Printer');
 
@@ -26,7 +32,13 @@ exports.default = new _graphql.GraphQLObjectType({
     images: {
       type: _RestaurantImages2.default,
       resolve: function resolve(_) {
-        return _.get('images') ? _.get('images') : null;
+        return _.get('images') ? _.get('images') : (0, _immutable.Map)();
+      }
+    },
+    languages: {
+      type: _RestaurantLanguages2.default,
+      resolve: function resolve(_) {
+        return _.get('languages') ? _.get('languages') : (0, _immutable.Map)();
       }
     },
     printers: {
