@@ -56,7 +56,7 @@ Common.getTranslationToDisplay = function () {
     var restaurantLoaderById = _ref2.restaurantLoaderById,
         configLoaderByKey = _ref2.configLoaderByKey;
     var restaurantId = _ref3.restaurantId;
-    var allValues;
+    var allValues, defaultDisplay;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -80,34 +80,34 @@ Common.getTranslationToDisplay = function () {
 
           case 5:
             if (!restaurantId) {
-              _context.next = 14;
+              _context.next = 12;
               break;
             }
 
-            _context.t1 = allValues;
-            _context.next = 9;
+            _context.next = 8;
             return restaurantLoaderById.load(restaurantId);
 
-          case 9:
-            _context.t2 = ['configurations', 'languages', 'defaultDisplay'];
-            _context.t3 = _context.sent.getIn(_context.t2);
-            _context.t0 = _context.t1.get.call(_context.t1, _context.t3);
-            _context.next = 19;
-            break;
+          case 8:
+            _context.t0 = ['configurations', 'languages', 'defaultDisplay'];
+            defaultDisplay = _context.sent.getIn(_context.t0);
 
-          case 14:
-            _context.t4 = allValues;
-            _context.next = 17;
+            if (!(defaultDisplay && allValues.has(defaultDisplay))) {
+              _context.next = 12;
+              break;
+            }
+
+            return _context.abrupt('return', allValues.get(defaultDisplay));
+
+          case 12:
+            _context.t1 = allValues;
+            _context.next = 15;
             return configLoaderByKey.load('fallbackLanguage');
 
+          case 15:
+            _context.t2 = _context.sent;
+            return _context.abrupt('return', _context.t1.get.call(_context.t1, _context.t2));
+
           case 17:
-            _context.t5 = _context.sent;
-            _context.t0 = _context.t4.get.call(_context.t4, _context.t5);
-
-          case 19:
-            return _context.abrupt('return', _context.t0);
-
-          case 20:
           case 'end':
             return _context.stop();
         }
@@ -167,7 +167,7 @@ Common.getTranslationToPrint = function () {
     var restaurantLoaderById = _ref7.restaurantLoaderById,
         configLoaderByKey = _ref7.configLoaderByKey;
     var restaurantId = _ref8.restaurantId;
-    var allValues;
+    var allValues, languageToPrint;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
@@ -183,34 +183,34 @@ Common.getTranslationToPrint = function () {
 
           case 3:
             if (!restaurantId) {
-              _context4.next = 12;
+              _context4.next = 10;
               break;
             }
 
-            _context4.t1 = allValues;
-            _context4.next = 7;
+            _context4.next = 6;
             return restaurantLoaderById.load(restaurantId);
 
-          case 7:
-            _context4.t2 = ['configurations', 'languages', languageKey];
-            _context4.t3 = _context4.sent.getIn(_context4.t2);
-            _context4.t0 = _context4.t1.get.call(_context4.t1, _context4.t3);
-            _context4.next = 17;
-            break;
+          case 6:
+            _context4.t0 = ['configurations', 'languages', languageKey];
+            languageToPrint = _context4.sent.getIn(_context4.t0);
 
-          case 12:
-            _context4.t4 = allValues;
-            _context4.next = 15;
+            if (!(languageToPrint && allValues.has(languageToPrint))) {
+              _context4.next = 10;
+              break;
+            }
+
+            return _context4.abrupt('return', allValues.get(languageToPrint));
+
+          case 10:
+            _context4.t1 = allValues;
+            _context4.next = 13;
             return configLoaderByKey.load('fallbackLanguage');
 
+          case 13:
+            _context4.t2 = _context4.sent;
+            return _context4.abrupt('return', _context4.t1.get.call(_context4.t1, _context4.t2));
+
           case 15:
-            _context4.t5 = _context4.sent;
-            _context4.t0 = _context4.t4.get.call(_context4.t4, _context4.t5);
-
-          case 17:
-            return _context4.abrupt('return', _context4.t0);
-
-          case 18:
           case 'end':
             return _context4.stop();
         }
