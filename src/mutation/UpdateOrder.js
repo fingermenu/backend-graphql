@@ -12,7 +12,6 @@ import Customer from './Customer';
 export default mutationWithClientMutationId({
   name: 'UpdateOrder',
   inputFields: {
-    appVersion: { type: GraphQLString },
     id: { type: new GraphQLNonNull(GraphQLID) },
     restaurantId: { type: new GraphQLNonNull(GraphQLID) },
     customers: { type: new GraphQLList(new GraphQLNonNull(Customer)) },
@@ -27,8 +26,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('order'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
-    logUserRequest(args, 'Mutation - Update Order', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Update Order', dataLoaders, sessionToken);
 
     await updateOrder(args, sessionToken);
 

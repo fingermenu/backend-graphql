@@ -11,7 +11,6 @@ import logUserRequest from './RequestLogHelper';
 export default mutationWithClientMutationId({
   name: 'AddChoiceItem',
   inputFields: {
-    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     description: { type: new GraphQLList(LanguageStringTuple) },
     choiceItemPageUrl: { type: GraphQLString },
@@ -23,8 +22,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('choiceItem'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    logUserRequest(args, 'Mutation - Add Choice Item', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Add Choice Item', dataLoaders, sessionToken);
 
     const choiceItemId = await addChoiceItem(args, dataLoaders, sessionToken);
 

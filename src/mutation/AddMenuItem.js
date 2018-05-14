@@ -11,7 +11,6 @@ import logUserRequest from './RequestLogHelper';
 export default mutationWithClientMutationId({
   name: 'AddMenuItem',
   inputFields: {
-    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     description: { type: new GraphQLList(LanguageStringTuple) },
     menuItemPageUrl: { type: GraphQLString },
@@ -23,8 +22,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('menuItem'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    logUserRequest(args, 'Mutation - Add Menu Item', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Add Menu Item', dataLoaders, sessionToken);
 
     const menuItemId = await addMenuItem(args, dataLoaders, sessionToken);
 

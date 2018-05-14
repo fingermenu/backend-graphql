@@ -11,7 +11,6 @@ import logUserRequest from './RequestLogHelper';
 export default mutationWithClientMutationId({
   name: 'AddRestaurant',
   inputFields: {
-    appVersion: { type: GraphQLString },
     name: { type: new GraphQLNonNull(new GraphQLList(LanguageStringTuple)) },
     websiteUrl: { type: GraphQLString },
     imageUrl: { type: GraphQLString },
@@ -27,8 +26,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('restaurant'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    logUserRequest(args, 'Mutation - Add Restaurant', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Add Restaurant', dataLoaders, sessionToken);
 
     const restaurantId = await addRestaurant(args, dataLoaders, sessionToken);
 

@@ -1,7 +1,7 @@
 // @flow
 
 import { Map } from 'immutable';
-import { GraphQLString, GraphQLObjectType } from 'graphql';
+import { GraphQLObjectType } from 'graphql';
 import ViewerType from './Viewer';
 import UserType from './User';
 import { NodeField } from '../interface';
@@ -12,24 +12,18 @@ export default new GraphQLObjectType({
   fields: {
     user: {
       type: UserType,
-      args: {
-        appVersion: { type: GraphQLString },
-      },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => {
+      resolve: async (_, args, { sessionToken, dataLoaders, fingerMenuContext }) => {
         const userId = (await dataLoaders.userLoaderBySessionToken.load(sessionToken)).id;
 
-        logUserRequest(args, 'Query - User', dataLoaders, sessionToken);
+        logUserRequest(fingerMenuContext, 'Query - User', dataLoaders, sessionToken);
 
         return Map({ id: userId });
       },
     },
     viewer: {
       type: ViewerType,
-      args: {
-        appVersion: { type: GraphQLString },
-      },
-      resolve: async (_, args, { sessionToken, dataLoaders }) => {
-        logUserRequest(args, 'Query - Viewer', dataLoaders, sessionToken);
+      resolve: async (_, args, { sessionToken, dataLoaders, fingerMenuContext }) => {
+        logUserRequest(fingerMenuContext, 'Query - Viewer', dataLoaders, sessionToken);
 
         return Map({ id: 'ViewerId' });
       },

@@ -33,7 +33,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'UpdateOrder',
   inputFields: {
-    appVersion: { type: _graphql.GraphQLString },
     id: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
     customers: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_Customer2.default)) },
@@ -53,12 +52,13 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(args, _ref2) {
       var dataLoaders = _ref2.dataLoaders,
-          sessionToken = _ref2.sessionToken;
+          sessionToken = _ref2.sessionToken,
+          fingerMenuContext = _ref2.fingerMenuContext;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              (0, _RequestLogHelper2.default)(args, 'Mutation - Update Order', dataLoaders, sessionToken);
+              (0, _RequestLogHelper2.default)(fingerMenuContext, 'Mutation - Update Order', dataLoaders, sessionToken);
 
               _context.next = 3;
               return (0, _OrderHelper.updateOrder)(args, sessionToken);

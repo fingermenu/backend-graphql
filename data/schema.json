@@ -17,18 +17,7 @@
             {
               "name": "user",
               "description": null,
-              "args": [
-                {
-                  "name": "appVersion",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "User",
@@ -40,18 +29,7 @@
             {
               "name": "viewer",
               "description": null,
-              "args": [
-                {
-                  "name": "appVersion",
-                  "description": null,
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
+              "args": [],
               "type": {
                 "kind": "OBJECT",
                 "name": "Viewer",
@@ -90,16 +68,6 @@
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "String",
-          "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2225,6 +2193,16 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "String",
+          "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -7243,16 +7221,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "name",
               "description": null,
               "type": {
@@ -7400,16 +7368,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "name",
               "description": null,
               "type": {
@@ -7517,16 +7475,6 @@
           "description": null,
           "fields": null,
           "inputFields": [
-            {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
             {
               "name": "name",
               "description": null,
@@ -7671,16 +7619,6 @@
           "description": null,
           "fields": null,
           "inputFields": [
-            {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
             {
               "name": "id",
               "description": null,
@@ -7864,16 +7802,6 @@
           "description": null,
           "fields": null,
           "inputFields": [
-            {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
             {
               "name": "correlationId",
               "description": null,
@@ -8278,16 +8206,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "id",
               "description": null,
               "type": {
@@ -8438,16 +8356,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "id",
               "description": null,
               "type": {
@@ -8517,16 +8425,6 @@
           "description": null,
           "fields": null,
           "inputFields": [
-            {
-              "name": "appVersion",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
             {
               "name": "questionAndAnswers",
               "description": null,

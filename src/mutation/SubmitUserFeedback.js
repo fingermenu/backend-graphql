@@ -11,7 +11,6 @@ import logUserRequest from './RequestLogHelper';
 export default mutationWithClientMutationId({
   name: 'SubmitUserFeedback',
   inputFields: {
-    appVersion: { type: GraphQLString },
     questionAndAnswers: { type: new GraphQLList(new GraphQLNonNull(QuestionAndAnswer)) },
     others: { type: GraphQLString },
     restaurantId: { type: GraphQLID },
@@ -22,8 +21,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('userFeedback'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken }) => {
-    logUserRequest(args, 'Mutation - Submit User Feedback', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Submit User Feedback', dataLoaders, sessionToken);
 
     const userFeedbackId = await addUserFeedback(args, dataLoaders, sessionToken);
 

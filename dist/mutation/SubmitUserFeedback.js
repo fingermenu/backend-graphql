@@ -29,7 +29,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   name: 'SubmitUserFeedback',
   inputFields: {
-    appVersion: { type: _graphql.GraphQLString },
     questionAndAnswers: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_QuestionAndAnswer2.default)) },
     others: { type: _graphql.GraphQLString },
     restaurantId: { type: _graphql.GraphQLID }
@@ -45,13 +44,14 @@ exports.default = (0, _graphqlRelay.mutationWithClientMutationId)({
   mutateAndGetPayload: function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(args, _ref2) {
       var dataLoaders = _ref2.dataLoaders,
-          sessionToken = _ref2.sessionToken;
+          sessionToken = _ref2.sessionToken,
+          fingerMenuContext = _ref2.fingerMenuContext;
       var userFeedbackId;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              (0, _RequestLogHelper2.default)(args, 'Mutation - Submit User Feedback', dataLoaders, sessionToken);
+              (0, _RequestLogHelper2.default)(fingerMenuContext, 'Mutation - Submit User Feedback', dataLoaders, sessionToken);
 
               _context.next = 3;
               return (0, _UserFeedbackHelper.addUserFeedback)(args, dataLoaders, sessionToken);

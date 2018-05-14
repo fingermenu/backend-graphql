@@ -12,7 +12,6 @@ import Customer from './Customer';
 export default mutationWithClientMutationId({
   name: 'UpdateTable',
   inputFields: {
-    appVersion: { type: GraphQLString },
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLList(LanguageStringTuple) },
     customers: { type: new GraphQLList(new GraphQLNonNull(Customer)) },
@@ -27,8 +26,8 @@ export default mutationWithClientMutationId({
       resolve: _ => _.get('table'),
     },
   },
-  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language }) => {
-    logUserRequest(args, 'Mutation - Update Table', dataLoaders, sessionToken);
+  mutateAndGetPayload: async (args, { dataLoaders, sessionToken, language, fingerMenuContext }) => {
+    logUserRequest(fingerMenuContext, 'Mutation - Update Table', dataLoaders, sessionToken);
 
     await updateTable(args, dataLoaders, sessionToken);
 
