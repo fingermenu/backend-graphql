@@ -36,8 +36,7 @@ export default class Common {
     };
   };
 
-  static getTranslationToDisplay = async (info, columnName, language, { restaurantLoaderById }, { restaurantId }) => {
-    const restaurant = await restaurantLoaderById.load(restaurantId);
+  static getTranslationToDisplay = async (info, columnName, language, { restaurantLoaderById, configLoaderByKey }, { restaurantId }) => {
     const allValues = info.get(columnName);
 
     if (!allValues) {
@@ -48,7 +47,9 @@ export default class Common {
       return allValues.get(language);
     }
 
-    return allValues.get(restaurant.getIn(['configurations', 'languages', 'display']));
+    return restaurantId
+      ? allValues.get((await restaurantLoaderById.load(restaurantId)).getIn(['configurations', 'languages', 'defaultDisplay']))
+      : allValues.get(await configLoaderByKey.load('fallbackLanguage'));
   };
 
   static getTranslationToPrintOnKitchenReceipt = async (info, columnName, dataLoaders, fingerMenuContext) =>
@@ -57,14 +58,15 @@ export default class Common {
   static getTranslationToPrintOnCustomerReceipt = async (info, columnName, dataLoaders, fingerMenuContext) =>
     Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt');
 
-  static getTranslationToPrint = async (info, columnName, { restaurantLoaderById }, { restaurantId }, languageKey) => {
-    const restaurant = await restaurantLoaderById.load(restaurantId);
+  static getTranslationToPrint = async (info, columnName, { restaurantLoaderById, configLoaderByKey }, { restaurantId }, languageKey) => {
     const allValues = info.get(columnName);
 
     if (!allValues) {
       return null;
     }
 
-    return allValues.get(restaurant.getIn(['configurations', 'languages', languageKey]));
+    return restaurantId
+      ? allValues.get((await restaurantLoaderById.load(restaurantId)).getIn(['configurations', 'languages', languageKey]))
+      : allValues.get(await configLoaderByKey.load('fallbackLanguage'));
   };
 }

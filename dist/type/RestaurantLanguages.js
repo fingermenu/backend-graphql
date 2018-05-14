@@ -9,10 +9,10 @@ var _graphql = require('graphql');
 exports.default = new _graphql.GraphQLObjectType({
   name: 'RestaurantLanguages',
   fields: {
-    display: {
+    defaultDisplay: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('display');
+        return _.get('defaultDisplay');
       }
     },
     printOnCustomerReceipt: {

@@ -5,9 +5,9 @@ import { GraphQLString, GraphQLObjectType } from 'graphql';
 export default new GraphQLObjectType({
   name: 'RestaurantLanguages',
   fields: {
-    display: {
+    defaultDisplay: {
       type: GraphQLString,
-      resolve: _ => _.get('display'),
+      resolve: _ => _.get('defaultDisplay'),
     },
     printOnCustomerReceipt: {
       type: GraphQLString,

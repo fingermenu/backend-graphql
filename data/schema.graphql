@@ -575,7 +575,7 @@ type RestaurantImages {
 }
 
 type RestaurantLanguages {
-  display: String
+  defaultDisplay: String
   printOnCustomerReceipt: String
   printOnKitchenReceipt: String
 }

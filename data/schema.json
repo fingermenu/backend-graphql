@@ -4835,7 +4835,7 @@
           "description": null,
           "fields": [
             {
-              "name": "display",
+              "name": "defaultDisplay",
               "description": null,
               "args": [],
               "type": {
