@@ -15,16 +15,16 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('display');
       }
     },
-    printToKitchen: {
+    printOnCustomerReceipt: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('printToKitchen');
+        return _.get('printOnCustomerReceipt');
       }
     },
-    printOnReceipt: {
+    printOnKitchenReceipt: {
       type: _graphql.GraphQLString,
       resolve: function resolve(_) {
-        return _.get('printOnReceipt');
+        return _.get('printOnKitchenReceipt');
       }
     }
   }

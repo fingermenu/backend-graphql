@@ -9,13 +9,13 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: _ => _.get('display'),
     },
-    printToKitchen: {
+    printOnCustomerReceipt: {
       type: GraphQLString,
-      resolve: _ => _.get('printToKitchen'),
+      resolve: _ => _.get('printOnCustomerReceipt'),
     },
-    printOnReceipt: {
+    printOnKitchenReceipt: {
       type: GraphQLString,
-      resolve: _ => _.get('printOnReceipt'),
+      resolve: _ => _.get('printOnKitchenReceipt'),
     },
   },
 });

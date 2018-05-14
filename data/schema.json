@@ -4847,7 +4847,7 @@
               "deprecationReason": null
             },
             {
-              "name": "printToKitchen",
+              "name": "printOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -4859,7 +4859,7 @@
               "deprecationReason": null
             },
             {
-              "name": "printOnReceipt",
+              "name": "printOnKitchenReceipt",
               "description": null,
               "args": [],
               "type": {
