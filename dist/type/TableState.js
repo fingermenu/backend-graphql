@@ -60,12 +60,13 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
           var language = _ref3.language,
-              configLoaderByKey = _ref3.dataLoaders.configLoaderByKey;
+              dataLoaders = _ref3.dataLoaders,
+              fingerMenuContext = _ref3.fingerMenuContext;
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  return _context2.abrupt('return', _Common2.default.getTranslation(_, 'name', language, configLoaderByKey));
+                  return _context2.abrupt('return', _Common2.default.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext));
 
                 case 1:
                 case 'end':
@@ -80,16 +81,17 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    nameToPrint: {
+    nameToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
-          var configLoaderByKey = _ref5.dataLoaders.configLoaderByKey;
+          var dataLoaders = _ref5.dataLoaders,
+              fingerMenuContext = _ref5.fingerMenuContext;
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  return _context3.abrupt('return', _Common2.default.getTranslationToPrint(_, 'name', configLoaderByKey));
+                  return _context3.abrupt('return', _Common2.default.getTranslationToPrintOnKitchenReceipt(_, 'name', dataLoaders, fingerMenuContext));
 
                 case 1:
                 case 'end':
@@ -104,15 +106,17 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    imageUrl: {
+    nameToPrintOnCustomerReceipt: {
       type: _graphql.GraphQLString,
       resolve: function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_) {
+        var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_, args, _ref7) {
+          var dataLoaders = _ref7.dataLoaders,
+              fingerMenuContext = _ref7.fingerMenuContext;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  return _context4.abrupt('return', _.get('imageUrl'));
+                  return _context4.abrupt('return', _Common2.default.getTranslationToPrintOnCustomerReceipt(_, 'name', dataLoaders, fingerMenuContext));
 
                 case 1:
                 case 'end':
@@ -122,8 +126,31 @@ exports.default = new _graphql.GraphQLObjectType({
           }, _callee4, undefined);
         }));
 
-        return function resolve(_x9) {
+        return function resolve(_x9, _x10, _x11) {
           return _ref6.apply(this, arguments);
+        };
+      }()
+    },
+    imageUrl: {
+      type: _graphql.GraphQLString,
+      resolve: function () {
+        var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            while (1) {
+              switch (_context5.prev = _context5.next) {
+                case 0:
+                  return _context5.abrupt('return', _.get('imageUrl'));
+
+                case 1:
+                case 'end':
+                  return _context5.stop();
+              }
+            }
+          }, _callee5, undefined);
+        }));
+
+        return function resolve(_x12) {
+          return _ref8.apply(this, arguments);
         };
       }()
     }

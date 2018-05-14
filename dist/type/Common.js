@@ -51,40 +51,41 @@ Common.convertResultsToRelayConnectionResponse = function (results, skip, limit,
   };
 };
 
-Common.getTranslation = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(info, columnName, language, configLoaderByKey) {
-    var allValues;
+Common.getTranslationToDisplay = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(info, columnName, language, _ref2, _ref3) {
+    var restaurantLoaderById = _ref2.restaurantLoaderById;
+    var restaurantId = _ref3.restaurantId;
+    var restaurant, allValues;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            _context.next = 2;
+            return restaurantLoaderById.load(restaurantId);
+
+          case 2:
+            restaurant = _context.sent;
             allValues = info.get(columnName);
 
             if (allValues) {
-              _context.next = 3;
+              _context.next = 6;
               break;
             }
 
             return _context.abrupt('return', null);
 
-          case 3:
+          case 6:
             if (!allValues.has(language)) {
-              _context.next = 5;
+              _context.next = 8;
               break;
             }
 
             return _context.abrupt('return', allValues.get(language));
 
-          case 5:
-            _context.t0 = allValues;
-            _context.next = 8;
-            return configLoaderByKey.load('fallbackLanguage');
-
           case 8:
-            _context.t1 = _context.sent;
-            return _context.abrupt('return', _context.t0.get.call(_context.t0, _context.t1));
+            return _context.abrupt('return', allValues.get(restaurant.getIn(['configurations', 'languages', 'display'])));
 
-          case 10:
+          case 9:
           case 'end':
             return _context.stop();
         }
@@ -92,37 +93,20 @@ Common.getTranslation = function () {
     }, _callee, undefined);
   }));
 
-  return function (_x, _x2, _x3, _x4) {
+  return function (_x, _x2, _x3, _x4, _x5) {
     return _ref.apply(this, arguments);
   };
 }();
 
-Common.getTranslationToPrint = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(info, columnName, configLoaderByKey) {
-    var allValues;
+Common.getTranslationToPrintOnKitchenReceipt = function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(info, columnName, dataLoaders, fingerMenuContext) {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            allValues = info.get(columnName);
+            return _context2.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt'));
 
-            if (allValues) {
-              _context2.next = 3;
-              break;
-            }
-
-            return _context2.abrupt('return', null);
-
-          case 3:
-            _context2.t0 = allValues;
-            _context2.next = 6;
-            return configLoaderByKey.load('fallbackLanguage');
-
-          case 6:
-            _context2.t1 = _context2.sent;
-            return _context2.abrupt('return', _context2.t0.get.call(_context2.t0, _context2.t1));
-
-          case 8:
+          case 1:
           case 'end':
             return _context2.stop();
         }
@@ -130,8 +114,68 @@ Common.getTranslationToPrint = function () {
     }, _callee2, undefined);
   }));
 
-  return function (_x5, _x6, _x7) {
-    return _ref2.apply(this, arguments);
+  return function (_x6, _x7, _x8, _x9) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+Common.getTranslationToPrintOnCustomerReceipt = function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(info, columnName, dataLoaders, fingerMenuContext) {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            return _context3.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt'));
+
+          case 1:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined);
+  }));
+
+  return function (_x10, _x11, _x12, _x13) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+Common.getTranslationToPrint = function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(info, columnName, _ref7, _ref8, languageKey) {
+    var restaurantLoaderById = _ref7.restaurantLoaderById;
+    var restaurantId = _ref8.restaurantId;
+    var restaurant, allValues;
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return restaurantLoaderById.load(restaurantId);
+
+          case 2:
+            restaurant = _context4.sent;
+            allValues = info.get(columnName);
+
+            if (allValues) {
+              _context4.next = 6;
+              break;
+            }
+
+            return _context4.abrupt('return', null);
+
+          case 6:
+            return _context4.abrupt('return', allValues.get(restaurant.getIn(['configurations', 'languages', languageKey])));
+
+          case 7:
+          case 'end':
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function (_x14, _x15, _x16, _x17, _x18) {
+    return _ref6.apply(this, arguments);
   };
 }();
 

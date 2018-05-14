@@ -66,9 +66,11 @@ type CancelOrderPayload {
 type ChoiceItem implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   description: String
-  descriptionToPrint: String
+  descriptionToPrintOnKitchenReceipt: String
+  descriptionToPrintOnCustomerReceipt: String
   choiceItemPageUrl: String
   imageUrl: String
   tags: [Tag!]
@@ -227,9 +229,11 @@ type LanguageTypeEdge {
 type Menu implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   description: String
-  descriptionToPrint: String
+  descriptionToPrintOnKitchenReceipt: String
+  descriptionToPrintOnCustomerReceipt: String
   menuPageUrl: String
   imageUrl: String
   sortOrderIndex: Int
@@ -240,9 +244,11 @@ type Menu implements Node {
 type MenuItem implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   description: String
-  descriptionToPrint: String
+  descriptionToPrintOnKitchenReceipt: String
+  descriptionToPrintOnCustomerReceipt: String
   menuItemPageUrl: String
   imageUrl: String
   tags: [Tag!]
@@ -442,7 +448,8 @@ type PageInfo {
 type ParentRestaurant implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   websiteUrl: String
   address: String
   geoLocation: GeoLocation
@@ -460,9 +467,11 @@ type ParentRestaurant implements Node {
 type ParentTag implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   description: String
-  descriptionToPrint: String
+  descriptionToPrintOnKitchenReceipt: String
+  descriptionToPrintOnCustomerReceipt: String
   imageUrl: String
   level: Int
   forDisplay: Boolean
@@ -531,7 +540,8 @@ input QuestionAndAnswerInput {
 type Restaurant implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   websiteUrl: String
   address: String
   geoLocation: GeoLocation
@@ -650,7 +660,8 @@ type Table implements Node {
   id: ID!
   customers: [Customer!]
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   status: String
   notes: String
   sortOrderIndex: Int
@@ -662,7 +673,8 @@ type TableState implements Node {
   id: ID!
   key: String
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   imageUrl: String
 }
 
@@ -705,9 +717,11 @@ type TableTypeEdge {
 type Tag implements Node {
   id: ID!
   name: String
-  nameToPrint: String
+  nameToPrintOnKitchenReceipt: String
+  nameToPrintOnCustomerReceipt: String
   description: String
-  descriptionToPrint: String
+  descriptionToPrintOnKitchenReceipt: String
+  descriptionToPrintOnCustomerReceipt: String
   imageUrl: String
   level: Int
   forDisplay: Boolean

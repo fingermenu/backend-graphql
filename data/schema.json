@@ -2101,7 +2101,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2125,7 +2137,19 @@
               "deprecationReason": null
             },
             {
-              "name": "descriptionToPrint",
+              "name": "descriptionToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2260,7 +2284,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2284,7 +2320,19 @@
               "deprecationReason": null
             },
             {
-              "name": "descriptionToPrint",
+              "name": "descriptionToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2526,7 +2574,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2550,7 +2610,19 @@
               "deprecationReason": null
             },
             {
-              "name": "descriptionToPrint",
+              "name": "descriptionToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2950,7 +3022,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -2974,7 +3058,19 @@
               "deprecationReason": null
             },
             {
-              "name": "descriptionToPrint",
+              "name": "descriptionToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -3640,7 +3736,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -3664,7 +3772,19 @@
               "deprecationReason": null
             },
             {
-              "name": "descriptionToPrint",
+              "name": "descriptionToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -3899,7 +4019,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -4075,7 +4207,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -4226,7 +4370,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
@@ -4887,7 +5043,19 @@
               "deprecationReason": null
             },
             {
-              "name": "nameToPrint",
+              "name": "nameToPrintOnKitchenReceipt",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nameToPrintOnCustomerReceipt",
               "description": null,
               "args": [],
               "type": {
