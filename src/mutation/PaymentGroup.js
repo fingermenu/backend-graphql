@@ -5,7 +5,7 @@ import { GraphQLID, GraphQLFloat, GraphQLString, GraphQLInputObjectType } from '
 export default new GraphQLInputObjectType({
   name: 'PaymentGroupInput',
   fields: {
-    id: { type: GraphQLID },
+    paymentGroupId: { type: GraphQLID },
     discount: { type: GraphQLFloat },
     paidAt: { type: GraphQLString },
   },

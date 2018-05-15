@@ -8,7 +8,7 @@ import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 export default new GraphQLInputObjectType({
   name: 'OrderMenuItemPriceInput',
   fields: {
-    id: { type: GraphQLID },
+    orderMenuItemPriceId: { type: GraphQLID },
     groupId: { type: GraphQLID },
     customer: { type: Customer },
     paymentGroup: { type: PaymentGroup },

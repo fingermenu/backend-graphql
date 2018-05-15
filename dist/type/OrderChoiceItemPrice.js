@@ -21,10 +21,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 exports.default = new _graphql.GraphQLObjectType({
   name: 'OrderChoiceItemPrice',
   fields: {
-    id: {
+    orderChoiceItemPriceId: {
       type: _graphql.GraphQLID,
       resolve: function resolve(_) {
-        return _.get('id');
+        return _.get('orderChoiceItemPriceId');
       }
     },
     choiceItemPrice: {

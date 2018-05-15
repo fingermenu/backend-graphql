@@ -9,10 +9,10 @@ var _graphql = require('graphql');
 exports.default = new _graphql.GraphQLObjectType({
   name: 'PaymentGroup',
   fields: {
-    id: {
+    paymentGroupId: {
       type: _graphql.GraphQLID,
       resolve: function resolve(_) {
-        return _.get('id');
+        return _.get('paymentGroupId');
       }
     },
     discount: {

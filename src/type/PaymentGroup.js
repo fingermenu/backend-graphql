@@ -5,9 +5,9 @@ import { GraphQLID, GraphQLFloat, GraphQLString, GraphQLObjectType } from 'graph
 export default new GraphQLObjectType({
   name: 'PaymentGroup',
   fields: {
-    id: {
+    paymentGroupId: {
       type: GraphQLID,
-      resolve: _ => _.get('id'),
+      resolve: _ => _.get('paymentGroupId'),
     },
     discount: {
       type: GraphQLFloat,

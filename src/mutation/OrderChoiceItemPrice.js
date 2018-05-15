@@ -6,7 +6,7 @@ import Customer from './Customer';
 export default new GraphQLInputObjectType({
   name: 'OrderChoiceItemPriceInput',
   fields: {
-    id: { type: GraphQLID },
+    orderChoiceItemPriceId: { type: GraphQLID },
     choiceItemPriceId: { type: new GraphQLNonNull(GraphQLID) },
     quantity: { type: new GraphQLNonNull(GraphQLInt) },
     notes: { type: GraphQLString },

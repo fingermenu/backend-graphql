@@ -9,7 +9,7 @@ var _graphql = require('graphql');
 exports.default = new _graphql.GraphQLInputObjectType({
   name: 'CustomerInput',
   fields: {
-    id: { type: _graphql.GraphQLID },
+    customerId: { type: _graphql.GraphQLID },
     name: { type: _graphql.GraphQLString },
     type: { type: _graphql.GraphQLString }
   }

@@ -5,9 +5,9 @@ import { GraphQLID, GraphQLString, GraphQLObjectType } from 'graphql';
 export default new GraphQLObjectType({
   name: 'Customer',
   fields: {
-    id: {
+    customerId: {
       type: GraphQLID,
-      resolve: _ => _.get('id'),
+      resolve: _ => _.get('customerId'),
     },
     name: {
       type: GraphQLString,

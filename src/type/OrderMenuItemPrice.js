@@ -10,9 +10,9 @@ import OrderChoiceItemPrice from './OrderChoiceItemPrice';
 export default new GraphQLObjectType({
   name: 'OrderMenuItemPrice',
   fields: {
-    id: {
+    orderMenuItemPriceId: {
       type: GraphQLID,
-      resolve: _ => _.get('id'),
+      resolve: _ => _.get('orderMenuItemPriceId'),
     },
     groupId: {
       type: GraphQLID,

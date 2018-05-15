@@ -9,10 +9,10 @@ var _graphql = require('graphql');
 exports.default = new _graphql.GraphQLObjectType({
   name: 'Customer',
   fields: {
-    id: {
+    customerId: {
       type: _graphql.GraphQLID,
       resolve: function resolve(_) {
-        return _.get('id');
+        return _.get('customerId');
       }
     },
     name: {

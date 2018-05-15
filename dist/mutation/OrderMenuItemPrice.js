@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = new _graphql.GraphQLInputObjectType({
   name: 'OrderMenuItemPriceInput',
   fields: {
-    id: { type: _graphql.GraphQLID },
+    orderMenuItemPriceId: { type: _graphql.GraphQLID },
     groupId: { type: _graphql.GraphQLID },
     customer: { type: _Customer2.default },
     paymentGroup: { type: _PaymentGroup2.default },

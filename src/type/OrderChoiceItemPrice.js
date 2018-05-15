@@ -7,9 +7,9 @@ import Customer from './Customer';
 export default new GraphQLObjectType({
   name: 'OrderChoiceItemPrice',
   fields: {
-    id: {
+    orderChoiceItemPriceId: {
       type: GraphQLID,
-      resolve: _ => _.get('id'),
+      resolve: _ => _.get('orderChoiceItemPriceId'),
     },
     choiceItemPrice: {
       type: new GraphQLNonNull(ChoiceItemPrice),
