@@ -4,7 +4,7 @@ import { RequestLogService } from '@fingermenu/parse-server-common';
 import { Map } from 'immutable';
 
 const logUserRequest = async ({ appVersion }, requestType, { userLoaderBySessionToken, configLoaderByKey }, sessionToken) => {
-  if ('watchdog-app'.localeCompare(appVersion) === 0) {
+  if ('watchdog-app'.localeCompare(appVersion) === 0 || !appVersion) {
     return;
   }
 
