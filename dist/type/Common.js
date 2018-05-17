@@ -126,7 +126,7 @@ Common.getTranslationToPrintOnKitchenReceipt = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt'));
+            return _context2.abrupt('return', Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt')));
 
           case 1:
           case 'end':
@@ -147,7 +147,7 @@ Common.getTranslationToPrintOnCustomerReceipt = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt'));
+            return _context3.abrupt('return', Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt')));
 
           case 1:
           case 'end':
@@ -222,5 +222,9 @@ Common.getTranslationToPrint = function () {
     return _ref6.apply(this, arguments);
   };
 }();
+
+Common.replaceDiacriticCharacters = function (text) {
+  return text ? text.replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ä', 'a').replace('ç', 'c').replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('ö', 'o').replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') : text;
+};
 
 exports.default = Common;
