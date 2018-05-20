@@ -59,10 +59,10 @@ export default class Common {
   };
 
   static getTranslationToPrintOnKitchenReceipt = async (info, columnName, dataLoaders, fingerMenuContext) =>
-    Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt'));
+    Common.replaceDiacriticCharacters(await Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt'));
 
   static getTranslationToPrintOnCustomerReceipt = async (info, columnName, dataLoaders, fingerMenuContext) =>
-    Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt'));
+    Common.replaceDiacriticCharacters(await Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt'));
 
   static getTranslationToPrint = async (info, columnName, { restaurantLoaderById, configLoaderByKey }, { restaurantId }, languageKey) => {
     const allValues = info.get(columnName);

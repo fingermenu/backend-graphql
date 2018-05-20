@@ -126,9 +126,15 @@ Common.getTranslationToPrintOnKitchenReceipt = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt')));
+            _context2.t0 = Common;
+            _context2.next = 3;
+            return Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt');
 
-          case 1:
+          case 3:
+            _context2.t1 = _context2.sent;
+            return _context2.abrupt('return', _context2.t0.replaceDiacriticCharacters.call(_context2.t0, _context2.t1));
+
+          case 5:
           case 'end':
             return _context2.stop();
         }
@@ -147,9 +153,15 @@ Common.getTranslationToPrintOnCustomerReceipt = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt('return', Common.replaceDiacriticCharacters(Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt')));
+            _context3.t0 = Common;
+            _context3.next = 3;
+            return Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt');
 
-          case 1:
+          case 3:
+            _context3.t1 = _context3.sent;
+            return _context3.abrupt('return', _context3.t0.replaceDiacriticCharacters.call(_context3.t0, _context3.t1));
+
+          case 5:
           case 'end':
             return _context3.stop();
         }
