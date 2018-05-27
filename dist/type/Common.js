@@ -126,15 +126,9 @@ Common.getTranslationToPrintOnKitchenReceipt = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.t0 = Common;
-            _context2.next = 3;
-            return Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt');
+            return _context2.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnKitchenReceipt'));
 
-          case 3:
-            _context2.t1 = _context2.sent;
-            return _context2.abrupt('return', _context2.t0.replaceDiacriticCharacters.call(_context2.t0, _context2.t1));
-
-          case 5:
+          case 1:
           case 'end':
             return _context2.stop();
         }
@@ -153,15 +147,9 @@ Common.getTranslationToPrintOnCustomerReceipt = function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.t0 = Common;
-            _context3.next = 3;
-            return Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt');
+            return _context3.abrupt('return', Common.getTranslationToPrint(info, columnName, dataLoaders, fingerMenuContext, 'printOnCustomerReceipt'));
 
-          case 3:
-            _context3.t1 = _context3.sent;
-            return _context3.abrupt('return', _context3.t0.replaceDiacriticCharacters.call(_context3.t0, _context3.t1));
-
-          case 5:
+          case 1:
           case 'end':
             return _context3.stop();
         }
@@ -234,9 +222,5 @@ Common.getTranslationToPrint = function () {
     return _ref6.apply(this, arguments);
   };
 }();
-
-Common.replaceDiacriticCharacters = function (text) {
-  return text ? text.replace('á', 'a').replace('à', 'a').replace('â', 'a').replace('ä', 'a').replace('ç', 'c').replace('é', 'e').replace('è', 'e').replace('ê', 'e').replace('í', 'i').replace('ì', 'i').replace('î', 'i').replace('ó', 'o').replace('ò', 'o').replace('ô', 'o').replace('ö', 'o').replace('ú', 'u').replace('ù', 'u').replace('û', 'u').replace('ü', 'u') : text;
-};
 
 exports.default = Common;
