@@ -14,6 +14,10 @@ const ParentTag = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
     },
+    key: {
+      type: GraphQLString,
+      resolve: async _ => _.get('key'),
+    },
     name: {
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
@@ -66,6 +70,10 @@ export default new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       resolve: _ => _.get('id'),
+    },
+    key: {
+      type: GraphQLString,
+      resolve: async _ => _.get('key'),
     },
     name: {
       type: GraphQLString,

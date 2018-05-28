@@ -33,6 +33,8 @@ import Size from './Size';
 import SizeConnection, { getSizes } from './SizeConnection';
 import DishType from './DishType';
 import DishTypeConnection, { getDishTypes } from './DishTypeConnection';
+import DepartmentCategory from './DepartmentCategory';
+import DepartmentCategoryConnection, { getDepartmentCategorys } from './DepartmentCategoryConnection';
 
 export default new GraphQLObjectType({
   name: 'User',
@@ -53,6 +55,7 @@ export default new GraphQLObjectType({
       args: {
         ...connectionArgs,
         tagIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        code: { type: GraphQLString },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         level: { type: GraphQLInt },
@@ -303,6 +306,23 @@ export default new GraphQLObjectType({
         sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getDishTypes(Immutable.fromJS(args), dataLoaders, sessionToken),
+    },
+    departmentCategory: {
+      type: DepartmentCategory,
+      args: {
+        departmentCategoryId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: async (_, { departmentCategoryId }, { dataLoaders: { departmentCategoryLoaderById } }) =>
+        departmentCategoryId ? departmentCategoryLoaderById.load(departmentCategoryId) : null,
+    },
+    departmentCategorys: {
+      type: DepartmentCategoryConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        departmentCategoryIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
+        sortOption: { type: GraphQLString },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) => getDepartmentCategorys(Immutable.fromJS(args), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],

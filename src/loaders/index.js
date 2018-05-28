@@ -2,8 +2,9 @@
 
 export choiceItemLoaderById from './ChoiceItemLoader';
 export choiceItemPriceLoaderById from './ChoiceItemPriceLoader';
+export departmentCategoryLoaderById from './DepartmentCategoryLoader';
 export dietaryOptionLoaderById from './DietaryOptionLoader';
-export dishTypeLoaderById from './ServingTimeLoader';
+export dishTypeLoaderById from './DishTypeLoader';
 export { languageLoaderByKey, languageLoaderById } from './LanguageLoader';
 export menuLoaderById from './MenuLoader';
 export menuItemLoaderById from './MenuItemLoader';

@@ -14,6 +14,7 @@ const getCriteria = (searchArgs, ownedByUserId, language) =>
       ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
       conditions: Map({
         ownedByUserId,
+        code: searchArgs.has('code') ? searchArgs.get('code') : undefined,
         contains_names: StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
         contains_descriptions: StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
         forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,

@@ -31,6 +31,7 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId, language) {
     ids: searchArgs.has('tagIds') ? searchArgs.get('tagIds') : undefined,
     conditions: (0, _immutable.Map)({
       ownedByUserId: ownedByUserId,
+      code: searchArgs.has('code') ? searchArgs.get('code') : undefined,
       contains_names: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('name')),
       contains_descriptions: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('description')),
       forDisplay: searchArgs.has('forDisplay') ? searchArgs.get('forDisplay') : undefined,

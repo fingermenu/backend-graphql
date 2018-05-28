@@ -132,6 +132,14 @@ var _DishTypeConnection = require('./DishTypeConnection');
 
 var _DishTypeConnection2 = _interopRequireDefault(_DishTypeConnection);
 
+var _DepartmentCategory = require('./DepartmentCategory');
+
+var _DepartmentCategory2 = _interopRequireDefault(_DepartmentCategory);
+
+var _DepartmentCategoryConnection = require('./DepartmentCategoryConnection');
+
+var _DepartmentCategoryConnection2 = _interopRequireDefault(_DepartmentCategoryConnection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -177,6 +185,7 @@ exports.default = new _graphql.GraphQLObjectType({
       type: _TagConnection2.default.connectionType,
       args: _extends({}, _graphqlRelay.connectionArgs, {
         tagIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        code: { type: _graphql.GraphQLString },
         name: { type: _graphql.GraphQLString },
         description: { type: _graphql.GraphQLString },
         level: { type: _graphql.GraphQLInt },
@@ -975,6 +984,63 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x82, _x83, _x84) {
           return _ref69.apply(this, arguments);
+        };
+      }()
+    },
+    departmentCategory: {
+      type: _DepartmentCategory2.default,
+      args: {
+        departmentCategoryId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) }
+      },
+      resolve: function () {
+        var _ref71 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee29(_, _ref72, _ref73) {
+          var departmentCategoryId = _ref72.departmentCategoryId;
+          var departmentCategoryLoaderById = _ref73.dataLoaders.departmentCategoryLoaderById;
+          return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            while (1) {
+              switch (_context29.prev = _context29.next) {
+                case 0:
+                  return _context29.abrupt('return', departmentCategoryId ? departmentCategoryLoaderById.load(departmentCategoryId) : null);
+
+                case 1:
+                case 'end':
+                  return _context29.stop();
+              }
+            }
+          }, _callee29, undefined);
+        }));
+
+        return function resolve(_x85, _x86, _x87) {
+          return _ref71.apply(this, arguments);
+        };
+      }()
+    },
+    departmentCategorys: {
+      type: _DepartmentCategoryConnection2.default.connectionType,
+      args: _extends({}, _graphqlRelay.connectionArgs, {
+        departmentCategoryIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
+        sortOption: { type: _graphql.GraphQLString }
+      }),
+      resolve: function () {
+        var _ref74 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30(_, args, _ref75) {
+          var dataLoaders = _ref75.dataLoaders,
+              sessionToken = _ref75.sessionToken;
+          return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            while (1) {
+              switch (_context30.prev = _context30.next) {
+                case 0:
+                  return _context30.abrupt('return', (0, _DepartmentCategoryConnection.getDepartmentCategorys)(_immutable2.default.fromJS(args), dataLoaders, sessionToken));
+
+                case 1:
+                case 'end':
+                  return _context30.stop();
+              }
+            }
+          }, _callee30, undefined);
+        }));
+
+        return function resolve(_x88, _x89, _x90) {
+          return _ref74.apply(this, arguments);
         };
       }()
     }

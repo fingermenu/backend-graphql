@@ -3,6 +3,7 @@
 export {
   choiceItemLoaderById,
   choiceItemPriceLoaderById,
+  departmentCategoryLoaderById,
   dietaryOptionLoaderById,
   dishTypeLoaderById,
   languageLoaderByKey,
