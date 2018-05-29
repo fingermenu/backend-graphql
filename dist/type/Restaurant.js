@@ -37,9 +37,9 @@ var _PackageBundle2 = _interopRequireDefault(_PackageBundle);
 
 var _interface = require('../interface');
 
-var _SaleReport = require('./SaleReport');
+var _DepartmentCategoryReport = require('./DepartmentCategoryReport');
 
-var _SaleReport2 = _interopRequireDefault(_SaleReport);
+var _DepartmentCategoryReport2 = _interopRequireDefault(_DepartmentCategoryReport);
 
 var _DateRange = require('./DateRange');
 
@@ -680,20 +680,25 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     saleReport: {
-      type: _SaleReport2.default,
+      type: _DepartmentCategoryReport2.default,
       args: {
-        dateRange: { type: _DateRange2.default }
+        dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
       },
       resolve: function () {
         var _ref31 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(_, args, _ref32) {
-          var packageBundleLoaderByRestaurantId = _ref32.dataLoaders.packageBundleLoaderByRestaurantId;
+          var dataLoaders = _ref32.dataLoaders,
+              sessionToken = _ref32.sessionToken;
           return regeneratorRuntime.wrap(function _callee19$(_context19) {
             while (1) {
               switch (_context19.prev = _context19.next) {
                 case 0:
-                  return _context19.abrupt('return', packageBundleLoaderByRestaurantId.load(_.get('id')));
+                  _context19.next = 2;
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_.get('id'), args, dataLoaders, sessionToken);
 
-                case 1:
+                case 2:
+                  return _context19.abrupt('return', _context19.sent.toArray());
+
+                case 3:
                 case 'end':
                   return _context19.stop();
               }

@@ -145,6 +145,12 @@ type DepartmentCategory implements Node {
   tag: Tag
 }
 
+type DepartmentCategoryReport {
+  documentCategory: DepartmentCategory
+  totalSale: Float!
+  subcategory: DepartmentSubCategoryReport
+}
+
 """A connection to a list of items."""
 type DepartmentCategoryTypeConnection {
   """Information to aid in pagination."""
@@ -161,6 +167,11 @@ type DepartmentCategoryTypeEdge {
 
   """A cursor for use in pagination"""
   cursor: String!
+}
+
+type DepartmentSubCategoryReport {
+  documentCategory: DepartmentCategory
+  totalSale: Float!
 }
 
 type DietaryOption implements Node {
@@ -579,6 +590,7 @@ type Restaurant implements Node {
   tables: [Table!]
   configurations: RestaurantConfigurations!
   packageBundle: PackageBundle
+  saleReport(dateRange: DateRange!): DepartmentCategoryReport
   parentRestaurant: ParentRestaurant
 }
 
