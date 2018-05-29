@@ -148,7 +148,7 @@ type DepartmentCategory implements Node {
 type DepartmentCategoryReport {
   documentCategory: DepartmentCategory
   totalSale: Float!
-  subcategory: DepartmentSubCategoryReport
+  departmentSubCategoryReport: DepartmentSubCategoryReport
 }
 
 """A connection to a list of items."""

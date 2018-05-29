@@ -34,7 +34,7 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLFloat),
       resolve: _ => _.get('totalSale'),
     },
-    subcategory: {
+    departmentSubCategoryReport: {
       type: DepartmentSubCategoryReport,
       resolve: _ => _.get('departmentSubCategoryReport'),
     },

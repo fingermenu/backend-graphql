@@ -5280,7 +5280,7 @@
               "deprecationReason": null
             },
             {
-              "name": "subcategory",
+              "name": "departmentSubCategoryReport",
               "description": null,
               "args": [],
               "type": {
