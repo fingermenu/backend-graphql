@@ -37,6 +37,14 @@ var _PackageBundle2 = _interopRequireDefault(_PackageBundle);
 
 var _interface = require('../interface');
 
+var _SaleReport = require('./SaleReport');
+
+var _SaleReport2 = _interopRequireDefault(_SaleReport);
+
+var _DateRange = require('./DateRange');
+
+var _DateRange2 = _interopRequireDefault(_DateRange);
+
 var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
@@ -671,16 +679,19 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    parentRestaurant: {
-      type: ParentRestaurant,
+    saleReport: {
+      type: _SaleReport2.default,
+      args: {
+        dateRange: { type: _DateRange2.default }
+      },
       resolve: function () {
         var _ref31 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(_, args, _ref32) {
-          var restaurantLoaderById = _ref32.dataLoaders.restaurantLoaderById;
+          var packageBundleLoaderByRestaurantId = _ref32.dataLoaders.packageBundleLoaderByRestaurantId;
           return regeneratorRuntime.wrap(function _callee19$(_context19) {
             while (1) {
               switch (_context19.prev = _context19.next) {
                 case 0:
-                  return _context19.abrupt('return', _.get('parentRestaurantId') ? restaurantLoaderById.load(_.get('parentRestaurantId')) : null);
+                  return _context19.abrupt('return', packageBundleLoaderByRestaurantId.load(_.get('id')));
 
                 case 1:
                 case 'end':
@@ -692,6 +703,30 @@ exports.default = new _graphql.GraphQLObjectType({
 
         return function resolve(_x45, _x46, _x47) {
           return _ref31.apply(this, arguments);
+        };
+      }()
+    },
+    parentRestaurant: {
+      type: ParentRestaurant,
+      resolve: function () {
+        var _ref33 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref34) {
+          var restaurantLoaderById = _ref34.dataLoaders.restaurantLoaderById;
+          return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            while (1) {
+              switch (_context20.prev = _context20.next) {
+                case 0:
+                  return _context20.abrupt('return', _.get('parentRestaurantId') ? restaurantLoaderById.load(_.get('parentRestaurantId')) : null);
+
+                case 1:
+                case 'end':
+                  return _context20.stop();
+              }
+            }
+          }, _callee20, undefined);
+        }));
+
+        return function resolve(_x48, _x49, _x50) {
+          return _ref33.apply(this, arguments);
         };
       }()
     }

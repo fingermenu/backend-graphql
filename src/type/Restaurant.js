@@ -10,6 +10,8 @@ import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
 import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
+import DepartmentCategoryReport, { getDepartmentCategoryReport } from './DepartmentCategoryReport';
+import DateRange from './DateRange';
 import Common from './Common';
 
 const getTableCriteria = restaurantId =>
@@ -221,6 +223,14 @@ export default new GraphQLObjectType({
     packageBundle: {
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
+    },
+    saleReport: {
+      type: DepartmentCategoryReport,
+      args: {
+        dateRange: { type: new GraphQLNonNull(DateRange) },
+      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) =>
+        (await getDepartmentCategoryReport(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
     },
     parentRestaurant: {
       type: ParentRestaurant,
