@@ -9,6 +9,8 @@ var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _immutable = require('immutable');
 
+var _immutable2 = _interopRequireDefault(_immutable);
+
 var _graphql = require('graphql');
 
 var _GeoLocation = require('./GeoLocation');
@@ -403,7 +405,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
               switch (_context11.prev = _context11.next) {
                 case 0:
                   _context11.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_.get('id'), args, dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
                   return _context11.abrupt('return', _context11.sent.toArray());
@@ -725,7 +727,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context20.prev = _context20.next) {
                 case 0:
                   _context20.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_.get('id'), args, dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
                   return _context20.abrupt('return', _context20.sent.toArray());

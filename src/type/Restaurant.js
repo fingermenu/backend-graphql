@@ -1,7 +1,7 @@
 // @flow
 
 import { RestaurantService, TableService } from '@fingermenu/parse-server-common';
-import { Map } from 'immutable';
+import Immutable, { Map } from 'immutable';
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import GeoLocation from './GeoLocation';
 import Phone from './Phone';
@@ -129,7 +129,7 @@ const ParentRestaurant = new GraphQLObjectType({
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReport(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoryReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
     },
   },
   interfaces: [NodeInterface],
@@ -238,7 +238,7 @@ export default new GraphQLObjectType({
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReport(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoryReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
     },
     parentRestaurant: {
       type: ParentRestaurant,
