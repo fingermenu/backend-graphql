@@ -4,8 +4,8 @@ import { List } from 'immutable';
 import { GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import DepartmentCategory from './DepartmentCategory';
 
-//export const getDepartmentCategoryReport = async (restaurantId, searchArgs, dataLoaders, sessionToken) => {
-export const getDepartmentCategoryReport = async () => {
+//export const getDepartmentCategoryReports = async (restaurantId, searchArgs, dataLoaders, sessionToken) => {
+export const getDepartmentCategoryReports = async () => {
   return List();
 };
 

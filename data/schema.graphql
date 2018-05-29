@@ -496,6 +496,7 @@ type ParentRestaurant implements Node {
   tables: [Table!]
   configurations: RestaurantConfigurations!
   packageBundle: PackageBundle
+  saleReport(dateRange: DateRange!): DepartmentCategoryReport
 }
 
 type ParentTag implements Node {
