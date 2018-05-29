@@ -10,7 +10,7 @@ import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
 import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
-import DepartmentCategoryReport, { getDepartmentCategoryReports } from './DepartmentCategoryReport';
+import DepartmentCategoryReport, { getDepartmentCategoryReport } from './DepartmentCategoryReport';
 import DateRange from './DateRange';
 import Common from './Common';
 
@@ -123,13 +123,13 @@ const ParentRestaurant = new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    saleReport: {
-      type: DepartmentCategoryReport,
+    departmentCategoryReport: {
+      type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReports(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoryReport(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
     },
   },
   interfaces: [NodeInterface],
@@ -232,13 +232,13 @@ export default new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    saleReport: {
-      type: DepartmentCategoryReport,
+    departmentCategoryReport: {
+      type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReports(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoryReport(_.get('id'), args, dataLoaders, sessionToken)).toArray(),
     },
     parentRestaurant: {
       type: ParentRestaurant,

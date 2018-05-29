@@ -389,8 +389,8 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    saleReport: {
-      type: _DepartmentCategoryReport2.default,
+    departmentCategoryReport: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
         dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
       },
@@ -403,7 +403,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
               switch (_context11.prev = _context11.next) {
                 case 0:
                   _context11.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReports)(_.get('id'), args, dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_.get('id'), args, dataLoaders, sessionToken);
 
                 case 2:
                   return _context11.abrupt('return', _context11.sent.toArray());
@@ -711,8 +711,8 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    saleReport: {
-      type: _DepartmentCategoryReport2.default,
+    departmentCategoryReport: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
         dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
       },
@@ -725,7 +725,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context20.prev = _context20.next) {
                 case 0:
                   _context20.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReports)(_.get('id'), args, dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_.get('id'), args, dataLoaders, sessionToken);
 
                 case 2:
                   return _context20.abrupt('return', _context20.sent.toArray());
