@@ -12,7 +12,7 @@ export const getDepartmentCategoryReport = async () => {
 const DepartmentSubCategoryReport = new GraphQLObjectType({
   name: 'DepartmentSubCategoryReport',
   fields: {
-    documentCategory: {
+    departmentCategory: {
       type: DepartmentCategory,
       resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => departmentCategoryLoaderById.load(_.get('departmentCategoryId')),
     },
@@ -26,7 +26,7 @@ const DepartmentSubCategoryReport = new GraphQLObjectType({
 export default new GraphQLObjectType({
   name: 'DepartmentCategoryReport',
   fields: {
-    documentCategory: {
+    departmentCategory: {
       type: DepartmentCategory,
       resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => departmentCategoryLoaderById.load(_.get('departmentCategoryId')),
     },

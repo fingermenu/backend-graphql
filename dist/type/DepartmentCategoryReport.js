@@ -42,7 +42,7 @@ var getDepartmentCategoryReport = exports.getDepartmentCategoryReport = function
 var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
   name: 'DepartmentSubCategoryReport',
   fields: {
-    documentCategory: {
+    departmentCategory: {
       type: _DepartmentCategory2.default,
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
@@ -78,7 +78,7 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
 exports.default = new _graphql.GraphQLObjectType({
   name: 'DepartmentCategoryReport',
   fields: {
-    documentCategory: {
+    departmentCategory: {
       type: _DepartmentCategory2.default,
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
