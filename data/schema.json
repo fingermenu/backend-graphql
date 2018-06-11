@@ -4713,7 +4713,7 @@
               "deprecationReason": null
             },
             {
-              "name": "departmentCategoryReport",
+              "name": "departmentCategoriesReport",
               "description": null,
               "args": [
                 {
@@ -5288,7 +5288,7 @@
               "deprecationReason": null
             },
             {
-              "name": "departmentSubCategoryReport",
+              "name": "departmentSubCategoriesReport",
               "description": null,
               "args": [],
               "type": {
@@ -5627,7 +5627,7 @@
               "deprecationReason": null
             },
             {
-              "name": "departmentCategoryReport",
+              "name": "departmentCategoriesReport",
               "description": null,
               "args": [
                 {

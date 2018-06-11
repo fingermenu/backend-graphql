@@ -10,7 +10,7 @@ import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
 import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
-import DepartmentCategoryReport, { getDepartmentCategoryReport } from './DepartmentCategoryReport';
+import DepartmentCategoryReport, { getDepartmentCategoriesReport } from './DepartmentCategoryReport';
 import DateRange from './DateRange';
 import Common from './Common';
 
@@ -123,13 +123,13 @@ const ParentRestaurant = new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    departmentCategoryReport: {
+    departmentCategoriesReport: {
       type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
     },
   },
   interfaces: [NodeInterface],
@@ -232,13 +232,13 @@ export default new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    departmentCategoryReport: {
+    departmentCategoriesReport: {
       type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
         dateRange: { type: new GraphQLNonNull(DateRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoryReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
+        (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
     },
     parentRestaurant: {
       type: ParentRestaurant,

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getDepartmentCategoryReport = undefined;
+exports.getDepartmentCategoriesReport = undefined;
 
 var _immutable = require('immutable');
 
@@ -17,8 +17,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//export const getDepartmentCategoryReport = async (searchArgs, dataLoaders, sessionToken) => {
-var getDepartmentCategoryReport = exports.getDepartmentCategoryReport = function () {
+//export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, sessionToken) => {
+var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -34,7 +34,7 @@ var getDepartmentCategoryReport = exports.getDepartmentCategoryReport = function
     }, _callee, undefined);
   }));
 
-  return function getDepartmentCategoryReport() {
+  return function getDepartmentCategoriesReport() {
     return _ref.apply(this, arguments);
   };
 }();
@@ -108,10 +108,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('totalSale');
       }
     },
-    departmentSubCategoryReport: {
+    departmentSubCategoriesReport: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(DepartmentSubCategoryReport)),
       resolve: function resolve(_) {
-        return _.get('departmentSubCategoryReport');
+        return _.get('departmentSubCategoriesReport');
       }
     }
   }

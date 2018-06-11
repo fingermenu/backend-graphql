@@ -391,7 +391,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    departmentCategoryReport: {
+    departmentCategoriesReport: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
         dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
@@ -405,7 +405,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
               switch (_context11.prev = _context11.next) {
                 case 0:
                   _context11.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoriesReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
                   return _context11.abrupt('return', _context11.sent.toArray());
@@ -713,7 +713,7 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    departmentCategoryReport: {
+    departmentCategoriesReport: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
         dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
@@ -727,7 +727,7 @@ exports.default = new _graphql.GraphQLObjectType({
               switch (_context20.prev = _context20.next) {
                 case 0:
                   _context20.next = 2;
-                  return (0, _DepartmentCategoryReport.getDepartmentCategoryReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
+                  return (0, _DepartmentCategoryReport.getDepartmentCategoriesReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
                   return _context20.abrupt('return', _context20.sent.toArray());
