@@ -1,7 +1,7 @@
 // @flow
 
 import { List } from 'immutable';
-import { GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
+import { GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import DepartmentCategory from './DepartmentCategory';
 
 //export const getDepartmentCategoryReport = async (searchArgs, dataLoaders, sessionToken) => {
@@ -35,7 +35,7 @@ export default new GraphQLObjectType({
       resolve: _ => _.get('totalSale'),
     },
     departmentSubCategoryReport: {
-      type: DepartmentSubCategoryReport,
+      type: new GraphQLList(new GraphQLNonNull(DepartmentSubCategoryReport)),
       resolve: _ => _.get('departmentSubCategoryReport'),
     },
   },

@@ -109,7 +109,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     departmentSubCategoryReport: {
-      type: DepartmentSubCategoryReport,
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(DepartmentSubCategoryReport)),
       resolve: function resolve(_) {
         return _.get('departmentSubCategoryReport');
       }
