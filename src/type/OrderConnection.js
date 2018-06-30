@@ -9,16 +9,16 @@ import Order from './Order';
 import Common from './Common';
 
 const getCriteria = searchArgs => {
-  let dateRange;
+  let dateTimeRange;
 
-  if (searchArgs.has('dateRange')) {
-    dateRange = {
-      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'from']))).toDate(),
-      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'to']))).toDate(),
+  if (searchArgs.has('dateTimeRange')) {
+    dateTimeRange = {
+      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
+      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate(),
     };
 
-    if (dateRange.to < dateRange.from) {
-      throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
+    if (dateTimeRange.to < dateTimeRange.from) {
+      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
     }
   }
 
@@ -32,8 +32,8 @@ const getCriteria = searchArgs => {
       deosNotExist_cancelledAt: !searchArgs.has('includeCancelledOrders') || !searchArgs.get('includeCancelledOrders') ? true : undefined,
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       tableId: searchArgs.has('tableId') ? searchArgs.get('tableId') : undefined,
-      greaterThanOrEqualTo_placedAt: dateRange ? dateRange.from : undefined,
-      lessThanOrEqualTo_placedAt: dateRange ? dateRange.to : undefined,
+      greaterThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.from : undefined,
+      lessThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.to : undefined,
     }),
   });
 

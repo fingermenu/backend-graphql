@@ -22,7 +22,7 @@ import Restaurant from './Restaurant';
 import RestaurantConnection, { getRestaurants } from './RestaurantConnection';
 import Order, { getOrder } from './Order';
 import OrderConnection, { getOrders } from './OrderConnection';
-import DateRange from './DateRange';
+import DateTimeRange from './DateTimeRange';
 import ServingTime from './ServingTime';
 import ServingTimeConnection, { getServingTimes } from './ServingTimeConnection';
 import DietaryOption from './DietaryOption';
@@ -213,7 +213,7 @@ export default new GraphQLObjectType({
         orderIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
         correlationId: { type: GraphQLID },
         restaurantId: { type: new GraphQLNonNull(GraphQLID) },
-        dateRange: { type: DateRange },
+        dateTimeRange: { type: DateTimeRange },
         includeCancelledOrders: { type: GraphQLBoolean },
         tableId: { type: GraphQLID },
         name: { type: GraphQLString },
@@ -270,7 +270,7 @@ export default new GraphQLObjectType({
         ...connectionArgs,
         userFeedbackIds: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
         others: { type: GraphQLString },
-        dateRange: { type: DateRange },
+        dateTimeRange: { type: DateTimeRange },
         sortOption: { type: GraphQLString },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) => getUserFeedbacks(Immutable.fromJS(args), dataLoaders, sessionToken),

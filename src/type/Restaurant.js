@@ -11,7 +11,7 @@ import RestaurantConfigurations from './RestaurantConfigurations';
 import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
 import DepartmentCategoryReport, { getDepartmentCategoriesReport } from './DepartmentCategoryReport';
-import DateRange from './DateRange';
+import DateTimeRange from './DateTimeRange';
 import Common from './Common';
 
 const getTableCriteria = restaurantId =>
@@ -126,7 +126,7 @@ const ParentRestaurant = new GraphQLObjectType({
     departmentCategoriesReport: {
       type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
-        dateRange: { type: new GraphQLNonNull(DateRange) },
+        dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
         (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
@@ -235,7 +235,7 @@ export default new GraphQLObjectType({
     departmentCategoriesReport: {
       type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
       args: {
-        dateRange: { type: new GraphQLNonNull(DateRange) },
+        dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
       resolve: async (_, args, { dataLoaders, sessionToken }) =>
         (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),

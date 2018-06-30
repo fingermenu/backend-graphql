@@ -1,11 +1,49 @@
 // @flow
 
+import { OrderService } from '@fingermenu/parse-server-common';
 import { List } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
+import { convert, ZonedDateTime } from 'js-joda';
 import DepartmentCategory from './DepartmentCategory';
 
-//export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, sessionToken) => {
-export const getDepartmentCategoriesReport = async () => {
+export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, sessionToken) => {
+  let dateTimeRange;
+
+  if (searchArgs.has('dateTimeRange')) {
+    dateTimeRange = {
+      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
+      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate(),
+    };
+
+    if (dateTimeRange.to < dateTimeRange.from) {
+      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
+    }
+  }
+
+  const criteria = Map({
+    ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
+    conditions: Map({
+      correlationId: searchArgs.has('correlationId') ? searchArgs.get('correlationId') : undefined,
+      deosNotExist_cancelledAt: true,
+      restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
+      greaterThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.from : undefined,
+      lessThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.to : undefined,
+    }),
+  });
+
+  let orders = List();
+  const result = new OrderService().searchAll(criteria, sessionToken);
+
+  try {
+    result.event.subscribe(info => {
+      orders = orders.push(info);
+    });
+
+    await result.promise;
+  } finally {
+    result.event.unsubscribeAll();
+  }
+
   return List();
 };
 

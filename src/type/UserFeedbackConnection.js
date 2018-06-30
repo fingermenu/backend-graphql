@@ -9,16 +9,16 @@ import UserFeedback from './UserFeedback';
 import Common from './Common';
 
 const getCriteria = (searchArgs, ownedByUserId) => {
-  let dateRange;
+  let dateTimeRange;
 
-  if (searchArgs.has('dateRange')) {
-    dateRange = {
-      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'from']))).toDate(),
-      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'to']))).toDate(),
+  if (searchArgs.has('dateTimeRange')) {
+    dateTimeRange = {
+      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
+      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate(),
     };
 
-    if (dateRange.to < dateRange.from) {
-      throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
+    if (dateTimeRange.to < dateTimeRange.from) {
+      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
     }
   }
 
@@ -27,8 +27,8 @@ const getCriteria = (searchArgs, ownedByUserId) => {
       ids: searchArgs.has('userFeedbackIds') ? searchArgs.get('userFeedbackIds') : undefined,
       conditions: Map({
         contains_others: StringHelper.convertStringArgumentToSet(searchArgs.get('others')),
-        greaterThanOrEqualTo_submittedAt: dateRange ? dateRange.from : undefined,
-        lessThanOrEqualTo_submittedAt: dateRange ? dateRange.to : undefined,
+        greaterThanOrEqualTo_submittedAt: dateTimeRange ? dateTimeRange.from : undefined,
+        lessThanOrEqualTo_submittedAt: dateTimeRange ? dateTimeRange.to : undefined,
         ownedByUserId,
       }),
     }),
