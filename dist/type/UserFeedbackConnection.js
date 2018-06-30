@@ -28,16 +28,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
-  var dateRange = void 0;
+  var dateTimeRange = void 0;
 
-  if (searchArgs.has('dateRange')) {
-    dateRange = {
-      from: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'from']))).toDate(),
-      to: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateRange', 'to']))).toDate()
+  if (searchArgs.has('dateTimeRange')) {
+    dateTimeRange = {
+      from: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
+      to: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate()
     };
 
-    if (dateRange.to < dateRange.from) {
-      throw new Error('dateRange is invalid. \'to\' is less than \'from\'.');
+    if (dateTimeRange.to < dateTimeRange.from) {
+      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
     }
   }
 
@@ -45,8 +45,8 @@ var getCriteria = function getCriteria(searchArgs, ownedByUserId) {
     ids: searchArgs.has('userFeedbackIds') ? searchArgs.get('userFeedbackIds') : undefined,
     conditions: (0, _immutable.Map)({
       contains_others: _commonJavascript.StringHelper.convertStringArgumentToSet(searchArgs.get('others')),
-      greaterThanOrEqualTo_submittedAt: dateRange ? dateRange.from : undefined,
-      lessThanOrEqualTo_submittedAt: dateRange ? dateRange.to : undefined,
+      greaterThanOrEqualTo_submittedAt: dateTimeRange ? dateTimeRange.from : undefined,
+      lessThanOrEqualTo_submittedAt: dateTimeRange ? dateTimeRange.to : undefined,
       ownedByUserId: ownedByUserId
     })
   }));

@@ -88,9 +88,9 @@ var _OrderConnection = require('./OrderConnection');
 
 var _OrderConnection2 = _interopRequireDefault(_OrderConnection);
 
-var _DateRange = require('./DateRange');
+var _DateTimeRange = require('./DateTimeRange');
 
-var _DateRange2 = _interopRequireDefault(_DateRange);
+var _DateTimeRange2 = _interopRequireDefault(_DateTimeRange);
 
 var _ServingTime = require('./ServingTime');
 
@@ -671,7 +671,7 @@ exports.default = new _graphql.GraphQLObjectType({
         orderIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
         correlationId: { type: _graphql.GraphQLID },
         restaurantId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLID) },
-        dateRange: { type: _DateRange2.default },
+        dateTimeRange: { type: _DateTimeRange2.default },
         includeCancelledOrders: { type: _graphql.GraphQLBoolean },
         tableId: { type: _graphql.GraphQLID },
         name: { type: _graphql.GraphQLString },
@@ -847,7 +847,7 @@ exports.default = new _graphql.GraphQLObjectType({
       args: _extends({}, _graphqlRelay.connectionArgs, {
         userFeedbackIds: { type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLID)) },
         others: { type: _graphql.GraphQLString },
-        dateRange: { type: _DateRange2.default },
+        dateTimeRange: { type: _DateTimeRange2.default },
         sortOption: { type: _graphql.GraphQLString }
       }),
       resolve: function () {

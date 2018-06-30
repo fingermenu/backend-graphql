@@ -43,9 +43,9 @@ var _DepartmentCategoryReport = require('./DepartmentCategoryReport');
 
 var _DepartmentCategoryReport2 = _interopRequireDefault(_DepartmentCategoryReport);
 
-var _DateRange = require('./DateRange');
+var _DateTimeRange = require('./DateTimeRange');
 
-var _DateRange2 = _interopRequireDefault(_DateRange);
+var _DateTimeRange2 = _interopRequireDefault(_DateTimeRange);
 
 var _Common = require('./Common');
 
@@ -394,7 +394,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
     departmentCategoriesReport: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
-        dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
+        dateTimeRange: { type: new _graphql.GraphQLNonNull(_DateTimeRange2.default) }
       },
       resolve: function () {
         var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref18) {
@@ -716,7 +716,7 @@ exports.default = new _graphql.GraphQLObjectType({
     departmentCategoriesReport: {
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
       args: {
-        dateRange: { type: new _graphql.GraphQLNonNull(_DateRange2.default) }
+        dateTimeRange: { type: new _graphql.GraphQLNonNull(_DateTimeRange2.default) }
       },
       resolve: function () {
         var _ref33 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref34) {
