@@ -1,6 +1,6 @@
 // @flow
 
-import { OrderService } from '@fingermenu/parse-server-common';
+import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-server-common';
 import { List } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { convert, ZonedDateTime } from 'js-joda';
@@ -20,19 +20,17 @@ export const getDepartmentCategoriesReport = async (searchArgs, { menuItemPriceL
     }
   }
 
-  const criteria = Map({
+  const criteriaToFetchOrders = Map({
     ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: Map({
-      correlationId: searchArgs.has('correlationId') ? searchArgs.get('correlationId') : undefined,
       deosNotExist_cancelledAt: true,
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
       greaterThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.from : undefined,
       lessThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.to : undefined,
     }),
   });
-
+  const result = new OrderService().searchAll(criteriaToFetchOrders, sessionToken);
   let orders = List();
-  const result = new OrderService().searchAll(criteria, sessionToken);
 
   try {
     result.event.subscribe(info => {
@@ -60,9 +58,11 @@ export const getDepartmentCategoriesReport = async (searchArgs, { menuItemPriceL
   const menuItemPricesAndChoiceItemPrices = await Promise.all([
     menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()),
     choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()),
+    new DepartmentCategoryService().search(Map(), sessionToken),
   ]);
   const menuItemPrices = menuItemPricesAndChoiceItemPrices[0];
   const choiceItemPrices = menuItemPricesAndChoiceItemPrices[1];
+  const departmentCategories = menuItemPricesAndChoiceItemPrices[2];
 
   return List();
 };
