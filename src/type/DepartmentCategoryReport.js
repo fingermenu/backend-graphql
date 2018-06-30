@@ -16,7 +16,7 @@ export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, ses
     };
 
     if (dateTimeRange.to < dateTimeRange.from) {
-      throw new Error("dateTimeRange is invalid. 'to' is less than 'from'.");
+      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
     }
   }
 
@@ -49,8 +49,8 @@ export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, ses
     .map(orderMenuItemPrice =>
       Map({
         menuItemPriceId: orderMenuItemPrice.get('menuItemPriceId'),
-        paymentGroup: orderMenuItemPrice.get('paymentGroup'),
         orderChoiceItemPrices: orderMenuItemPrice.get('orderChoiceItemPrices'),
+        discount: orderMenuItemPrice.getIn(['paymentGroup', 'discount']),
       }),
     );
 
