@@ -43,7 +43,7 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
   name: 'DepartmentSubCategoryReport',
   fields: {
     departmentCategory: {
-      type: _DepartmentCategory2.default,
+      type: (0, _graphql.GraphQLNonNull)(_DepartmentCategory2.default),
       resolve: function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
           var departmentCategoryLoaderById = _ref3.dataLoaders.departmentCategoryLoaderById;
@@ -71,6 +71,12 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
       resolve: function resolve(_) {
         return _.get('totalSale');
       }
+    },
+    quantity: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
+      resolve: function resolve(_) {
+        return _.get('quantity');
+      }
     }
   }
 });
@@ -79,7 +85,7 @@ exports.default = new _graphql.GraphQLObjectType({
   name: 'DepartmentCategoryReport',
   fields: {
     departmentCategory: {
-      type: _DepartmentCategory2.default,
+      type: (0, _graphql.GraphQLNonNull)(_DepartmentCategory2.default),
       resolve: function () {
         var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
           var departmentCategoryLoaderById = _ref5.dataLoaders.departmentCategoryLoaderById;
@@ -106,6 +112,12 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLFloat),
       resolve: function resolve(_) {
         return _.get('totalSale');
+      }
+    },
+    quantity: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
+      resolve: function resolve(_) {
+        return _.get('quantity');
       }
     },
     departmentSubCategoriesReport: {
