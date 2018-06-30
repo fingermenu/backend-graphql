@@ -6,7 +6,7 @@ import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNul
 import { convert, ZonedDateTime } from 'js-joda';
 import DepartmentCategory from './DepartmentCategory';
 
-export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, sessionToken) => {
+export const getDepartmentCategoriesReport = async (searchArgs, { menuItemPriceLoaderById, choiceItemPriceLoaderById }, sessionToken) => {
   let dateTimeRange;
 
   if (searchArgs.has('dateTimeRange')) {
@@ -49,10 +49,20 @@ export const getDepartmentCategoriesReport = async (searchArgs, dataLoaders, ses
     .map(orderMenuItemPrice =>
       Map({
         menuItemPriceId: orderMenuItemPrice.get('menuItemPriceId'),
-        orderChoiceItemPrices: orderMenuItemPrice.get('orderChoiceItemPrices'),
+        choiceItemPriceIds: orderMenuItemPrice
+          .get('orderChoiceItemPrices')
+          .map(orderChoiceItemPrice => orderChoiceItemPrice.get('choiceItemPriceId')),
         discount: orderMenuItemPrice.getIn(['paymentGroup', 'discount']),
       }),
     );
+  const menuItemPriceIds = orderMenuItemPrices.map(orderMenuItemPrice => orderMenuItemPrice.get('menuItemPriceId')).toSet();
+  const choiceItemPriceIds = orderMenuItemPrices.flatMap(orderMenuItemPrice => orderMenuItemPrice.get('choiceItemPriceIds')).toSet();
+  const menuItemPricesAndChoiceItemPrices = await Promise.all([
+    menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()),
+    choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()),
+  ]);
+  const menuItemPrices = menuItemPricesAndChoiceItemPrices[0];
+  const choiceItemPrices = menuItemPricesAndChoiceItemPrices[1];
 
   return List();
 };
