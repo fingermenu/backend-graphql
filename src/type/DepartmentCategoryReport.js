@@ -1,12 +1,17 @@
 // @flow
 
+import { Common } from '@microbusiness/common-javascript';
 import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-server-common';
 import { List } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { convert, ZonedDateTime } from 'js-joda';
 import DepartmentCategory from './DepartmentCategory';
 
-export const getDepartmentCategoriesReport = async (searchArgs, { menuItemPriceLoaderById, choiceItemPriceLoaderById }, sessionToken) => {
+export const getDepartmentCategoriesReport = async (
+  searchArgs,
+  { tagLoaderById, menuItemPriceLoaderById, choiceItemPriceLoaderById },
+  sessionToken,
+) => {
   let dateTimeRange;
 
   if (searchArgs.has('dateTimeRange')) {
@@ -63,6 +68,34 @@ export const getDepartmentCategoriesReport = async (searchArgs, { menuItemPriceL
   const menuItemPrices = menuItemPricesAndChoiceItemPrices[0];
   const choiceItemPrices = menuItemPricesAndChoiceItemPrices[1];
   const departmentCategories = menuItemPricesAndChoiceItemPrices[2];
+  const departmentCategoryTags = await tagLoaderById.loadAll(
+    departmentCategories.map(departmentCategory => departmentCategory.get('tagId')).toArray(),
+  );
+  const departmentCategoriesWitTagInfo = departmentCategories.map(departmentCategory =>
+    departmentCategory.set('tag', departmentCategoryTags.find(tag => tag.get('id').localeCompare(departmentCategory.get('tagId')) === 0)),
+  );
+  const levelTwoDepartmentCategories = departmentCategoriesWitTagInfo.filter(departmentCategory => departmentCategory.getIn(['tag', 'level']) === 2);
+
+  const orderMenuItemPricesWithPricesInfo = orderMenuItemPrices.map(orderMenuItemPrice =>
+    orderMenuItemPrice.set(
+      'menuItemPrice',
+      menuItemPrices.find(menuItemPrice => menuItemPrice.get('id').localeCompare(orderMenuItemPrice.get('menuItemPriceId')) === 0),
+    ),
+  );
+
+  const untaggedMenuItemPrices = menuItemPrices.filter(menuItemPrice =>
+    Common.isNullOrUndefined(
+      levelTwoDepartmentCategories.find(departmentCategory =>
+        menuItemPrice.get('tagIds').find(tagId => departmentCategory.get('tagId').localeCompare(tagId) === 0),
+      ),
+    ),
+  );
+  const levelTwoDepartmentCategoriesWithMenuItemPrices = levelTwoDepartmentCategories.map(departmentCategory =>
+    departmentCategory.set(
+      'menuItemPrices',
+      menuItemPrices.filter(menuItemPrice => menuItemPrice.get('tagIds').find(tagId => departmentCategory.get('tagId').localeCompare(tagId) === 0)),
+    ),
+  );
 
   return List();
 };
