@@ -1,32 +1,22 @@
 // @flow
 
-import { Common } from '@microbusiness/common-javascript';
 import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-server-common';
 import { List } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { convert, ZonedDateTime } from 'js-joda';
 import DepartmentCategory from './DepartmentCategory';
 
-export const getDepartmentCategoriesReport = async (
-  searchArgs,
-  { tagLoaderById, menuItemPriceLoaderById, choiceItemPriceLoaderById },
-  sessionToken,
-) => {
-  let dateTimeRange;
+const getAllPaidOrders = async (searchArgs, sessionToken) => {
+  const dateTimeRange = {
+    from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
+    to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate(),
+  };
 
-  if (searchArgs.has('dateTimeRange')) {
-    dateTimeRange = {
-      from: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
-      to: convert(ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate(),
-    };
-
-    if (dateTimeRange.to < dateTimeRange.from) {
-      throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
-    }
+  if (dateTimeRange.to < dateTimeRange.from) {
+    throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
   }
 
   const criteriaToFetchOrders = Map({
-    ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
     conditions: Map({
       deosNotExist_cancelledAt: true,
       restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
@@ -47,17 +37,14 @@ export const getDepartmentCategoriesReport = async (
     result.event.unsubscribeAll();
   }
 
-  const orderMenuItemPrices = orders
-    .flatMap(order => order.get('details').filter(orderMenuItemPrice => orderMenuItemPrice.get('paid')))
-    .map(orderMenuItemPrice =>
-      Map({
-        menuItemPriceId: orderMenuItemPrice.get('menuItemPriceId'),
-        choiceItemPriceIds: orderMenuItemPrice
-          .get('orderChoiceItemPrices')
-          .map(orderChoiceItemPrice => orderChoiceItemPrice.get('choiceItemPriceId')),
-        discount: orderMenuItemPrice.getIn(['paymentGroup', 'discount']),
-      }),
-    );
+  return orders.flatMap(order => order.get('details').filter(orderMenuItemPrice => orderMenuItemPrice.get('paid')));
+};
+
+const extractRequiredInfoFromOrderMenuItemPrices = async (
+  orderMenuItemPrices,
+  { menuItemPriceLoaderById, choiceItemPriceLoaderById },
+  sessionToken,
+) => {
   const menuItemPriceIds = orderMenuItemPrices.map(orderMenuItemPrice => orderMenuItemPrice.get('menuItemPriceId')).toSet();
   const choiceItemPriceIds = orderMenuItemPrices.flatMap(orderMenuItemPrice => orderMenuItemPrice.get('choiceItemPriceIds')).toSet();
   const menuItemPricesAndChoiceItemPrices = await Promise.all([
@@ -65,36 +52,70 @@ export const getDepartmentCategoriesReport = async (
     choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()),
     new DepartmentCategoryService().search(Map(), sessionToken),
   ]);
-  const menuItemPrices = menuItemPricesAndChoiceItemPrices[0];
-  const choiceItemPrices = menuItemPricesAndChoiceItemPrices[1];
-  const departmentCategories = menuItemPricesAndChoiceItemPrices[2];
+
+  return {
+    menuItemPrices: menuItemPricesAndChoiceItemPrices[0],
+    choiceItemPrices: menuItemPricesAndChoiceItemPrices[1],
+    departmentCategories: menuItemPricesAndChoiceItemPrices[2],
+  };
+};
+
+const addPriceInfoToOrderMenuItemPrice = (orderMenuItemPrices, menuItemPrices, choiceItemPrices) =>
+  orderMenuItemPrices.map(orderMenuItemPrice =>
+    orderMenuItemPrice
+      .set(
+        'menuItemPrice',
+        menuItemPrices.find(menuItemPrice => menuItemPrice.get('id').localeCompare(orderMenuItemPrice.get('menuItemPriceId')) === 0),
+      )
+      .update('orderChoiceItemPrices', orderChoiceItemPrices =>
+        orderChoiceItemPrices.map(orderChoiceItemPrice =>
+          orderChoiceItemPrice.set(
+            'choiceItemPrice',
+            choiceItemPrices.find(choiceItemPrice => choiceItemPrice.get('id').localeCompare(orderChoiceItemPrice.get('choiceItemPriceId')) === 0),
+          ),
+        ),
+      ),
+  );
+
+const addDepartmentCategoriesInfoToOrderMenuItemPrice = (orderMenuItemPricesWithPricesInfo, levelTwoDepartmentCategories) =>
+  orderMenuItemPricesWithPricesInfo.map(orderMenuItemPrice =>
+    orderMenuItemPrice.set(
+      'departmentCategoryIds',
+      levelTwoDepartmentCategories
+        .filter(departmentCategory =>
+          orderMenuItemPrice.getIn(['menuItemPrice', 'tagIds']).find(tagId => tagId.localeCompare(departmentCategory.getIn(['tag', 'id'])) === 0),
+        )
+        .map(departmentCategory => departmentCategory.get('id')),
+    ),
+  );
+
+const addTagInfoToDepartmentCategories = async (departmentCategories, { tagLoaderById }) => {
   const departmentCategoryTags = await tagLoaderById.loadAll(
     departmentCategories.map(departmentCategory => departmentCategory.get('tagId')).toArray(),
   );
-  const departmentCategoriesWitTagInfo = departmentCategories.map(departmentCategory =>
+
+  return departmentCategories.map(departmentCategory =>
     departmentCategory.set('tag', departmentCategoryTags.find(tag => tag.get('id').localeCompare(departmentCategory.get('tagId')) === 0)),
   );
+};
+
+export const getDepartmentCategoriesReport = async (
+  searchArgs,
+  { tagLoaderById, menuItemPriceLoaderById, choiceItemPriceLoaderById },
+  sessionToken,
+) => {
+  const orderMenuItemPrices = await getAllPaidOrders(searchArgs, sessionToken);
+  const { menuItemPrices, choiceItemPrices, departmentCategories } = await extractRequiredInfoFromOrderMenuItemPrices(
+    menuItemPrices,
+    { menuItemPriceLoaderById, choiceItemPriceLoaderById },
+    sessionToken,
+  );
+  const departmentCategoriesWitTagInfo = await addTagInfoToDepartmentCategories(departmentCategories, { tagLoaderById });
   const levelTwoDepartmentCategories = departmentCategoriesWitTagInfo.filter(departmentCategory => departmentCategory.getIn(['tag', 'level']) === 2);
-
-  const orderMenuItemPricesWithPricesInfo = orderMenuItemPrices.map(orderMenuItemPrice =>
-    orderMenuItemPrice.set(
-      'menuItemPrice',
-      menuItemPrices.find(menuItemPrice => menuItemPrice.get('id').localeCompare(orderMenuItemPrice.get('menuItemPriceId')) === 0),
-    ),
-  );
-
-  const untaggedMenuItemPrices = menuItemPrices.filter(menuItemPrice =>
-    Common.isNullOrUndefined(
-      levelTwoDepartmentCategories.find(departmentCategory =>
-        menuItemPrice.get('tagIds').find(tagId => departmentCategory.get('tagId').localeCompare(tagId) === 0),
-      ),
-    ),
-  );
-  const levelTwoDepartmentCategoriesWithMenuItemPrices = levelTwoDepartmentCategories.map(departmentCategory =>
-    departmentCategory.set(
-      'menuItemPrices',
-      menuItemPrices.filter(menuItemPrice => menuItemPrice.get('tagIds').find(tagId => departmentCategory.get('tagId').localeCompare(tagId) === 0)),
-    ),
+  const orderMenuItemPricesWithPricesInfo = addPriceInfoToOrderMenuItemPrice(orderMenuItemPrices, menuItemPrices, choiceItemPrices);
+  const orderMenuItemPricesWithDepartmentCategoryInfo = addDepartmentCategoriesInfoToOrderMenuItemPrice(
+    orderMenuItemPricesWithPricesInfo,
+    levelTwoDepartmentCategories,
   );
 
   return List();
