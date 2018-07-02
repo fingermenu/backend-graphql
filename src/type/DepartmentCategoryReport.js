@@ -118,6 +118,7 @@ export const getDepartmentCategoriesReport = async (
     sessionToken,
   );
   const departmentCategoriesWitTagInfo = await addTagInfoToDepartmentCategories(departmentCategories, { tagLoaderById });
+  const levelOneDepartmentCategories = departmentCategoriesWitTagInfo.filter(departmentCategory => departmentCategory.getIn(['tag', 'level']) === 1);
   const levelTwoDepartmentCategories = departmentCategoriesWitTagInfo.filter(departmentCategory => departmentCategory.getIn(['tag', 'level']) === 2);
   const orderMenuItemPricesWithPricesInfo = addPriceInfoToOrderMenuItemPrice(orderMenuItemPrices, menuItemPrices, choiceItemPrices);
   const orderMenuItemPricesWithDepartmentCategoryInfo = addDepartmentCategoriesInfoToOrderMenuItemPrice(
