@@ -78,16 +78,23 @@ const addPriceInfoToOrderMenuItemPrice = (orderMenuItemPrices, menuItemPrices, c
   );
 
 const addDepartmentCategoriesInfoToOrderMenuItemPrice = (orderMenuItemPricesWithPricesInfo, levelTwoDepartmentCategories) =>
-  orderMenuItemPricesWithPricesInfo.map(orderMenuItemPrice =>
-    orderMenuItemPrice.set(
-      'departmentCategoryIds',
-      levelTwoDepartmentCategories
-        .filter(departmentCategory =>
-          orderMenuItemPrice.getIn(['menuItemPrice', 'tagIds']).find(tagId => tagId.localeCompare(departmentCategory.getIn(['tag', 'id'])) === 0),
-        )
-        .map(departmentCategory => departmentCategory.get('id')),
-    ),
-  );
+  orderMenuItemPricesWithPricesInfo
+    .map(orderMenuItemPrice =>
+      orderMenuItemPrice.set(
+        'departmentCategoryIds',
+        levelTwoDepartmentCategories
+          .filter(departmentCategory =>
+            orderMenuItemPrice.getIn(['menuItemPrice', 'tagIds']).find(tagId => tagId.localeCompare(departmentCategory.getIn(['tag', 'id'])) === 0),
+          )
+          .map(departmentCategory => departmentCategory.get('id')),
+      ),
+    )
+    .map(orderMenuItemPrice =>
+      orderMenuItemPrice.set(
+        'departmentCategoryId',
+        orderMenuItemPrice.get('departmentCategoryIds').isEmpty() ? null : orderMenuItemPrice.get('departmentCategoryIds').first(),
+      ),
+    );
 
 const addTagInfoToDepartmentCategories = async (departmentCategories, { tagLoaderById }) => {
   const departmentCategoryTags = await tagLoaderById.loadAll(
