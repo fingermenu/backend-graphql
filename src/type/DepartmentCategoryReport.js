@@ -136,7 +136,7 @@ export const getDepartmentCategoriesReport = async (
           const menuItemPriceCurrentPrice = orderMenuItemPrice.getIn(['menuItemPrice', 'currentPrice']);
 
           if (menuItemPriceCurrentPrice) {
-            menuItemPriceTotalSale += orderMenuItemPrice.get('quantity') * menuItemPriceCurrentPrice;
+            menuItemPriceTotalSale += menuItemPriceCurrentPrice;
           }
 
           menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce((total, orderChoiceItemPrice) => {
@@ -150,7 +150,7 @@ export const getDepartmentCategoriesReport = async (
             return choiceItemPriceTotalSale;
           }, 0.0);
 
-          return menuItemPriceTotalSale;
+          return orderMenuItemPrice.get('quantity') * menuItemPriceTotalSale;
         }),
       Map({ quantity: orderMenuItemPrices.count(), totalSale: 0.0 }),
     ),
