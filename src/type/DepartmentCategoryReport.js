@@ -144,13 +144,13 @@ export const getDepartmentCategoriesReport = async (
             const choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
 
             if (choiceItemPriceCurrentPrice) {
-              choiceItemPriceTotalSale += orderChoiceItemPrice.get('quantity') * choiceItemPriceCurrentPrice;
+              choiceItemPriceTotalSale += choiceItemPriceCurrentPrice;
             }
 
             return choiceItemPriceTotalSale;
           }, 0.0);
 
-          return orderMenuItemPrice.get('quantity') * menuItemPriceTotalSale;
+          return menuItemPriceTotalSale;
         }),
       Map({ quantity: orderMenuItemPrices.count(), totalSale: 0.0 }),
     ),
