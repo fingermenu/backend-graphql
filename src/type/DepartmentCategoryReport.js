@@ -124,6 +124,36 @@ export const getDepartmentCategoriesReport = async (
     orderMenuItemPricesWithPricesInfo,
     levelTwoDepartmentCategories,
   );
+  const orderMenuItemPricesGroupedByDepartmentCategory = orderMenuItemPricesWithDepartmentCategoryInfo.groupBy(orderMenuItemPrice =>
+    orderMenuItemPrice.get('departmentCategoryId'),
+  );
+  const levelTwoReport = orderMenuItemPricesGroupedByDepartmentCategory.map(orderMenuItemPrices =>
+    orderMenuItemPrices.reduce(
+      (reduction, orderMenuItemPrice) =>
+        reduction.update('totalSale', totalSale => {
+          var menuItemPriceTotalSale = totalSale;
+          const menuItemPriceCurrentPrice = orderMenuItemPrice.getIn(['menuItemPrice', 'currentPrice']);
+
+          if (menuItemPriceCurrentPrice) {
+            menuItemPriceTotalSale += orderMenuItemPrice.get('quantity') * menuItemPriceCurrentPrice;
+          }
+
+          menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce((total, orderChoiceItemPrice) => {
+            var choiceItemPriceTotalSale = total;
+            const choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
+
+            if (choiceItemPriceCurrentPrice) {
+              choiceItemPriceTotalSale += orderChoiceItemPrice.get('quantity') * choiceItemPriceCurrentPrice;
+            }
+
+            return choiceItemPriceTotalSale;
+          }, 0.0);
+
+          return menuItemPriceTotalSale;
+        }),
+      Map({ quantity: orderMenuItemPrices.count(), totalSale: 0.0 }),
+    ),
+  );
 
   return List();
 };
