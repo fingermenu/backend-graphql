@@ -1,7 +1,7 @@
 // @flow
 
 import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-server-common';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { convert, ZonedDateTime } from 'js-joda';
 import DepartmentCategory from './DepartmentCategory';
