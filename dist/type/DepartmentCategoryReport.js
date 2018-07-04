@@ -275,7 +275,7 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
                   return totalSale + report.get('totalSale');
                 });
               }, (0, _immutable.Map)({ quantity: 0, totalSale: 0.0 }))).set('departmentSubCategoriesReport', subReport.map(function (report) {
-                return (0, _immutable.Map)({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') });
+                return (0, _immutable.Map)({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quantity'), totalSale: report.get('totalSale') });
               }));
             }));
 

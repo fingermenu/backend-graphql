@@ -184,7 +184,7 @@ export const getDepartmentCategoriesReport = async (
       .set(
         'departmentSubCategoriesReport',
         subReport.map(report =>
-          Map({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') }),
+          Map({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quantity'), totalSale: report.get('totalSale') }),
         ),
       );
   });
