@@ -43,8 +43,8 @@ var getAllPaidOrders = function () {
             throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
 
           case 3:
-            criteriaToFetchOrders = Map({
-              conditions: Map({
+            criteriaToFetchOrders = (0, _immutable.Map)({
+              conditions: (0, _immutable.Map)({
                 deosNotExist_cancelledAt: true,
                 restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
                 greaterThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.from : undefined,
@@ -104,7 +104,7 @@ var extractRequiredInfoFromOrderMenuItemPrices = function () {
               return orderMenuItemPrice.get('choiceItemPriceIds');
             }).toSet();
             _context2.next = 4;
-            return Promise.all([menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()), choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()), new _parseServerCommon.DepartmentCategoryService().search(Map(), sessionToken)]);
+            return Promise.all([menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()), choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()), new _parseServerCommon.DepartmentCategoryService().search((0, _immutable.Map)(), sessionToken)]);
 
           case 4:
             menuItemPricesAndChoiceItemPrices = _context2.sent;
@@ -258,7 +258,7 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
 
                   return menuItemPriceTotalSale;
                 });
-              }, Map({ parentDepartmentCategoryId: parentDepartmentCategoryId, departmentCategoryId: departmentCategoryId, quantity: orderMenuItemPrices.count(), totalSale: 0.0 }));
+              }, (0, _immutable.Map)({ parentDepartmentCategoryId: parentDepartmentCategoryId, departmentCategoryId: departmentCategoryId, quantity: orderMenuItemPrices.count(), totalSale: 0.0 }));
 
               return [departmentCategoryId, report];
             }).valueSeq().toList();
@@ -268,14 +268,14 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
             return _context4.abrupt('return', reportGroupedByParentDepartmentcategoryId.keySeq().map(function (parentDepartmentCategoryId) {
               var subReport = reportGroupedByParentDepartmentcategoryId.get(parentDepartmentCategoryId);
 
-              return Map({ departmentCategoryId: parentDepartmentCategoryId }).merge(subReport.reduce(function (reduction, report) {
+              return (0, _immutable.Map)({ departmentCategoryId: parentDepartmentCategoryId }).merge(subReport.reduce(function (reduction, report) {
                 return reduction.update('quantity', function (quantity) {
                   return quantity + report.get('quantity');
                 }).update('totalSale', function (totalSale) {
                   return totalSale + report.get('totalSale');
                 });
-              }, Map({ quantity: 0, totalSale: 0.0 }))).set('departmentSubCategoriesReport', subReport.map(function (report) {
-                return Map({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') });
+              }, (0, _immutable.Map)({ quantity: 0, totalSale: 0.0 }))).set('departmentSubCategoriesReport', subReport.map(function (report) {
+                return (0, _immutable.Map)({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') });
               }));
             }));
 
