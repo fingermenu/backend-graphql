@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getDepartmentCategoriesReport = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _immutable = require('immutable');
@@ -21,84 +23,272 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, dataLoaders, sessionToken) {
-    var dateTimeRange, criteria, orders, result, orderMenuItemPrices;
+var getAllPaidOrders = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, sessionToken) {
+    var dateTimeRange, criteriaToFetchOrders, result, orders;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            dateTimeRange = void 0;
-
-            if (!searchArgs.has('dateTimeRange')) {
-              _context.next = 5;
-              break;
-            }
-
             dateTimeRange = {
               from: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'from']))).toDate(),
               to: (0, _jsJoda.convert)(_jsJoda.ZonedDateTime.parse(searchArgs.getIn(['dateTimeRange', 'to']))).toDate()
             };
 
             if (!(dateTimeRange.to < dateTimeRange.from)) {
-              _context.next = 5;
+              _context.next = 3;
               break;
             }
 
             throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
 
-          case 5:
-            criteria = Map({
-              ids: searchArgs.has('orderIds') ? searchArgs.get('orderIds') : undefined,
+          case 3:
+            criteriaToFetchOrders = Map({
               conditions: Map({
-                correlationId: searchArgs.has('correlationId') ? searchArgs.get('correlationId') : undefined,
                 deosNotExist_cancelledAt: true,
                 restaurantId: searchArgs.has('restaurantId') ? searchArgs.get('restaurantId') : undefined,
                 greaterThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.from : undefined,
                 lessThanOrEqualTo_placedAt: dateTimeRange ? dateTimeRange.to : undefined
               })
             });
+            result = new _parseServerCommon.OrderService().searchAll(criteriaToFetchOrders, sessionToken);
             orders = (0, _immutable.List)();
-            result = new _parseServerCommon.OrderService().searchAll(criteria, sessionToken);
-            _context.prev = 8;
+            _context.prev = 6;
 
             result.event.subscribe(function (info) {
               orders = orders.push(info);
             });
 
-            _context.next = 12;
+            _context.next = 10;
             return result.promise;
 
-          case 12:
-            _context.prev = 12;
+          case 10:
+            _context.prev = 10;
 
             result.event.unsubscribeAll();
-            return _context.finish(12);
+            return _context.finish(10);
 
-          case 15:
-            orderMenuItemPrices = orders.flatMap(function (order) {
+          case 13:
+            return _context.abrupt('return', orders.flatMap(function (order) {
               return order.get('details').filter(function (orderMenuItemPrice) {
                 return orderMenuItemPrice.get('paid');
               });
-            }).map(function (orderMenuItemPrice) {
-              return Map({
-                menuItemPriceId: orderMenuItemPrice.get('menuItemPriceId'),
-                paymentGroup: orderMenuItemPrice.get('paymentGroup'),
-                orderChoiceItemPrices: orderMenuItemPrice.get('orderChoiceItemPrices')
-              });
-            });
-            return _context.abrupt('return', (0, _immutable.List)());
+            }));
 
-          case 17:
+          case 14:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[8,, 12, 15]]);
+    }, _callee, undefined, [[6,, 10, 13]]);
   }));
 
-  return function getDepartmentCategoriesReport(_x, _x2, _x3) {
+  return function getAllPaidOrders(_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+}();
+
+var extractRequiredInfoFromOrderMenuItemPrices = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(orderMenuItemPrices, _ref3, sessionToken) {
+    var menuItemPriceLoaderById = _ref3.menuItemPriceLoaderById,
+        choiceItemPriceLoaderById = _ref3.choiceItemPriceLoaderById;
+    var menuItemPriceIds, choiceItemPriceIds, menuItemPricesAndChoiceItemPrices;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            menuItemPriceIds = orderMenuItemPrices.map(function (orderMenuItemPrice) {
+              return orderMenuItemPrice.get('menuItemPriceId');
+            }).toSet();
+            choiceItemPriceIds = orderMenuItemPrices.flatMap(function (orderMenuItemPrice) {
+              return orderMenuItemPrice.get('choiceItemPriceIds');
+            }).toSet();
+            _context2.next = 4;
+            return Promise.all([menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()), choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()), new _parseServerCommon.DepartmentCategoryService().search(Map(), sessionToken)]);
+
+          case 4:
+            menuItemPricesAndChoiceItemPrices = _context2.sent;
+            return _context2.abrupt('return', {
+              menuItemPrices: menuItemPricesAndChoiceItemPrices[0],
+              choiceItemPrices: menuItemPricesAndChoiceItemPrices[1],
+              departmentCategories: menuItemPricesAndChoiceItemPrices[2]
+            });
+
+          case 6:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function extractRequiredInfoFromOrderMenuItemPrices(_x3, _x4, _x5) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var addPriceInfoToOrderMenuItemPrice = function addPriceInfoToOrderMenuItemPrice(orderMenuItemPrices, menuItemPrices, choiceItemPrices) {
+  return orderMenuItemPrices.map(function (orderMenuItemPrice) {
+    return orderMenuItemPrice.set('menuItemPrice', menuItemPrices.find(function (menuItemPrice) {
+      return menuItemPrice.get('id').localeCompare(orderMenuItemPrice.get('menuItemPriceId')) === 0;
+    })).update('orderChoiceItemPrices', function (orderChoiceItemPrices) {
+      return orderChoiceItemPrices.map(function (orderChoiceItemPrice) {
+        return orderChoiceItemPrice.set('choiceItemPrice', choiceItemPrices.find(function (choiceItemPrice) {
+          return choiceItemPrice.get('id').localeCompare(orderChoiceItemPrice.get('choiceItemPriceId')) === 0;
+        }));
+      });
+    });
+  });
+};
+
+var addDepartmentCategoriesInfoToOrderMenuItemPrice = function addDepartmentCategoriesInfoToOrderMenuItemPrice(orderMenuItemPricesWithPricesInfo, levelTwoDepartmentCategories) {
+  return orderMenuItemPricesWithPricesInfo.map(function (orderMenuItemPrice) {
+    return orderMenuItemPrice.set('departmentCategoryIds', levelTwoDepartmentCategories.filter(function (departmentCategory) {
+      return orderMenuItemPrice.getIn(['menuItemPrice', 'tagIds']).find(function (tagId) {
+        return tagId.localeCompare(departmentCategory.getIn(['tag', 'id'])) === 0;
+      });
+    }).map(function (departmentCategory) {
+      return departmentCategory.get('id');
+    }));
+  }).map(function (orderMenuItemPrice) {
+    return orderMenuItemPrice.set('departmentCategoryId', orderMenuItemPrice.get('departmentCategoryIds').isEmpty() ? null : orderMenuItemPrice.get('departmentCategoryIds').first());
+  });
+};
+
+var addTagInfoToDepartmentCategories = function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(departmentCategories, _ref5) {
+    var tagLoaderById = _ref5.tagLoaderById;
+    var departmentCategoryTags;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return tagLoaderById.loadAll(departmentCategories.map(function (departmentCategory) {
+              return departmentCategory.get('tagId');
+            }).toArray());
+
+          case 2:
+            departmentCategoryTags = _context3.sent;
+            return _context3.abrupt('return', departmentCategories.map(function (departmentCategory) {
+              return departmentCategory.set('tag', departmentCategoryTags.find(function (tag) {
+                return tag.get('id').localeCompare(departmentCategory.get('tagId')) === 0;
+              }));
+            }));
+
+          case 4:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined);
+  }));
+
+  return function addTagInfoToDepartmentCategories(_x6, _x7) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(searchArgs, _ref7, sessionToken) {
+    var tagLoaderById = _ref7.tagLoaderById,
+        menuItemPriceLoaderById = _ref7.menuItemPriceLoaderById,
+        choiceItemPriceLoaderById = _ref7.choiceItemPriceLoaderById;
+
+    var orderMenuItemPrices, _ref8, menuItemPrices, choiceItemPrices, departmentCategories, departmentCategoriesWitTagInfo, levelOneDepartmentCategories, levelTwoDepartmentCategories, orderMenuItemPricesWithPricesInfo, orderMenuItemPricesWithDepartmentCategoryInfo, orderMenuItemPricesGroupedByDepartmentCategory, levelTwoReport, reportGroupedByParentDepartmentcategoryId;
+
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return getAllPaidOrders(searchArgs, sessionToken);
+
+          case 2:
+            orderMenuItemPrices = _context4.sent;
+            _context4.next = 5;
+            return extractRequiredInfoFromOrderMenuItemPrices(menuItemPrices, { menuItemPriceLoaderById: menuItemPriceLoaderById, choiceItemPriceLoaderById: choiceItemPriceLoaderById }, sessionToken);
+
+          case 5:
+            _ref8 = _context4.sent;
+            menuItemPrices = _ref8.menuItemPrices;
+            choiceItemPrices = _ref8.choiceItemPrices;
+            departmentCategories = _ref8.departmentCategories;
+            _context4.next = 11;
+            return addTagInfoToDepartmentCategories(departmentCategories, { tagLoaderById: tagLoaderById });
+
+          case 11:
+            departmentCategoriesWitTagInfo = _context4.sent;
+            levelOneDepartmentCategories = departmentCategoriesWitTagInfo.filter(function (departmentCategory) {
+              return departmentCategory.getIn(['tag', 'level']) === 1;
+            });
+            levelTwoDepartmentCategories = departmentCategoriesWitTagInfo.filter(function (departmentCategory) {
+              return departmentCategory.getIn(['tag', 'level']) === 2;
+            });
+            orderMenuItemPricesWithPricesInfo = addPriceInfoToOrderMenuItemPrice(orderMenuItemPrices, menuItemPrices, choiceItemPrices);
+            orderMenuItemPricesWithDepartmentCategoryInfo = addDepartmentCategoriesInfoToOrderMenuItemPrice(orderMenuItemPricesWithPricesInfo, levelTwoDepartmentCategories);
+            orderMenuItemPricesGroupedByDepartmentCategory = orderMenuItemPricesWithDepartmentCategoryInfo.groupBy(function (orderMenuItemPrice) {
+              return orderMenuItemPrice.get('departmentCategoryId');
+            });
+            levelTwoReport = orderMenuItemPricesGroupedByDepartmentCategory.mapEntries(function (_ref9) {
+              var _ref10 = _slicedToArray(_ref9, 2),
+                  departmentCategoryId = _ref10[0],
+                  orderMenuItemPrices = _ref10[1];
+
+              var parentDepartmentCategoryTagId = departmentCategoryId ? levelTwoDepartmentCategories.find(function (departmentCategory) {
+                return departmentCategory.get('id').localeCompare(departmentCategoryId) === 0;
+              }).getIn(['tag', 'parentTagId']) : null;
+              var parentDepartmentCategoryId = parentDepartmentCategoryTagId ? levelOneDepartmentCategories.find(function (departmentCategory) {
+                return departmentCategory.getIn(['tag', 'id']).localeCompare(parentDepartmentCategoryTagId) === 0;
+              }).get('id') : null;
+              var report = orderMenuItemPrices.reduce(function (reduction, orderMenuItemPrice) {
+                return reduction.update('totalSale', function (totalSale) {
+                  var menuItemPriceTotalSale = totalSale;
+                  var menuItemPriceCurrentPrice = orderMenuItemPrice.getIn(['menuItemPrice', 'currentPrice']);
+
+                  if (menuItemPriceCurrentPrice) {
+                    menuItemPriceTotalSale += menuItemPriceCurrentPrice;
+                  }
+
+                  menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce(function (total, orderChoiceItemPrice) {
+                    var choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
+
+                    return choiceItemPriceCurrentPrice ? total + choiceItemPriceCurrentPrice : total;
+                  }, 0.0);
+
+                  return menuItemPriceTotalSale;
+                });
+              }, Map({ parentDepartmentCategoryId: parentDepartmentCategoryId, departmentCategoryId: departmentCategoryId, quantity: orderMenuItemPrices.count(), totalSale: 0.0 }));
+
+              return [departmentCategoryId, report];
+            }).valueSeq().toList();
+            reportGroupedByParentDepartmentcategoryId = levelTwoReport.groupBy(function (report) {
+              return report.get('parentDepartmentCategoryId');
+            });
+            return _context4.abrupt('return', reportGroupedByParentDepartmentcategoryId.keySeq().map(function (parentDepartmentCategoryId) {
+              var subReport = reportGroupedByParentDepartmentcategoryId.get(parentDepartmentCategoryId);
+
+              return Map({ departmentCategoryId: parentDepartmentCategoryId }).merge(subReport.reduce(function (reduction, report) {
+                return reduction.update('quantity', function (quantity) {
+                  return quantity + report.get('quantity');
+                }).update('totalSale', function (totalSale) {
+                  return totalSale + report.get('totalSale');
+                });
+              }, Map({ quantity: 0, totalSale: 0.0 }))).set('departmentSubCategoriesReport', subReport.map(function (report) {
+                return Map({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') });
+              }));
+            }));
+
+          case 20:
+          case 'end':
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function getDepartmentCategoriesReport(_x8, _x9, _x10) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
@@ -108,24 +298,24 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
     departmentCategory: {
       type: (0, _graphql.GraphQLNonNull)(_DepartmentCategory2.default),
       resolve: function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_, args, _ref3) {
-          var departmentCategoryLoaderById = _ref3.dataLoaders.departmentCategoryLoaderById;
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref12) {
+          var departmentCategoryLoaderById = _ref12.dataLoaders.departmentCategoryLoaderById;
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context2.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
+                  return _context5.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
 
                 case 1:
                 case 'end':
-                  return _context2.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee2, undefined);
+          }, _callee5, undefined);
         }));
 
-        return function resolve(_x4, _x5, _x6) {
-          return _ref2.apply(this, arguments);
+        return function resolve(_x11, _x12, _x13) {
+          return _ref11.apply(this, arguments);
         };
       }()
     },
@@ -150,24 +340,24 @@ exports.default = new _graphql.GraphQLObjectType({
     departmentCategory: {
       type: (0, _graphql.GraphQLNonNull)(_DepartmentCategory2.default),
       resolve: function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_, args, _ref5) {
-          var departmentCategoryLoaderById = _ref5.dataLoaders.departmentCategoryLoaderById;
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref14) {
+          var departmentCategoryLoaderById = _ref14.dataLoaders.departmentCategoryLoaderById;
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context3.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
+                  return _context6.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
 
                 case 1:
                 case 'end':
-                  return _context3.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee3, undefined);
+          }, _callee6, undefined);
         }));
 
-        return function resolve(_x7, _x8, _x9) {
-          return _ref4.apply(this, arguments);
+        return function resolve(_x14, _x15, _x16) {
+          return _ref13.apply(this, arguments);
         };
       }()
     },
