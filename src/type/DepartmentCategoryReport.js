@@ -128,30 +128,66 @@ export const getDepartmentCategoriesReport = async (
   const orderMenuItemPricesGroupedByDepartmentCategory = orderMenuItemPricesWithDepartmentCategoryInfo.groupBy(orderMenuItemPrice =>
     orderMenuItemPrice.get('departmentCategoryId'),
   );
-  const levelTwoReport = orderMenuItemPricesGroupedByDepartmentCategory.map(orderMenuItemPrices =>
-    orderMenuItemPrices.reduce(
-      (reduction, orderMenuItemPrice) =>
-        reduction.update('totalSale', totalSale => {
-          var menuItemPriceTotalSale = totalSale;
-          const menuItemPriceCurrentPrice = orderMenuItemPrice.getIn(['menuItemPrice', 'currentPrice']);
+  const levelTwoReport = orderMenuItemPricesGroupedByDepartmentCategory
+    .mapEntries(([departmentCategoryId, orderMenuItemPrices]) => {
+      const parentDepartmentCategoryTagId = departmentCategoryId
+        ? levelTwoDepartmentCategories
+          .find(departmentCategory => departmentCategory.get('id').localeCompare(departmentCategoryId) === 0)
+          .getIn(['tag', 'parentTagId'])
+        : null;
+      const parentDepartmentCategoryId = parentDepartmentCategoryTagId
+        ? levelOneDepartmentCategories
+          .find(departmentCategory => departmentCategory.getIn(['tag', 'id']).localeCompare(parentDepartmentCategoryTagId) === 0)
+          .get('id')
+        : null;
+      const report = orderMenuItemPrices.reduce(
+        (reduction, orderMenuItemPrice) =>
+          reduction.update('totalSale', totalSale => {
+            var menuItemPriceTotalSale = totalSale;
+            const menuItemPriceCurrentPrice = orderMenuItemPrice.getIn(['menuItemPrice', 'currentPrice']);
 
-          if (menuItemPriceCurrentPrice) {
-            menuItemPriceTotalSale += menuItemPriceCurrentPrice;
-          }
+            if (menuItemPriceCurrentPrice) {
+              menuItemPriceTotalSale += menuItemPriceCurrentPrice;
+            }
 
-          menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce((total, orderChoiceItemPrice) => {
-            const choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
+            menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce((total, orderChoiceItemPrice) => {
+              const choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
 
-            return choiceItemPriceCurrentPrice ? total + choiceItemPriceCurrentPrice : total;
-          }, 0.0);
+              return choiceItemPriceCurrentPrice ? total + choiceItemPriceCurrentPrice : total;
+            }, 0.0);
 
-          return menuItemPriceTotalSale;
-        }),
-      Map({ quantity: orderMenuItemPrices.count(), totalSale: 0.0 }),
-    ),
-  );
+            return menuItemPriceTotalSale;
+          }),
+        Map({ parentDepartmentCategoryId, departmentCategoryId, quantity: orderMenuItemPrices.count(), totalSale: 0.0 }),
+      );
 
-  return List();
+      return [departmentCategoryId, report];
+    })
+    .valueSeq()
+    .toList();
+
+  const reportGroupedByParentDepartmentcategoryId = levelTwoReport.groupBy(report => report.get('parentDepartmentCategoryId'));
+
+  return reportGroupedByParentDepartmentcategoryId.keySeq().map(parentDepartmentCategoryId => {
+    const subReport = reportGroupedByParentDepartmentcategoryId.get(parentDepartmentCategoryId);
+
+    return Map({ departmentCategoryId: parentDepartmentCategoryId })
+      .merge(
+        subReport.reduce(
+          (reduction, report) =>
+            reduction
+              .update('quantity', quantity => quantity + report.get('quantity'))
+              .update('totalSale', totalSale => totalSale + report.get('totalSale')),
+          Map({ quantity: 0, totalSale: 0.0 }),
+        ),
+      )
+      .set(
+        'departmentSubCategoriesReport',
+        subReport.map(report =>
+          Map({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quqntity'), totalSale: report.get('totalSale') }),
+        ),
+      );
+  });
 };
 
 const DepartmentSubCategoryReport = new GraphQLObjectType({
