@@ -140,14 +140,9 @@ export const getDepartmentCategoriesReport = async (
           }
 
           menuItemPriceTotalSale += orderMenuItemPrice.get('orderChoiceItemPrices').reduce((total, orderChoiceItemPrice) => {
-            var choiceItemPriceTotalSale = total;
             const choiceItemPriceCurrentPrice = orderChoiceItemPrice.getIn(['choiceItemPrice', 'currentPrice']);
 
-            if (choiceItemPriceCurrentPrice) {
-              choiceItemPriceTotalSale += choiceItemPriceCurrentPrice;
-            }
-
-            return choiceItemPriceTotalSale;
+            return choiceItemPriceCurrentPrice ? total + choiceItemPriceCurrentPrice : total;
           }, 0.0);
 
           return menuItemPriceTotalSale;
