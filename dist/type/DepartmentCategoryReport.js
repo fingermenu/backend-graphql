@@ -104,7 +104,7 @@ var extractRequiredInfoFromOrderMenuItemPrices = function () {
               return orderMenuItemPrice.get('choiceItemPriceIds');
             }).toSet();
             _context2.next = 4;
-            return Promise.all([menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()), choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()), new _parseServerCommon.DepartmentCategoryService().search((0, _immutable.Map)(), sessionToken)]);
+            return Promise.all([menuItemPriceLoaderById.loadMany(menuItemPriceIds.toArray()), choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray()), new _parseServerCommon.DepartmentCategoryService().search((0, _immutable.Map)(), sessionToken)]);
 
           case 4:
             menuItemPricesAndChoiceItemPrices = _context2.sent;
@@ -164,7 +164,7 @@ var addTagInfoToDepartmentCategories = function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return tagLoaderById.loadAll(departmentCategories.map(function (departmentCategory) {
+            return tagLoaderById.loadMany(departmentCategories.map(function (departmentCategory) {
               return departmentCategory.get('tagId');
             }).toArray());
 
@@ -207,7 +207,7 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
           case 2:
             orderMenuItemPrices = _context4.sent;
             _context4.next = 5;
-            return extractRequiredInfoFromOrderMenuItemPrices(menuItemPrices, { menuItemPriceLoaderById: menuItemPriceLoaderById, choiceItemPriceLoaderById: choiceItemPriceLoaderById }, sessionToken);
+            return extractRequiredInfoFromOrderMenuItemPrices(orderMenuItemPrices, { menuItemPriceLoaderById: menuItemPriceLoaderById, choiceItemPriceLoaderById: choiceItemPriceLoaderById }, sessionToken);
 
           case 5:
             _ref8 = _context4.sent;

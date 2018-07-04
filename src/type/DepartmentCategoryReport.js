@@ -48,8 +48,8 @@ const extractRequiredInfoFromOrderMenuItemPrices = async (
   const menuItemPriceIds = orderMenuItemPrices.map(orderMenuItemPrice => orderMenuItemPrice.get('menuItemPriceId')).toSet();
   const choiceItemPriceIds = orderMenuItemPrices.flatMap(orderMenuItemPrice => orderMenuItemPrice.get('choiceItemPriceIds')).toSet();
   const menuItemPricesAndChoiceItemPrices = await Promise.all([
-    menuItemPriceLoaderById.loadAll(menuItemPriceIds.toArray()),
-    choiceItemPriceLoaderById.loadAll(choiceItemPriceIds.toArray()),
+    menuItemPriceLoaderById.loadMany(menuItemPriceIds.toArray()),
+    choiceItemPriceLoaderById.loadMany(choiceItemPriceIds.toArray()),
     new DepartmentCategoryService().search(Map(), sessionToken),
   ]);
 
@@ -97,7 +97,7 @@ const addDepartmentCategoriesInfoToOrderMenuItemPrice = (orderMenuItemPricesWith
     );
 
 const addTagInfoToDepartmentCategories = async (departmentCategories, { tagLoaderById }) => {
-  const departmentCategoryTags = await tagLoaderById.loadAll(
+  const departmentCategoryTags = await tagLoaderById.loadMany(
     departmentCategories.map(departmentCategory => departmentCategory.get('tagId')).toArray(),
   );
 
@@ -113,7 +113,7 @@ export const getDepartmentCategoriesReport = async (
 ) => {
   const orderMenuItemPrices = await getAllPaidOrders(searchArgs, sessionToken);
   const { menuItemPrices, choiceItemPrices, departmentCategories } = await extractRequiredInfoFromOrderMenuItemPrices(
-    menuItemPrices,
+    orderMenuItemPrices,
     { menuItemPriceLoaderById, choiceItemPriceLoaderById },
     sessionToken,
   );
