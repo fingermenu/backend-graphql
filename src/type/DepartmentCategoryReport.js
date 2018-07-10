@@ -4,7 +4,12 @@ import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-serve
 import { List, Map } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 import { convert, ZonedDateTime } from 'js-joda';
+import cuid from 'cuid';
 import DepartmentCategory from './DepartmentCategory';
+import { otherTagId } from '../loaders';
+
+const otherDepartmentCategoryId = cuid();
+const otherSubDepartmentCategoryId = cuid();
 
 const getAllPaidOrders = async (searchArgs, sessionToken) => {
   const dateTimeRange = {
@@ -195,7 +200,15 @@ const DepartmentSubCategoryReport = new GraphQLObjectType({
   fields: {
     departmentCategory: {
       type: GraphQLNonNull(DepartmentCategory),
-      resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => departmentCategoryLoaderById.load(_.get('departmentCategoryId')),
+      resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => {
+        const departmentCategoryId = _.get('departmentCategoryId');
+
+        if (departmentCategoryId) {
+          return await departmentCategoryLoaderById.load('departmentCategoryId');
+        }
+
+        return Map({ id: otherSubDepartmentCategoryId, tagId: otherTagId });
+      },
     },
     totalSale: {
       type: new GraphQLNonNull(GraphQLFloat),
@@ -213,7 +226,15 @@ export default new GraphQLObjectType({
   fields: {
     departmentCategory: {
       type: GraphQLNonNull(DepartmentCategory),
-      resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => departmentCategoryLoaderById.load(_.get('departmentCategoryId')),
+      resolve: async (_, args, { dataLoaders: { departmentCategoryLoaderById } }) => {
+        const departmentCategoryId = _.get('departmentCategoryId');
+
+        if (departmentCategoryId) {
+          return await departmentCategoryLoaderById.load('departmentCategoryId');
+        }
+
+        return Map({ id: otherDepartmentCategoryId, tagId: otherTagId });
+      },
     },
     totalSale: {
       type: new GraphQLNonNull(GraphQLFloat),

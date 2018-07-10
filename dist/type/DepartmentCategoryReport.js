@@ -15,13 +15,22 @@ var _graphql = require('graphql');
 
 var _jsJoda = require('js-joda');
 
+var _cuid = require('cuid');
+
+var _cuid2 = _interopRequireDefault(_cuid);
+
 var _DepartmentCategory = require('./DepartmentCategory');
 
 var _DepartmentCategory2 = _interopRequireDefault(_DepartmentCategory);
 
+var _loaders = require('../loaders');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var otherDepartmentCategoryId = (0, _cuid2.default)();
+var otherSubDepartmentCategoryId = (0, _cuid2.default)();
 
 var getAllPaidOrders = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(searchArgs, sessionToken) {
@@ -300,13 +309,28 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_, args, _ref12) {
           var departmentCategoryLoaderById = _ref12.dataLoaders.departmentCategoryLoaderById;
+          var departmentCategoryId;
           return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
                 case 0:
-                  return _context5.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
+                  departmentCategoryId = _.get('departmentCategoryId');
 
-                case 1:
+                  if (!departmentCategoryId) {
+                    _context5.next = 5;
+                    break;
+                  }
+
+                  _context5.next = 4;
+                  return departmentCategoryLoaderById.load('departmentCategoryId');
+
+                case 4:
+                  return _context5.abrupt('return', _context5.sent);
+
+                case 5:
+                  return _context5.abrupt('return', (0, _immutable.Map)({ id: otherSubDepartmentCategoryId, tagId: _loaders.otherTagId }));
+
+                case 6:
                 case 'end':
                   return _context5.stop();
               }
@@ -342,13 +366,28 @@ exports.default = new _graphql.GraphQLObjectType({
       resolve: function () {
         var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_, args, _ref14) {
           var departmentCategoryLoaderById = _ref14.dataLoaders.departmentCategoryLoaderById;
+          var departmentCategoryId;
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
               switch (_context6.prev = _context6.next) {
                 case 0:
-                  return _context6.abrupt('return', departmentCategoryLoaderById.load(_.get('departmentCategoryId')));
+                  departmentCategoryId = _.get('departmentCategoryId');
 
-                case 1:
+                  if (!departmentCategoryId) {
+                    _context6.next = 5;
+                    break;
+                  }
+
+                  _context6.next = 4;
+                  return departmentCategoryLoaderById.load('departmentCategoryId');
+
+                case 4:
+                  return _context6.abrupt('return', _context6.sent);
+
+                case 5:
+                  return _context6.abrupt('return', (0, _immutable.Map)({ id: otherDepartmentCategoryId, tagId: _loaders.otherTagId }));
+
+                case 6:
                 case 'end':
                   return _context6.stop();
               }

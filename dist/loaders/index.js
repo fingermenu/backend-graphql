@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.packageBundleLoaderByRestaurantId = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.departmentCategoryLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
+exports.otherTagId = exports.tagLoaderById = exports.tableStateLoaderById = exports.tableStateLoaderByKey = exports.tableLoaderById = exports.sizeLoaderById = exports.servingTimeLoaderById = exports.restaurantLoaderById = exports.packageBundleLoaderByRestaurantId = exports.menuItemPriceLoaderById = exports.menuItemLoaderById = exports.menuLoaderById = exports.languageLoaderById = exports.languageLoaderByKey = exports.dishTypeLoaderById = exports.dietaryOptionLoaderById = exports.departmentCategoryLoaderById = exports.choiceItemPriceLoaderById = exports.choiceItemLoaderById = undefined;
 
 var _LanguageLoader = require('./LanguageLoader');
 
@@ -32,6 +32,15 @@ Object.defineProperty(exports, 'tableStateLoaderById', {
   enumerable: true,
   get: function get() {
     return _TableStateLoader.tableStateLoaderById;
+  }
+});
+
+var _TagLoader = require('./TagLoader');
+
+Object.defineProperty(exports, 'otherTagId', {
+  enumerable: true,
+  get: function get() {
+    return _TagLoader.otherTagId;
   }
 });
 
@@ -86,8 +95,6 @@ var _SizeLoader2 = _interopRequireDefault(_SizeLoader);
 var _TableLoader = require('./TableLoader');
 
 var _TableLoader2 = _interopRequireDefault(_TableLoader);
-
-var _TagLoader = require('./TagLoader');
 
 var _TagLoader2 = _interopRequireDefault(_TagLoader);
 
