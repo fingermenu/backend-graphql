@@ -2,7 +2,7 @@
 
 export choiceItemLoaderById from './ChoiceItemLoader';
 export choiceItemPriceLoaderById from './ChoiceItemPriceLoader';
-export departmentCategoryLoaderById from './DepartmentCategoryLoader';
+export departmentCategoryLoaderById, { otherDepartmentCategoryId } from './DepartmentCategoryLoader';
 export dietaryOptionLoaderById from './DietaryOptionLoader';
 export dishTypeLoaderById from './DishTypeLoader';
 export { languageLoaderByKey, languageLoaderById } from './LanguageLoader';
