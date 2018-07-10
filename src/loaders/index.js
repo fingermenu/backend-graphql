@@ -15,4 +15,4 @@ export servingTimeLoaderById from './ServingTimeLoader';
 export sizeLoaderById from './SizeLoader';
 export tableLoaderById from './TableLoader';
 export { tableStateLoaderByKey, tableStateLoaderById } from './TableStateLoader';
-export tagLoaderById from './TagLoader';
+export tagLoaderById, { otherTagId } from './TagLoader';
