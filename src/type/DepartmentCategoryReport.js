@@ -204,7 +204,7 @@ const DepartmentSubCategoryReport = new GraphQLObjectType({
         const departmentCategoryId = _.get('departmentCategoryId');
 
         if (departmentCategoryId) {
-          return await departmentCategoryLoaderById.load('departmentCategoryId');
+          return await departmentCategoryLoaderById.load(departmentCategoryId);
         }
 
         return Map({ id: otherSubDepartmentCategoryId, tagId: otherTagId });
@@ -230,7 +230,7 @@ export default new GraphQLObjectType({
         const departmentCategoryId = _.get('departmentCategoryId');
 
         if (departmentCategoryId) {
-          return await departmentCategoryLoaderById.load('departmentCategoryId');
+          return await departmentCategoryLoaderById.load(departmentCategoryId);
         }
 
         return Map({ id: otherDepartmentCategoryId, tagId: otherTagId });

@@ -322,7 +322,7 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
                   }
 
                   _context5.next = 4;
-                  return departmentCategoryLoaderById.load('departmentCategoryId');
+                  return departmentCategoryLoaderById.load(departmentCategoryId);
 
                 case 4:
                   return _context5.abrupt('return', _context5.sent);
@@ -379,7 +379,7 @@ exports.default = new _graphql.GraphQLObjectType({
                   }
 
                   _context6.next = 4;
-                  return departmentCategoryLoaderById.load('departmentCategoryId');
+                  return departmentCategoryLoaderById.load(departmentCategoryId);
 
                 case 4:
                   return _context6.abrupt('return', _context6.sent);
