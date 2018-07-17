@@ -44,7 +44,7 @@ var tagLoaderById = new _dataloader2.default(function () {
             fallbackLanguage = _context.sent;
             return _context.abrupt('return', ids.map(function (id) {
               if (id.localeCompare(otherTagId) === 0) {
-                return (0, _immutable.Map)({ id: otherTagId, key: 'other', name: (0, _immutable.Map)(), desription: (0, _immutable.Map)(), level: 1 }).setIn(['name', fallbackLanguage], 'Other').setIn(['desription', fallbackLanguage], 'Other');
+                return (0, _immutable.Map)({ id: otherTagId, key: '', name: (0, _immutable.Map)(), desription: (0, _immutable.Map)(), level: 1 }).setIn(['name', fallbackLanguage], 'Other').setIn(['desription', fallbackLanguage], 'Other');
               }
 
               return tags.find(function (tag) {

@@ -14,7 +14,7 @@ const tagLoaderById = new Dataloader(async ids => {
 
   return ids.map(id => {
     if (id.localeCompare(otherTagId) === 0) {
-      return Map({ id: otherTagId, key: 'other', name: Map(), desription: Map(), level: 1 })
+      return Map({ id: otherTagId, key: '', name: Map(), desription: Map(), level: 1 })
         .setIn(['name', fallbackLanguage], 'Other')
         .setIn(['desription', fallbackLanguage], 'Other');
     }
