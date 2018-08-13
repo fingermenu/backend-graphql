@@ -15,6 +15,18 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('paymentGroupId');
       }
     },
+    cash: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('cash');
+      }
+    },
+    eftpos: {
+      type: _graphql.GraphQLFloat,
+      resolve: function resolve(_) {
+        return _.get('eftpos');
+      }
+    },
     discount: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {

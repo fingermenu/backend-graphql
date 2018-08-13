@@ -9,6 +9,14 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('paymentGroupId'),
     },
+    cash: {
+      type: GraphQLFloat,
+      resolve: _ => _.get('cash'),
+    },
+    eftpos: {
+      type: GraphQLFloat,
+      resolve: _ => _.get('eftpos'),
+    },
     discount: {
       type: GraphQLFloat,
       resolve: _ => _.get('discount'),
