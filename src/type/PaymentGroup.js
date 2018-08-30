@@ -9,17 +9,17 @@ export default new GraphQLObjectType({
       type: GraphQLID,
       resolve: _ => _.get('paymentGroupId'),
     },
-    cash: {
+    discount: {
       type: GraphQLFloat,
-      resolve: _ => _.get('cash'),
+      resolve: _ => _.get('discount'),
     },
     eftpos: {
       type: GraphQLFloat,
       resolve: _ => _.get('eftpos'),
     },
-    discount: {
+    cash: {
       type: GraphQLFloat,
-      resolve: _ => _.get('discount'),
+      resolve: _ => _.get('cash'),
     },
     paidAt: {
       type: GraphQLString,

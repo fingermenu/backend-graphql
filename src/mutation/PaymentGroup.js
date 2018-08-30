@@ -7,6 +7,12 @@ export default new GraphQLInputObjectType({
   fields: {
     paymentGroupId: { type: GraphQLID },
     discount: { type: GraphQLFloat },
+    eftpos: {
+      type: GraphQLFloat,
+    },
+    cash: {
+      type: GraphQLFloat,
+    },
     paidAt: { type: GraphQLString },
   },
 });

@@ -15,10 +15,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('paymentGroupId');
       }
     },
-    cash: {
+    discount: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.get('cash');
+        return _.get('discount');
       }
     },
     eftpos: {
@@ -27,10 +27,10 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('eftpos');
       }
     },
-    discount: {
+    cash: {
       type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.get('discount');
+        return _.get('cash');
       }
     },
     paidAt: {

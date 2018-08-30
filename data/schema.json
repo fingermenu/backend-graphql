@@ -6125,7 +6125,7 @@
               "deprecationReason": null
             },
             {
-              "name": "cash",
+              "name": "discount",
               "description": null,
               "args": [],
               "type": {
@@ -6149,7 +6149,7 @@
               "deprecationReason": null
             },
             {
-              "name": "discount",
+              "name": "cash",
               "description": null,
               "args": [],
               "type": {
@@ -8750,6 +8750,26 @@
             },
             {
               "name": "discount",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "eftpos",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "cash",
               "description": null,
               "type": {
                 "kind": "SCALAR",

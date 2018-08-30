@@ -517,15 +517,17 @@ type ParentTag implements Node {
 
 type PaymentGroup {
   paymentGroupId: ID
-  cash: Float
-  eftpos: Float
   discount: Float
+  eftpos: Float
+  cash: Float
   paidAt: String
 }
 
 input PaymentGroupInput {
   paymentGroupId: ID
   discount: Float
+  eftpos: Float
+  cash: Float
   paidAt: String
 }
 
