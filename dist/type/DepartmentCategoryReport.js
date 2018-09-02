@@ -358,7 +358,7 @@ var DepartmentSubCategoryReport = new _graphql.GraphQLObjectType({
   }
 });
 
-exports.default = new _graphql.GraphQLObjectType({
+var DepartmentCategoryReport = new _graphql.GraphQLObjectType({
   name: 'DepartmentCategoryReport',
   fields: {
     departmentCategory: {
@@ -416,6 +416,30 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(DepartmentSubCategoryReport)),
       resolve: function resolve(_) {
         return _.get('departmentSubCategoriesReport');
+      }
+    }
+  }
+});
+
+exports.default = new _graphql.GraphQLObjectType({
+  name: 'DepartmentCategoryRootReport',
+  fields: {
+    departmentCategoriesReport: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(DepartmentCategoryReport)),
+      resolve: function resolve(_) {
+        return _.get('departmentCategoriesReport').toArray();
+      }
+    },
+    totalSale: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLFloat),
+      resolve: function resolve(_) {
+        return _.get('totalSale');
+      }
+    },
+    quantity: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
+      resolve: function resolve(_) {
+        return _.get('quantity');
       }
     }
   }

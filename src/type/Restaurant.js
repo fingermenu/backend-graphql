@@ -10,7 +10,7 @@ import Table from './Table';
 import RestaurantConfigurations from './RestaurantConfigurations';
 import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
-import DepartmentCategoryReport, { getDepartmentCategoriesReport } from './DepartmentCategoryReport';
+import DepartmentCategoryRootReport, { getDepartmentCategoriesReport } from './DepartmentCategoryReport';
 import DateTimeRange from './DateTimeRange';
 import Common from './Common';
 
@@ -123,13 +123,23 @@ const ParentRestaurant = new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    departmentCategoriesReport: {
-      type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
+    departmentCategoriesRootReport: {
+      type: new GraphQLNonNull(DepartmentCategoryRootReport),
       args: {
         dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
+      resolve: async (_, args, { dataLoaders, sessionToken }) => {
+        const departmentCategoriesReport = await getDepartmentCategoriesReport(
+          Immutable.fromJS(args).set('restaurantId', _.get('id')),
+          dataLoaders,
+          sessionToken,
+        );
+
+        const totalSale = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('totalSale'), 0);
+        const quantity = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('quantity'), 0);
+
+        return Map({ departmentCategoriesReport, totalSale, quantity });
+      },
     },
   },
   interfaces: [NodeInterface],
@@ -232,13 +242,23 @@ export default new GraphQLObjectType({
       type: PackageBundle,
       resolve: async (_, args, { dataLoaders: { packageBundleLoaderByRestaurantId } }) => packageBundleLoaderByRestaurantId.load(_.get('id')),
     },
-    departmentCategoriesReport: {
-      type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
+    departmentCategoriesRootReport: {
+      type: new GraphQLNonNull(DepartmentCategoryRootReport),
       args: {
         dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken }) =>
-        (await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken)).toArray(),
+      resolve: async (_, args, { dataLoaders, sessionToken }) => {
+        const departmentCategoriesReport = await getDepartmentCategoriesReport(
+          Immutable.fromJS(args).set('restaurantId', _.get('id')),
+          dataLoaders,
+          sessionToken,
+        );
+
+        const totalSale = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('totalSale'), 0);
+        const quantity = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('quantity'), 0);
+
+        return Map({ departmentCategoriesReport, totalSale, quantity });
+      },
     },
     parentRestaurant: {
       type: ParentRestaurant,

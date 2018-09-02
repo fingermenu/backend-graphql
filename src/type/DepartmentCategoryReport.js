@@ -221,7 +221,7 @@ const DepartmentSubCategoryReport = new GraphQLObjectType({
   },
 });
 
-export default new GraphQLObjectType({
+const DepartmentCategoryReport = new GraphQLObjectType({
   name: 'DepartmentCategoryReport',
   fields: {
     departmentCategory: {
@@ -247,6 +247,24 @@ export default new GraphQLObjectType({
     departmentSubCategoriesReport: {
       type: new GraphQLList(new GraphQLNonNull(DepartmentSubCategoryReport)),
       resolve: _ => _.get('departmentSubCategoriesReport'),
+    },
+  },
+});
+
+export default new GraphQLObjectType({
+  name: 'DepartmentCategoryRootReport',
+  fields: {
+    departmentCategoriesReport: {
+      type: new GraphQLList(new GraphQLNonNull(DepartmentCategoryReport)),
+      resolve: _ => _.get('departmentCategoriesReport').toArray(),
+    },
+    totalSale: {
+      type: new GraphQLNonNull(GraphQLFloat),
+      resolve: _ => _.get('totalSale'),
+    },
+    quantity: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: _ => _.get('quantity'),
     },
   },
 });

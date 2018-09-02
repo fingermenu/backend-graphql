@@ -391,8 +391,8 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    departmentCategoriesReport: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
+    departmentCategoriesRootReport: {
+      type: new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default),
       args: {
         dateTimeRange: { type: new _graphql.GraphQLNonNull(_DateTimeRange2.default) }
       },
@@ -400,6 +400,7 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
         var _ref17 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(_, args, _ref18) {
           var dataLoaders = _ref18.dataLoaders,
               sessionToken = _ref18.sessionToken;
+          var departmentCategoriesReport, totalSale, quantity;
           return regeneratorRuntime.wrap(function _callee11$(_context11) {
             while (1) {
               switch (_context11.prev = _context11.next) {
@@ -408,9 +409,16 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
                   return (0, _DepartmentCategoryReport.getDepartmentCategoriesReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
-                  return _context11.abrupt('return', _context11.sent.toArray());
+                  departmentCategoriesReport = _context11.sent;
+                  totalSale = departmentCategoriesReport.reduce(function (reduction, value) {
+                    return reduction + value.get('totalSale');
+                  }, 0);
+                  quantity = departmentCategoriesReport.reduce(function (reduction, value) {
+                    return reduction + value.get('quantity');
+                  }, 0);
+                  return _context11.abrupt('return', (0, _immutable.Map)({ departmentCategoriesReport: departmentCategoriesReport, totalSale: totalSale, quantity: quantity }));
 
-                case 3:
+                case 6:
                 case 'end':
                   return _context11.stop();
               }
@@ -713,8 +721,8 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
-    departmentCategoriesReport: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default)),
+    departmentCategoriesRootReport: {
+      type: new _graphql.GraphQLNonNull(_DepartmentCategoryReport2.default),
       args: {
         dateTimeRange: { type: new _graphql.GraphQLNonNull(_DateTimeRange2.default) }
       },
@@ -722,6 +730,7 @@ exports.default = new _graphql.GraphQLObjectType({
         var _ref33 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(_, args, _ref34) {
           var dataLoaders = _ref34.dataLoaders,
               sessionToken = _ref34.sessionToken;
+          var departmentCategoriesReport, totalSale, quantity;
           return regeneratorRuntime.wrap(function _callee20$(_context20) {
             while (1) {
               switch (_context20.prev = _context20.next) {
@@ -730,9 +739,16 @@ exports.default = new _graphql.GraphQLObjectType({
                   return (0, _DepartmentCategoryReport.getDepartmentCategoriesReport)(_immutable2.default.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken);
 
                 case 2:
-                  return _context20.abrupt('return', _context20.sent.toArray());
+                  departmentCategoriesReport = _context20.sent;
+                  totalSale = departmentCategoriesReport.reduce(function (reduction, value) {
+                    return reduction + value.get('totalSale');
+                  }, 0);
+                  quantity = departmentCategoriesReport.reduce(function (reduction, value) {
+                    return reduction + value.get('quantity');
+                  }, 0);
+                  return _context20.abrupt('return', (0, _immutable.Map)({ departmentCategoriesReport: departmentCategoriesReport, totalSale: totalSale, quantity: quantity }));
 
-                case 3:
+                case 6:
                 case 'end':
                   return _context20.stop();
               }
