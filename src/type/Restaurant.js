@@ -128,18 +128,8 @@ const ParentRestaurant = new GraphQLObjectType({
       args: {
         dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken }) => {
-        const departmentCategoriesReport = await getDepartmentCategoriesReport(
-          Immutable.fromJS(args).set('restaurantId', _.get('id')),
-          dataLoaders,
-          sessionToken,
-        );
-
-        const totalSale = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('totalSale'), 0);
-        const quantity = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('quantity'), 0);
-
-        return Map({ departmentCategoriesReport, totalSale, quantity });
-      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) =>
+        await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken),
     },
   },
   interfaces: [NodeInterface],
@@ -247,18 +237,8 @@ export default new GraphQLObjectType({
       args: {
         dateTimeRange: { type: new GraphQLNonNull(DateTimeRange) },
       },
-      resolve: async (_, args, { dataLoaders, sessionToken }) => {
-        const departmentCategoriesReport = await getDepartmentCategoriesReport(
-          Immutable.fromJS(args).set('restaurantId', _.get('id')),
-          dataLoaders,
-          sessionToken,
-        );
-
-        const totalSale = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('totalSale'), 0);
-        const quantity = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('quantity'), 0);
-
-        return Map({ departmentCategoriesReport, totalSale, quantity });
-      },
+      resolve: async (_, args, { dataLoaders, sessionToken }) =>
+        await getDepartmentCategoriesReport(Immutable.fromJS(args).set('restaurantId', _.get('id')), dataLoaders, sessionToken),
     },
     parentRestaurant: {
       type: ParentRestaurant,

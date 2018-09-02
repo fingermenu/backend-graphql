@@ -49,7 +49,7 @@ var getAllPaidOrders = function () {
               break;
             }
 
-            throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
+            throw new Error("dateTimeRange is invalid. 'to' is less than 'from'.");
 
           case 3:
             criteriaToFetchOrders = (0, _immutable.Map)({
@@ -204,7 +204,7 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
         menuItemPriceLoaderById = _ref7.menuItemPriceLoaderById,
         choiceItemPriceLoaderById = _ref7.choiceItemPriceLoaderById;
 
-    var orderMenuItemPrices, _ref8, menuItemPrices, choiceItemPrices, departmentCategories, departmentCategoriesWitTagInfo, levelOneDepartmentCategories, levelTwoDepartmentCategories, orderMenuItemPricesWithPricesInfo, orderMenuItemPricesWithDepartmentCategoryInfo, orderMenuItemPricesGroupedByDepartmentCategory, levelTwoReport, reportGroupedByParentDepartmentcategoryId;
+    var orderMenuItemPrices, ordersGroupedByPaymentGroup, eftposAndCashTotal, _ref8, menuItemPrices, choiceItemPrices, departmentCategories, departmentCategoriesWitTagInfo, levelOneDepartmentCategories, levelTwoDepartmentCategories, orderMenuItemPricesWithPricesInfo, orderMenuItemPricesWithDepartmentCategoryInfo, orderMenuItemPricesGroupedByDepartmentCategory, levelTwoReport, reportGroupedByParentDepartmentcategoryId, departmentCategoriesReport, totalSale, quantity;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
@@ -215,18 +215,28 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
 
           case 2:
             orderMenuItemPrices = _context4.sent;
-            _context4.next = 5;
+            ordersGroupedByPaymentGroup = orderMenuItemPrices.groupBy(function (_) {
+              return _.getIn(['paymentGroup', 'paymentGroupId']);
+            });
+            eftposAndCashTotal = ordersGroupedByPaymentGroup.reduce(function (reduction, orders) {
+              return reduction.update('eftpos', function (eftpos) {
+                return eftpos + orders.first().getIn(['paymentGroup', 'eftpos']);
+              }).update('cash', function (cash) {
+                return cash + orders.first().getIn(['paymentGroup', 'cash']);
+              });
+            }, (0, _immutable.Map)({ eftpos: 0.0, cash: 0.0 }));
+            _context4.next = 7;
             return extractRequiredInfoFromOrderMenuItemPrices(orderMenuItemPrices, { menuItemPriceLoaderById: menuItemPriceLoaderById, choiceItemPriceLoaderById: choiceItemPriceLoaderById }, sessionToken);
 
-          case 5:
+          case 7:
             _ref8 = _context4.sent;
             menuItemPrices = _ref8.menuItemPrices;
             choiceItemPrices = _ref8.choiceItemPrices;
             departmentCategories = _ref8.departmentCategories;
-            _context4.next = 11;
+            _context4.next = 13;
             return addTagInfoToDepartmentCategories(departmentCategories, { tagLoaderById: tagLoaderById });
 
-          case 11:
+          case 13:
             departmentCategoriesWitTagInfo = _context4.sent;
             levelOneDepartmentCategories = departmentCategoriesWitTagInfo.filter(function (departmentCategory) {
               return departmentCategory.getIn(['tag', 'level']) === 1;
@@ -274,7 +284,7 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
             reportGroupedByParentDepartmentcategoryId = levelTwoReport.groupBy(function (report) {
               return report.get('parentDepartmentCategoryId');
             });
-            return _context4.abrupt('return', reportGroupedByParentDepartmentcategoryId.keySeq().map(function (parentDepartmentCategoryId) {
+            departmentCategoriesReport = reportGroupedByParentDepartmentcategoryId.keySeq().map(function (parentDepartmentCategoryId) {
               var subReport = reportGroupedByParentDepartmentcategoryId.get(parentDepartmentCategoryId);
 
               return (0, _immutable.Map)({ departmentCategoryId: parentDepartmentCategoryId }).merge(subReport.reduce(function (reduction, report) {
@@ -286,9 +296,16 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
               }, (0, _immutable.Map)({ quantity: 0, totalSale: 0.0 }))).set('departmentSubCategoriesReport', subReport.map(function (report) {
                 return (0, _immutable.Map)({ departmentCategoryId: report.get('departmentCategoryId'), quantity: report.get('quantity'), totalSale: report.get('totalSale') });
               }));
-            }));
+            });
+            totalSale = departmentCategoriesReport.reduce(function (reduction, value) {
+              return reduction + value.get('totalSale');
+            }, 0);
+            quantity = departmentCategoriesReport.reduce(function (reduction, value) {
+              return reduction + value.get('quantity');
+            }, 0);
+            return _context4.abrupt('return', eftposAndCashTotal.merge((0, _immutable.Map)({ departmentCategoriesReport: departmentCategoriesReport, totalSale: totalSale, quantity: quantity })));
 
-          case 20:
+          case 25:
           case 'end':
             return _context4.stop();
         }
@@ -440,6 +457,18 @@ exports.default = new _graphql.GraphQLObjectType({
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
       resolve: function resolve(_) {
         return _.get('quantity');
+      }
+    },
+    cash: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLFloat),
+      resolve: function resolve(_) {
+        return _.get('cash');
+      }
+    },
+    eftpos: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
+      resolve: function resolve(_) {
+        return _.get('eftpos');
       }
     }
   }

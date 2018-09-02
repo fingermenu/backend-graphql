@@ -117,6 +117,15 @@ export const getDepartmentCategoriesReport = async (
   sessionToken,
 ) => {
   const orderMenuItemPrices = await getAllPaidOrders(searchArgs, sessionToken);
+  const ordersGroupedByPaymentGroup = orderMenuItemPrices.groupBy(_ => _.getIn(['paymentGroup', 'paymentGroupId']));
+  const eftposAndCashTotal = ordersGroupedByPaymentGroup.reduce(
+    (reduction, orders) =>
+      reduction
+        .update('eftpos', eftpos => eftpos + orders.first().getIn(['paymentGroup', 'eftpos']))
+        .update('cash', cash => cash + orders.first().getIn(['paymentGroup', 'cash'])),
+    Map({ eftpos: 0.0, cash: 0.0 }),
+  );
+
   const { menuItemPrices, choiceItemPrices, departmentCategories } = await extractRequiredInfoFromOrderMenuItemPrices(
     orderMenuItemPrices,
     { menuItemPriceLoaderById, choiceItemPriceLoaderById },
@@ -172,8 +181,7 @@ export const getDepartmentCategoriesReport = async (
     .toList();
 
   const reportGroupedByParentDepartmentcategoryId = levelTwoReport.groupBy(report => report.get('parentDepartmentCategoryId'));
-
-  return reportGroupedByParentDepartmentcategoryId.keySeq().map(parentDepartmentCategoryId => {
+  const departmentCategoriesReport = reportGroupedByParentDepartmentcategoryId.keySeq().map(parentDepartmentCategoryId => {
     const subReport = reportGroupedByParentDepartmentcategoryId.get(parentDepartmentCategoryId);
 
     return Map({ departmentCategoryId: parentDepartmentCategoryId })
@@ -193,6 +201,10 @@ export const getDepartmentCategoriesReport = async (
         ),
       );
   });
+  const totalSale = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('totalSale'), 0);
+  const quantity = departmentCategoriesReport.reduce((reduction, value) => reduction + value.get('quantity'), 0);
+
+  return eftposAndCashTotal.merge(Map({ departmentCategoriesReport, totalSale, quantity }));
 };
 
 const DepartmentSubCategoryReport = new GraphQLObjectType({
@@ -265,6 +277,14 @@ export default new GraphQLObjectType({
     quantity: {
       type: new GraphQLNonNull(GraphQLInt),
       resolve: _ => _.get('quantity'),
+    },
+    cash: {
+      type: new GraphQLNonNull(GraphQLFloat),
+      resolve: _ => _.get('cash'),
+    },
+    eftpos: {
+      type: new GraphQLNonNull(GraphQLInt),
+      resolve: _ => _.get('eftpos'),
     },
   },
 });

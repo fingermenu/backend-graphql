@@ -156,6 +156,8 @@ type DepartmentCategoryRootReport {
   departmentCategoriesReport: [DepartmentCategoryReport!]
   totalSale: Float!
   quantity: Int!
+  cash: Float!
+  eftpos: Int!
 }
 
 """A connection to a list of items."""
