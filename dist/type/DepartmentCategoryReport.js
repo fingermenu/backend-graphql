@@ -49,7 +49,7 @@ var getAllPaidOrders = function () {
               break;
             }
 
-            throw new Error("dateTimeRange is invalid. 'to' is less than 'from'.");
+            throw new Error('dateTimeRange is invalid. \'to\' is less than \'from\'.');
 
           case 3:
             criteriaToFetchOrders = (0, _immutable.Map)({
@@ -459,16 +459,16 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('quantity');
       }
     },
+    eftpos: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLFloat),
+      resolve: function resolve(_) {
+        return _.get('eftpos');
+      }
+    },
     cash: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLFloat),
       resolve: function resolve(_) {
         return _.get('cash');
-      }
-    },
-    eftpos: {
-      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
-      resolve: function resolve(_) {
-        return _.get('eftpos');
       }
     }
   }

@@ -278,13 +278,13 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLInt),
       resolve: _ => _.get('quantity'),
     },
+    eftpos: {
+      type: new GraphQLNonNull(GraphQLFloat),
+      resolve: _ => _.get('eftpos'),
+    },
     cash: {
       type: new GraphQLNonNull(GraphQLFloat),
       resolve: _ => _.get('cash'),
-    },
-    eftpos: {
-      type: new GraphQLNonNull(GraphQLInt),
-      resolve: _ => _.get('eftpos'),
     },
   },
 });

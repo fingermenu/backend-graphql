@@ -5308,7 +5308,7 @@
               "deprecationReason": null
             },
             {
-              "name": "cash",
+              "name": "eftpos",
               "description": null,
               "args": [],
               "type": {
@@ -5324,7 +5324,7 @@
               "deprecationReason": null
             },
             {
-              "name": "eftpos",
+              "name": "cash",
               "description": null,
               "args": [],
               "type": {
@@ -5332,7 +5332,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Int",
+                  "name": "Float",
                   "ofType": null
                 }
               },
