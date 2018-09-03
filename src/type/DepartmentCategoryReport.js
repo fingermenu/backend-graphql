@@ -1,5 +1,6 @@
 // @flow
 
+import { Common } from '@microbusiness/common-javascript';
 import { OrderService, DepartmentCategoryService } from '@fingermenu/parse-server-common';
 import { List, Map } from 'immutable';
 import { GraphQLInt, GraphQLList, GraphQLFloat, GraphQLObjectType, GraphQLNonNull } from 'graphql';
@@ -121,8 +122,16 @@ export const getDepartmentCategoriesReport = async (
   const eftposAndCashTotal = ordersGroupedByPaymentGroup.reduce(
     (reduction, orders) =>
       reduction
-        .update('eftpos', eftpos => eftpos + orders.first().getIn(['paymentGroup', 'eftpos']))
-        .update('cash', cash => cash + orders.first().getIn(['paymentGroup', 'cash'])),
+        .update('eftpos', currentValue => {
+          const eftpos = orders.first().getIn(['paymentGroup', 'eftpos']);
+
+          return Common.isNullOrUndefined ? currentValue : currentValue + eftpos;
+        })
+        .update('cash', currentValue => {
+          const cash = orders.first().getIn(['paymentGroup', 'cash']);
+
+          return Common.isNullOrUndefined ? currentValue : currentValue + cash;
+        }),
     Map({ eftpos: 0.0, cash: 0.0 }),
   );
 

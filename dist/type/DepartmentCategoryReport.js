@@ -7,6 +7,8 @@ exports.getDepartmentCategoriesReport = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+var _commonJavascript = require('@microbusiness/common-javascript');
+
 var _parseServerCommon = require('@fingermenu/parse-server-common');
 
 var _immutable = require('immutable');
@@ -219,10 +221,14 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
               return _.getIn(['paymentGroup', 'paymentGroupId']);
             });
             eftposAndCashTotal = ordersGroupedByPaymentGroup.reduce(function (reduction, orders) {
-              return reduction.update('eftpos', function (eftpos) {
-                return eftpos + orders.first().getIn(['paymentGroup', 'eftpos']);
-              }).update('cash', function (cash) {
-                return cash + orders.first().getIn(['paymentGroup', 'cash']);
+              return reduction.update('eftpos', function (currentValue) {
+                var eftpos = orders.first().getIn(['paymentGroup', 'eftpos']);
+
+                return _commonJavascript.Common.isNullOrUndefined ? currentValue : currentValue + eftpos;
+              }).update('cash', function (currentValue) {
+                var cash = orders.first().getIn(['paymentGroup', 'cash']);
+
+                return _commonJavascript.Common.isNullOrUndefined ? currentValue : currentValue + cash;
               });
             }, (0, _immutable.Map)({ eftpos: 0.0, cash: 0.0 }));
             _context4.next = 7;
