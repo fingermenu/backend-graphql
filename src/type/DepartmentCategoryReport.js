@@ -125,12 +125,12 @@ export const getDepartmentCategoriesReport = async (
         .update('eftpos', currentValue => {
           const eftpos = orders.first().getIn(['paymentGroup', 'eftpos']);
 
-          return Common.isNullOrUndefined ? currentValue : currentValue + eftpos;
+          return Common.isNullOrUndefined(eftpos) ? currentValue : currentValue + eftpos;
         })
         .update('cash', currentValue => {
           const cash = orders.first().getIn(['paymentGroup', 'cash']);
 
-          return Common.isNullOrUndefined ? currentValue : currentValue + cash;
+          return Common.isNullOrUndefined(cash) ? currentValue : currentValue + cash;
         }),
     Map({ eftpos: 0.0, cash: 0.0 }),
   );

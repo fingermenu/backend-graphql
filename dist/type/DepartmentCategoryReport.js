@@ -224,11 +224,11 @@ var getDepartmentCategoriesReport = exports.getDepartmentCategoriesReport = func
               return reduction.update('eftpos', function (currentValue) {
                 var eftpos = orders.first().getIn(['paymentGroup', 'eftpos']);
 
-                return _commonJavascript.Common.isNullOrUndefined ? currentValue : currentValue + eftpos;
+                return _commonJavascript.Common.isNullOrUndefined(eftpos) ? currentValue : currentValue + eftpos;
               }).update('cash', function (currentValue) {
                 var cash = orders.first().getIn(['paymentGroup', 'cash']);
 
-                return _commonJavascript.Common.isNullOrUndefined ? currentValue : currentValue + cash;
+                return _commonJavascript.Common.isNullOrUndefined(cash) ? currentValue : currentValue + cash;
               });
             }, (0, _immutable.Map)({ eftpos: 0.0, cash: 0.0 }));
             _context4.next = 7;
