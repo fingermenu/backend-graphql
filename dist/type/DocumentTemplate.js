@@ -15,6 +15,12 @@ exports.default = new _graphql.GraphQLObjectType({
         return _.get('name');
       }
     },
+    maxLineWidthDivisionFactor: {
+      type: _graphql.GraphQLInt,
+      resolve: function resolve(_) {
+        return _.get('maxLineWidthDivisionFactor');
+      }
+    },
     template: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString),
       resolve: function resolve(_) {

@@ -1,6 +1,6 @@
 // @flow
 
-import { GraphQLString, GraphQLObjectType, GraphQLNonNull } from 'graphql';
+import { GraphQLInt, GraphQLString, GraphQLObjectType, GraphQLNonNull } from 'graphql';
 
 export default new GraphQLObjectType({
   name: 'DocumentTemplate',
@@ -8,6 +8,10 @@ export default new GraphQLObjectType({
     name: {
       type: GraphQLString,
       resolve: _ => _.get('name'),
+    },
+    maxLineWidthDivisionFactor: {
+      type: GraphQLInt,
+      resolve: _ => _.get('maxLineWidthDivisionFactor'),
     },
     template: {
       type: new GraphQLNonNull(GraphQLString),
