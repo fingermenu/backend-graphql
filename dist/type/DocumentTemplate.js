@@ -16,9 +16,11 @@ exports.default = new _graphql.GraphQLObjectType({
       }
     },
     maxLineWidthDivisionFactor: {
-      type: _graphql.GraphQLInt,
+      type: _graphql.GraphQLFloat,
       resolve: function resolve(_) {
-        return _.get('maxLineWidthDivisionFactor');
+        var maxLineWidthDivisionFactor = _.get('maxLineWidthDivisionFactor');
+
+        return maxLineWidthDivisionFactor ? maxLineWidthDivisionFactor : 1.0;
       }
     },
     template: {

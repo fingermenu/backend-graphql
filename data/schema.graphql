@@ -232,7 +232,7 @@ type DishTypeTypeEdge {
 
 type DocumentTemplate {
   name: String
-  maxLineWidthDivisionFactor: Int
+  maxLineWidthDivisionFactor: Float
   template: String!
 }
 
