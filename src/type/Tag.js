@@ -1,8 +1,9 @@
 // @flow
 
 import { TagService } from '@fingermenu/parse-server-common';
-import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+import StringWithLanguage from './StringWithLanguage';
 import Common from './Common';
 
 export const getTag = async (tagId, sessionToken) => new TagService().read(tagId, null, sessionToken);
@@ -23,6 +24,10 @@ const ParentTag = new GraphQLObjectType({
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
     },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
+    },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,
       resolve: async (_, args, { dataLoaders, fingerMenuContext }) =>
@@ -37,6 +42,10 @@ const ParentTag = new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'description', language, dataLoaders, fingerMenuContext),
+    },
+    descriptionWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'description'),
     },
     descriptionToPrintOnKitchenReceipt: {
       type: GraphQLString,
@@ -80,6 +89,10 @@ export default new GraphQLObjectType({
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
     },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
+    },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,
       resolve: async (_, args, { dataLoaders, fingerMenuContext }) =>
@@ -94,6 +107,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'description', language, dataLoaders, fingerMenuContext),
+    },
+    descriptionWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'description'),
     },
     descriptionToPrintOnKitchenReceipt: {
       type: GraphQLString,

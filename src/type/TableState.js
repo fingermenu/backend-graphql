@@ -1,8 +1,9 @@
 // @flow
 
 import { TableStateService } from '@fingermenu/parse-server-common';
-import { GraphQLID, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLObjectType, GraphQLList, GraphQLString, GraphQLNonNull } from 'graphql';
 import { NodeInterface } from '../interface';
+import StringWithLanguage from './StringWithLanguage';
 import Common from './Common';
 
 export const getTableState = async (tableStateId, sessionToken) => new TableStateService().read(tableStateId, null, sessionToken);
@@ -22,6 +23,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
+    },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
     },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,

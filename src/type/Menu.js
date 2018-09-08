@@ -5,6 +5,7 @@ import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, G
 import { NodeInterface } from '../interface';
 import MenuItemPrice from './MenuItemPrice';
 import Tag from './Tag';
+import StringWithLanguage from './StringWithLanguage';
 import Common from './Common';
 
 export const getMenu = async (menuId, sessionToken) => new MenuService().read(menuId, null, sessionToken);
@@ -21,6 +22,10 @@ export default new GraphQLObjectType({
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
     },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
+    },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,
       resolve: async (_, args, { dataLoaders, fingerMenuContext }) =>
@@ -35,6 +40,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'description', language, dataLoaders, fingerMenuContext),
+    },
+    descriptionWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'description'),
     },
     descriptionToPrintOnKitchenReceipt: {
       type: GraphQLString,

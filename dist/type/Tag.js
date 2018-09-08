@@ -11,6 +11,10 @@ var _graphql = require('graphql');
 
 var _interface = require('../interface');
 
+var _StringWithLanguage = require('./StringWithLanguage');
+
+var _StringWithLanguage2 = _interopRequireDefault(_StringWithLanguage);
+
 var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
@@ -98,6 +102,12 @@ var ParentTag = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    nameWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name');
+      }
+    },
     nameToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,
       resolve: function () {
@@ -173,6 +183,12 @@ var ParentTag = new _graphql.GraphQLObjectType({
           return _ref9.apply(this, arguments);
         };
       }()
+    },
+    descriptionWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'description');
+      }
     },
     descriptionToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,
@@ -355,6 +371,12 @@ exports.default = new _graphql.GraphQLObjectType({
         };
       }()
     },
+    nameWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name');
+      }
+    },
     nameToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,
       resolve: function () {
@@ -430,6 +452,12 @@ exports.default = new _graphql.GraphQLObjectType({
           return _ref25.apply(this, arguments);
         };
       }()
+    },
+    descriptionWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'description');
+      }
     },
     descriptionToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,

@@ -47,6 +47,10 @@ var _DateTimeRange = require('./DateTimeRange');
 
 var _DateTimeRange2 = _interopRequireDefault(_DateTimeRange);
 
+var _StringWithLanguage = require('./StringWithLanguage');
+
+var _StringWithLanguage2 = _interopRequireDefault(_StringWithLanguage);
+
 var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
@@ -139,6 +143,12 @@ var ParentRestaurant = new _graphql.GraphQLObjectType({
           return _ref3.apply(this, arguments);
         };
       }()
+    },
+    nameWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name');
+      }
     },
     nameToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,
@@ -461,6 +471,12 @@ exports.default = new _graphql.GraphQLObjectType({
           return _ref19.apply(this, arguments);
         };
       }()
+    },
+    nameWithLanguages: {
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_StringWithLanguage2.default)),
+      resolve: function resolve(_) {
+        return _Common2.default.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name');
+      }
     },
     nameToPrintOnKitchenReceipt: {
       type: _graphql.GraphQLString,

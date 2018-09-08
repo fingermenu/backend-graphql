@@ -1,6 +1,6 @@
 // @flow
 
-import { Range } from 'immutable';
+import { Map, Range } from 'immutable';
 
 export default class Common {
   static getEmptyResult = () => ({
@@ -80,5 +80,18 @@ export default class Common {
     }
 
     return allValues.get(await configLoaderByKey.load('fallbackLanguage'));
+  };
+
+  static mapMultilanguagesStringToStringWithLanguageCollection = (info, columnName) => {
+    const allValues = info.get(columnName);
+
+    if (!allValues) {
+      return [];
+    }
+
+    return allValues
+      .keySeq()
+      .map(language => Map({ language, value: allValues.get(language) }))
+      .toJS();
   };
 }

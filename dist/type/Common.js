@@ -223,4 +223,16 @@ Common.getTranslationToPrint = function () {
   };
 }();
 
+Common.mapMultilanguagesStringToStringWithLanguageCollection = function (info, columnName) {
+  var allValues = info.get(columnName);
+
+  if (!allValues) {
+    return [];
+  }
+
+  return allValues.keySeq().map(function (language) {
+    return (0, _immutable.Map)({ language: language, value: allValues.get(language) });
+  }).toJS();
+};
+
 exports.default = Common;

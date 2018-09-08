@@ -12,6 +12,7 @@ import PackageBundle from './PackageBundle';
 import { NodeInterface } from '../interface';
 import DepartmentCategoryRootReport, { getDepartmentCategoriesReport } from './DepartmentCategoryReport';
 import DateTimeRange from './DateTimeRange';
+import StringWithLanguage from './StringWithLanguage';
 import Common from './Common';
 
 const getTableCriteria = restaurantId =>
@@ -37,6 +38,10 @@ const ParentRestaurant = new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
+    },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
     },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,
@@ -146,6 +151,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
+    },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
     },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,

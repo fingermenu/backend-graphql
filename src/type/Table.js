@@ -5,6 +5,7 @@ import { GraphQLID, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLString, G
 import { NodeInterface } from '../interface';
 import TableState from './TableState';
 import Customer from './Customer';
+import StringWithLanguage from './StringWithLanguage';
 import Common from './Common';
 
 export const getTable = async (tableId, sessionToken) => new TableService().read(tableId, null, sessionToken);
@@ -24,6 +25,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: async (_, args, { language, dataLoaders, fingerMenuContext }) =>
         Common.getTranslationToDisplay(_, 'name', language, dataLoaders, fingerMenuContext),
+    },
+    nameWithLanguages: {
+      type: new GraphQLList(new GraphQLNonNull(StringWithLanguage)),
+      resolve: _ => Common.mapMultilanguagesStringToStringWithLanguageCollection(_, 'name'),
     },
     nameToPrintOnKitchenReceipt: {
       type: GraphQLString,
