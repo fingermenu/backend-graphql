@@ -236,6 +236,7 @@ type DocumentTemplate {
   name: String
   maxLineWidthDivisionFactor: Float
   template: String!
+  linkedPrinters: [LinkedPrinter!]
 }
 
 type GeoLocation {
@@ -271,6 +272,12 @@ type LanguageTypeEdge {
 
   """A cursor for use in pagination"""
   cursor: String!
+}
+
+type LinkedPrinter {
+  name: String!
+  language: String!
+  numberOfPrints: Int!
 }
 
 type Menu implements Node {

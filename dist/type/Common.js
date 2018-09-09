@@ -232,7 +232,7 @@ Common.mapMultilanguagesStringToStringWithLanguageCollection = function (info, c
 
   return allValues.keySeq().map(function (language) {
     return (0, _immutable.Map)({ language: language, value: allValues.get(language) });
-  }).toJS();
+  }).toArray();
 };
 
 exports.default = Common;

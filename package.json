@@ -1,6 +1,6 @@
 {
   "name": "@fingermenu/backend-graphql",
-  "version": "0.42.3",
+  "version": "0.43.0",
   "description": "Finger Menu Backend Graphql",
   "main": "dist/index.js",
   "scripts": {
@@ -54,7 +54,7 @@
     "immutable": "^4.0.0-rc.9",
     "jest": "^23.5.0",
     "lint-staged": "^7.2.2",
-    "parse": "^2.0.2",
+    "parse": "^2.1.0",
     "prettier": "^1.14.2"
   },
   "jest": {

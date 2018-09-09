@@ -7,18 +7,24 @@ Object.defineProperty(exports, "__esModule", {
 var _graphql = require('graphql');
 
 exports.default = new _graphql.GraphQLObjectType({
-  name: 'StringWithLanguage',
+  name: 'LinkedPrinter',
   fields: {
+    name: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLString),
+      resolve: function resolve(_) {
+        return _.get('name');
+      }
+    },
     language: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString),
       resolve: function resolve(_) {
         return _.get('language');
       }
     },
-    value: {
-      type: _graphql.GraphQLString,
+    numberOfPrints: {
+      type: new _graphql.GraphQLNonNull(_graphql.GraphQLInt),
       resolve: function resolve(_) {
-        return _.get('value');
+        return _.get('numberOfPrints') ? _.get('numberOfPrints') : 1;
       }
     }
   }

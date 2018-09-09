@@ -92,6 +92,6 @@ export default class Common {
     return allValues
       .keySeq()
       .map(language => Map({ language, value: allValues.get(language) }))
-      .toJS();
+      .toArray();
   };
 }

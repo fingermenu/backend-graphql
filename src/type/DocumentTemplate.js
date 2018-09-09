@@ -1,6 +1,7 @@
 // @flow
 
-import { GraphQLFloat, GraphQLString, GraphQLObjectType, GraphQLNonNull } from 'graphql';
+import { GraphQLFloat, GraphQLList, GraphQLString, GraphQLObjectType, GraphQLNonNull } from 'graphql';
+import LinkedPrinter from './LinkedPrinter';
 
 export default new GraphQLObjectType({
   name: 'DocumentTemplate',
@@ -20,6 +21,10 @@ export default new GraphQLObjectType({
     template: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: _ => _.get('template'),
+    },
+    linkedPrinters: {
+      type: new GraphQLList(new GraphQLNonNull(LinkedPrinter)),
+      resolve: _ => (_.get('linkedPrinters') ? _.get('linkedPrinters').toArray() : []),
     },
   },
 });
