@@ -19,10 +19,6 @@ var _StringWithLanguage = require('./StringWithLanguage');
 
 var _StringWithLanguage2 = _interopRequireDefault(_StringWithLanguage);
 
-var _LinkedPrinter = require('./LinkedPrinter');
-
-var _LinkedPrinter2 = _interopRequireDefault(_LinkedPrinter);
-
 var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
@@ -296,7 +292,7 @@ exports.default = new _graphql.GraphQLObjectType({
       }()
     },
     linkedPrinters: {
-      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_LinkedPrinter2.default)),
+      type: new _graphql.GraphQLList(new _graphql.GraphQLNonNull(_graphql.GraphQLString)),
       resolve: function resolve(_) {
         return _.get('linkedPrinters') ? _.get('linkedPrinters').toArray() : [];
       }

@@ -310,7 +310,7 @@ type MenuItem implements Node {
   menuItemPageUrl: String
   imageUrl: String
   tags: [Tag!]
-  linkedPrinters: [LinkedPrinter!]
+  linkedPrinters: [String!]
 }
 
 type MenuItemPrice implements Node {
