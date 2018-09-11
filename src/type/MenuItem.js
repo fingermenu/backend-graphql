@@ -5,6 +5,7 @@ import { GraphQLID, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLNonNul
 import { NodeInterface } from '../interface';
 import Tag from './Tag';
 import StringWithLanguage from './StringWithLanguage';
+import LinkedPrinter from './LinkedPrinter';
 import Common from './Common';
 
 export const getMenuItem = async (menuItemId, sessionToken) => new MenuItemService().read(menuItemId, null, sessionToken);
@@ -65,6 +66,10 @@ export default new GraphQLObjectType({
     tags: {
       type: new GraphQLList(new GraphQLNonNull(Tag)),
       resolve: async (_, args, { dataLoaders: { tagLoaderById } }) => tagLoaderById.loadMany(_.get('tagIds').toArray()),
+    },
+    linkedPrinters: {
+      type: new GraphQLList(new GraphQLNonNull(LinkedPrinter)),
+      resolve: _ => (_.get('linkedPrinters') ? _.get('linkedPrinters').toArray() : []),
     },
   },
   interfaces: [NodeInterface],
